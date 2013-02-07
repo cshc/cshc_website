@@ -1,5 +1,6 @@
 # Django settings for cshcsite project.
 import dj_database_url
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
