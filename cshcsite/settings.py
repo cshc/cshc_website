@@ -6,12 +6,15 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Graham McCulloch', 'admin@grahammcculloch.co.uk'),
 )
 
 MANAGERS = ADMINS
 
 DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'])}
+
+# For local development (TEMP):
+# DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': '../cshc.db', } }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -21,7 +24,7 @@ TIME_ZONE = 'Europe/London'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-uk'
+LANGUAGE_CODE = 'en-gb'
 
 SITE_ID = 1
 
@@ -108,10 +111,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
     'club',
 )
 
