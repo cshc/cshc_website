@@ -1,13 +1,14 @@
 from django.db import models
-from choices import TEAM_GENDER
+from choices import TeamGender
 from league import League
+from django.db import IntegrityError
 
 class Division(models.Model):
-    name = models.CharField("Division Name", max_length=255)
+    name = models.CharField("Division Name", max_length=255, default=None)
     league = models.ForeignKey(League, related_name="Divisions", help_text="The league that is responsible for this division")
-    tables_url = models.URLField("League table website", null=True, blank=True)
-    fixtures_url = models.URLField("Fixtures website", null=True, blank=True)
-    gender = models.CharField("Division gender (mens/ladies)", max_length=2, choices=TEAM_GENDER)
+    tables_url = models.URLField("League table website", null=True, blank=True, default=None)
+    fixtures_url = models.URLField("Fixtures website", null=True, blank=True, default=None)
+    gender = models.CharField("Division gender (mens/ladies)", max_length=2, choices=TeamGender.CHOICES, default=None)
 
     # The division structure is represented by specifying the division into which teams get promoted
     # or relegated from this division. 
@@ -24,3 +25,12 @@ class Division(models.Model):
 
     def __unicode__(self):
         return "{} {}".format(self.league.name, self.name)
+
+    def save(self, *args, **kwargs):
+        # Note that this does not check for larger 'circular promotion/relegation references'
+        if (self.promotion_div != None and 
+            self.relegation_div != None and 
+            self.promotion_div == self.relegation_div):
+            raise IntegrityError("Promotion and relegation divisions cannot be the same")
+        
+        super(Division, self).save(*args, **kwargs) 

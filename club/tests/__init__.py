@@ -1,0 +1,2 @@
+from league_tests import LeagueTest
+from division_tests import DivisionTest

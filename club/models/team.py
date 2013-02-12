@@ -1,11 +1,11 @@
 from django.db import models
-from choices import TEAM_GENDER, ORDINAL
+from choices import TeamGender, TeamOrdinal
 from club import Club
 
 class Team(models.Model):
     club = models.ForeignKey(Club)
-    gender = models.CharField("Team gender (mens/ladies)", max_length=2, choices=TEAM_GENDER)
-    ordinal = models.CharField("Ordinal (1sts, 2nds etc)", max_length=2, choices=ORDINAL)   
+    gender = models.CharField("Team gender (mens/ladies)", max_length=2, choices=TeamGender.CHOICES)
+    ordinal = models.CharField("Ordinal (1sts, 2nds etc)", max_length=2, choices=TeamOrdinal.CHOICES)   
 
     class Meta:
         app_label = 'club'
