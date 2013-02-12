@@ -9,6 +9,8 @@ class Team(models.Model):
 
     class Meta:
         app_label = 'club'
+        # Within a club there can be only one team for a particular gender and ordinal combination
+        unique_together = ('club', 'gender', 'ordinal')   
 
     def __unicode__(self):
         return "{} {}".format(self.club.name, self.name())

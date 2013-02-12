@@ -12,6 +12,17 @@ class DivisionTest(TestCase):
         self.test_div = Division(name="Test Division", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
         self.assertEqual(0, Division.objects.all().count())
 
+    def test_divisions_can_be_added_and_removed(self):
+        """ Tests that teams can be added to the database and then removed """
+        div1 = Division(name="Test Division 1", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
+        div2 = Division(name="Test Division 2", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
+        div1.save()
+        div2.save()
+        self.assertEqual(2, Division.objects.all().count())
+        div1.delete()
+        div2.delete()
+        self.assertEqual(0, Division.objects.all().count())
+
     def test_division_name_cannot_be_none(self):
         """ Tests that you must specify the name of the division """
         self.test_div.name = None
@@ -19,7 +30,7 @@ class DivisionTest(TestCase):
         self.assertRaisesMessage(IntegrityError, "club_division.name may not be NULL", self.test_div.save)
 
     def test_division_tables_and_fixtures_urls_are_optional(self):
-        """ Tests that you dont' have to specify the tables and fixtures urls for a the division """
+        """ Tests that you dont' have to specify the tables and fixtures urls for a division """
         self.test_div.tables_url = None
         self.test_div.fixtures_url = None
         self.test_div.save()
