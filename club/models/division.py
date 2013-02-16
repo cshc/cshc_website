@@ -1,14 +1,17 @@
 from django.db import models
 from choices import TeamGender
 from league import League
+from season import Season
 from django.db import IntegrityError
 
 class Division(models.Model):
     name = models.CharField("Division Name", max_length=255, default=None)
-    league = models.ForeignKey(League, related_name="Divisions", help_text="The league that is responsible for this division")
+    league = models.ForeignKey(League, related_name="divisions", help_text="The league that is responsible for this division")
     tables_url = models.URLField("League table website", null=True, blank=True, default=None)
     fixtures_url = models.URLField("Fixtures website", null=True, blank=True, default=None)
     gender = models.CharField("Division gender (mens/ladies)", max_length=2, choices=TeamGender.CHOICES, default=None)
+
+    seasons = models.ManyToManyField(Season, through="DivisionSeason")
 
     # The division structure is represented by specifying the division into which teams get promoted
     # or relegated from this division. 

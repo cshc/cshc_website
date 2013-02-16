@@ -55,7 +55,7 @@ class TeamOrdinal:
         (T_OTHER, u'Other'),
     )
     
-class HomeAwayChoice:
+class HomeAway:
     HOME = u'H'
     AWAY = u'A'
 
@@ -69,10 +69,14 @@ class FixtureType:
     LEAGUE = u'L'
     CUP = u'C'
 
+    Friendly_display = u'Friendly'
+    League_display = u'League'
+    Cup_display = u'Cup'
+
     CHOICES = (
-        (FRIENDLY, u'Friendly'),
-        (LEAGUE, u'League'),
-        (CUP, u'Cup'),
+        (FRIENDLY, Friendly_display),
+        (LEAGUE, League_display),
+        (CUP, Cup_display),
     )
 
 class MatchOutcome:
@@ -132,6 +136,31 @@ class CupResult:
         (THIRD_PLACE, u'3rd Place'),              # Won the 3rd place playoff
         (FINAL, u'Final'),                   # Reached the final
         (WINNER, u'Winner'),                  # Won the cup
+    )
+
+class CupRound:
+    ROUND_1 = u'1'
+    ROUND_2 = u'2'
+    ROUND_3 = u'3'
+    ROUND_4 = u'4'
+    ROUND_5 = u'5'
+    ROUND_6 = u'6'
+    QUARTER_FINAL = u'Q'
+    SEMI_FINAL = u'S'
+    THIRD_PLACE = u'3P'
+    FINAL = u'F'
+
+    CHOICES = (
+        (ROUND_1, u'1st round'),               # Reached (knocked out in) the 1st round
+        (ROUND_2, u'2nd round'),               # Reached (knocked out in) the 2nd round
+        (ROUND_3, u'3rd round'),               # Reached (knocked out in) the 3rd round
+        (ROUND_4, u'4th round'),               # Reached (knocked out in) the 4th round
+        (ROUND_5, u'5th round'),               # Reached (knocked out in) the 5th round
+        (ROUND_6, u'6th round'),               # Reached (knocked out in) the 6th round
+        (QUARTER_FINAL, u'Quarter Final'),           # Reached the quarter final
+        (SEMI_FINAL, u'Semi Final'),              # Reached the semi final
+        (THIRD_PLACE, u'3rd Place'),              # Won the 3rd place playoff
+        (FINAL, u'Final'),                   # Reached the final
     )
 
 class AwardType:

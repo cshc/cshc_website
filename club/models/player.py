@@ -1,16 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import User
-from team import Team
-
+from choices import PlayerGender, PlayerPosition
 
 class Player(models.Model):
-    user = models.ForeignKey(User, editable=False)
-    team = models.ForeignKey(Team)
-    position = models.CharField(max_length = 20)
-
+    first_name = models.CharField("First name", max_length=255)
+    surname = models.CharField("Surname", max_length=255)
+    gender = models.CharField("Gender", max_length=1, choices=PlayerGender.CHOICES)
+    pref_position = models.CharField("Preferred position", max_length=3, choices=PlayerPosition.CHOICES)
+   
     class Meta:
         app_label = 'club'
-
+ 
     def __unicode__(self):
-        return "{} {}".format(self.user.first_name, self.user.last_name)
+        return "{} {}".format(self.first_name, self.surname)
+
 
