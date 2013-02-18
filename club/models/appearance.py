@@ -10,6 +10,7 @@ class Appearance(models.Model):
 
     class Meta:
         app_label = 'club'
+        unique_together = ('player', 'match')   
 
     def __unicode__(self):
         return "{} - {}".format(self.player, self.match)

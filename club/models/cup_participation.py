@@ -11,6 +11,7 @@ class CupParticipation(models.Model):
     class Meta:
         app_label = 'club'
         verbose_name_plural = 'cup participation'
+        unique_together = ('team', 'cup_season')   
 
     def __unicode__(self):
         return "{} - {}".format(self.team, self.cup_season)

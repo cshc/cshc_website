@@ -35,14 +35,14 @@ class ClubAffiliationTest(TestCase):
 
     def test_a_particular_player_can_be_affiliated_to_a_particular_club_multiple_times(self):
         """ Tests that the club and player combination is not unique (this is a many-to-many relationship """
-        ca1 = ClubAffiliation(player=self.test_player1, club=self.test_club, start=date(2013, 01, 01))
-        ca2 = ClubAffiliation(player=self.test_player1, club=self.test_club, start=date(2013, 01, 02))
+        ca1 = ClubAffiliation(player=self.test_player1, club=self.test_club, start=date(2013, 1, 1))
+        ca2 = ClubAffiliation(player=self.test_player1, club=self.test_club, start=date(2013, 1, 2))
         ca1.save()
         ca2.save()
         self.assertEqual(2, ClubAffiliation.objects.all().count())
 
     def test_a_club_affiliation_must_end_after_it_starts(self):
         """ Tests that the date the player left cannot be set to a date prior to the date the player joined """
-        ca1 = ClubAffiliation(player=self.test_player1, club=self.test_club, start=date(2013, 01, 02))
+        ca1 = ClubAffiliation(player=self.test_player1, club=self.test_club, start=date(2013, 1, 2))
         ca1.end = date(2013, 01, 01)
         self.assertRaises(IntegrityError, ca1.save)

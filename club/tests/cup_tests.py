@@ -7,7 +7,7 @@ class CupTest(TestCase):
     def setUp(self):
         self.test_url = "http://www.cambridgesouthhockeyclub.co.uk"
         self.test_league = League(name="Test League", url=self.test_url)
-        self.test_cup = Cup(name="Test cup", league=self.test_league)
+        self.test_league.save()
         
     def test_cups_can_be_added_and_removed(self):
         """ Tests that cups can be added to and removed from the database """

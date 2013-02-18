@@ -13,7 +13,7 @@ class DivisionTest(TestCase):
         self.assertEqual(0, Division.objects.all().count())
 
     def test_divisions_can_be_added_and_removed(self):
-        """ Tests that teams can be added to the database and then removed """
+        """ Tests that divisions can be added to the database and then removed """
         div1 = Division(name="Test Division 1", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
         div2 = Division(name="Test Division 2", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
         div1.save()

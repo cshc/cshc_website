@@ -6,3 +6,7 @@ from player_tests import PlayerTest
 from cup_tests import CupTest
 from club_affiliation_tests import ClubAffiliationTest
 from team_captaincy_tests import TeamCaptaincyTest
+from division_season_tests import DivisionSeasonTest
+from season_tests import SeasonTest
+from cup_season_tests import CupSeasonTest
+from cup_participation_tests import CupParticipationTest
