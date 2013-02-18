@@ -1,4 +1,5 @@
 from django.db import models
+from django.db import IntegrityError
 from player import Player
 from club import Club
 

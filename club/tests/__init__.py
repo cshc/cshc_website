@@ -2,3 +2,7 @@ from league_tests import LeagueTest
 from division_tests import DivisionTest
 from club_tests import ClubTest
 from team_tests import TeamTest
+from player_tests import PlayerTest
+from cup_tests import CupTest
+from club_affiliation_tests import ClubAffiliationTest
+from team_captaincy_tests import TeamCaptaincyTest

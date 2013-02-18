@@ -5,8 +5,8 @@ from team import Team
 class TeamCaptaincy(models.Model):
     player = models.ForeignKey(Player)
     team  = models.ForeignKey(Team)
-    is_vice = models.BooleanField("Vice-captain?", default=False)
-    start = models.DateField("Start of captaincy", auto_now_add=True, help_text="The date this player took over as captain")
+    is_vice = models.BooleanField("Vice-captain?", default=False, help_text="Check if this player is the vice captain (as opposed to the captain)")
+    start = models.DateField("Start of captaincy", help_text="The date this player took over as captain")
 
     class Meta:
         app_label = 'club'
