@@ -7,7 +7,7 @@ from club.models.choices import *
 class DivisionParticipationTest(TestCase):
 
     def setUp(self):
-        self.test_url = "http://www.cambridgesouthhockeyclub.co.uk"
+        self.test_url = "http://www.example.com"
         self.test_club = Club(name="Cambridge South", website=self.test_url)
         self.test_club.save()
         self.test_team1 = Team(club=self.test_club, gender=TeamGender.MENS, ordinal=TeamOrdinal.T1)

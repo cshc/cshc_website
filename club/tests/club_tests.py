@@ -6,7 +6,7 @@ from club.models.choices import *
 class ClubTest(TestCase):
 
     def setUp(self):
-        self.test_url = "http://www.cambridgesouthhockeyclub.co.uk"
+        self.test_url = "http://www.example.com"
         self.test_club = Club(name="Cambridge South", website=self.test_url)
         
     def test_clubs_can_be_added_and_removed(self):

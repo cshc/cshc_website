@@ -6,7 +6,7 @@ from club.models.choices import *
 class DivisionTest(TestCase):
 
     def setUp(self):
-        self.test_url = "http://www.cambridgesouthhockeyclub.co.uk"
+        self.test_url = "http://www.example.com"
         self.test_league = League(name="Test League", url=self.test_url)
         self.test_league.save()
         self.test_div = Division(name="Test Division", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)

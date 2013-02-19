@@ -5,7 +5,7 @@ from club.models import Cup, League
 class CupTest(TestCase):
 
     def setUp(self):
-        self.test_url = "http://www.cambridgesouthhockeyclub.co.uk"
+        self.test_url = "http://www.example.com"
         self.test_league = League(name="Test League", url=self.test_url)
         self.test_league.save()
         

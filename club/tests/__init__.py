@@ -10,3 +10,7 @@ from division_season_tests import DivisionSeasonTest
 from season_tests import SeasonTest
 from cup_season_tests import CupSeasonTest
 from cup_participation_tests import CupParticipationTest
+from venue_tests import VenueTest
+from match_tests import *
+from appearance_tests import AppearanceTest
+from award_tests import *

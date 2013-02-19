@@ -11,7 +11,7 @@ class TeamCaptaincyTest(TestCase):
         self.test_player1.save()
         self.test_player2 = Player(first_name="Mark", surname="Williams", gender=PlayerGender.MALE, pref_position=PlayerPosition.FORWARD)
         self.test_player2.save()
-        self.test_url = "http://www.cambridgesouthhockeyclub.co.uk"
+        self.test_url = "http://www.example.com"
         self.test_club = Club(name="Cambridge South", website=self.test_url)
         self.test_club.save()
         self.test_team = Team(club=self.test_club, gender=TeamGender.MENS, ordinal=TeamOrdinal.T1)

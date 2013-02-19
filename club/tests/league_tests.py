@@ -5,7 +5,7 @@ from club.models import League
 class LeagueTest(TestCase):
 
     def setUp(self):
-        self.test_url = "http://www.cambridgesouthhockeyclub.co.uk"
+        self.test_url = "http://www.example.com"
         self.assertEqual(0, League.objects.all().count())
 
     def test_new_leagues_can_be_added_and_removed(self):

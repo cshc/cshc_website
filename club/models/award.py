@@ -1,31 +1,27 @@
 from django.db import models
+from django.db import IntegrityError
 from match import Match
 from player import Player
 from season import Season
 from choices import AwardType
 
 class Award(models.Model):
-    name = models.CharField("Award name", max_length=255)
+    name = models.CharField("Award name", max_length=255, unique=True)
 
     class Meta:
         app_label = 'club'
+        abstract = True
 
     def __unicode__(self):
         return self.name
 
 class MatchAward(Award):
-
-    class Meta:
-        app_label = 'club'
-
+    
     def __unicode__(self):
         return self.name
 
 class EndOfSeasonAward(Award):
     
-    class Meta:
-        app_label = 'club'
-
     def __unicode__(self):
         return self.name
 
@@ -36,6 +32,14 @@ class AwardWinner(models.Model):
 
     class Meta:
         app_label = 'club'
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if (self.player == None and 
+            self.awardee == None):
+            raise IntegrityError("You must specify either a player or an awardee (if the awardee is not a player)")
+        
+        super(AwardWinner, self).save(*args, **kwargs) 
 
     def awardee_name(self):
         if(player == None):
@@ -46,9 +50,6 @@ class MatchAwardWinner(AwardWinner):
     match = models.ForeignKey(Match)
     award = models.ForeignKey(MatchAward)
     
-    class Meta:
-        app_label = 'club'
-
     def __unicode__(self):
         return "{} - {} ({})".format(self.award, self.awardee_name(), self.match)
 
@@ -56,9 +57,6 @@ class MatchAwardWinner(AwardWinner):
 class EndOfSeasonAwardWinner(AwardWinner):
     season = models.ForeignKey(Season)
     award = models.ForeignKey(EndOfSeasonAward)
-
-    class Meta:
-        app_label = 'club'
-
+    
     def __unicode__(self):
         return "{} - {} ({})".format(self.award, self.awardee_name(), self.season)
