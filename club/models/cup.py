@@ -11,6 +11,7 @@ class Cup(models.Model):
     class Meta:
         app_label = 'club'
         verbose_name = 'cup competition'
+        ordering = ['name']
 
     def __unicode__(self):
         return self.name

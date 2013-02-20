@@ -11,6 +11,7 @@ class ClubAffiliation(models.Model):
 
     class Meta:
         app_label = 'club'
+        ordering = ['player', 'start', 'club']
 
     def __unicode__(self):
         return "{} - {}".format(self.player, self.club)

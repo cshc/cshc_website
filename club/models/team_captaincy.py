@@ -11,6 +11,7 @@ class TeamCaptaincy(models.Model):
     class Meta:
         app_label = 'club'
         verbose_name_plural = 'team captaincy'
+        ordering = ['-start']
 
     def __unicode__(self):
         return "{} {}: {}".format(self.team, self.role(), self.player)

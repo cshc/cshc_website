@@ -8,6 +8,8 @@ class Season(models.Model):
 
     class Meta:
         app_label = 'club'
+        ordering = ['start']
+        get_latest_by = "start"
 
     def __unicode__(self):
         return "{}-{}".format(self.start, self.end)

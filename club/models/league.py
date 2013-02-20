@@ -6,6 +6,7 @@ class League(models.Model):
 
     class Meta:
         app_label = 'club'
+        ordering = ['name']
 
     def __unicode__(self):
         return self.name

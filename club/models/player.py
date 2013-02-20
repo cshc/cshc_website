@@ -12,6 +12,7 @@ class Player(models.Model):
 
     class Meta:
         app_label = 'club'
+        ordering = ['first_name', 'surname']
  
     def __unicode__(self):
         return "{} {}".format(self.first_name, self.surname)

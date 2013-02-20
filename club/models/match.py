@@ -25,6 +25,7 @@ class Match(models.Model):
     class Meta:
         app_label = 'club'
         verbose_name_plural = "matches"
+        ordering = ['date']
 
     def __unicode__(self):
         return "{} vs {} ({}, {})".format(self.our_team, self.opp_team, self.fixture_type, self.date)

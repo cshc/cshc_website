@@ -25,6 +25,7 @@ class Division(models.Model):
         # A division's name must be unique within a league. 
         # However two different leagues can have divisions with the same name
         unique_together = ('name', 'league',)   
+        ordering = ['league', 'gender', 'name']
 
     def __unicode__(self):
         return "{} {}".format(self.league.name, self.name)

@@ -11,6 +11,7 @@ class Team(models.Model):
         app_label = 'club'
         # Within a club there can be only one team for a particular gender and ordinal combination
         unique_together = ('club', 'gender', 'ordinal')   
+        ordering = ['club', 'gender', 'ordinal']
 
     def __unicode__(self):
         return "{} {}".format(self.club.name, self.name())
