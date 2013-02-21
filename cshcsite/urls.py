@@ -4,6 +4,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'club.views.Index'),
+    url(r'^$', 'club.views.index'),
+    
+    # Matches
+    url(r'^matches/(\d+)$', 'club.views.matches.details'),
+    
     url(r'^admin/', include(admin.site.urls)),
 )

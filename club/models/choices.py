@@ -78,22 +78,20 @@ class FixtureType:
         (LEAGUE, League_display),
         (CUP, Cup_display),
     )
-
-class MatchOutcome:
-    PENDING = u'Pe'
-    PLAYED = u'Pl'
+   
+class AlternativeOutcome:
+    NONE = u'N'
     POSTPONED = u'Po'
     CANCELLED = u'Ca'
     WALKOVER = u'Wa'
 
     CHOICES = (
-        (PENDING, u'Pending'),
-        (PLAYED, u'Played'),
+        (NONE, u'None'),
         (POSTPONED, u'Postponed'),
         (CANCELLED, u'Cancelled'),
         (WALKOVER, u'Walkover'),
     )
-
+                
 class PlayerPosition:
     GOALKEEPER = u'GK'
     DEFENDER = u'DEF'

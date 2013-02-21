@@ -13,3 +13,7 @@ class Club(models.Model):
 
     def __unicode__(self):
         return self.name
+        
+    @staticmethod
+    def our_club():
+        return Club.objects.get(name='Cambridge South')
