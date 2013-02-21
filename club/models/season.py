@@ -12,11 +12,13 @@ class Season(models.Model):
         get_latest_by = "start"
 
     def __unicode__(self):
-        return "{}-{}".format(self.start, self.end)
+        return "{}-{}".format(self.start.year, self.end.year)
 
     def save(self, *args, **kwargs):
         # TODO: Prevent any overlapping seasons
-        if (self.start >= self.end): 
+        if (self.start != None and 
+            self.end != None and 
+            self.start >= self.end): 
             raise IntegrityError("The start of the season must be before the end of the season")
         
         super(Season, self).save(*args, **kwargs) 

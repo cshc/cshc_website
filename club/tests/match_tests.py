@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.db import IntegrityError
-from datetime import datetime, date
+from datetime import datetime, date, time
 from club.models import *
 from club.models.choices import *
 
@@ -46,13 +46,105 @@ class FriendlyMatchTest(MatchTest):
         self.assertEqual(0, Match.objects.all().count())
         self.assertEqual(0, FriendlyMatch.objects.all().count())
 
+    def test_is_walkover_score(self):
+        """ Tests that the is_walkover_score method logic is correct """
+        self.assertTrue(Match.is_walkover_score(3, 0))
+        self.assertTrue(Match.is_walkover_score(5, 0))
+        self.assertTrue(Match.is_walkover_score(0, 3))
+        self.assertTrue(Match.is_walkover_score(0, 5))
+        self.assertFalse(Match.is_walkover_score(2, 1))
+        self.assertFalse(Match.is_walkover_score(0, 0))
+        self.assertFalse(Match.is_walkover_score(3, 3))
+        self.assertFalse(Match.is_walkover_score(5, 5))
+        self.assertEqual("3-0, 5-0, 0-3 or 0-5", Match.valid_walkover_scores())
+        
+    def test_a_team_cannot_play_itself(self):
+        """ Tests that you cannot set the our_team and opp_team attributes to the same Team """
+        match1 = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_our_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
+        self.assertRaises(IntegrityError, match1.save)
+        
+    def test_cannot_save_a_walkover_match_with_an_invalid_score(self):
+        """ Tests that if a match is marked as a walk-over, the score must be entered correctly"""
+        match1 = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
+        match1.alt_outcome = AlternativeOutcome.WALKOVER
+        match1.our_score = 2
+        match1.opp_score = 1
+        self.assertRaises(IntegrityError, match1.save)
 
+    def test_scores_must_not_be_set_for_a_cancelled_or_postponed_match(self):
+        """ Tests that if a match is marked as a cancelled or postponed, the scores must not be set"""
+        match1 = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
+        
+        match1.alt_outcome = AlternativeOutcome.CANCELLED
+        match1.our_score = 1
+        match1.opp_score = 1
+        self.assertTrue(match1.final_scores_provided())
+        self.assertRaises(IntegrityError, match1.save)
+        match1.our_score = None
+        match1.opp_score = None
+        
+        match1.our_ht_score = 1
+        match1.opp_ht_score = 1
+        self.assertTrue(match1.ht_scores_provided())
+        self.assertRaises(IntegrityError, match1.save)
+        match1.our_ht_score = None
+        match1.opp_ht_score = None
+        
+        match1.alt_outcome = AlternativeOutcome.POSTPONED
+        match1.our_score = 1
+        match1.opp_score = 1
+        self.assertTrue(match1.final_scores_provided())
+        self.assertRaises(IntegrityError, match1.save)
+        match1.our_score = None
+        match1.opp_score = None
+        
+        match1.our_ht_score = 1
+        match1.opp_ht_score = 1
+        self.assertTrue(match1.ht_scores_provided())
+        self.assertRaises(IntegrityError, match1.save)
+        match1.our_ht_score = None
+        match1.opp_ht_score = None
+        
+    def test_cannot_provide_just_one_score(self):
+        """ Tests that you must provide both scores, not just one of them """
+        match1 = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
+        match1.save()
+        match1.our_score = 2
+        self.assertRaises(IntegrityError, match1.save)
+        match1.our_score = None
+        match1.opp_score = 2
+        self.assertRaises(IntegrityError, match1.save)
+        match1.opp_score = None
+        
+    def test_cant_specify_too_many_opposition_own_goals(self):
+        """ Tests that the number of own goals must be less than or equal to the number of our goals """
+        match1 = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
+        match1.opp_own_goals = 3
+        match1.our_score = 2
+        match1.opp_score = 1
+        self.assertRaises(IntegrityError, match1.save)        
+        
+    def test_half_time_scores_must_be_less_than_final_scores(self):
+        """ Tests that you can't specify half-time scores that are greater than the full time scores """
+        match1 = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
+        match1.our_score = 1
+        match1.opp_score = 1
+        match1.our_ht_score = 2
+        match1.opp_ht_score = 0
+        self.assertTrue(match1.all_scores_provided())
+        self.assertRaises(IntegrityError, match1.save)    
+        match1.our_ht_score = 0
+        match1.opp_ht_score = 2
+        self.assertRaises(IntegrityError, match1.save)
+        
 class CupMatchTest(MatchTest):
 
     def test_cup_matches_can_be_added_and_removed(self):
         """ Tests that cup_matches can be added to the database and then removed """
         match1 = CupMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), cup_season=self.test_cup_season)
         match2 = CupMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.AWAY, date=date(2012, 10, 8), cup_season=self.test_cup_season)
+        match1.time = time(10, 5, 30)
+        dt = match1.datetime()
         match1.save()
         match2.save()
         self.assertEqual(2, Match.objects.all().count())
