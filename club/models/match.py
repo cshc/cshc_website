@@ -17,7 +17,7 @@ class Match(models.Model):
     
     our_team = models.ForeignKey(Team, verbose_name="Our team", related_name="+")
     opp_team = models.ForeignKey(Team, verbose_name="Opposition team", related_name="+")
-    venue = models.ForeignKey(Venue, null=True, on_delete=models.SET_NULL)
+    venue = models.ForeignKey(Venue, null=True, blank=True, on_delete=models.SET_NULL)
     home_away = models.CharField("Home/Away", max_length=1, choices=HomeAway.CHOICES, default=HomeAway.HOME)
     date = models.DateField("Fixture date")
     time = models.TimeField("Start time", null=True, blank=True, default=None)
@@ -28,6 +28,7 @@ class Match(models.Model):
     opp_ht_score = models.PositiveSmallIntegerField("Opposition's half-time score", null=True, blank=True, default=None)
     opp_own_goals = models.PositiveSmallIntegerField("Opposition own-goals", default=0)
     report_title = models.CharField("Match report title", max_length=200, null=True, blank=True, default=None)
+    report_author = models.CharField("Match report author", max_length=200, null=True, blank=True, default=None)
     report_body = models.TextField("Match report", null=True, blank=True, default=None)
 
     class Meta:

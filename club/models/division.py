@@ -17,8 +17,8 @@ class Division(models.Model):
     # or relegated from this division. 
     # A null value indicates that it is not possible to get promoted or relegated from this division.
     # Note we set related_name to to "+" so Django won't create a backwards relationship
-    promotion_div = models.ForeignKey('self', related_name="+", null=True, verbose_name="Next division up", help_text="The division (if any) into which promoted teams will move", on_delete=models.SET_NULL)
-    relegation_div = models.ForeignKey('self', related_name="+", null=True, verbose_name="Next division down", help_text="The division (if any) into which relegated teams will move", on_delete=models.SET_NULL)
+    promotion_div = models.ForeignKey('self', related_name="+", null=True, blank=True, verbose_name="Next division up", help_text="The division (if any) into which promoted teams will move", on_delete=models.SET_NULL)
+    relegation_div = models.ForeignKey('self', related_name="+", null=True, blank=True, verbose_name="Next division down", help_text="The division (if any) into which relegated teams will move", on_delete=models.SET_NULL)
 
     class Meta:
         app_label = 'club'

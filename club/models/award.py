@@ -43,9 +43,9 @@ class AwardWinner(models.Model):
         super(AwardWinner, self).save(*args, **kwargs) 
 
     def awardee_name(self):
-        if(player == None):
-            return awardee
-        return player
+        if(self.player == None):
+            return self.awardee
+        return self.player
 
 class MatchAwardWinner(AwardWinner):
     match = models.ForeignKey(Match)

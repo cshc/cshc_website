@@ -22,3 +22,7 @@ class Season(models.Model):
             raise IntegrityError("The start of the season must be before the end of the season")
         
         super(Season, self).save(*args, **kwargs) 
+       
+    @classmethod
+    def current(cls):
+        return cls.objects.latest()

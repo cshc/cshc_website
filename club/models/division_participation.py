@@ -2,7 +2,20 @@ from django.db import models
 from django.db import IntegrityError
 from team import Team
 from division_season import DivisionSeason
+from season import Season
+from club import Club
 
+class DivisionParticipationManager(models.Manager):
+
+    def current(self):
+        return super(DivisionParticipationManager, self).get_query_set().filter(div_season__season = Season.current())
+
+    def our_teams(self):
+        return super(DivisionParticipationManager, self).get_query_set().filter(team__club = Club.our_club())
+        
+    def our_teams_current(self):
+        return super(DivisionParticipationManager, self).get_query_set().filter(team__club = Club.our_club(), div_season__season = Season.current())
+        
 class DivisionParticipation(models.Model):
     team = models.ForeignKey(Team)
     div_season = models.ForeignKey(DivisionSeason, verbose_name="Division")
@@ -11,6 +24,9 @@ class DivisionParticipation(models.Model):
     relegated = models.BooleanField(default=False, help_text="Check if the team was relegated at the end of the season")
     champions = models.BooleanField(default=False, help_text="Check if the team were division champions")
 
+    # MANAGER
+    objects = DivisionParticipationManager()         
+    
     class Meta:
         app_label = 'club'
         verbose_name_plural = 'division participation'
