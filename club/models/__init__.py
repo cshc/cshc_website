@@ -16,3 +16,4 @@ from division_participation import DivisionParticipation
 from cup_participation import CupParticipation
 from appearance import Appearance
 from award import *
+from util import *

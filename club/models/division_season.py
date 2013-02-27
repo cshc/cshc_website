@@ -3,8 +3,8 @@ from season import Season
 from division import Division
 
 class DivisionSeason(models.Model):
-    division = models.ForeignKey(Division, related_name="+")
-    season = models.ForeignKey(Season, related_name="+")
+    division = models.ForeignKey(Division, related_name="division_seasons")
+    season = models.ForeignKey(Season, related_name="division_seasons")
 
     class Meta:
         app_label = 'club'

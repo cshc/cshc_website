@@ -8,7 +8,7 @@ class Player(models.Model):
     gender = models.CharField("Gender", max_length=1, choices=PlayerGender.CHOICES, default=PlayerGender.MALE)
     pref_position = models.CharField("Preferred position", max_length=3, choices=PlayerPosition.CHOICES, default=PlayerPosition.NOT_KNOWN)
    
-    appearances = models.ManyToManyField(Match, through="Appearance")
+    matches = models.ManyToManyField(Match, through="Appearance", related_name="players")
 
     class Meta:
         app_label = 'club'

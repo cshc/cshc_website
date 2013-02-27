@@ -15,8 +15,8 @@ class Match(models.Model):
     WALKOVER_SCORE_W2 = 5
     WALKOVER_SCORE_L = 0
     
-    our_team = models.ForeignKey(Team, verbose_name="Our team", related_name="+")
-    opp_team = models.ForeignKey(Team, verbose_name="Opposition team", related_name="+")
+    our_team = models.ForeignKey(Team, verbose_name="Our team", related_name="our_matches")
+    opp_team = models.ForeignKey(Team, verbose_name="Opposition team", related_name="opp_matches")
     venue = models.ForeignKey(Venue, null=True, blank=True, on_delete=models.SET_NULL)
     home_away = models.CharField("Home/Away", max_length=1, choices=HomeAway.CHOICES, default=HomeAway.HOME)
     date = models.DateField("Fixture date")

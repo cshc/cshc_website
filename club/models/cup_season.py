@@ -3,8 +3,8 @@ from season import Season
 from cup import Cup
 
 class CupSeason(models.Model):
-    cup = models.ForeignKey(Cup, related_name="+")
-    season = models.ForeignKey(Season, related_name="+")
+    cup = models.ForeignKey(Cup, related_name="cup_seasons")
+    season = models.ForeignKey(Season, related_name="cup_seasons")
 
     class Meta:
         app_label = 'club'

@@ -27,7 +27,7 @@ class EndOfSeasonAward(Award):
         return self.name
 
 class AwardWinner(models.Model):
-    player = models.ForeignKey(Player, null=True, blank=True, default=None, help_text="(Leave blank if award winner is not a player)")
+    player = models.ForeignKey(Player, related_name="%(app_label)s_%(class)s_awards", null=True, blank=True, default=None, help_text="(Leave blank if award winner is not a player)")
     awardee = models.CharField("Award winner", max_length=255, null=True, blank=True, default=None, help_text="Only use this field if the award winner is not a player")
     comment = models.TextField(help_text="Enter a short description of why this person received this award")
 
@@ -48,16 +48,16 @@ class AwardWinner(models.Model):
         return self.player
 
 class MatchAwardWinner(AwardWinner):
-    match = models.ForeignKey(Match)
-    award = models.ForeignKey(MatchAward)
+    match = models.ForeignKey(Match, related_name="award_winners")
+    award = models.ForeignKey(MatchAward, related_name="winners")
     
     def __unicode__(self):
         return "{} - {} ({})".format(self.award, self.awardee_name(), self.match)
 
 
 class EndOfSeasonAwardWinner(AwardWinner):
-    season = models.ForeignKey(Season)
-    award = models.ForeignKey(EndOfSeasonAward)
+    season = models.ForeignKey(Season, related_name="award_winners")
+    award = models.ForeignKey(EndOfSeasonAward, related_name="winners")
     
     def __unicode__(self):
         return "{} - {} ({})".format(self.award, self.awardee_name(), self.season)
