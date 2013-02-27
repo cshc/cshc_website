@@ -17,6 +17,6 @@ class Member(models.Model):
         User._meta.ordering = ['first_name', 'last_name']
  
     def __unicode__(self):
-        return "{} {}".format(self.first_name, self.surname)
+        return "{} {}".format(self.user.first_name, self.user.last_name)
 
 
