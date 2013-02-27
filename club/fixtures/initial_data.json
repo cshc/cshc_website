@@ -1,0 +1,1813 @@
+[
+    {
+        "pk": 26, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "appearance", 
+            "name": "appearance", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "club", 
+            "name": "club", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "clubaffiliation", 
+            "name": "club affiliation", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "contenttype", 
+            "name": "content type", 
+            "app_label": "contenttypes"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "cup", 
+            "name": "cup competition", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "cupmatch", 
+            "name": "cup match", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "cupparticipation", 
+            "name": "cup participation", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "cupseason", 
+            "name": "cup season", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "division", 
+            "name": "division", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "divisionmatch", 
+            "name": "division match", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "divisionparticipation", 
+            "name": "division participation", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "divisionseason", 
+            "name": "division season", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "endofseasonaward", 
+            "name": "end of season award", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "endofseasonawardwinner", 
+            "name": "end of season award winner", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "friendlymatch", 
+            "name": "friendly match", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "group", 
+            "name": "group", 
+            "app_label": "auth"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "league", 
+            "name": "league", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "logentry", 
+            "name": "log entry", 
+            "app_label": "admin"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "match", 
+            "name": "match", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "matchaward", 
+            "name": "match award", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "matchawardwinner", 
+            "name": "match award winner", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "permission", 
+            "name": "permission", 
+            "app_label": "auth"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "player", 
+            "name": "player", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "season", 
+            "name": "season", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "session", 
+            "name": "session", 
+            "app_label": "sessions"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "site", 
+            "name": "site", 
+            "app_label": "sites"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "team", 
+            "name": "team", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "teamcaptaincy", 
+            "name": "team captaincy", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "user", 
+            "name": "user", 
+            "app_label": "auth"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "venue", 
+            "name": "venue", 
+            "app_label": "club"
+        }
+    }, 
+    {
+        "pk": "0560bf25b08bb086a5207589c665c3d8", 
+        "model": "sessions.session", 
+        "fields": {
+            "expire_date": "2013-03-07T15:47:07.767Z", 
+            "session_data": "MzIyODk5MjI1MWNkNWUwOWM0NzhkZTMwYThlNDVhMGZkMDNmOGMwMzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQRLAXUu\n"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "example.com", 
+            "name": "example.com"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.league", 
+        "fields": {
+            "url": "http://www.east-hockey.co.uk/", 
+            "name": "East Men"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.season", 
+        "fields": {
+            "start": "2011-09-01", 
+            "end": "2012-08-31"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.season", 
+        "fields": {
+            "start": "2012-09-01", 
+            "end": "2013-08-31"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.division", 
+        "fields": {
+            "league": 1, 
+            "name": "Div 2N", 
+            "fixtures_url": "", 
+            "gender": "M", 
+            "promotion_div": null, 
+            "relegation_div": null, 
+            "tables_url": ""
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.division", 
+        "fields": {
+            "league": 1, 
+            "name": "Div 3NW", 
+            "fixtures_url": "http://www.east-leagues.co.uk/showdata/sqlresults/Resultsmen.asp?division=3nw", 
+            "gender": "M", 
+            "promotion_div": null, 
+            "relegation_div": null, 
+            "tables_url": "http://www.east-leagues.co.uk/showdata/sqlresults/tablesmen.asp?Submit=League+table&divblock=NW"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.divisionseason", 
+        "fields": {
+            "division": 1, 
+            "season": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.divisionseason", 
+        "fields": {
+            "division": 1, 
+            "season": 2
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.club", 
+        "fields": {
+            "website": "http://www.cambridgecityhc.org/", 
+            "kit_clash_ladies": false, 
+            "name": "Cambridge City", 
+            "kit_clash_men": false, 
+            "kit_clash_mixed": false
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.club", 
+        "fields": {
+            "website": "http://www.cambridgesouthhockeyclub.co.uk/", 
+            "kit_clash_ladies": false, 
+            "name": "Cambridge South", 
+            "kit_clash_men": false, 
+            "kit_clash_mixed": false
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "club.team", 
+        "fields": {
+            "club": 2, 
+            "gender": "L", 
+            "ordinal": "4"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "club.team", 
+        "fields": {
+            "club": 2, 
+            "gender": "M", 
+            "ordinal": "4"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.team", 
+        "fields": {
+            "club": 1, 
+            "gender": "L", 
+            "ordinal": "1"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.team", 
+        "fields": {
+            "club": 1, 
+            "gender": "M", 
+            "ordinal": "1"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.venue", 
+        "fields": {
+            "addr_city": "", 
+            "name": "The Leys", 
+            "short_name": "Leys", 
+            "url": "", 
+            "notes": "", 
+            "phone": "", 
+            "addr2": "", 
+            "addr3": "", 
+            "addr1": "", 
+            "addr_postcode": ""
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.match", 
+        "fields": {
+            "report_title": "", 
+            "alt_outcome": "N", 
+            "report_body": "", 
+            "our_score": null, 
+            "our_ht_score": null, 
+            "venue": 1, 
+            "home_away": "H", 
+            "opp_team": 3, 
+            "our_team": 1, 
+            "time": "15:00:00", 
+            "date": "2013-02-21", 
+            "opp_own_goals": 0, 
+            "opp_score": null, 
+            "opp_ht_score": null
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.friendlymatch", 
+        "fields": {
+            "season": 2
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.player", 
+        "fields": {
+            "gender": "M", 
+            "first_name": "Graham", 
+            "surname": "McCulloch", 
+            "pref_position": "FWD"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.player", 
+        "fields": {
+            "gender": "M", 
+            "first_name": "Mark", 
+            "surname": "Williams", 
+            "pref_position": "MID"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.clubaffiliation", 
+        "fields": {
+            "club": 1, 
+            "player": 1, 
+            "end": null, 
+            "start": "2009-09-01"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.clubaffiliation", 
+        "fields": {
+            "club": 1, 
+            "player": 2, 
+            "end": null, 
+            "start": "2008-09-01"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.teamcaptaincy", 
+        "fields": {
+            "player": 1, 
+            "is_vice": false, 
+            "start": "2011-09-01", 
+            "team": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.teamcaptaincy", 
+        "fields": {
+            "player": 2, 
+            "is_vice": true, 
+            "start": "2011-09-01", 
+            "team": 1
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.divisionparticipation", 
+        "fields": {
+            "final_pos": null, 
+            "relegated": false, 
+            "div_season": 2, 
+            "team": 1, 
+            "promoted": false, 
+            "champions": false
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.divisionparticipation", 
+        "fields": {
+            "final_pos": null, 
+            "relegated": false, 
+            "div_season": 2, 
+            "team": 3, 
+            "promoted": false, 
+            "champions": false
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.appearance", 
+        "fields": {
+            "player": 1, 
+            "own_goals": 0, 
+            "goals": 0, 
+            "match": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.appearance", 
+        "fields": {
+            "player": 2, 
+            "own_goals": 0, 
+            "goals": 0, 
+            "match": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.matchaward", 
+        "fields": {
+            "name": "Lemon of the Match"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.matchaward", 
+        "fields": {
+            "name": "Man of the Match"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "club.matchawardwinner", 
+        "fields": {
+            "comment": "Graham was awesome", 
+            "player": 1, 
+            "award": 1, 
+            "match": 1, 
+            "awardee": ""
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "club.matchawardwinner", 
+        "fields": {
+            "comment": "Mark was rubbish", 
+            "player": 2, 
+            "award": 2, 
+            "match": 1, 
+            "awardee": ""
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_logentry", 
+            "name": "Can add log entry", 
+            "content_type": 7
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_logentry", 
+            "name": "Can change log entry", 
+            "content_type": 7
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_logentry", 
+            "name": "Can delete log entry", 
+            "content_type": 7
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_group", 
+            "name": "Can add group", 
+            "content_type": 2
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_group", 
+            "name": "Can change group", 
+            "content_type": 2
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_group", 
+            "name": "Can delete group", 
+            "content_type": 2
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_permission", 
+            "name": "Can add permission", 
+            "content_type": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_permission", 
+            "name": "Can change permission", 
+            "content_type": 1
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_permission", 
+            "name": "Can delete permission", 
+            "content_type": 1
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_user", 
+            "name": "Can add user", 
+            "content_type": 3
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_user", 
+            "name": "Can change user", 
+            "content_type": 3
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_user", 
+            "name": "Can delete user", 
+            "content_type": 3
+        }
+    }, 
+    {
+        "pk": 76, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_appearance", 
+            "name": "Can add appearance", 
+            "content_type": 26
+        }
+    }, 
+    {
+        "pk": 77, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_appearance", 
+            "name": "Can change appearance", 
+            "content_type": 26
+        }
+    }, 
+    {
+        "pk": 78, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_appearance", 
+            "name": "Can delete appearance", 
+            "content_type": 26
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_club", 
+            "name": "Can add club", 
+            "content_type": 12
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_club", 
+            "name": "Can change club", 
+            "content_type": 12
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_club", 
+            "name": "Can delete club", 
+            "content_type": 12
+        }
+    }, 
+    {
+        "pk": 64, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_clubaffiliation", 
+            "name": "Can add club affiliation", 
+            "content_type": 22
+        }
+    }, 
+    {
+        "pk": 65, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_clubaffiliation", 
+            "name": "Can change club affiliation", 
+            "content_type": 22
+        }
+    }, 
+    {
+        "pk": 66, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_clubaffiliation", 
+            "name": "Can delete club affiliation", 
+            "content_type": 22
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_cup", 
+            "name": "Can add cup competition", 
+            "content_type": 15
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_cup", 
+            "name": "Can change cup competition", 
+            "content_type": 15
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_cup", 
+            "name": "Can delete cup competition", 
+            "content_type": 15
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_cupmatch", 
+            "name": "Can add cup match", 
+            "content_type": 19
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_cupmatch", 
+            "name": "Can change cup match", 
+            "content_type": 19
+        }
+    }, 
+    {
+        "pk": 57, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_cupmatch", 
+            "name": "Can delete cup match", 
+            "content_type": 19
+        }
+    }, 
+    {
+        "pk": 73, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_cupparticipation", 
+            "name": "Can add cup participation", 
+            "content_type": 25
+        }
+    }, 
+    {
+        "pk": 74, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_cupparticipation", 
+            "name": "Can change cup participation", 
+            "content_type": 25
+        }
+    }, 
+    {
+        "pk": 75, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_cupparticipation", 
+            "name": "Can delete cup participation", 
+            "content_type": 25
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_cupseason", 
+            "name": "Can add cup season", 
+            "content_type": 16
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_cupseason", 
+            "name": "Can change cup season", 
+            "content_type": 16
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_cupseason", 
+            "name": "Can delete cup season", 
+            "content_type": 16
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_division", 
+            "name": "Can add division", 
+            "content_type": 10
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_division", 
+            "name": "Can change division", 
+            "content_type": 10
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_division", 
+            "name": "Can delete division", 
+            "content_type": 10
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_divisionmatch", 
+            "name": "Can add division match", 
+            "content_type": 18
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_divisionmatch", 
+            "name": "Can change division match", 
+            "content_type": 18
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_divisionmatch", 
+            "name": "Can delete division match", 
+            "content_type": 18
+        }
+    }, 
+    {
+        "pk": 70, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_divisionparticipation", 
+            "name": "Can add division participation", 
+            "content_type": 24
+        }
+    }, 
+    {
+        "pk": 71, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_divisionparticipation", 
+            "name": "Can change division participation", 
+            "content_type": 24
+        }
+    }, 
+    {
+        "pk": 72, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_divisionparticipation", 
+            "name": "Can delete division participation", 
+            "content_type": 24
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_divisionseason", 
+            "name": "Can add division season", 
+            "content_type": 11
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_divisionseason", 
+            "name": "Can change division season", 
+            "content_type": 11
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_divisionseason", 
+            "name": "Can delete division season", 
+            "content_type": 11
+        }
+    }, 
+    {
+        "pk": 82, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_endofseasonaward", 
+            "name": "Can add end of season award", 
+            "content_type": 28
+        }
+    }, 
+    {
+        "pk": 83, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_endofseasonaward", 
+            "name": "Can change end of season award", 
+            "content_type": 28
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_endofseasonaward", 
+            "name": "Can delete end of season award", 
+            "content_type": 28
+        }
+    }, 
+    {
+        "pk": 88, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_endofseasonawardwinner", 
+            "name": "Can add end of season award winner", 
+            "content_type": 30
+        }
+    }, 
+    {
+        "pk": 89, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_endofseasonawardwinner", 
+            "name": "Can change end of season award winner", 
+            "content_type": 30
+        }
+    }, 
+    {
+        "pk": 90, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_endofseasonawardwinner", 
+            "name": "Can delete end of season award winner", 
+            "content_type": 30
+        }
+    }, 
+    {
+        "pk": 58, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_friendlymatch", 
+            "name": "Can add friendly match", 
+            "content_type": 20
+        }
+    }, 
+    {
+        "pk": 59, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_friendlymatch", 
+            "name": "Can change friendly match", 
+            "content_type": 20
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_friendlymatch", 
+            "name": "Can delete friendly match", 
+            "content_type": 20
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_league", 
+            "name": "Can add league", 
+            "content_type": 8
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_league", 
+            "name": "Can change league", 
+            "content_type": 8
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_league", 
+            "name": "Can delete league", 
+            "content_type": 8
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_match", 
+            "name": "Can add match", 
+            "content_type": 17
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_match", 
+            "name": "Can change match", 
+            "content_type": 17
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_match", 
+            "name": "Can delete match", 
+            "content_type": 17
+        }
+    }, 
+    {
+        "pk": 79, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_matchaward", 
+            "name": "Can add match award", 
+            "content_type": 27
+        }
+    }, 
+    {
+        "pk": 80, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_matchaward", 
+            "name": "Can change match award", 
+            "content_type": 27
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_matchaward", 
+            "name": "Can delete match award", 
+            "content_type": 27
+        }
+    }, 
+    {
+        "pk": 85, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_matchawardwinner", 
+            "name": "Can add match award winner", 
+            "content_type": 29
+        }
+    }, 
+    {
+        "pk": 86, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_matchawardwinner", 
+            "name": "Can change match award winner", 
+            "content_type": 29
+        }
+    }, 
+    {
+        "pk": 87, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_matchawardwinner", 
+            "name": "Can delete match award winner", 
+            "content_type": 29
+        }
+    }, 
+    {
+        "pk": 61, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_player", 
+            "name": "Can add player", 
+            "content_type": 21
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_player", 
+            "name": "Can change player", 
+            "content_type": 21
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_player", 
+            "name": "Can delete player", 
+            "content_type": 21
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_season", 
+            "name": "Can add season", 
+            "content_type": 9
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_season", 
+            "name": "Can change season", 
+            "content_type": 9
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_season", 
+            "name": "Can delete season", 
+            "content_type": 9
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_team", 
+            "name": "Can add team", 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_team", 
+            "name": "Can change team", 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_team", 
+            "name": "Can delete team", 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 67, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_teamcaptaincy", 
+            "name": "Can add team captaincy", 
+            "content_type": 23
+        }
+    }, 
+    {
+        "pk": 68, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_teamcaptaincy", 
+            "name": "Can change team captaincy", 
+            "content_type": 23
+        }
+    }, 
+    {
+        "pk": 69, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_teamcaptaincy", 
+            "name": "Can delete team captaincy", 
+            "content_type": 23
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_venue", 
+            "name": "Can add venue", 
+            "content_type": 14
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_venue", 
+            "name": "Can change venue", 
+            "content_type": 14
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_venue", 
+            "name": "Can delete venue", 
+            "content_type": 14
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_contenttype", 
+            "name": "Can add content type", 
+            "content_type": 4
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_contenttype", 
+            "name": "Can change content type", 
+            "content_type": 4
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_contenttype", 
+            "name": "Can delete content type", 
+            "content_type": 4
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_session", 
+            "name": "Can add session", 
+            "content_type": 5
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_session", 
+            "name": "Can change session", 
+            "content_type": 5
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_session", 
+            "name": "Can delete session", 
+            "content_type": 5
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_site", 
+            "name": "Can add site", 
+            "content_type": 6
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_site", 
+            "name": "Can change site", 
+            "content_type": 6
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_site", 
+            "name": "Can delete site", 
+            "content_type": 6
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "graham", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2013-02-21T15:47:07.763Z", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$Z3pmj88Alup7$PNeyifp1GMXYJ6OwfsuTJW4TPwiOlHbmz/bwwYs4eXs=", 
+            "email": "admin@grahammcculloch.co.uk", 
+            "date_joined": "2013-02-21T15:47:00.433Z"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 2, 
+            "action_time": "2013-02-21T16:00:58.261Z", 
+            "object_repr": "Cambridge South Mens 1sts vs Cambridge City Mens 4ths (Friendly, 2013-02-21)", 
+            "object_id": "1", 
+            "change_message": "Changed venue.", 
+            "user": 1, 
+            "content_type": 20
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T16:00:46.606Z", 
+            "object_repr": "The Leys", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 14
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T16:00:22.741Z", 
+            "object_repr": "Lemon of the Match - Mark Williams (Cambridge South Mens 1sts vs Cambridge City Mens 4ths (Friendly, 2013-02-21))", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 29
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T16:00:09.734Z", 
+            "object_repr": "Man of the Match - Graham McCulloch (Cambridge South Mens 1sts vs Cambridge City Mens 4ths (Friendly, 2013-02-21))", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 29
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:59:09.928Z", 
+            "object_repr": "Lemon of the Match", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 27
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:59:04.937Z", 
+            "object_repr": "Man of the Match", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 27
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:58:39.674Z", 
+            "object_repr": "Mark Williams - Cambridge South Mens 1sts vs Cambridge City Mens 4ths (Friendly, 2013-02-21)", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 26
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:58:34.787Z", 
+            "object_repr": "Graham McCulloch - Cambridge South Mens 1sts vs Cambridge City Mens 4ths (Friendly, 2013-02-21)", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 26
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:58:16.723Z", 
+            "object_repr": "Cambridge South Mens 1sts vice-captain: Mark Williams", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 23
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:58:04.699Z", 
+            "object_repr": "Cambridge South Mens 1sts captain: Graham McCulloch", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 23
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:57:17.329Z", 
+            "object_repr": "Cambridge South Mens 1sts vs Cambridge City Mens 4ths (Friendly, 2013-02-21)", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 20
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:56:15.157Z", 
+            "object_repr": "Mark Williams - Cambridge South", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 22
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:55:59.572Z", 
+            "object_repr": "Graham McCulloch - Cambridge South", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 22
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:55:37.986Z", 
+            "object_repr": "Mark Williams", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 21
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:55:27.546Z", 
+            "object_repr": "Graham McCulloch", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 21
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:52:48.169Z", 
+            "object_repr": "Cambridge City Mens 4ths - East Men Div 3NW (2012-2013)", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 24
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:52:37.986Z", 
+            "object_repr": "Cambridge South Mens 1sts - East Men Div 3NW (2012-2013)", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 24
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:52:16.334Z", 
+            "object_repr": "East Men Div 3NW (2012-2013)", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 11
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:52:11.566Z", 
+            "object_repr": "East Men Div 3NW (2011-2012)", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 11
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:51:56.997Z", 
+            "object_repr": "East Men Div 2N", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 10
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:51:46.374Z", 
+            "object_repr": "East Men Div 3NW", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 10
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:51:31.354Z", 
+            "object_repr": "East Men", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 8
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:51:07.378Z", 
+            "object_repr": "Cambridge City Ladies 4ths", 
+            "object_id": "4", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:51:01.323Z", 
+            "object_repr": "Cambridge City Mens 4ths", 
+            "object_id": "3", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:50:54.467Z", 
+            "object_repr": "Cambridge South Ladies 1sts", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:50:48.500Z", 
+            "object_repr": "Cambridge South Mens 1sts", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:50:34.259Z", 
+            "object_repr": "Cambridge City", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 12
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:50:25.756Z", 
+            "object_repr": "Cambridge South", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 12
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:50:01.461Z", 
+            "object_repr": "2012-2013", 
+            "object_id": "2", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 9
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "admin.logentry", 
+        "fields": {
+            "action_flag": 1, 
+            "action_time": "2013-02-21T15:49:48.768Z", 
+            "object_repr": "2011-2012", 
+            "object_id": "1", 
+            "change_message": "", 
+            "user": 1, 
+            "content_type": 9
+        }
+    }
+]
