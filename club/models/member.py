@@ -8,6 +8,7 @@ class Member(models.Model):
     profile_pic = models.ImageField(upload_to='/pics')
     gender = models.CharField("Gender", max_length=1, choices=MemberGender.CHOICES, default=MemberGender.MALE)
     pref_position = models.CharField("Preferred position", max_length=3, choices=MemberPosition.CHOICES, default=MemberPosition.NOT_KNOWN)
+    is_active = models.BooleanField(default=True)
    
     appearances = models.ManyToManyField(Match, through="Appearance")
 
