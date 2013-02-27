@@ -1,9 +1,9 @@
 from django.db import models
-from player import Player
+from member import Member
 from match import Match
 
 class Appearance(models.Model):
-    player = models.ForeignKey(Player)
+    member = models.ForeignKey(Member)
     match = models.ForeignKey(Match)
     goals = models.PositiveSmallIntegerField("Goals scored", default=0)
     own_goals = models.PositiveSmallIntegerField("Own-goals scored", default=0)
@@ -13,8 +13,8 @@ class Appearance(models.Model):
 
     class Meta:
         app_label = 'club'
-        unique_together = ('player', 'match')  
-        ordering = ['match', 'player']
+        unique_together = ('member', 'match')  
+        ordering = ['match', 'member']
 
     def __unicode__(self):
-        return "{} - {}".format(self.player, self.match)
+        return "{} - {}".format(self.member, self.match)

@@ -13,7 +13,7 @@ class TeamGender:
         (MIXED, u'Mixed'),
     )
 
-class PlayerGender:
+class MemberGender:
     MALE = u'M'
     FEMALE = u'L'
 
@@ -92,7 +92,7 @@ class AlternativeOutcome:
         (WALKOVER, u'Walkover'),
     )
                 
-class PlayerPosition:
+class MemberPosition:
     GOALKEEPER = u'GK'
     DEFENDER = u'DEF'
     MIDFIELDER = u'MID'

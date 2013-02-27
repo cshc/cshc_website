@@ -1,7 +1,7 @@
 from django.db import models
 from django.db import IntegrityError
 from match import Match
-from player import Player
+from member import Member
 from season import Season
 from choices import AwardType
 
@@ -27,8 +27,8 @@ class EndOfSeasonAward(Award):
         return self.name
 
 class AwardWinner(models.Model):
-    player = models.ForeignKey(Player, null=True, blank=True, default=None, help_text="(Leave blank if award winner is not a player)")
-    awardee = models.CharField("Award winner", max_length=255, null=True, blank=True, default=None, help_text="Only use this field if the award winner is not a player")
+    member = models.ForeignKey(Member, null=True, blank=True, default=None, help_text="(Leave blank if award winner is not a member)")
+    awardee = models.CharField("Award winner", max_length=255, null=True, blank=True, default=None, help_text="Only use this field if the award winner is not a member")
     comment = models.TextField(help_text="Enter a short description of why this person received this award")
 
     class Meta:
@@ -36,16 +36,16 @@ class AwardWinner(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        if (self.player == None and 
+        if (self.member == None and 
             self.awardee == None):
-            raise IntegrityError("You must specify either a player or an awardee (if the awardee is not a player)")
+            raise IntegrityError("You must specify either a member or an awardee (if the awardee is not a member)")
         
         super(AwardWinner, self).save(*args, **kwargs) 
 
     def awardee_name(self):
-        if(self.player == None):
+        if(self.member == None):
             return self.awardee
-        return self.player
+        return self.member
 
 class MatchAwardWinner(AwardWinner):
     match = models.ForeignKey(Match)
