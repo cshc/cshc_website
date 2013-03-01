@@ -6,3 +6,7 @@ install:
   - "pip install -r requirements.txt --use-mirrors"
 # # command to run tests
 script: ./django.sh test club
+notifications:
+  email:
+    recipients:
+      - "nathan.humphreys7@gmail.com"
