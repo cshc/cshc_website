@@ -11,4 +11,4 @@ install:
   - "pip install -q Django==$DJANGO_VERSION"
   - "python setup.py -q install"
 # # command to run tests
-script: python manage.py test club
+script: ./django.sh test club
