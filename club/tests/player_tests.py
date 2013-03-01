@@ -1,42 +1,42 @@
 from django.test import TestCase
 from django.db import IntegrityError
-from club.models import Player
-from club.models.choices import PlayerGender, PlayerPosition
+from club.models import Member
+from club.models.choices import MemberGender, MemberPosition
 
-class PlayerTest(TestCase):
+class MemberTest(TestCase):
 
     def setUp(self):
-        self.test_player = Player(first_name="Graham", surname="McCulloch", gender=PlayerGender.MALE, pref_position=PlayerPosition.FORWARD)
+        self.test_member = Member(first_name="Graham", surname="McCulloch", gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
         
-    def test_players_can_be_added_and_removed(self):
-        """ Tests that players can be added to the database and then removed """
-        player1 = Player(first_name="Graham", surname="McCulloch", gender=PlayerGender.MALE, pref_position=PlayerPosition.FORWARD)
-        player2 = Player(first_name="Mark", surname="Williams", gender=PlayerGender.MALE, pref_position=PlayerPosition.MIDFIELDER)
-        player1.save()
-        player2.save()
-        self.assertEqual(2, Player.objects.all().count())
-        player1.delete()
-        player2.delete()
-        self.assertEqual(0, Player.objects.all().count())
+    def test_members_can_be_added_and_removed(self):
+        """ Tests that members can be added to the database and then removed """
+        member1 = Member(first_name="Graham", surname="McCulloch", gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
+        member2 = Member(first_name="Mark", surname="Williams", gender=MemberGender.MALE, pref_position=MemberPosition.MIDFIELDER)
+        member1.save()
+        member2.save()
+        self.assertEqual(2, Member.objects.all().count())
+        member1.delete()
+        member2.delete()
+        self.assertEqual(0, Member.objects.all().count())
 
-    def test_player_first_name_and_surname_must_be_specified(self):
-        """ Tests that you must specify the first name and surname of the player """
-        player_with_no_first_name = Player(surname="McCulloch", gender=PlayerGender.MALE, pref_position=PlayerPosition.FORWARD)
-        self.assertEqual(None, player_with_no_first_name.first_name)
-        self.assertRaisesMessage(IntegrityError, "club_player.first_name may not be NULL", player_with_no_first_name.save)
-        player_with_no_surname = Player(first_name="Graham", gender=PlayerGender.MALE, pref_position=PlayerPosition.FORWARD)
-        self.assertEqual(None, player_with_no_surname.surname)
-        self.assertRaisesMessage(IntegrityError, "club_player.surname may not be NULL", player_with_no_surname.save)
+    def test_member_first_name_and_surname_must_be_specified(self):
+        """ Tests that you must specify the first name and surname of the member """
+        member_with_no_first_name = Member(surname="McCulloch", gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
+        self.assertEqual(None, member_with_no_first_name.first_name)
+        self.assertRaisesMessage(IntegrityError, "club_member.first_name may not be NULL", member_with_no_first_name.save)
+        member_with_no_surname = Member(first_name="Graham", gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
+        self.assertEqual(None, member_with_no_surname.surname)
+        self.assertRaisesMessage(IntegrityError, "club_member.surname may not be NULL", member_with_no_surname.save)
 
 
-    def test_multiple_players_can_have_the_same_first_name_and_surname(self):
+    def test_multiple_members_can_have_the_same_first_name_and_surname(self):
         """ 
-        Tests that its possible to have multiple players with the same first name and surname. 
-        Note that this may make it very hard to select the right player!
+        Tests that its possible to have multiple members with the same first name and surname. 
+        Note that this may make it very hard to select the right member!
 
         """
-        player1 = Player(first_name="Graham", surname="McCulloch", gender=PlayerGender.MALE, pref_position=PlayerPosition.FORWARD)
-        player2 = Player(first_name=player1.first_name, surname=player1.surname, gender=PlayerGender.MALE, pref_position=PlayerPosition.MIDFIELDER)
-        player1.save()
-        player2.save()
-        self.assertEqual(2, Player.objects.all().count())
+        member1 = Member(first_name="Graham", surname="McCulloch", gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
+        member2 = Member(first_name=member1.first_name, surname=member1.surname, gender=MemberGender.MALE, pref_position=MemberPosition.MIDFIELDER)
+        member1.save()
+        member2.save()
+        self.assertEqual(2, Member.objects.all().count())
