@@ -13,7 +13,7 @@ MANAGERS = ADMINS
 
 DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'])}
 
-AUTH_PROFILE_MODULE = 'club.Player'
+AUTH_PROFILE_MODULE = 'club.Member'
 
 # For local development (TEMP):
 #DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': '../cshc.db', } }

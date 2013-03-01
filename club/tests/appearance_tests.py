@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from datetime import datetime, date
 from club.models import *
 from club.models.choices import *
+from django.contrib.auth.models import User
 
 class AppearanceTest(TestCase):
 
@@ -31,15 +32,19 @@ class AppearanceTest(TestCase):
         self.test_cup_season.save()
         self.test_match = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
         self.test_match.save()
-        self.test_player1 = Player(first_name="Graham", surname="McCulloch", gender=PlayerGender.MALE, pref_position=PlayerPosition.FORWARD)
-        self.test_player1.save()
-        self.test_player2 = Player(first_name="Mark", surname="Williams", gender=PlayerGender.MALE, pref_position=PlayerPosition.MIDFIELDER)
-        self.test_player2.save()
+        self.user1=User(username="gm", first_name="Graham", last_name="McCulloch", email="test@test.com")
+        self.user2=User(username="nh", first_name="Nathan", last_name="Humphreys", email="test2@test.com")
+        self.user1.save()
+        self.user2.save()
+        self.test_member1 = Member(user=self.user1, gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
+        self.test_member1.save()
+        self.test_member2 = Member(user=self.user2, gender=MemberGender.MALE, pref_position=MemberPosition.MIDFIELDER)
+        self.test_member2.save()
 
     def test_appearances_can_be_added_and_removed(self):
         """ Tests that appearances can be added to the database and then removed """
-        app1 = Appearance(player=self.test_player1, match=self.test_match, goals=3, own_goals=0)
-        app2 = Appearance(player=self.test_player2, match=self.test_match, goals=0, own_goals=3)
+        app1 = Appearance(member=self.test_member1, match=self.test_match, goals=3, own_goals=0)
+        app2 = Appearance(member=self.test_member2, match=self.test_match, goals=0, own_goals=3)
         app1.save()
         app2.save()
         self.assertEqual(2, Appearance.objects.all().count())
@@ -47,9 +52,9 @@ class AppearanceTest(TestCase):
         app2.delete()
         self.assertEqual(0, Appearance.objects.all().count())
 
-    def test_a_player_cannot_appear_in_a_match_more_than_once(self):
+    def test_a_member_cannot_appear_in_a_match_more_than_once(self):
         """"Tests that duplicate entries in the Appearances table are not allowed """
-        app1 = Appearance(player=self.test_player1, match=self.test_match)
-        app2 = Appearance(player=app1.player, match=app1.match)
+        app1 = Appearance(member=self.test_member1, match=self.test_match)
+        app2 = Appearance(member=app1.member, match=app1.match)
         app1.save()
         self.assertRaises(IntegrityError, app2.save)
