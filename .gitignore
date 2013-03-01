@@ -4,3 +4,4 @@ themes/classic/views/
 *.pyc
 *.swp
 *.sqlite
+cshcsite/local_settings.py

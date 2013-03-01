@@ -413,25 +413,25 @@
         "pk": 1, 
         "model": "club.venue", 
         "fields": {
-            "addr_city": "", 
+            "addr_city": "Cambridge", 
             "name": "The Leys", 
             "short_name": "Leys", 
-            "url": "", 
+            "url": "http://www.theleys.net/resource.aspx?id=324", 
             "notes": "", 
-            "phone": "", 
+            "phone": "01223 508900", 
             "addr2": "", 
             "addr3": "", 
-            "addr1": "", 
-            "addr_postcode": ""
+            "addr1": "The Leys School", 
+            "addr_postcode": "CB2 7AD"
         }
     }, 
     {
         "pk": 1, 
         "model": "club.match", 
         "fields": {
-            "report_title": "", 
+            "report_title": null, 
             "alt_outcome": "N", 
-            "report_body": "", 
+            "report_body": null, 
             "our_score": null, 
             "our_ht_score": null, 
             "venue": 1, 

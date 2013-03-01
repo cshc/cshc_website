@@ -147,6 +147,14 @@ class Match(models.Model):
         return (self.final_scores_provided() and
                 self.our_score == self.opp_score)
     
+    def score_display(self):
+        if(self.alt_outcome != AlternativeOutcome.NONE):
+            return self.get_alt_outcome_display()
+        if(not self.final_scores_provided(self)):
+            return ""
+        return "{}-{}".format(self.our_score, self.opp_score)
+
+
 class DivisionMatch(Match):
     div_season = models.ForeignKey(DivisionSeason, verbose_name="Division")
 

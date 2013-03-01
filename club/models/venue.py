@@ -1,3 +1,4 @@
+import string
 from django.db import models
 
 class Venue(models.Model):
@@ -18,3 +19,6 @@ class Venue(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def full_address(self):
+        return string.join([self.addr1, self.addr2, self.addr3, self.addr_city, self.addr_postcode])

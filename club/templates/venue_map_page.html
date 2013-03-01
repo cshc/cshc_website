@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% comment %}
+Extend this template for any pages that contain a map of a venue.
+
+- The Context object must have a Venue object called 'venue'.
+- Use a <div id="map_canvas"></div> where you want the map to appear
+{% endcomment %}
+
+{% block extra_head %}
+{{ block.super }}
+
+<script type="text/javascript">
+    
+    var map;
+    var directionDisplay;
+    var directionsService;
+    var infowindow;
+    var marker;
+
+    function initialize() {
+        directionsService = new google.maps.DirectionsService();
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        var cambridge = new google.maps.LatLng(52.231164, 0.340576);
+        var mapOptions = {
+        zoom: 14,
+        center: cambridge,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        directionsDisplay.setMap(map);
+        codeAddress();
+    }
+
+    function codeAddress() {
+        var geocoder = new google.maps.Geocoder();
+        var address = "{{ venue.full_address }}"
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            
+            var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h4 id="firstHeading" class="firstHeading">{{ venue.name }}</h4>'+
+            '<div id="bodyContent">'+
+            '<p><a href="{{ venue.url }}" target="_blank">Venue details </a><i class="icon-external-link"></i></p>'+
+            '<p><button class="btn btn-small btn-primary" type="button" onclick="calcRoute();">Get directions</button></p>'+
+            '</div>'+
+            '</div>';
+
+            infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location,
+                title: '{{ venue.name }}'
+            });
+            //google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map,marker);
+            //});
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+
+    function calcRoute() {
+        var start = 'Cambridge, UK';
+        var end = '{{ venue.full_address }}';
+        var request = {
+            origin:start,
+            destination:end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+        directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+                infowindow.close(map,marker);
+            }
+            else {
+                alert('Could not calculate the route for the following reason: ' + status);
+          }
+        });
+    }
+
+    function loadScript() {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDdK_W-7S1O_tiuK2sr5O8oUlTnXReouVU&sensor=false&callback=initialize";
+        document.body.appendChild(script);
+    }
+
+    window.onload = loadScript;
+</script>
+{% endblock %}

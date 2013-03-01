@@ -1,0 +1,29 @@
+{% extends "venue_map_page.html" %}
+
+{% block title %}{{ block.super }} | {{ match }}{% endblock %}
+
+{% block content %}
+<h1>{{ venue.name }}</h1>
+<div class="row">
+<div class="span7">
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th>Property</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Name</td><td>{{ venue.name }}</td></tr>
+        <tr><td>Short name</td><td>{{ venue.short_name }}</td></tr>
+        <tr><td>URL</td><td>{{ venue.url|urlize }}</td></tr>
+        <tr><td>Phone</td><td>{{venue.phone }}</td></tr>
+        <tr><td>Address</td><td>{{ venue.full_address }}</td></tr>
+        <tr><td>Notes</td><td>{{ venue.notes }}</td></tr>
+    </tbody>
+</table>
+</div>
+</div>
+
+<div class="row">
+<div class="span7" id="map_canvas" style="width:700px; height:400px">
+</div>
+</div>
+{% endblock %}
