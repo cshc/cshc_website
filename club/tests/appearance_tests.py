@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from datetime import datetime, date
 from club.models import *
 from club.models.choices import *
+from django.contrib.auth.models import User
 
 class AppearanceTest(TestCase):
 
@@ -31,9 +32,13 @@ class AppearanceTest(TestCase):
         self.test_cup_season.save()
         self.test_match = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
         self.test_match.save()
-        self.test_member1 = Member(first_name="Graham", surname="McCulloch", gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
+        self.user1=User(username="gm", first_name="Graham", last_name="McCulloch", email="test@test.com")
+        self.user2=User(username="nh", first_name="Nathan", last_name="Humphreys", email="test2@test.com")
+        self.user1.save()
+        self.user2.save()
+        self.test_member1 = Member(user=self.user1, gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
         self.test_member1.save()
-        self.test_member2 = Member(first_name="Mark", surname="Williams", gender=MemberGender.MALE, pref_position=MemberPosition.MIDFIELDER)
+        self.test_member2 = Member(user=self.user2, gender=MemberGender.MALE, pref_position=MemberPosition.MIDFIELDER)
         self.test_member2.save()
 
     def test_appearances_can_be_added_and_removed(self):
