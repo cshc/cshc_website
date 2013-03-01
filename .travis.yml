@@ -10,6 +10,10 @@ notifications:
   email:
     recipients:
       - nkhumphreys@gmail.com
-      - nathan.humphreys7@gmail.com
-    on_success: always
+      - simon@jellypig.co.uk
+      - graham@grahammcculloch.co.uk
+      - matt.kern@undue.org
+      - shbaz.ali@gmail.com
+      - home@robbarton.com
+    on_success: change
     on_failure: always
