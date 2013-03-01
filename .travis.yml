@@ -11,5 +11,5 @@ notifications:
     recipients:
       - nkhumphreys@gmail.com
       - nathan.humphreys7@gmail.com
-    on_success: always
+    on_success: change
     on_failure: always
