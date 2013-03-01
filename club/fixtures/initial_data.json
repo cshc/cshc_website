@@ -201,8 +201,8 @@
         "pk": 21, 
         "model": "contenttypes.contenttype", 
         "fields": {
-            "model": "player", 
-            "name": "player", 
+            "model": "member", 
+            "name": "member", 
             "app_label": "club"
         }
     }, 
@@ -454,21 +454,19 @@
     }, 
     {
         "pk": 1, 
-        "model": "club.player", 
+        "model": "club.member", 
         "fields": {
             "gender": "M", 
-            "first_name": "Graham", 
-            "surname": "McCulloch", 
+            "user": 1, 
             "pref_position": "FWD"
         }
     }, 
     {
         "pk": 2, 
-        "model": "club.player", 
+        "model": "club.member", 
         "fields": {
             "gender": "M", 
-            "first_name": "Mark", 
-            "surname": "Williams", 
+            "user": 2, 
             "pref_position": "MID"
         }
     }, 
@@ -477,7 +475,7 @@
         "model": "club.clubaffiliation", 
         "fields": {
             "club": 1, 
-            "player": 1, 
+            "member": 1, 
             "end": null, 
             "start": "2009-09-01"
         }
@@ -487,7 +485,7 @@
         "model": "club.clubaffiliation", 
         "fields": {
             "club": 1, 
-            "player": 2, 
+            "member": 2, 
             "end": null, 
             "start": "2008-09-01"
         }
@@ -496,7 +494,7 @@
         "pk": 1, 
         "model": "club.teamcaptaincy", 
         "fields": {
-            "player": 1, 
+            "member": 1, 
             "is_vice": false, 
             "start": "2011-09-01", 
             "team": 1
@@ -506,7 +504,7 @@
         "pk": 2, 
         "model": "club.teamcaptaincy", 
         "fields": {
-            "player": 2, 
+            "member": 2, 
             "is_vice": true, 
             "start": "2011-09-01", 
             "team": 1
@@ -540,7 +538,7 @@
         "pk": 1, 
         "model": "club.appearance", 
         "fields": {
-            "player": 1, 
+            "member": 1, 
             "own_goals": 0, 
             "goals": 0, 
             "match": 1
@@ -550,7 +548,7 @@
         "pk": 2, 
         "model": "club.appearance", 
         "fields": {
-            "player": 2, 
+            "member": 2, 
             "own_goals": 0, 
             "goals": 0, 
             "match": 1
@@ -575,7 +573,7 @@
         "model": "club.matchawardwinner", 
         "fields": {
             "comment": "Graham was awesome", 
-            "player": 1, 
+            "member": 1, 
             "award": 1, 
             "match": 1, 
             "awardee": ""
@@ -586,7 +584,7 @@
         "model": "club.matchawardwinner", 
         "fields": {
             "comment": "Mark was rubbish", 
-            "player": 2, 
+            "member": 2, 
             "award": 2, 
             "match": 1, 
             "awardee": ""
@@ -1417,6 +1415,24 @@
             "user_permissions": [], 
             "password": "pbkdf2_sha256$10000$Z3pmj88Alup7$PNeyifp1GMXYJ6OwfsuTJW4TPwiOlHbmz/bwwYs4eXs=", 
             "email": "admin@grahammcculloch.co.uk", 
+            "date_joined": "2013-02-21T15:47:00.433Z"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "nathanhumphreys", 
+            "first_name": "nathan", 
+            "last_name": "humphreys", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2013-02-21T15:47:07.763Z", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$Z3pmj88Alup7$PNeyifp1GMXYJ6OwfsuTJW4TPwiOlHbmz/bwwYs4eXs=", 
+            "email": "nathan@nkhumphreys.co.uk", 
             "date_joined": "2013-02-21T15:47:00.433Z"
         }
     }, 
