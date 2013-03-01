@@ -7,8 +7,8 @@ env:
 DJANGO_VERSION=1.4.3
 # command to install dependencies
 install: 
-  - pip install -r requirements.txt --use-mirrors
-  - pip install -q Django==$DJANGO_VERSION
-  - python setup.py -q install
+  - "pip install -r requirements.txt --use-mirrors"
+  - "pip install -q Django==$DJANGO_VERSION"
+  - "python setup.py -q install"
 # # command to run tests
-script: ./manage.py test club
+script: python manage.py test club
