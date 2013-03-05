@@ -417,6 +417,7 @@
             "name": "The Leys", 
             "short_name": "Leys", 
             "url": "http://www.theleys.net/resource.aspx?id=324", 
+            "is_home": true, 
             "notes": "", 
             "phone": "01223 508900", 
             "addr2": "", 

@@ -1,10 +1,12 @@
 import string
 from django.db import models
+from django.core.urlresolvers import reverse
 
 class Venue(models.Model):
     name = models.CharField("Venue Name", max_length=255, default=None, unique=True)
     short_name = models.CharField("Short name", max_length=30, default=None)
     url = models.URLField("Website", null=True, blank=True, default=None)
+    is_home = models.BooleanField("Home ground", default=False)
     phone = models.CharField("Contact phone number", max_length=20, null=True, blank=True, default=None)
     addr1 = models.CharField("Address 1", max_length=255, null=True, blank=True, default=None)
     addr2 = models.CharField("Address 2", max_length=255, null=True, blank=True, default=None)
@@ -19,6 +21,9 @@ class Venue(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('club.views.venues.details', args=[self.short_name.lower().replace(" ", "-")])
 
     def full_address(self):
         """ Returns the full address with (not None) address items separated by commas."""
