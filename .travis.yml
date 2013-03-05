@@ -9,4 +9,11 @@ script: ./django.sh test club
 notifications:
   email:
     recipients:
-      - "nathan.humphreys7@gmail.com"
+      - nkhumphreys@gmail.com
+      - simon@jellypig.co.uk
+      - graham@grahammcculloch.co.uk
+      - matt.kern@undue.org
+      - shbaz.ali@gmail.com
+      - home@robbarton.com
+    on_success: change
+    on_failure: always
