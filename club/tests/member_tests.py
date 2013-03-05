@@ -15,12 +15,13 @@ class MemberTest(TestCase):
         
     def test_members_can_be_added_and_removed(self):
         """ Tests that members can be added to the database and then removed """
+        countBefore = Member.objects.all().count()
         member1 = Member(user=self.user1, gender=MemberGender.MALE, pref_position=MemberPosition.FORWARD)
         member2 = Member(user=self.user2, gender=MemberGender.MALE, pref_position=MemberPosition.MIDFIELDER)
         member1.save()
         member2.save()
-        self.assertEqual(2, Member.objects.all().count())
+        self.assertEqual(countBefore + 2, Member.objects.all().count())
         member1.delete()
         member2.delete()
-        self.assertEqual(0, Member.objects.all().count())
+        self.assertEqual(countBefore, Member.objects.all().count())
 

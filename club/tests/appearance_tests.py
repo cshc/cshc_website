@@ -10,9 +10,9 @@ class AppearanceTest(TestCase):
     def setUp(self):
         self.test_url = "http://www.example.com"
         self.test_venue = Venue(name="Venue 1", short_name="Ven1")
-        self.test_our_club = Club(name="Cambridge South", website="http://www.cambridgesouthhockeyclub.co.uk")
+        self.test_our_club = Club(name="Test Club 1", website="http://www.cambridgesouthhockeyclub.co.uk")
         self.test_our_club.save()
-        self.test_their_club = Club(name="Cambridge City", website="http://www.cambridgecityhc.org/")
+        self.test_their_club = Club(name="Test Club 2", website="http://www.cambridgecityhc.org/")
         self.test_their_club.save()
         self.test_our_team = Team(club=self.test_our_club, gender=TeamGender.MENS, ordinal=TeamOrdinal.T1)
         self.test_our_team.save()
@@ -43,14 +43,15 @@ class AppearanceTest(TestCase):
 
     def test_appearances_can_be_added_and_removed(self):
         """ Tests that appearances can be added to the database and then removed """
+        countBefore = Appearance.objects.all().count()
         app1 = Appearance(member=self.test_member1, match=self.test_match, goals=3, own_goals=0)
         app2 = Appearance(member=self.test_member2, match=self.test_match, goals=0, own_goals=3)
         app1.save()
         app2.save()
-        self.assertEqual(2, Appearance.objects.all().count())
+        self.assertEqual(countBefore + 2, Appearance.objects.all().count())
         app1.delete()
         app2.delete()
-        self.assertEqual(0, Appearance.objects.all().count())
+        self.assertEqual(countBefore, Appearance.objects.all().count())
 
     def test_a_member_cannot_appear_in_a_match_more_than_once(self):
         """"Tests that duplicate entries in the Appearances table are not allowed """

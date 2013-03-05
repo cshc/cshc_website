@@ -9,9 +9,9 @@ class MatchTest(TestCase):
     def setUp(self):
         self.test_url = "http://www.example.com"
         self.test_venue = Venue(name="Venue 1", short_name="Ven1")
-        self.test_our_club = Club(name="Cambridge South", website="http://www.cambridgesouthhockeyclub.co.uk")
+        self.test_our_club = Club(name="Test Club 1", website="http://www.cambridgesouthhockeyclub.co.uk")
         self.test_our_club.save()
-        self.test_their_club = Club(name="Cambridge City", website="http://www.cambridgecityhc.org/")
+        self.test_their_club = Club(name="Test Club 2", website="http://www.cambridgecityhc.org/")
         self.test_their_club.save()
         self.test_our_team = Team(club=self.test_our_club, gender=TeamGender.MENS, ordinal=TeamOrdinal.T1)
         self.test_our_team.save()
@@ -35,16 +35,18 @@ class FriendlyMatchTest(MatchTest):
 
     def test_friendly_matches_can_be_added_and_removed(self):
         """ Tests that friendly matches can be added to the database and then removed """
+        countBeforeMatch = Match.objects.all().count()
+        countBeforeFriendly = FriendlyMatch.objects.all().count()
         match1 = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), season=self.test_season)
         match2 = FriendlyMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.AWAY, date=date(2012, 10, 8), season=self.test_season)
         match1.save()
         match2.save()
-        self.assertEqual(2, Match.objects.all().count())
-        self.assertEqual(2, FriendlyMatch.objects.all().count())
+        self.assertEqual(countBeforeMatch + 2, Match.objects.all().count())
+        self.assertEqual(countBeforeFriendly + 2, FriendlyMatch.objects.all().count())
         match1.delete()
         match2.delete()
-        self.assertEqual(0, Match.objects.all().count())
-        self.assertEqual(0, FriendlyMatch.objects.all().count())
+        self.assertEqual(countBeforeMatch, Match.objects.all().count())
+        self.assertEqual(countBeforeFriendly, FriendlyMatch.objects.all().count())
 
     def test_is_walkover_score(self):
         """ Tests that the is_walkover_score method logic is correct """
@@ -141,31 +143,35 @@ class CupMatchTest(MatchTest):
 
     def test_cup_matches_can_be_added_and_removed(self):
         """ Tests that cup_matches can be added to the database and then removed """
+        countBeforeMatch = Match.objects.all().count()
+        countBeforeCup = CupMatch.objects.all().count()
         match1 = CupMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), cup_season=self.test_cup_season)
         match2 = CupMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.AWAY, date=date(2012, 10, 8), cup_season=self.test_cup_season)
         match1.time = time(10, 5, 30)
         dt = match1.datetime()
         match1.save()
         match2.save()
-        self.assertEqual(2, Match.objects.all().count())
-        self.assertEqual(2, CupMatch.objects.all().count())
+        self.assertEqual(countBeforeMatch + 2, Match.objects.all().count())
+        self.assertEqual(countBeforeCup + 2, CupMatch.objects.all().count())
         match1.delete()
         match2.delete()
-        self.assertEqual(0, Match.objects.all().count())
-        self.assertEqual(0, CupMatch.objects.all().count())
+        self.assertEqual(countBeforeMatch, Match.objects.all().count())
+        self.assertEqual(countBeforeCup, CupMatch.objects.all().count())
 
 
 class DivisionMatchTest(MatchTest):
 
     def test_division_matches_can_be_added_and_removed(self):
         """ Tests that division matches can be added to the database and then removed """
+        countBeforeMatch = Match.objects.all().count()
+        countBeforeDiv = DivisionMatch.objects.all().count()
         match1 = DivisionMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.HOME, date=date(2012, 10, 1), div_season=self.test_div_season)
         match2 = DivisionMatch(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=HomeAway.AWAY, date=date(2012, 10, 8), div_season=self.test_div_season)
         match1.save()
         match2.save()
-        self.assertEqual(2, Match.objects.all().count())
-        self.assertEqual(2, DivisionMatch.objects.all().count())
+        self.assertEqual(countBeforeMatch + 2, Match.objects.all().count())
+        self.assertEqual(countBeforeDiv + 2, DivisionMatch.objects.all().count())
         match1.delete()
         match2.delete()
-        self.assertEqual(0, Match.objects.all().count())
-        self.assertEqual(0, DivisionMatch.objects.all().count())
+        self.assertEqual(countBeforeMatch, Match.objects.all().count())
+        self.assertEqual(countBeforeDiv, DivisionMatch.objects.all().count())

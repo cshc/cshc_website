@@ -8,7 +8,7 @@ class DivisionParticipationTest(TestCase):
 
     def setUp(self):
         self.test_url = "http://www.example.com"
-        self.test_club = Club(name="Cambridge South", website=self.test_url)
+        self.test_club = Club(name="Test Club 1", website=self.test_url)
         self.test_club.save()
         self.test_team1 = Team(club=self.test_club, gender=TeamGender.MENS, ordinal=TeamOrdinal.T1)
         self.test_team1.save()
@@ -25,14 +25,15 @@ class DivisionParticipationTest(TestCase):
 
     def test_division_participations_can_be_added_and_removed(self):
         """ Tests that division participations can be added to the database and then removed """
+        countBefore = DivisionParticipation.objects.all().count()
         div_part1 = DivisionParticipation(team=self.test_team1, div_season=self.test_div_season, final_pos=1)
         div_part2 = DivisionParticipation(team=self.test_team2, div_season=self.test_div_season, final_pos=2)
         div_part1.save()
         div_part2.save()
-        self.assertEqual(2, DivisionParticipation.objects.all().count())
+        self.assertEqual(countBefore + 2, DivisionParticipation.objects.all().count())
         div_part1.delete()
         div_part2.delete()
-        self.assertEqual(0, DivisionParticipation.objects.all().count())
+        self.assertEqual(countBefore, DivisionParticipation.objects.all().count())
 
     def test_duplicate_division_participations_are_not_allowed(self):
         """ Tests that the combination of division season and a team must be unique """
@@ -43,7 +44,8 @@ class DivisionParticipationTest(TestCase):
 
     def test_division_participation_final_position_is_optional(self):
         """ Tests that the final position of the division participation can be unset when saving """
+        countBefore = DivisionParticipation.objects.all().count()
         div_part = DivisionParticipation(team=self.test_team1, div_season=self.test_div_seaso)
         self.assertEqual(None, div_part.final_pos)
         div_part.save()
-        self.assertEqual(1, DivisionParticipation.objects.all().count())
+        self.assertEqual(countBefore + 1, DivisionParticipation.objects.all().count())

@@ -9,14 +9,15 @@ class MatchAwardTest(TestCase):
 
     def test_match_awards_can_be_added_and_removed(self):
         """ Tests that match awards can be added to the database and then removed """
+        countBefore = MatchAward.objects.all().count()
         award1 = MatchAward(name="Man of the match")
         award2 = MatchAward(name="Lemon of the match")
         award1.save()
         award2.save()
-        self.assertEqual(2, MatchAward.objects.all().count())
+        self.assertEqual(countBefore + 2, MatchAward.objects.all().count())
         award1.delete()
         award2.delete()
-        self.assertEqual(0, MatchAward.objects.all().count())
+        self.assertEqual(countBefore, MatchAward.objects.all().count())
 
     def test_award_names_must_be_unique(self):
         """ Tests that you cannot specify two awards with the same name """
@@ -29,14 +30,15 @@ class EndofSeasonAwardTest(TestCase):
 
     def test_end_of_season_awards_can_be_added_and_removed(self):
         """ Tests that end of season awards can be added to the database and then removed """
+        countBefore = EndOfSeasonAward.objects.all().count()
         award1 = EndOfSeasonAward(name="1st team: Member of the season")
         award2 = EndOfSeasonAward(name="1st team: Most improved")
         award1.save()
         award2.save()
-        self.assertEqual(2, EndOfSeasonAward.objects.all().count())
+        self.assertEqual(countBefore + 2, EndOfSeasonAward.objects.all().count())
         award1.delete()
         award2.delete()
-        self.assertEqual(0, EndOfSeasonAward.objects.all().count())
+        self.assertEqual(countBefore, EndOfSeasonAward.objects.all().count())
 
     def test_award_names_must_be_unique(self):
         """ Tests that you cannot specify two awards with the same name """
@@ -67,9 +69,9 @@ class MatchAwardWinnerTest(AwardWinnerTest):
         super(MatchAwardWinnerTest, self).setUp() 
         self.test_url = "http://www.example.com"
         self.test_venue = Venue(name="Venue 1", short_name="Ven1")
-        self.test_our_club = Club(name="Cambridge South", website="http://www.cambridgesouthhockeyclub.co.uk")
+        self.test_our_club = Club(name="Test Club 1", website="http://www.cambridgesouthhockeyclub.co.uk")
         self.test_our_club.save()
-        self.test_their_club = Club(name="Cambridge City", website="http://www.cambridgecityhc.org/")
+        self.test_their_club = Club(name="Test Club 2", website="http://www.cambridgecityhc.org/")
         self.test_their_club.save()
         self.test_our_team = Team(club=self.test_our_club, gender=TeamGender.MENS, ordinal=TeamOrdinal.T1)
         self.test_our_team.save()
@@ -94,14 +96,15 @@ class MatchAwardWinnerTest(AwardWinnerTest):
 
     def test_match_award_winners_can_be_added_and_removed(self):
         """ Tests that match award winners can be added to the database and then removed """
+        countBefore = MatchAwardWinner.objects.all().count()
         awardWinner1 = MatchAwardWinner(match=self.test_match, award=self.test_match_award1, member=self.test_member1, comment="A note")
         awardWinner2 = MatchAwardWinner(match=self.test_match, award=self.test_match_award2, awardee="Some guy", comment="Another note")
         awardWinner1.save()
         awardWinner2.save()
-        self.assertEqual(2, MatchAwardWinner.objects.all().count())
+        self.assertEqual(countBefore + 2, MatchAwardWinner.objects.all().count())
         awardWinner1.delete()
         awardWinner2.delete()
-        self.assertEqual(0, MatchAwardWinner.objects.all().count())   
+        self.assertEqual(countBefore, MatchAwardWinner.objects.all().count())   
         
     def test_awardee_or_member_must_be_specified(self):
         """Test that you must specify either the member or the awardee for an award winner"""
@@ -119,11 +122,12 @@ class EndOfSeasonAwardWinnerTest(AwardWinnerTest):
 
     def test_end_of_season_award_winners_can_be_added_and_removed(self):
         """ Tests that end of season award winners can be added to the database and then removed """
+        countBefore = EndOfSeasonAwardWinner.objects.all().count()
         awardWinner1 = EndOfSeasonAwardWinner(season=self.test_season, award=self.test_award1, member=self.test_member1, comment="A note")
         awardWinner2 = EndOfSeasonAwardWinner(season=self.test_season, award=self.test_award2, awardee="Some guy", comment="Another note")
         awardWinner1.save()
         awardWinner2.save()
-        self.assertEqual(2, EndOfSeasonAwardWinner.objects.all().count())
+        self.assertEqual(countBefore + 2, EndOfSeasonAwardWinner.objects.all().count())
         awardWinner1.delete()
         awardWinner2.delete()
-        self.assertEqual(0, EndOfSeasonAwardWinner.objects.all().count()) 
+        self.assertEqual(countBefore, EndOfSeasonAwardWinner.objects.all().count()) 

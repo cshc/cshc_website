@@ -10,18 +10,18 @@ class DivisionTest(TestCase):
         self.test_league = League(name="Test League", url=self.test_url)
         self.test_league.save()
         self.test_div = Division(name="Test Division", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
-        self.assertEqual(0, Division.objects.all().count())
 
     def test_divisions_can_be_added_and_removed(self):
         """ Tests that divisions can be added to the database and then removed """
+        countBefore = Division.objects.all().count()
         div1 = Division(name="Test Division 1", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
         div2 = Division(name="Test Division 2", league=self.test_league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
         div1.save()
         div2.save()
-        self.assertEqual(2, Division.objects.all().count())
+        self.assertEqual(countBefore + 2, Division.objects.all().count())
         div1.delete()
         div2.delete()
-        self.assertEqual(0, Division.objects.all().count())
+        self.assertEqual(countBefore, Division.objects.all().count())
 
     def test_division_name_cannot_be_none(self):
         """ Tests that you must specify the name of the division """
@@ -31,20 +31,23 @@ class DivisionTest(TestCase):
 
     def test_division_tables_and_fixtures_urls_are_optional(self):
         """ Tests that you dont' have to specify the tables and fixtures urls for a division """
+        countBefore = Division.objects.all().count()
         self.test_div.tables_url = None
         self.test_div.fixtures_url = None
         self.test_div.save()
-        self.assertEqual(1, Division.objects.all().count())
+        self.assertEqual(countBefore + 1, Division.objects.all().count())
 
     def test_prom_rel_divs_are_optional(self):
         """ Tests that you don't have to specify promotion or relegation division foreign keys """
+        countBefore = Division.objects.all().count()
         self.assertEqual(None, self.test_div.promotion_div)
         self.assertEqual(None, self.test_div.relegation_div)
         self.test_div.save()
-        self.assertEqual(1, Division.objects.all().count())
+        self.assertEqual(countBefore + 1, Division.objects.all().count())
 
     def test_division_name_must_be_unique_within_league(self):
         """ Tests that you can't have two divisions in the same league with the same name """
+        countBefore = Division.objects.all().count()
         self.test_div.save()
         # Create a new division with the same name and league
         test_div2 = Division(name=self.test_div.name, league=self.test_div.league, tables_url=self.test_url, fixtures_url=self.test_url, gender=TeamGender.MENS)
@@ -59,7 +62,7 @@ class DivisionTest(TestCase):
 
         # This time it should be inserted fine
         test_div2.save()
-        self.assertEqual(2, Division.objects.all().count())
+        self.assertEqual(countBefore + 2, Division.objects.all().count())
         # (Ignore the trivial case where both have the same league but different names)
 
     def test_prom_rel_divs_cannot_be_the_same(self):

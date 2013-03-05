@@ -16,14 +16,15 @@ class CupSeasonTest(TestCase):
 
     def test_cup_seasons_can_be_added_and_removed(self):
         """ Tests that cup seasons can be added to the database and then removed """
+        countBefore = CupSeason.objects.all().count()
         cup_season1 = CupSeason(cup=self.test_cup1, season=self.test_season)
         cup_season2 = CupSeason(cup=self.test_cup2, season=self.test_season)
         cup_season1.save()
         cup_season2.save()
-        self.assertEqual(2, CupSeason.objects.all().count())
+        self.assertEqual(countBefore + 2, CupSeason.objects.all().count())
         cup_season1.delete()
         cup_season2.delete()
-        self.assertEqual(0, CupSeason.objects.all().count())
+        self.assertEqual(countBefore, CupSeason.objects.all().count())
 
     def test_duplicate_cup_seasons_are_not_allowed(self):
         """ Tests that the combination of cup and season must be unique """

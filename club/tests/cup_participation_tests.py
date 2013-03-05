@@ -8,7 +8,7 @@ class CupParticipationTest(TestCase):
 
     def setUp(self):
         self.test_url = "http://www.example.com"
-        self.test_club = Club(name="Cambridge South", website=self.test_url)
+        self.test_club = Club(name="Test Club 1", website=self.test_url)
         self.test_club.save()
         self.test_team1 = Team(club=self.test_club, gender=TeamGender.MENS, ordinal=TeamOrdinal.T1)
         self.test_team1.save()
@@ -23,14 +23,15 @@ class CupParticipationTest(TestCase):
 
     def test_cup_participations_can_be_added_and_removed(self):
         """ Tests that cup participations can be added to the database and then removed """
+        countBefore = CupParticipation.objects.all().count()
         cup_part1 = CupParticipation(team=self.test_team1, cup_season=self.test_cup_season)
         cup_part2 = CupParticipation(team=self.test_team2, cup_season=self.test_cup_season)
         cup_part1.save()
         cup_part2.save()
-        self.assertEqual(2, CupParticipation.objects.all().count())
+        self.assertEqual(countBefore + 2, CupParticipation.objects.all().count())
         cup_part1.delete()
         cup_part2.delete()
-        self.assertEqual(0, CupParticipation.objects.all().count())
+        self.assertEqual(countBefore, CupParticipation.objects.all().count())
 
     def test_duplicate_cup_participations_are_not_allowed(self):
         """ Tests that the combination of cup season and a team must be unique """
@@ -41,7 +42,8 @@ class CupParticipationTest(TestCase):
 
     def test_cup_participation_result_is_optional(self):
         """ Tests that the result of the cup participation can be unset when saving """
+        countBefore = CupParticipation.objects.all().count()
         cup_part = CupParticipation(team=self.test_team1, cup_season=self.test_cup_season)
         self.assertEqual(None, cup_part.result)
         cup_part.save()
-        self.assertEqual(1, CupParticipation.objects.all().count())
+        self.assertEqual(countBefore + 1, CupParticipation.objects.all().count())

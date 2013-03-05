@@ -19,14 +19,15 @@ class DivisionSeasonTest(TestCase):
 
     def test_division_seasons_can_be_added_and_removed(self):
         """ Tests that division seasons can be added to the database and then removed """
+        countBefore = DivisionSeason.objects.all().count()
         div_season1 = DivisionSeason(division=self.test_div1, season=self.test_season)
         div_season2 = DivisionSeason(division=self.test_div2, season=self.test_season)
         div_season1.save()
         div_season2.save()
-        self.assertEqual(2, DivisionSeason.objects.all().count())
+        self.assertEqual(countBefore + 2, DivisionSeason.objects.all().count())
         div_season1.delete()
         div_season2.delete()
-        self.assertEqual(0, DivisionSeason.objects.all().count())
+        self.assertEqual(countBefore, DivisionSeason.objects.all().count())
 
     def test_duplicate_division_seasons_are_not_allowed(self):
         """ Tests that the combination of division and season must be unique """

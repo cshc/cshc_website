@@ -17,6 +17,7 @@ class VenueTest(TestCase):
 
     def test_venues_can_be_added_and_removed(self):
         """ Tests that venues can be added to the database and then removed """
+        countBefore = Venue.objects.all().count()
         venue1 = Venue(name="Venue 1", short_name="Ven1", url=self.test_url, phone=self.test_phone, 
                        addr1=self.test_addr1, addr2=self.test_addr2, addr3=self.test_addr3, addr_city=self.test_city, addr_postcode=self.test_postcode, 
                        notes=self.test_notes)
@@ -25,10 +26,10 @@ class VenueTest(TestCase):
                        notes=self.test_notes)
         venue1.save()
         venue2.save()
-        self.assertEqual(2, Venue.objects.all().count())
+        self.assertEqual(countBefore + 2, Venue.objects.all().count())
         venue1.delete()
         venue2.delete()
-        self.assertEqual(0, Venue.objects.all().count())
+        self.assertEqual(countBefore, Venue.objects.all().count())
 
     def test_both_venue_name_and_short_name_must_be_supplied(self):
         """ Tests that you must specify both the name and short name of the venue """
@@ -46,9 +47,10 @@ class VenueTest(TestCase):
 
     def test_only_venue_name_and_short_name_need_to_be_supplied(self):
         """Tests that all other Venue fields are optional"""
+        countBefore = Venue.objects.all().count()
         basic_venue = Venue(name="My Venue", short_name="MyVen")
         basic_venue.save()
-        self.assertEqual(1, Venue.objects.all().count())
+        self.assertEqual(countBefore + 1, Venue.objects.all().count())
 
     def test_venue_names_must_be_unique(self):
         """Tests that two venues with the same name cannot be added"""
