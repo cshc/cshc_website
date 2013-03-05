@@ -67,16 +67,22 @@ class Match(models.Model):
                
         super(Match, self).save(*args, **kwargs) 
         
+    # Overridden in derived classes
     @property
     def fixture_type(self):
         return FixtureType.Friendly_display
         
     def datetime(self):
+        """ 
+        Convenience method to retrieve the date and time as one datetime object.
+        Returns just the date if the time is not set.
+        """
         if(self.time != None):
             return datetime.combine(self.date, self.time)
         return self.date
     
     def is_in_past(self):
+        """ Returns true if the match date/datetime is in the past."""
         if(self.time != None):
             return self.datetime() < datetime.now()
         return self.date < datetime.today().date()
@@ -112,7 +118,10 @@ class Match(models.Model):
         
     @staticmethod
     def is_walkover_score(score1, score2):
-        # Valid results are 3-0, 5-0, 0-3, 0-5
+        """ 
+        Checks if the given scores are valid walk-over scores. 
+        Valid results are 3-0, 5-0, 0-3, 0-5.
+        """
         if(score1 == Match.WALKOVER_SCORE_W1 or score1 == Match.WALKOVER_SCORE_W2):
             return score2 == Match.WALKOVER_SCORE_L
         elif(score2 == Match.WALKOVER_SCORE_W1 or score2 == Match.WALKOVER_SCORE_W2):
@@ -125,29 +134,42 @@ class Match(models.Model):
         return "{0}-{2}, {1}-{2}, {2}-{0} or {2}-{1}".format(Match.WALKOVER_SCORE_W1, Match.WALKOVER_SCORE_W2, Match.WALKOVER_SCORE_L)
     
     def ht_scores_provided(self):
+        """ Returns true if both half-time scores are not None."""
         return (self.our_ht_score != None and
                 self.opp_ht_score != None)
                 
     def final_scores_provided(self):
+        """ Returns true if both full-time/final scores are not None."""
         return (self.our_score != None and
                 self.opp_score != None)
                 
     def all_scores_provided(self):
+        """ Returns true if both half-time and full-time scores are provided."""
         return self.final_scores_provided() and self.ht_scores_provided()
                 
     def was_won(self):
+        """ Returns true if our team won the match. """
         return (self.final_scores_provided() and
                 self.our_score > self.opp_score)
     
     def was_lost(self):
+        """ Returns true if our team lost the match. """
         return (self.final_scores_provided() and
                 self.our_score < self.opp_score)
                 
     def was_drawn(self):
+        """ Returns true if the match was drawn. """
         return (self.final_scores_provided() and
                 self.our_score == self.opp_score)
     
     def score_display(self):
+        """ 
+        Convenience method for displaying the score.
+        Examples include:
+        "3-2"         (normal result)
+        ""            (blank - no result yet)
+        "Cancelled"   (alt_outcome not None)   
+        """
         if(self.alt_outcome != AlternativeOutcome.NONE):
             return self.get_alt_outcome_display()
         if(not self.final_scores_provided(self)):

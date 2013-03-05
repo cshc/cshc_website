@@ -1,5 +1,11 @@
 {% extends "venue_map_page.html" %}
 
+{% comment %}
+Formatted display of the details of a particular venue.
+- Used by club.views.venues.details
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
 {% block title %}{{ block.super }} | {{ match }}{% endblock %}
 
 {% block content %}

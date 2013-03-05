@@ -21,4 +21,5 @@ class Venue(models.Model):
         return self.name
 
     def full_address(self):
-        return string.join([self.addr1, self.addr2, self.addr3, self.addr_city, self.addr_postcode])
+        """ Returns the full address with (not None) address items separated by commas."""
+        return ", ".join(filter(None, (self.addr1, self.addr2, self.addr3, self.addr_city, self.addr_postcode)))
