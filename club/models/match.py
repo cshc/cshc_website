@@ -1,5 +1,6 @@
 from django.db import models
 from django.db import IntegrityError
+from django.core.urlresolvers import reverse
 from datetime import datetime, date, time
 from team import Team
 from venue import Venue
@@ -39,6 +40,9 @@ class Match(models.Model):
     def __unicode__(self):
         return "{} vs {} ({}, {})".format(self.our_team, self.opp_team, self.fixture_type, self.date)
 
+    def get_absolute_url(self):
+        return reverse('club.views.matches.details', args=[self.pk])
+
     def save(self, *args, **kwargs):
         """ Validate the match details and then save """
         if(self.our_team == self.opp_team):
@@ -72,6 +76,12 @@ class Match(models.Model):
     def fixture_type(self):
         return FixtureType.Friendly_display
         
+    def has_result(self):
+        return self.report_body != None
+
+    def has_team(self):
+        return self.players.count() > 0
+
     def datetime(self):
         """ 
         Convenience method to retrieve the date and time as one datetime object.

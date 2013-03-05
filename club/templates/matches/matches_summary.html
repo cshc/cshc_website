@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted summary display of matches.
+- Used by club.views.matches.index
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Matches{% endblock %}
+
+{% block content %}
+
+<h1>Latest Results</h1>
+<div class="row">
+<div class="span7">
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th>Team</th><th>Opposition</th><th>Score</th><th>Date</th><th>Report</th></tr>
+    </thead>
+    <tbody>
+    {% for m in latest_results %}
+        <tr>
+            <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team.name }}</a></td>
+            <td>{{ m.opp_team.club.name }} {{ m.opp_team.ordinal }}</td>
+            <td>{{ m.score_display }}</td>
+            <td>{{ m.date|date:"jS F" }}</td>
+            {% if m.has_result %}
+            <td><a href="{{ m.get_absolute_url }}">Report</a></td>
+            {% else %}
+            {% if m.has_team %}
+            <td><a href="{{ m.get_absolute_url }}">Team</a></td>
+            {% else %}
+            <td><a href="{{ m.get_absolute_url }}">Fixture</a></td>
+            {% endif %}
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+
+<h1>Next Fixtures</h1>
+<div class="row">
+<div class="span7">
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th>Team</th><th>Opposition</th><th>Venue</th><th>Date</th><th>Start time</th></tr>
+    </thead>
+    <tbody>
+    {% for m in next_fixtures %}
+        <tr>
+            <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team.name }}</a></td>
+            <td>{{ m.opp_team }}</td>
+            <td><a href="{{ m.venue.get_absolute_url }}">{{ m.venue.name }}</a></td>
+            <td>{{ m.date|date:"jS F" }}</td>
+            <td>{{ m.time }}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+{% endblock %}

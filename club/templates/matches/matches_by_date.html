@@ -19,7 +19,11 @@ Currently just lists the values that will be needed by this template - no UI des
     </thead>
     <tbody>
     {% for m in matches %}
-        <tr><td>{{ m.our_team.name }}</td><td>{{ m.opp_team }}</td><td>{{ m.venue.name }}</td><td>{{ m.time }}</td></tr>
+        <tr>
+            <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team.name }}</a></td>
+            <td>{{ m.opp_team }}</td>
+            <td><a href="{{ m.venue.get_absolute_url }}">{{ m.venue.name }}</a></td>
+            <td>{{ m.time }}</td></tr>
     {% endfor %}
     </tbody>
 </table>

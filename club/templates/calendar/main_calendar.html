@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% comment %}
+Calendar (currently Google) of all club events
+- Used by club.views.calendar.index
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Calendar{% endblock %}
+
+{% block content %}
+
+<h1>Calendar</h1>
+
+<iframe frameborder="0" height="600" scrolling="no" 
+    src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;mode=MONTH&amp;height=600&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=cshc.men.3%40gmail.com&amp;color=%238C500B&amp;src=cshc.ladies%40gmail.com&amp;color=%23182C57&amp;src=cshc.men.2%40gmail.com&amp;color=%23125A12&amp;src=cshc.men.4%40gmail.com&amp;color=%23B1440E&amp;src=cshc.men.1%40gmail.com&amp;color=%2342104A&amp;src=cshc.club%40gmail.com&amp;color=%238D500B&amp;ctz=Europe%2FLondon" 
+    style="border-right-width: 0px; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" width="100%">
+</iframe>
+
+{# TODO: Review this content that was copied from the old site #}
+<p>There are a series of calendars that you can link into your normal calendar client (Outlook, iPhone etc). The addresses are in the table below.</p>
+<div class="row">
+<div class="span8">
+<table class="table table-condensed table-hover">
+<thead>
+        <tr><th>Calendar</th><th>Address / Link</th></tr>
+    </thead>
+<tbody>
+	<tr>
+		<td>Ladies Fixtures</td>
+		<td><a href="https://www.google.com/calendar/ical/cshc.men.1%40gmail.com/public/basic.ics">https://www.google.com/calendar/ical/cshc.ladies%40gmail.com/public/basic.ics</a></td>
+	</tr>
+	<tr>
+		<td>M1 Fixtures</td>
+		<td><a href="https://www.google.com/calendar/ical/cshc.men.1%40gmail.com/public/basic.ics">https://www.google.com/calendar/ical/cshc.men.1%40gmail.com/public/basic.ics</a></td>
+	</tr>
+	<tr>
+		<td>M2 Fixtures</td>
+		<td><a href="https://www.google.com/calendar/ical/cshc.men.1%40gmail.com/public/basic.ics">https://www.google.com/calendar/ical/cshc.men.2%40gmail.com/public/basic.ics</a></td>
+	</tr>
+	<tr>
+		<td>M3 Fixtures</td>
+		<td><a href="https://www.google.com/calendar/ical/cshc.men.1%40gmail.com/public/basic.ics">https://www.google.com/calendar/ical/cshc.men.3%40gmail.com/public/basic.ics</a></td>
+	</tr>
+	<tr>
+		<td>M4 Fixtures</td>
+		<td><a href="https://www.google.com/calendar/ical/cshc.men.1%40gmail.com/public/basic.ics">https://www.google.com/calendar/ical/cshc.men.4%40gmail.com/public/basic.ics</a></td>
+	</tr>
+	<tr>
+		<td>General (Training &amp; Socials)</td>
+		<td><a href="https://www.google.com/calendar/ical/cshc.club%40gmail.com/public/basic.ics">https://www.google.com/calendar/ical/cshc.club%40gmail.com/public/basic.ics</a></td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<p>How you actually subscribe to the calendar depends on the client that you are using. For a start&nbsp;you can try clicking on the links above and see if your OS will automatically start the subcription. Also below are some instructions for Outlook 2007 and the Apple iPhone and iCal. If anyone else wants to write instructions for other clients then please email them to George and he will add them to the site.</p>
+<h3>Outlook 2007</h3>
+<ol>
+<li>
+	Select Tools &gt; Account Settings</li>
+<li>
+	Select the Internet Calendars tab</li>
+<li>
+	Press New</li>
+<li>
+	Copy the iCal link from the table above and paste it into the New Internet Calendar Subscription screen that appears.</li>
+<li>
+	Press Add.</li>
+<li>
+	In the screen that appears type &quot;CSHC&quot; into the Folder Name box (it currently says &quot;basic&quot;) and press OK</li>
+<li>
+	Press Close</li>
+<li>
+	Go to the Calendar view in Outlook and on the left hand side you should now see, under &quot;Other Calendars&quot; a check box for &quot;CSHC&quot;. If you don&#39;t see it then wait a few minutes and it should refresh (try closing Outlook and reopening if necessary). Tick the check box when you see it and the calendar should appear.</li>
+</ol>
+<h3>iPhone</h3>
+<ol>
+<li>
+	Copy the iCal link.</li>
+<li>
+	Go to &quot;Settings&quot; on your iPhone and choose &quot;Mail, Contacts, Calendars&quot;</li>
+<li>
+	Under &quot;Accounts&quot; select &quot;Add Account...&quot;</li>
+<li>
+	Select &quot;Other&quot;</li>
+<li>
+	Under &quot;Calendars&quot; select &quot;Add Subscribed Calendar&quot;</li>
+<li>
+	Paste the iCal link into the &quot;Server&quot; box and select &quot;Next&quot;.</li>
+<li>
+	The calendar is now viewable in the pre-installed &quot;Calendar&quot; app.</li>
+</ol>
+<h3>Apple iCal</h3>
+<ol>
+<li>
+	Copy the iCal link.</li>
+<li>
+	In the iCal application, click on &quot;Calendar&quot; in the top menu bar and choose &quot;Subscribe...&quot;.</li>
+<li>
+	Paste the iCal link into the &quot;Calendar URL:&quot; box and click &quot;Subscribe&quot;.</li>
+<li>
+	Click the &quot;Auto-refresh:&quot; drop down menu and choose a frequency with which iCal should check the calendar for updates (daily is probably sufficient).</li>
+<li>
+	Click OK.</li>
+</ol>
+
+{% endblock %}
+

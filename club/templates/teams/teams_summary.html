@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted display of all teams.
+- Used by club.views.teams.index
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Teams{% endblock %}
+
+{% block content %}
+
+<h1>Our Teams</h1>
+
+{% for team in our_teams %}
+    <h3><a href="{{ team.get_absolute_url }}">{{ team.name }}</a></h3>
+    {% if team.current_division != None %}
+    <p>Currently in <a href="{{ team.current_division.tables_url }}">{{ team.current_division }}</a></p>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

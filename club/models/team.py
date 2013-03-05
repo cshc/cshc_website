@@ -1,6 +1,8 @@
 from django.db import models
 from choices import TeamGender, TeamOrdinal
 from club import Club
+from season import Season
+from django.core.urlresolvers import reverse
 
 class TeamManager(models.Manager):
         
@@ -37,11 +39,20 @@ class Team(models.Model):
         app_label = 'club'
         # Within a club there can be only one team for a particular gender and ordinal combination
         unique_together = ('club', 'gender', 'ordinal')   
-        ordering = ['club', 'gender', 'ordinal']
+        ordering = ['club', '-gender', 'ordinal']
 
     def __unicode__(self):
         return "{} {}".format(self.club.name, self.name())
 
     def name(self):
         return "{} {}".format(self.get_gender_display(), self.get_ordinal_display())
+
+    def get_absolute_url(self):
+        return reverse('club.views.teams.details', args=[self.gender.lower(), self.ordinal.lower()])
+
+    def current_division(self):
+        try:
+            return self.divisionparticipation_set.filter(div_season__season=Season.current())[0].div_season.division
+        except IndexError:
+            return None
         

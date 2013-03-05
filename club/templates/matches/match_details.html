@@ -20,7 +20,7 @@ Currently just lists the values that will be needed by this template - no UI des
     <tbody>
         <tr><td>Home/away</td><td>{{ match.get_home_away_display }}</td></tr>
         <tr><td>Our club</td><td>{{ match.our_team.club.name }}</td></tr>
-        <tr><td>Our team</td><td><a href="/matches/{{match.our_team.gender|lower}}-{{match.our_team.ordinal|lower}}">{{ match.our_team.name }}</a></td></tr>
+        <tr><td>Our team</td><td><a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.name }}</a></td></tr>
         <tr><td>Opposition club</td><td>{{ match.opp_team.club.name }}</td></tr>
         <tr><td>Opposition team</td><td>{{ match.opp_team.name }}</td></tr>
         <tr><td>Our score</td><td>{{ match.our_score }}</td></tr>
@@ -84,7 +84,7 @@ Currently just lists the values that will be needed by this template - no UI des
 <table class="table table-condensed table-hover">
     <tbody>
     {% for m in same_date_matches %}
-        <tr><td><a href="/matches/{{ m.pk }}">{{ m.match_title_text }}</a></td></tr>
+        <tr><td><a href="{{ m.get_absolute_url }}">{{ m.match_title_text }}</a></td></tr>
     {% endfor %}
     </tbody>
 </table>
@@ -99,7 +99,7 @@ Currently just lists the values that will be needed by this template - no UI des
 {% if prev_match = None %}
     None
 {% else %}
-    <a href="/matches/{{ prev_match.pk }}">{{ prev_match }}</a>
+    <a href="{{ prev_match.get_absolute_url }}">{{ prev_match }}</a>
 {% endif %}
 </p>
 <h3>Next match</h3>
@@ -107,7 +107,7 @@ Currently just lists the values that will be needed by this template - no UI des
 {% if next_match = None %}
     None
 {% else %}
-    <a href="/matches/{{ next_match.pk }}">{{ next_match }}</a>
+    <a href="{{ next_match.get_absolute_url }}">{{ next_match }}</a>
 {% endif %}
 </p>
 

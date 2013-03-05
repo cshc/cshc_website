@@ -12,7 +12,17 @@ from club.models.util import *
 logger = logging.getLogger(__name__)
 
 def index(request):
-    return HttpResponse("Matches summary")
+    """ Displays a summary of latest results and next fixtures, and some links to other match-related pages. """
+    
+    # TODO: Get one result per team
+    latest_results = Match.objects.order_by('-date').filter(date__lte=datetime.now().date())[:6]
+    next_fixtures = Match.objects.order_by('date').filter(date__gt=datetime.now().date())[:6]
+
+    context = Context({
+        'latest_results': latest_results,
+        'next_fixtures': next_fixtures
+    })
+    return render(request, 'matches/matches_summary.html', context)
 
 
 def details(request, match_id):
