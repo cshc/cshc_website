@@ -1,0 +1,24 @@
+{% comment %}
+This re-usable template displays the next fixture for each team in the club.
+Context should have a 'next_fixtures' list of Match objects.
+{% endcomment %}
+
+<div class="row">
+<div class="span7">
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th>Team</th><th>Opposition</th><th>Venue</th><th>Date</th><th>Start time</th></tr>
+    </thead>
+    <tbody>
+    {% for m in next_fixtures %}
+        <tr>
+            <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team.name }}</a></td>
+            <td>{{ m.opp_team }}</td>
+            <td><a href="{{ m.venue.get_absolute_url }}">{{ m.venue.name }}</a></td>
+            <td>{{ m.date|date:"jS M" }}</td>
+            <td>{{ m.time }}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>

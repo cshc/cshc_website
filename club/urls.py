@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from club.feeds import *
 
 club_urlpatterns = patterns('club.views',
     url(r'^$',             'static.index'),
@@ -16,9 +17,13 @@ club_urlpatterns = patterns('club.views',
     url(r'^venues/(.+)$',                                   'venues.details'),              # Details of a venue
 
     # Teams
-    url(r'^teams/$',                                       'teams.index'),                  # Main landing page for teams
-    url(r'^teams/([a-z]+)-([a-z0-9]+)$',                   'teams.details'),                # Details of a team
+    url(r'^teams/$',                                        'teams.index'),                 # Main landing page for teams
+    url(r'^teams/([a-z]+)-([a-z0-9]+)$',                    'teams.details'),               # Details of a team
 
     # Calendar
-    url(r'^calendar/$',                                       'calendar.index'),                  # Main calendar
+    url(r'^calendar/$',                                     'calendar.index'),              # Main calendar
+
+    # Feeds
+    url(r'^matches/rss/$',                                  RssMatchReportsFeed()),         # RSS feed of match reports
+    url(r'^matches/atom/$',                                 AtomMatchReportsFeed()),        # Atom feed of match reports
 )

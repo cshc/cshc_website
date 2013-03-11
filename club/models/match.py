@@ -9,6 +9,17 @@ from cup_season import CupSeason
 from season import Season
 from choices import HomeAway, AlternativeOutcome, FixtureType, CupRound
 
+class MatchManager(models.Manager):
+
+    def fixtures(self):
+        return super(MatchManager, self).get_query_set().filter(date__gte=datetime.now().date()).order_by('date')
+
+    def results(self):
+        return super(MatchManager, self).get_query_set().filter(date__lt=datetime.now().date()).order_by('date')
+
+    def reports(self):
+        return self.results().filter(report_body__isnull=False)
+
 class Match(models.Model):
 
     # Walk-over matches must be either 3-0 or 5-0 (depending on the league)
@@ -31,6 +42,8 @@ class Match(models.Model):
     report_title = models.CharField("Match report title", max_length=200, null=True, blank=True, default=None)
     report_author = models.CharField("Match report author", max_length=200, null=True, blank=True, default=None)
     report_body = models.TextField("Match report", null=True, blank=True, default=None)
+
+    objects = MatchManager()
 
     class Meta:
         app_label = 'club'
@@ -182,7 +195,7 @@ class Match(models.Model):
         """
         if(self.alt_outcome != AlternativeOutcome.NONE):
             return self.get_alt_outcome_display()
-        if(not self.final_scores_provided(self)):
+        if(not self.final_scores_provided()):
             return ""
         return "{}-{}".format(self.our_score, self.opp_score)
 

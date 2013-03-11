@@ -20,7 +20,7 @@ Currently just lists the values that will be needed by this template - no UI des
     <tbody>
     {% for v in venues %}
         <tr>
-            <td><a href="{{ v.get_absoulute_url }}">{{ v.name }}</a></td>
+            <td><a href="{{ v.get_absolute_url }}">{{ v.name }}</a></td>
             <td>{{ v.phone }}</td>
             <td>{{ v.full_address }}</td>
             <td>{{ v.notes }}</td></tr>

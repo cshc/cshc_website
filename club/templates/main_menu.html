@@ -1,0 +1,30 @@
+{% load club_tags %}
+
+{% url club.views.static.index as home %}
+{% url club.views.teams.index as team_index %}
+{% url club.views.teams.details 'm' '1' as team_m1 %}
+{% url club.views.teams.details 'm' '2' as team_m2 %}
+{% url club.views.teams.details 'm' '3' as team_m3 %}
+{% url club.views.teams.details 'm' '4' as team_m4 %}
+{% url club.views.teams.details 'l' '1' as team_l1 %}
+{% url club.views.teams.details 'l' '2' as team_l2 %}
+
+<ul class="nav">
+    <li class="{% active home %}"><a href="{{ home }}">Home</a></li>
+    
+    
+    <li class="dropdown">
+    <a href="{{ team_index }}" class="dropdown-toggle" data-toggle="dropdown">Teams <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li class="nav-header">Mens</li>
+        <li class="{% active team_m1 %}"><a href="{{ team_m1 }}">Mens 1sts</a></li>
+        <li class="{% active team_m2 %}"><a href="{{ team_m2 }}">Mens 2nds</a></li>
+        <li class="{% active team_m3 %}"><a href="{{ team_m3 }}">Mens 3rds</a></li>
+        <li class="{% active team_m4 %}"><a href="{{ team_m4 }}">Mens 4ths</a></li>
+        <li class="divider"></li>
+        <li class="nav-header">Ladies</li>
+        <li class="{% active team_l1 %}"><a href="{{ team_l1 }}">Ladies 1sts</a></li>
+        <li class="{% active team_l2 %}"><a href="{{ team_l2 }}">Ladies 2nds</a></li>
+    </ul>
+    </li>
+</ul>
