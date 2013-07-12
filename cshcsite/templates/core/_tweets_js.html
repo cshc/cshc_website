@@ -1,0 +1,6 @@
+{% url 'load_tweets_url' as tweets_url %}
+<script>
+    $(function () {
+        ajax_load('{{ tweets_url }}', 'twitter-stream');
+    });
+</script>

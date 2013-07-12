@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Static page with info about social activities.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Social{% endblock %}
+
+{% block body_id %}social{% endblock body_id %}
+
+{% block content %}
+
+{% get_clubinfo 'MaleSocialSecName' as male_social_sec_name %}
+{% get_clubinfo 'FemaleSocialSecName' as female_social_sec_name %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Social</li>
+</ul>
+
+<div class="page-header">
+    <h1>Social Events</h1>
+</div>
+<p>Cambridge South is a very friendly and sociable club. Keep an eye on your emails and the events calendar below for information about forthcoming events. With our super Social (and super-sociable) Secretaries, {{ female_social_sec_name }} and {{ male_social_sec_name }}, there&#39;s sure to be some exciting events in the near future.</p><script type="text/javascript" src="http://groupspaces.com/cambridgesouthhockeyclub/api/api.js?wid=654"></script>
+<noscript><a href="http://groupspaces.com/cambridgesouthhockeyclub/calendar">View Calendar</a></noscript>
+{% endblock %}
+

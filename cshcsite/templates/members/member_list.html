@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% comment %}
+Formatted display of all members.
+- Used by member_list
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Club members{% endblock %}
+
+{% block content %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Members</li>
+</ul>
+
+<div class="page-header">
+    <h1>Club members</h1>
+</div>
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th></th><th>Name</th><th>Gender</th><th>Pref Position</th></tr>
+    </thead>
+    <tbody>
+    {% for m in member_list %}
+        <tr>
+            <td>{% include 'members/_profile_pic_thumbnail.html' with member=m %}</td>
+            <td><a href="{{ m.get_absolute_url }}" title="View member details">{{ m.full_name }}</a></td>
+            <td>{{ m.get_gender_display|capfirst }}</td>
+            <td>{{ m.get_pref_position_display|capfirst }}</td>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

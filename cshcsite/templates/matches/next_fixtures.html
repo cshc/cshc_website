@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted display of the next fixture for each team.
+- Used by next_fixtures
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Next Fixtures{% endblock %}
+
+{% block body_id %}next-fixtures{% endblock body_id %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Next fixtures</h1>
+</div>
+
+<div class="row">
+<div class="span7">
+{% if next_fixtures %}
+{% include "matches/_next_fixtures.html" %}
+{% else %}
+<p class="lead muted">No upcoming fixtures.</p>
+{% endif %}
+</div>
+</div>
+
+{% endblock %}

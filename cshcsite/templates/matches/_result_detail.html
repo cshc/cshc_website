@@ -1,0 +1,66 @@
+{% load core_tags %}
+{% load thumbnail %}
+
+<div class="row match-detail">
+    <div class="span6">
+        <h4><i class="icon icon-group"></i>Team played</h4>
+        {% if appearances %}
+            {% for app in appearances %}
+                <div class="media span3">
+                    <a class="pull-left" href="{{ app.member.get_absolute_url }}">
+                        {% include 'members/_profile_pic_thumbnail.html' with member=app.member %}
+                    </a>
+                    <div class="media-body">
+                        <p><a href="{{ app.member.get_absolute_url }}" title="{{ app.member.full_name }}">{{ app.member.last_name }}</a>
+                        {% if app.goals %}<span class="badge" title="Goals">{{ app.goals }}</span>{% endif %}
+                        {% if app.green_card %}<img src="{{ STATIC_URL }}img/green_card.png" title="Green card">{% endif %}
+                        {% if app.yellow_card %}<img src="{{ STATIC_URL }}img/yellow_card.png" title="Yellow card">{% endif %}
+                        {% if app.red_card %}<img src="{{ STATIC_URL }}img/red_card.png" title="Red card">{% endif %}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No team details available.</p>
+        {% endif %}
+
+    </div>
+    <div class="span5">
+        {% if mom_winners %}
+            <h4><i class="icon icon-star"></i>Man of the match</h4>
+            {% for mom_winner in mom_winners %}
+                <div class="media">
+                    <a class="pull-left" href="{{ mom_winner.member.get_absolute_url }}">
+                        {% include 'members/_profile_pic_thumbnail.html' with member=mom_winner.member %}
+                    </a>
+                    <div class="media-body">
+                        <h5>{% if mom_winner.member %}{{ mom_winner.member|urlise_model }}{% else %}{{ mom_winner.awardee }}{% endif %}</h5>
+                        <p>{{ mom_winner.comment }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if lom_winners %}
+            <h4><i class="icon icon-lemon"></i>Lemon of the match</h4>
+            {% for lom_winner in lom_winners %}
+                <div class="media">
+                    <a class="pull-left" href="{{ lom_winner.member.get_absolute_url }}">
+                        {% include 'members/_profile_pic_thumbnail.html' with member=lom_winner.member %}
+                    </a>
+                    <div class="media-body">
+                        <h5>{% if lom_winner.member %}{{ lom_winner.member|urlise_model }}{% else %}{{ lom_winner.awardee }}{% endif %}</h5>
+                        <p>{{ lom_winner.comment }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="row match-report">
+    <h3>{{ match.match_title_text }}</h3>
+    {% if match.report_author %}<p class="muted"><i class="icon-pencil" title="written by"></i>{{ match.report_author|urlise_model }}</p>{% endif %}
+    {{ match.report_body|safe }}
+</div>
+
+
+

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted display of the details of a particular membership enquiry.
+- Used by membershipenquiry_detail
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Membership enquiry from {{ membershipenquiry.full_name }}{% endblock %}
+
+{% block content %}
+
+{% url 'membershipenquiry_list' as enquiries_list_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ enquiries_list_url }}">Enquiries</a> <span class="divider">/</span></li>
+  <li class="active">{{ membershipenquiry.full_name }}</li>
+</ul>
+
+<div class="page-header">
+    <h1>Membership Enquiry</h1>
+</div>
+
+<div class="row">
+<div class="span7">
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th>Property</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>First name</td><td>{{ membershipenquiry.first_name }}</td></tr>
+        <tr><td>Last name</td><td>{{ membershipenquiry.last_name }}</td></tr>
+        <tr><td>Email</td><td>{{ membershipenquiry.email }}</td></tr>
+        <tr><td>Phone</td><td>{{ membershipenquiry.phone }}</td></tr>
+        <tr><td>Mailing list</td><td>{{ membershipenquiry.mailing_list }}</td></tr>
+        <tr><td>Previous experience</td><td>{{ membershipenquiry.prev_experience }}</td></tr>
+        <tr><td>Comments</td><td>{{ membershipenquiry.comments }}</td></tr>
+        <tr><td>Date submitted</td><td>{{ membershipenquiry.submitted|date:"dS M Y" }}</td></tr>
+        <tr><td>Our notes</td><td>{{ membershipenquiry.our_notes }}</td></tr>
+    </tbody>
+</table>
+</div>
+</div>
+
+{% endblock %}

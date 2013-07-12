@@ -1,0 +1,47 @@
+# Core Django framework
+Django==1.5
+
+# Support for PostgreSQL
+psycopg2==2.4.6
+
+# Support for using database URLs in settings
+dj-database-url==0.2.1
+
+# Python Imaging Library fork
+Pillow==2.0.0
+
+# Database migration
+South==0.7.6
+
+# Useful tools for models
+django-model-utils==1.2.0
+
+# Support for mobile website detection etc
+django_mobile==0.2.4
+
+# Generic reusable mixins for DJango
+django-braces==1.0.0
+
+# (used by django-ical) Extensions to the standard Python datetime module
+python-dateutil==2.1
+
+# (django-ical) iCalendar parser/generator
+icalendar==3.3
+
+# iCal feeds based on Django's syndication framework
+django-ical==1.2
+
+# Website scraper
+beautifulsoup4==4.2
+
+# Modern theme for Django admin interface
+django-suit==0.1.9
+
+# WYSIWYG editor integration
+django-tinymce==1.5.1
+
+# Support for (cached) thumbnails
+easy-thumbnails==1.2
+
+# Twitter API v1.1 support
+twython==3.0

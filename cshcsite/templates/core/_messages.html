@@ -1,0 +1,12 @@
+{% comment %}
+This snippet renders any messages from the context as alert boxes
+{% endcomment %}
+
+{# Messages #}
+<div class="messages">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+</div>

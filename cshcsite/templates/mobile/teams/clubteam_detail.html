@@ -1,0 +1,29 @@
+{% extends 'mobile/base.html' %}
+
+{% block title %}{{ block.super }} | {{ clubteam.long_name }}{% endblock %}
+
+{% block content %}
+
+<div data-role="page" data-add-back-btn="true">
+
+    <div data-role="header">
+        <h1>{{ clubteam.long_name }}</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">	
+        {% include 'mobile/_result_list.html' with match_list=results section_title="Results" %}	
+        {% include 'mobile/_fixture_list.html' with match_list=fixtures section_title="Fixtures" %}	
+        <h4>Links</h4>
+
+        {% if participation and participation.division %}
+        <ul data-role="listview">
+            <li><a href="{{ participation.division_tables_url }}">League Table</a></li>
+            <li><a href="{{ participation.division_fixtures_url }}">League Results/Fixtures</a></li>
+        </ul>
+        {% endif %}
+
+    </div><!-- /content -->
+
+</div><!-- /page -->
+
+{% endblock %}

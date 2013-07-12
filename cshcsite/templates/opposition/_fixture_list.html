@@ -1,0 +1,46 @@
+{% comment %}
+This re-usable template displays a table of results and fixtures.
+Context should have a 'match_list' list of Match objects.
+{% endcomment %}
+
+{% load core_tags %}
+
+{% if match_list %}
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr><th></th><th>Date</th><th>Opposition</th><th>Time</th><th>Venue</th><th class="center-align">Result</br>(CS-Op)</th><th>Scorers</th><th>MOM</th><th>LOM</th><th>Match</br>Report</th></tr>
+        </thead>
+        <tbody>
+        {% for m in match_list %}
+            <tr class="{{ m.match.get_fixture_type_display|lower }}">
+                <td>
+                    {% include 'matches/_fixture_icon.html' with match=m.match %}
+                </td>
+                <td class="no-break">{{ m.match.date|date:"d-M-y" }}</td>
+                <td><a href="{{ m.match.opp_team.club.get_absolute_url }}">{{ m.match.opp_team.name }}</a>{% if m.match.kit_clash %}<i class="icon-user" title="Away kit"></i>{% endif %}</td>
+                <td>{% if m.match.time %}{{ m.match.time|time:"H:i" }}{% elif m.match.is_in_past %}???{% else %}<abbr title="Time not known">TBD</abbr>{% endif %}</td>
+                <td>{% if m.match.venue %}<a href="{{ m.match.venue.get_absolute_url }}" title="{{ m.match.venue.name }}">{{ m.match.venue.simple_name }}</a>{% elif m.match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
+                <td class="center-align">{{ m.match.score_display }}</td>
+                <td>
+                {% for scorer in m.scoring_appearances %}
+                    <a href="{{ scorer.member.get_absolute_url }}">{{ scorer.member.last_name }}</a>{% if scorer.goals > 1 %}({{ scorer.goals }}){% endif %}{% if not forloop.last %}, {% endif %} 
+                {% endfor %}
+                </td>
+                <td>
+                {% for mom in m.mom_winners %}
+                    <a href="{{ mom.member.get_absolute_url }}" title="{{ mom.comment }}">{{ mom.member.last_name }}</a>{% if not forloop.last %}, {% endif %} 
+                {% endfor %}
+                </td>
+                <td>
+                {% for lom in m.lom_winners %}
+                    <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.last_name }}</a>{% if not forloop.last %}, {% endif %} 
+                {% endfor %}
+                </td>
+                <td><a href="{{ m.match.get_absolute_url }}" title="Match details"><i class="icon-file-alt"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="lead muted">No fixtures</p>
+{% endif %}

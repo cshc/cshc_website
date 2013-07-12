@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted display of the latest result for each team.
+- Used by latest_results
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Latest Results{% endblock %}
+
+{% block body_id %}latest-results{% endblock body_id %}
+
+{% block content %}
+{% url 'match_report_rss_feed' as matches_rss %}
+{% url 'match_report_atom_feed' as matches_atom %}
+
+<div class="page-header">
+    <h1>Latest Results</h1>
+</div>
+
+<div class="row">
+    <div class="span7">
+        {% include "matches/_latest_results.html" %}
+    </div>
+
+    <div class="span5">
+        <div class="well">
+            <h3>Lazy? Impatient? Neurotic?</h3>
+            <p class="lead"><strong>Good news!</strong> You can subscribe to Cambridge South match reports and view them right in your favourite feed reader as soon as they're published!</p>
+            <a class="subscribe" href="{{ matches_rss }}" title="Subscribe to Cambridge South match reports" target="_blank"><button class="btn btn-large btn-warning"><i class="icon-rss"></i>Subscribe</button></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

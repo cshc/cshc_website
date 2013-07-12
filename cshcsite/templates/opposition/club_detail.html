@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Formatted display of the details of a particular opposition club.
+- Used by opposition_club_detail
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | {{ club }}{% endblock %}
+
+{% block content %}
+{% url 'opposition_club_list' as opposition_list %}
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ opposition_list }}">Opposition Clubs</a> <span class="divider">/</span></li>
+  <li class="active">{{ club }}</li>
+</ul>
+
+<div class="page-header">
+    <h1>{{ club.name }}</h1>
+</div>
+
+{% if club.default_venue %}
+<div class="row">
+    <div class="span4">
+        <h3>Location</h3>
+        <p class="lead">The default venue for {{ club.name }} matches is {{ club.default_venue|urlise_model }}.</p>
+        <p>Note - this does not mean all away matches against {{ club.name }} will be played here. Check the fixture details for the actual match venue.</p>
+    </div>
+    <div class="span8">    
+        <div class="gmap3 map_large" id="map_canvas"></div>
+    </div>
+</div>
+{% endif %}
+
+<h3>Summary of results</h3>
+<p>This table summarises team performances against {{ club }}. Click on a team to jump to the details of each fixture for that team.</p>
+<div id="clubstats_summary">
+    <table class="table table-condensed table-center-align">
+        <thead>
+            <tr>
+                <th rowspan="2" class="left-align">Team</th>
+                <th colspan="6" class="highlight">All</th>
+                <th colspan="6">Home</th>
+                <th colspan="6">Away</th>
+            </tr>
+            <tr>
+                <th class="highlight"><abbr title="Played">P</abbr></th>
+                <th class="highlight"><abbr title="Won">W</abbr></th>
+                <th class="highlight"><abbr title="Drawn">D</abbr></th>
+                <th class="highlight"><abbr title="Lost">L</abbr></th>
+                <th class="highlight"><abbr title="Goals For">GF</abbr></th>
+                <th class="highlight"><abbr title="Goals Against">GA</abbr></th>
+
+                <th><abbr title="Played">P</abbr></th>
+                <th><abbr title="Won">W</abbr></th>
+                <th><abbr title="Drawn">D</abbr></th>
+                <th><abbr title="Lost">L</abbr></th>
+                <th><abbr title="Goals For">GF</abbr></th>
+                <th><abbr title="Goals Against">GA</abbr></th>
+
+                <th><abbr title="Played">P</abbr></th>
+                <th><abbr title="Won">W</abbr></th>
+                <th><abbr title="Drawn">D</abbr></th>
+                <th><abbr title="Lost">L</abbr></th>
+                <th><abbr title="Goals For">GF</abbr></th>
+                <th><abbr title="Goals Against">GA</abbr></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in clubstats_list %}
+            <tr>
+                <td class="left-align">{% if c.team %}<a href="javascript:void(0)" onclick="expand('{{ c.team.slug }}')">{{ c.team }}</a>{% else %}All{% endif %}</td>
+
+                <td class="highlight">{{ c.total_played }}</td>
+                <td class="highlight">{{ c.total_won }}</td>
+                <td class="highlight">{{ c.total_drawn }}</td>
+                <td class="highlight">{{ c.total_lost }}</td>
+                <td class="highlight">{{ c.total_gf }}</td>
+                <td class="highlight">{{ c.total_ga }}</td>
+
+                <td>{{ c.home_played }}</td>
+                <td>{{ c.home_won }}</td>
+                <td>{{ c.home_drawn }}</td>
+                <td>{{ c.home_lost }}</td>
+                <td>{{ c.home_gf }}</td>
+                <td>{{ c.home_ga }}</td>
+
+                <td>{{ c.away_played }}</td>
+                <td>{{ c.away_won }}</td>
+                <td>{{ c.away_drawn }}</td>
+                <td>{{ c.away_lost }}</td>
+                <td>{{ c.away_gf }}</td>
+                <td>{{ c.away_ga }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="opp-match-list">
+<h3>Fixture details</h3>
+    <div class="accordion" id="team_accordion">
+        {% for team, fixtures in all_team_fixtures.iteritems %}
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle collapsed" id="{{ team.slug }}" data-toggle="collapse" data-parent="#team_accordion" href="#collapse{{ team.slug }}">{{ team.long_name }}</a>
+            </div>
+            <div id="collapse{{ team.slug }}" class="accordion-body collapse{% if forloop.first %} in{% endif %}">
+                <div class="accordion-inner">
+                    {% include 'opposition/_fixture_list.html' with match_list=fixtures fill_blanks=False %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block body_js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/bootstrap-collapse.js"></script>
+    {% if club.default_venue %}
+        {% include "venues/_venue_map_js.html" with venue_address=club.default_venue.full_address %}
+    {% endif %}
+{% endblock body_js %}

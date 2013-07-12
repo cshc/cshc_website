@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Calendar{% endblock %}
+
+{% block body_id %}calendar{% endblock body_id %}
+
+{% block content %}
+
+{% url 'match_ical_feed' as all_fixtures_cal %}
+{% url 'clubteam_ical_feed' 'm1' as m1_cal %}
+{% url 'clubteam_ical_feed' 'm2' as m2_cal %}
+{% url 'clubteam_ical_feed' 'm3' as m3_cal %}
+{% url 'clubteam_ical_feed' 'm4' as m4_cal %}
+{% url 'clubteam_ical_feed' 'm5' as m5_cal %}
+{% url 'clubteam_ical_feed' 'l1' as l1_cal %}
+{% url 'clubteam_ical_feed' 'l2' as l2_cal %}
+{% url 'trainingsession_ical_feed' as training_cal %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Calendar</li>
+</ul>
+
+<div class="page-header">
+    <h1><i class="icon icon-calendar"></i>Calendar</h1>
+</div>
+{# TODO: Point this at a calendar that's subscribed to our new feeds #}
+<iframe frameborder="0" class="calendar" scrolling="no" src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;mode=MONTH&amp;height=600&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=cshc.men.3%40gmail.com&amp;color=%238C500B&amp;src=cshc.ladies%40gmail.com&amp;color=%23182C57&amp;src=cshc.men.2%40gmail.com&amp;color=%23125A12&amp;src=cshc.men.4%40gmail.com&amp;color=%23B1440E&amp;src=cshc.men.1%40gmail.com&amp;color=%2342104A&amp;src=cshc.club%40gmail.com&amp;color=%238D500B&amp;ctz=Europe%2FLondon" ></iframe>
+<hr/>
+<p>There are a series of calendars that you can link into your normal calendar client (Outlook, iPhone etc). The addresses are in the table below.</p>
+<table class="table table-hover">
+<thead>
+    <tr>
+        <th>Calendar</th>
+        <th>Address / Link</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>All fixtures</td>
+        <td><a href="{{ all_fixtures_cal }}" title="Calendar of fixtures for all teams">http:/{{ request.get_host }}{{ all_fixtures_cal }}</a></td>
+    </tr>
+
+    <tr>
+        <td>Men's 1st XI fixtures</td>
+        <td><a href="{{ m1_cal }}" title="Men's 1st XI fixture calendar">http:/{{ request.get_host }}{{ m1_cal }}</a></td>
+    </tr>
+     <tr>
+        <td>Men's 2nd XI fixtures</td>
+        <td><a href="{{ m2_cal }}" title="Men's 2nd XI fixture calendar">http:/{{ request.get_host }}{{ m2_cal }}</a></td>
+    </tr>
+    <tr>
+        <td>Men's 3rd XI fixtures</td>
+        <td><a href="{{ m3_cal }}" title="Men's 3rd XI fixture calendar">http:/{{ request.get_host }}{{ m3_cal }}</a></td>
+    </tr>
+    <tr>
+        <td>Men's 4th XI fixtures</td>
+        <td><a href="{{ m4_cal }}" title="Men's 4th XI fixture calendar">http:/{{ request.get_host }}{{ m4_cal }}</a></td>
+    </tr>
+    <tr>
+        <td>Men's 5th XI fixtures</td>
+        <td><a href="{{ m5_cal }}" title="Men's 5th XI fixture calendar">http:/{{ request.get_host }}{{ m5_cal }}</a></td>
+    </tr>
+    <tr>
+        <td>Ladies' 1st XI fixtures</td>
+        <td><a href="{{ l1_cal }}" title="Ladies' 1st XI fixture calendar">http:/{{ request.get_host }}{{ l1_cal }}</a></td>
+    </tr>
+    <tr>
+        <td>Ladies' 2nd XI fixtures</td>
+        <td><a href="{{ l2_cal }}" title="Ladies' 2nd XI fixture calendar">http:/{{ request.get_host }}{{ l2_cal }}</a></td>
+    </tr>
+    <tr>
+        <td>Training</td>
+        <td><a href="{{ training_cal }}" title="Training calendar">http:/{{ request.get_host }}{{ training_cal }}</a></td>
+    </tr>
+   
+</tbody>
+</table>
+<p>How you actually subscribe to the calendar depends on the client that you are using. For a start&nbsp;you can try clicking on the links above and see if your OS will automatically start the subcription. Also below are some instructions for Outlook 2007 and the Apple iPhone and iCal. If anyone else wants to write instructions for other clients then please email them to George and he will add them to the site.</p>
+<h3>Outlook 2007</h3>
+<ol>
+<li>
+    Select Tools &gt; Account Settings</li>
+<li>
+    Select the Internet Calendars tab</li>
+<li>
+    Press New</li>
+<li>
+    Copy the iCal link from the table above and paste it into the New Internet Calendar Subscription screen that appears.</li>
+<li>
+    Press Add.</li>
+<li>
+    In the screen that appears type &quot;CSHC&quot; into the Folder Name box (it currently says &quot;basic&quot;) and press OK</li>
+<li>
+    Press Close</li>
+<li>
+    Go to the Calendar view in Outlook and on the left hand side you should now see, under &quot;Other Calendars&quot; a check box for &quot;CSHC&quot;. If you don&#39;t see it then wait a few minutes and it should refresh (try closing Outlook and reopening if necessary). Tick the check box when you see it and the calendar should appear.</li>
+</ol>
+<h3>iPhone</h3>
+<ol>
+<li>
+    Copy the iCal link.</li>
+<li>
+    Go to &quot;Settings&quot; on your iPhone and choose &quot;Mail, Contacts, Calendars&quot;</li>
+<li>
+    Under &quot;Accounts&quot; select &quot;Add Account...&quot;</li>
+<li>
+    Select &quot;Other&quot;</li>
+<li>
+    Under &quot;Calendars&quot; select &quot;Add Subscribed Calendar&quot;</li>
+<li>
+    Paste the iCal link into the &quot;Server&quot; box and select &quot;Next&quot;.</li>
+<li>
+    The calendar is now viewable in the pre-installed &quot;Calendar&quot; app.</li>
+</ol>
+<h3>Apple iCal</h3>
+<ol>
+<li>
+    Copy the iCal link.</li>
+<li>
+    In the iCal application, click on &quot;Calendar&quot; in the top menu bar and choose &quot;Subscribe...&quot;.</li>
+<li>
+    Paste the iCal link into the &quot;Calendar URL:&quot; box and click &quot;Subscribe&quot;.</li>
+<li>
+    Click the &quot;Auto-refresh:&quot; drop down menu and choose a frequency with which iCal should check the calendar for updates (daily is probably sufficient).</li>
+<li>
+    Click OK.</li>
+</ol>
+
+{% endblock content %}

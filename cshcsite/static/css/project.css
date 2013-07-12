@@ -1,0 +1,219 @@
+/*
+ *  Cambridge South Hockey Club - CSS
+*/
+
+/******************************************************************************
+Bootstrap overrides
+*/
+hr { border-top-color: #e0e0e0;}
+
+/******************************************************************************
+Global Styles    
+*/
+i { margin-left: 0.5em; margin-right: 0.5em; }
+
+.no-break { overflow: hidden; white-space: nowrap; }
+.hero-unit h1 { margin-bottom: 20px; }
+
+.quick-links button { width:160px; margin-bottom: 20px; text-align: left; }
+
+a.btt { display: block; text-align: right; }
+
+ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
+
+.box { box-shadow: 0px 0px 7px -1px rgb(214, 214, 214); border: 1px solid #d9d9d9; border-radius: 6px; background-color: #fff; margin: 2px 2px 20px 2px; }
+
+.box h3{
+    color: rgb(83, 83, 83);
+    font-weight: normal;
+    font-style: italic;
+    font-size: 20px;
+    margin: 0 0 5px 0;
+    line-height: 25px;
+}
+.box.male { background-color: rgb(215, 243, 236); }
+.box.female { background-color: rgb(226, 231, 248); }
+.box-heading { text-align: center; font-style: italic; font-weight: normal; color: #8E8E8F; }
+.box .wrapper { padding: 24px 24px 24px 24px; }
+.box .price { font-size: 17px; color: #1189D9; margin-top: 16px; }
+.box .price span.pound { font-size: 32px; position: relative; top: -6px; margin-right: 3px; }
+.box .price span.qty { font-size: 47px; margin-right:4px; position: relative; top: 2px; }
+.box .price span.annual{ font-style: italic; font-weight: 300; font-size: 15px; }
+
+ul.downloads { margin-top: 20px; }
+ul.downloads li { font-size: 150%; margin-bottom: 10px; }
+
+/******************************************************************************
+Maps 
+*/
+.map_large { width: 700px; height: 400px; }
+
+.well .map_large { width: 600px; height: 400px; }
+
+.well .row, .hero-unit .row, .match-detail .row { margin-left: 20px; }
+
+.map_small { width: 370px; height: 220px; }
+
+.gmap3 { border: 1px solid #C0C0C0; }
+
+.dl-wide dt { width: 260px; }
+
+.dl-wide dd { margin-left: 280px; }
+
+/******************************************************************************
+Gender-specific
+*/
+
+span.female { background-color: rgb(153,204,255); /* Blue */ }
+
+span.male { background-color: rgb(153,255,153); /* Green */ }
+
+table tbody td.female { background-color: rgb(153,204,255); /* Blue */ }
+
+table tbody td.male { background-color: rgb(153,255,153); /* Green */ }
+
+.table-hover tbody tr:hover > td.female { background-color: rgb(129, 162, 195); /* Blue */ }
+
+.table-hover tbody tr:hover > td.male { background-color: rgb(138, 194, 138); /* Green */ }
+
+
+/******************************************************************************
+Twitter
+*/
+
+.twitter-box { padding: 10px; }
+#twitter-stream li { padding-bottom: 5px; margin-bottom: 10px; border-bottom: 1px solid rgb(221, 221, 221); }
+
+
+.team-photo { width: 100%; }
+
+.profile-pic-small { width: 30px; height: auto; }
+
+.profile-pic-large { width: 100%; }
+
+.table th.middle-align, .table td.middle-align, .table tr.middle-align { vertical-align: middle; }
+
+.table-middle-align th, .table-middle-align td { vertical-align: middle; }
+
+/* Allow a table to be predominantly middle-aligned, with just the odd override */
+.table-middle-align th.auto-v-align, .table-middle-align td.auto-v-align, .table-middle-align tr.auto-v-align { vertical-align: auto; }
+
+.table th.center-align, .table td.center-align, .table tr.center-align th, .table tr.center-align td { text-align: center; }
+
+.table-center-align th, .table-center-align td { text-align: center; }
+
+/* Allow a table to be predominantly center-aligned, with just the odd override */
+.table-center-align th.left-align, .table-center-align td.left-align, .table-center-align tr.left-align { text-align: left; }
+
+.align-right { float: right; }
+
+.dt { font-style: italic; }
+
+.table-clean th, .table-clean td { border: none; }
+
+.table-hcondensed { width: auto; }
+
+/******************************************************************************
+Match Details
+*/
+.match-score { background-color: rgb(15, 95, 15); }
+.table-score { margin-bottom: 0px; }
+
+.table-score tbody tr td { border: none; line-height: normal; vertical-align: middle; text-align: center; }
+
+.table-score tbody tr td.team-name { background-color: rgb(15, 95, 15); color: lightgray; width: 40%; font-size: 250%; }
+
+.table-score tbody tr td.team-score { background-color: rgb(60, 141, 60); color: white; font-size: 400%; }
+
+.table-score tbody tr td.score-divider { padding-left: 0px; padding-right: 0px; }
+
+.match-detail { background-color: rgb(221, 231, 217); }
+
+.match-detail .span6 .span3 { margin-left: 0px; }
+.match-detail .media { margin-top: 0px; }
+.match-links .btn { width: 190px; }
+
+.absoluteCenterWrapper { position: relative; /* Contains the image in the div */ }
+
+/* Positioning */
+.absoluteCenter { margin: auto; /* Required */ position: absolute; /* Required */ top: 0; bottom: 0; /* Aligns Vertically */ }
+
+/* Sizing - resizes down to avoid cutting off */
+.absoluteCenter { /* Fallback Sizing */ max-height: 100%; max-width: 100%; }
+
+.appearance { height: 50px; }
+
+.appearance .absoluteCenterWrapper p { margin: 1em 0 1em 50px; padding-left: .5em; }
+
+.match-report, .match-links, .same-day { margin-top: 15px; margin-bottom: 15px; }
+
+
+#image-carousel { width: 480px; }
+
+#image-carousel.pull-right { margin-left: 20px; }
+
+#image-carousel.pull-left { margin-right: 20px; }
+
+
+.table .highlight { background-color: #ccffcc; }
+
+/******************************************************************************
+Footers
+*/
+#footer .row.sections { margin-bottom: 10px; }
+#footer .calendar div.icon { font-size: 60px; }
+#footer .calendar div.icon i { margin-right: 0.2em; margin-left: 0; }
+#footer .calendar p { font-size: 160%; font-style: italic; line-height:120% }
+#footer .calendar p .cs { font-size: 120%; }
+
+
+/******************************************************************************
+Page-specific
+*/
+
+#join-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
+#join-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
+#join-us input.phone { background: url('../clean_canvas/img/formphone.png') #fff no-repeat 5px; }
+#join-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 89%; }
+#join-us textarea { padding: 11px; width: 94%; margin: 0,0,0,10px; border-radius: 3px; height: 113px; }
+#join-us input[type="submit"] { float: right; text-transform: uppercase; color: #fff; background: #187CCC; font-size: 15px; padding: 4px 12px; border: 0 none; border-radius: 3px; -webkit-transition: background linear .2s, box-shadow linear .2s; -moz-transition: background linear .2s, box-shadow linear .2s; -o-transition: background linear .2s, box-shadow linear .2s; transition: background linear .2s, box-shadow linear .2s; }
+#join-us input[type="submit"]:hover { background: #252528; }
+
+#our-teams .row.mens { margin-bottom:20px; }
+#our-teams .row.ladies { margin-bottom:20px; }
+#our-teams .team { padding: 0px; margin-bottom: 20px; }
+#our-teams .mens .team { background-color: rgb(215, 243, 236); }
+#our-teams .ladies .team { background-color: rgb(226, 231, 248); }
+#our-teams .other .team { background-color: rgb(245, 252, 197); }
+#our-teams .team-details { padding: 5px 10px 20px 10px; }
+#our-teams a.details { float: right; }
+#our-teams img.team-photo { min-height: 200px; }
+
+#about-us #crest { margin-right: 20px; width: 200px; }
+
+#matches-by-date .table-score td.team-name { font-size: 150%; }
+#matches-by-date .table-score td.team-score { font-size: 250%; }
+#matches-by-date .match-detail { margin-bottom: 30px; padding-top: 5px; }
+#matches-by-date a.match-link:hover td.team-name { background-color: rgb(54, 134, 54); color: lightgray; }
+#matches-by-date a.match-link:hover td.team-score { background-color: rgb(94, 168, 94); color: white; }
+#matches-by-date .match-score a.match-link:hover { background-color: rgb(54, 134, 54); }
+
+#kit tr.local td { font-style: italic; }
+
+#committee .media-object { width: 50px; height: 50px; }
+#committee .media-body p { font-size: 120%; color: rgb(141, 139, 139); font-weight: bold; }
+#committee .media { margin-top: 15px; }
+
+#match-detail .match-report p { font-size: 120%; }
+#match-detail .row.quick-links { margin-bottom: 10px;}
+
+#team-detail .row.quick-links { margin-left: 0px; }
+
+#chairmans-notes img.chairman { width: 300px; height: 300px; }
+
+#calendar iframe.calendar { height: 600px; width: 100%; }
+
+#latest-results a.subscribe { margin-left: auto; margin-right: auto; display: block; text-align: center; }
+
+.pics-row img { display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; max-height: 500px; }
+table.awards td { border: none; }

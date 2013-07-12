@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Static page with info about the minutes of club meetings.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Minutes{% endblock %}
+
+{% block body_id %}minutes{% endblock body_id %}
+
+{% block content %}
+
+{% url 'about_committee' as committee_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Committee Meetings</li>
+</ul>
+
+<div class="page-header">
+    <h1>CSHC Committee Meeting Minutes</h1>
+</div>
+
+<p>CSHC is a not-for-profit organisation run by its own members in accordance with the club Constitution. Prior to the 2009/10 
+season the Men&#39;s and Ladies&#39; clubs were seperate entities&nbsp;but since then the two have merged and a single Committee 
+now administers the club, with sub-committees for men&#39;s and ladies&#39; playing matters. The Committee is appointed at the 
+Annual General Meeting and appointments run for a single season.</p>
+<blockquote>You can see the Club Constitution <a href="{{ MEDIA_URL }}Documents/CSHC_Constitution.pdf">here</a>.</blockquote>
+<blockquote>Details of the current committee members can be found <a href="{{ committee_url }}">here</a>.</blockquote>
+
+<p>Listed below are the minutes from previous club general meetings and committee meetings.</p>
+<div class="row">
+    <div class="span4">
+        <h4>Club general meetings</h4>
+        <ul class="unstyled downloads">
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_AGM_2012_Minutes.pdf"><i class="icon-file"></i>CSHC AGM 2012</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_AGM_2011_Minutes.pdf"><i class="icon-file"></i>CSHC AGM 2011</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_AGM_2010_Minutes.pdf"><i class="icon-file"></i>CSHC AGM 2010</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSMHC_EGM_2009_Minutes.pdf"><i class="icon-file"></i>Men's EGM 2009</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSLHC_EGM_2009_Minutes.pdf"><i class="icon-file"></i>Ladies' EGM 2009</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSMHC_AGM_2009_Minutes.pdf"><i class="icon-file"></i>Men's AGM 2009</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Ladies_AGM_2009_Minutes.doc"><i class="icon-file"></i>Ladies' AGM 2009</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Mens_2008_AGM_Minutes.doc"><i class="icon-file"></i>Men's AGM 2008</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Ladies_2008_AGM_Minutes.doc"><i class="icon-file"></i>Ladies' AGM 2008</a></li>
+        </ul>
+    </div>
+    <div class="span4">
+    <h4>Committee meetings</h4>
+        <ul class="unstyled downloads">
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Cmte_Apr_2012_Minutes.pdf"><i class="icon-file"></i>April 2012</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Cmte_Jan_2012_Minutes.pdf"><i class="icon-file"></i>January 2012</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Cmte_Apr_2011_Minutes.pdf"><i class="icon-file"></i>April 2011</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Cmte_Dec_2010_Minutes.pdf"><i class="icon-file"></i>December 2010</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Cmte_Sep_2010_Minutes.pdf"><i class="icon-file"></i>September 2010</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Cmte_Jun_2010_Minutes.pdf"><i class="icon-file"></i>June 2010</a></li>
+            <li><a href="{{ MEDIA_URL }}Documents/CSHC_Cmte_Jan_2010_Minutes.pdf"><i class="icon-file"></i>January 2010</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock content %}

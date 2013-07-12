@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted display of all opposition teams.
+- Used by opposition_team_list
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Opposition teams{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Opposition teams</h1>
+</div>
+
+<div class="row">
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th>Team</th></tr>
+    </thead>
+    <tbody>
+    {% for t in team_list %}
+        <tr>
+            <td><a href="{{ t.get_absolute_url }}" title="View team details">{{ t }}</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

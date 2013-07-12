@@ -5,15 +5,12 @@ python:
 install: 
   - "pip install -r requirements.txt --use-mirrors"
 # # command to run tests
-script: ./django.sh test club
+script: ./cshcsite/manage.py test
 notifications:
   email:
     recipients:
-      - nkhumphreys@gmail.com
       - simon@jellypig.co.uk
       - graham@grahammcculloch.co.uk
       - matt.kern@undue.org
-      - shbaz.ali@gmail.com
-      - home@robbarton.com
     on_success: change
     on_failure: always

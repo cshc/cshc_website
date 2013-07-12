@@ -1,0 +1,11 @@
+{% comment %}
+Reusable snippet that displays a thumbnail of the member's profile picture if they have one, or
+the default member avatar if not.
+
+Expected context:
+'member' - the member model instance
+{% endcomment %}
+
+{% load thumbnail %}
+
+{% thumbnail  member.profile_pic|default:'profile_pics/default.jpg' 50x50 crop %}

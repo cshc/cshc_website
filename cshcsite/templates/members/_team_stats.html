@@ -1,0 +1,60 @@
+{% load core_tags %}
+
+{% url 'clubteam_detail' 'm1' as team_m1 %}
+{% url 'clubteam_detail' 'm2' as team_m2 %}
+{% url 'clubteam_detail' 'm3' as team_m3 %}
+{% url 'clubteam_detail' 'm4' as team_m4 %}
+{% url 'clubteam_detail' 'm5' as team_m5 %}
+{% url 'clubteam_detail' 'l1' as team_l1 %}
+{% url 'clubteam_detail' 'l2' as team_l2 %}
+{% url 'clubteam_detail' 'mixed' as team_mixed %}
+{% url 'clubteam_detail' 'indoor' as team_indoor %}
+{% url 'clubteam_detail' 'vets' as team_vets %}
+
+{% if seasons %}
+
+    <table class="table table-striped table-hover table-condensed table-center-align">
+        <thead>
+            <tr><th></th><th colspan="{% if member.gender == 'Male' %}8{% else %}4{% endif %}">Team</th></tr>
+            <tr>
+                <th class="left-align">Season</th>
+                {% if member.gender == 'Male' %}
+                <th><a href="{{ team_m1 }}">M1</a></th>
+                <th><a href="{{ team_m2 }}">M2</a></th>
+                <th><a href="{{ team_m3 }}">M3</a></th>
+                <th><a href="{{ team_m4 }}">M4</a></th>
+                <th><a href="{{ team_m5 }}">M5</a></th>
+                <th><a href="{{ team_vets }}">Vets</a></th>
+                {% else %}
+                <th><a href="{{ team_l1 }}">L1</a></th>
+                <th><a href="{{ team_l2 }}">L2</a></th>
+                {% endif %}
+                <th><a href="{{ team_mixed }}">Mix</a></th>
+                <th><a href="{{ team_indoor }}">Indoor</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for season in seasons %}
+            <tr{% if season.is_total %} class="info total"{% endif %}>
+                <td class="left-align">{% if season.is_total %}Total{% else %}{{ season.season }}{% endif %}</td>
+                {% if member.gender == 'Male' %}
+                <td>{{ season.teams.m1_appearances|default:"" }}</td>
+                <td>{{ season.teams.m2_appearances|default:"" }}</td>
+                <td>{{ season.teams.m3_appearances|default:"" }}</td>
+                <td>{{ season.teams.m4_appearances|default:"" }}</td>
+                <td>{{ season.teams.m5_appearances|default:"" }}</td>
+                <td>{{ season.teams.vets_appearances|default:"" }}</td>
+                {% else %}
+                <td>{{ season.teams.l1_appearances|default:"" }}</td>
+                <td>{{ season.teams.l2_appearances|default:"" }}</td>
+                {% endif %}
+                <td>{{ season.teams.mix_appearances|default:"" }}</td>
+                <td>{{ season.teams.indoor_appearances|default:"" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    <p class="lead muted">Sorry - no stats available</p>
+{% endif %}

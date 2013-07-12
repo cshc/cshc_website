@@ -1,0 +1,18 @@
+<div class="tabbable"> 
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tabMatches" data-toggle="tab">Matches, Goals &amp; Awards</a></li>
+        <li><a href="#tabTeamRep" data-toggle="tab">Team Representations</a></li>
+        <li><a href="#tabSuccessRec" data-toggle="tab">Success Record</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabMatches">
+            {% include 'members/_match_stats.html' %}
+        </div>
+        <div class="tab-pane" id="tabTeamRep">
+            {% include 'members/_team_stats.html' %}
+        </div>
+        <div class="tab-pane" id="tabSuccessRec">
+            {% include 'members/_success_stats.html' %}
+        </div>
+    </div>
+</div>

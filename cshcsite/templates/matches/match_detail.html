@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Formatted display of details about a particular match.
+- Used by match_detail
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | {{ match.match_title_text }}{% endblock %}
+
+{% block body_id %}match-detail{% endblock body_id %}
+
+{% block content %}
+
+{% url 'matches_by_date' match.date|date:"d-M-y" as matches_by_date %}
+    
+<div class="row quick-links">
+    <div class="pull-right">
+        {% if match.fixture_type == "league" %}<i class="icon icon-table"></i>{% if match.division.fixtures_url %}<a href="{{ match.division.fixtures_url }}">{{ match.division }}</a>{% else %}{{ match.division }}{% endif %}&nbsp;&nbsp;{% endif %}
+        {% if match.fixture_type == "cup" %}<i class="icon icon-trophy"></i>{{ match.cup }}&nbsp;&nbsp;{% endif %}
+        {% if match.venue %}<i class="icon icon-map-marker"></i>{{ match.venue|urlise_model }}&nbsp;&nbsp;{% endif %}
+        <i class="icon icon-calendar"></i><a href="{{ matches_by_date }}">{{ match.date }}</a>&nbsp;&nbsp;
+        {% if match.time %}<i class="icon icon-time"></i>{{ match.time }}&nbsp;&nbsp;{% endif %}
+    </div>
+</div>
+
+<div class="row">
+<table class="table table-score">
+<tbody>
+    <tr>
+        <td class="team-name">{{ match.our_team.abbr_name }}</td>
+        {% if match.final_scores_provided %}
+        <td class="team-score">{{ match.our_score }}</td>
+        <td class="team-score score-divider">-</td>
+        <td class="team-score">{{ match.opp_score }}</td>
+        {% else %}
+        <td class="team-score">vs</td>
+        {% endif %}
+        <td class="team-name">{{ match.opp_team.name }}</td>
+    </td>
+</tbody>
+</table>
+</div>
+
+{% if match.is_in_past %}
+{% include 'matches/_result_detail.html' %}
+{% else %}
+{% include 'matches/_fixture_detail.html' %}
+{% endif %}
+
+<ul class="pager">
+  <li class="previous{% if not prev_match %} disabled{% endif %}">
+    <a href="{% if prev_match %}{{ prev_match.get_absolute_url }}{% else %}#{% endif %}" {% if prev_match %}title="{{ prev_match.fixture_title }}"{% endif %}>&larr; Previous match</a>
+  </li>
+  <li class="next{% if not next_match %} disabled{% endif %}">
+    <a href="{% if next_match %}{{ next_match.get_absolute_url }}{% else %}#{% endif %}" {% if next_match %}title="{{ next_match.fixture_title }}"{% endif %}>Next match &rarr;</a>
+  </li>
+</ul>
+
+
+{% if same_date_matches|length > 0 %}
+<div class="row same-day">
+    <div class="well">
+        <h4>Other matches on {{ match.date }}</h4>
+        <ul>
+            {% for m in same_date_matches %}
+                <li><a href="{{ m.get_absolute_url }}">{{ m.match_title_text }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block body_js %}
+    {{ block.super }}
+
+    {% if not match.is_in_past %}
+        {% include "venues/_venue_map_js.html" with venue_address=match.venue.full_address %}
+    {% endif %}
+{% endblock body_js %}

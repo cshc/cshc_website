@@ -1,0 +1,10 @@
+-r base.txt
+
+# Code coverage measurement tool
+coverage==3.6
+
+# A Django test runner based on unittest2's test discovery
+django-discover-runner==0.3
+
+# Configurable set of panels that display various debug information about the current request/response.
+django-debug-toolbar==0.9.4

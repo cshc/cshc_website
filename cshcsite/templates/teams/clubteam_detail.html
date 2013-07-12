@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load core_tags %}
+{% load humanize %}
+
+{% comment %}
+Formatted display of the details of a particular team.
+- Used by clubteam_detail and clubteam_season_detail
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+
+{% block title %}{{ block.super }} | {{ clubteam.long_name }}{% endblock %}
+
+{% block body_id %}team-detail{% endblock body_id %}
+
+{% block content %}
+{% url 'clubteam_list' as clubteam_list_url %}
+{% url 'clubteam_detail' clubteam.slug as base_team_url %}
+{% url 'clubteam_ical_feed' clubteam.slug as clubteam_calendar %}
+{% url 'clubteam_match_rss_feed' clubteam.slug as clubteam_rss %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ clubteam_list_url }}">Teams</a> <span class="divider">/</span></li>
+  <li class="active">{{ clubteam.long_name }}</li>
+</ul>
+
+<div class="page-header">
+    <h1>{{ clubteam.long_name }} <small>{{ season }}</small>
+    <div class="pull-right"><a href="{{ clubteam_calendar }}" target="_blank" title="{{ clubteam.long_name }} calendar"><i class="icon-calendar icon-small"></i></a>
+            <a href="{{ clubteam_rss }}" target="_blank" title="{{ clubteam.long_name }} match report RSS feed"><i class="icon-rss icon-small"></i></a>{% include 'core/_season_selector.html' with url_prefix=base_team_url %}</div></h1>
+  
+</div>
+<div class="row">
+    <div class="span6">
+        {% if participation and participation.division %}
+                <p class="lead">{{ participation.division }}
+                {% if participation.division_result %}
+                    <strong>- {{ participation.get_division_result_display }}</strong>
+                {% elif participation.final_pos %}
+                    <strong>- finished {{ participation.final_pos|ordinal }}</strong>
+                {% endif %}
+                </p>
+        {% endif %}
+        <p>{{ clubteam.blurb|safe }}</p>
+        <table class="table table-clean table-hcondensed">
+        <tbody>
+            <tr><td class="dt">Captain:</td><td><strong>{% if captain %}{{ captain|urlise_model }}{% else %}(Unknown){% endif %}</strong></td></tr>
+            <tr><td class="dt">Vice-captain:</td><td><strong>{% if vice_captain %}{{ vice_captain|urlise_model }}{% else %}(Unknown){% endif %}</strong></td></tr>
+        </tbody>
+        </table>
+        <div class="row quick-links">
+            {% if participation and participation.division_tables_url %}
+                <a href="{{ participation.division_tables_url }}" target="_blank" title="{{ participation.division }} league tables"><button class="btn btn-success"><i class="icon-external-link"></i>League Table</button></a>
+            {% else %}
+                <button disabled class="btn" title="No league table available on the league website"><i class="icon-external-link"></i>League Table</button>
+            {% endif %}
+            {% if participation and participation.division_fixtures_url %}
+                <a href="{{ participation.division_fixtures_url }}" target="_blank" title="{{ participation.division }} fixtures/results"><button class="btn btn-success"><i class="icon-external-link"></i>Fixtures/Results</button></a>
+            {% else %}
+                <button disabled class="btn" title="No fixtures/results available on the league website"><i class="icon-external-link"></i>Fixtures/Results</button>
+            {% endif %}
+        </div>
+    </div>
+    <div class="span6">
+        <img src="{% if participation.team_photo %}{{ participation.team_photo.url }}{% else %}{{ MEDIA_URL }}team_photos/placeholder.jpg{% endif %}" class="img-rounded pull-right team-photo"></img>
+    </div>
+</div>
+</br></br>
+
+{% include 'core/_loading_placeholder.html' with placeholder_id="clubteam-info" placeholder_text="Loading team stats..." %}
+
+{% endblock %}
+
+{% block body_js %}
+{{ block.super }}
+
+{% url 'clubteam_stats_ajax' clubteam.slug season.pk as clubteam_stats %}
+<script>
+    $(function () {
+        ajax_load('{{ clubteam_stats }}', 'clubteam-info');
+    });
+</script>
+{% endblock body_js %}

@@ -1,0 +1,13 @@
+<div data-role='collapsible' data-theme='b' data-content-theme='c' data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' data-inset='false'>
+    <h2>{{ section_title }}</h2>
+    <ul data-role='listview' data-divider-theme='d'>
+        {% for m in match_list %}
+        <li><a href="{{ m.get_absolute_url }}">
+            <h3>{{ m.our_team.short_name }} {{ m.score_display }} {{ m.opp_team.short_name }}</h3>
+            <p>{{ m.date|date:"jS M" }} {{ m.time }}</p>
+        </a></li>
+        {% empty %}
+        <li><h3>No matches</h3></li>
+        {% endfor %}
+    </ul>
+</div>

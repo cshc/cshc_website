@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted summary display of matches.
+- Used by club.views.matches.index
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Matches{% endblock %}
+
+{% block content %}
+
+<<h3>Latest Results</h3>
+<div class="row">
+<div class="span7">
+{% if latest_results %}
+{% include "matches/_latest_results.html" %}
+{% else %}
+<p>No recent results.</p>
+{% endif %}
+</div>
+</div>
+
+<h3>Next Fixtures</h3>
+<div class="row">
+<div class="span7">
+{% if next_fixtures %}
+{% include "matches/_next_fixtures.html" %}
+{% else %}
+<p class="lead muted">No upcoming fixtures.</p>
+{% endif %}
+</div>
+</div>
+
+{% endblock content %}

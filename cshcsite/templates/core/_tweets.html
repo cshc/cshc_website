@@ -1,0 +1,5 @@
+<ul id="twitter" class="unstyled">
+    {% for tweet in tweets %}
+        <li>{{ tweet|safe }}</li>
+    {% endfor %}
+</ul>

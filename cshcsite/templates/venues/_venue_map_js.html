@@ -1,0 +1,26 @@
+{% include "venues/_gmap_js.html" %}
+
+<script type="text/javascript">
+    
+    $(function(){
+    var address = "{{ venue_address }}";
+        
+    $('#map_canvas').gmap3(
+        { map:{
+            address:address,
+            options:{
+            zoom: 14,
+            opts:{
+                scrollwheel:true
+            }
+            }
+        },
+        marker:{
+            address:address
+        }
+        }
+    );
+          
+    });
+</script>  
+

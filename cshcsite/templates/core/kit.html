@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Static page with info about playing kit.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Kit{% endblock %}
+
+{% block body_id %}kit{% endblock body_id %}
+
+{% block content %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Kit</li>
+</ul>
+
+<div class="page-header">
+    <h1>Club Colours and Kit</h1>
+</div>
+
+
+<table cellpadding="1" cellspacing="1" width="600">
+<tbody>
+    <tr>
+        <td>
+            <strong><big>Men</big></strong></td>
+        <td>
+            &nbsp;</td>
+        <td>
+            &nbsp;</td>
+        <td>
+            <strong><big>Ladies</big></strong></td>
+        <td>
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td width="152">
+            <h2>Home</h2>
+        </td>
+        <td width="140">
+            &nbsp;</td>
+        <td width="60">
+            &nbsp;</td>
+        <td width="108">
+            &nbsp;</td>
+        <td width="140">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <img alt="" height="350" src="http://www.cambridgesouthhockeyclub.co.uk/media/kit/Mens%20home%20colours%20(S).png" width="152" /></td>
+        <td>
+            <p>Emerald green shirts<br />
+            &nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>White shorts<br />
+            &nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Emerald green socks</p>
+        </td>
+        <td>
+            &nbsp;</td>
+        <td style="text-align: center;">
+            <img alt="" height="350" src="http://www.cambridgesouthhockeyclub.co.uk/media/kit/Ladies%20home%20colours%20(S).png" width="108" /></td>
+        <td>
+            <p>Royal blue shirts<br />
+            &nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Navy shorts or skirt<br />
+            &nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Royal blue socks</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h2>Away</h2>
+        </td>
+        <td>
+            &nbsp;</td>
+        <td>
+            &nbsp;</td>
+        <td>
+            &nbsp;</td>
+        <td>
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <img alt="" height="350" src="http://www.cambridgesouthhockeyclub.co.uk/media/kit/Mens%20away%20colours%20(S).png" width="152" /></td>
+        <td>
+            <p>Yellow shirts<br />
+            &nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>White shorts<br />
+            &nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Yellow socks</p>
+        </td>
+        <td>
+            &nbsp;</td>
+        <td style="text-align: center;">
+            <img alt="" height="350" src="http://www.cambridgesouthhockeyclub.co.uk/media/kit/Ladies%20away%20colours%20(S).png" width="108" /></td>
+        <td>
+            <p>Yellow shirts<br />
+            &nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Navy shorts or skirt<br />
+            &nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Yellow socks</p>
+        </td>
+    </tr>
+</tbody>
+</table>
+<p>Playing shirts are custom manufactured for the Club by special order. New members are required to purchase a home shirt. These are provided at a subsidised price of &pound;15, discounted from the full cost of &pound;26. Away shirts are provided by the Club.</p>
+<h2>Ordering Kit</h2>
+<p>In addition to the playing shirts, the Club also offers a variety of official playing and training kit availble to order at&nbsp; <strong>
+<a href="http://groupspaces.com/cambridgesouthhockeyclub/public/pay/shop/" target="_blank">http://groupspaces.com/cambridgesouthhockeyclub/public/pay/shop/</a></strong>.</p>
+<p>The playing kit items are all constructed out of high performance fabrics and are selected to complement your Club shirt. The training wear is smart and practical and again incorporates the Club crest and personalised embroidery and printing options.</p>
+<h2>Colour Clashes</h2>
+<p>The change strip is used when we play the following clubs away from home:</p>
+<div class="row">
+    <div class="span6">
+        <div class="box">
+            <table class="table table-hover">
+                <thead>
+                    <tr><th colspan="2" class="center-align">Men</th></tr>
+                    <tr><th>Team</th><th>Colours</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Ely City</td><td>Green shirts/black shorts/black socks</td></tr>
+                    <tr><td>Long Sutton</td><td>Green shirts/white shorts/green socks</td></tr>
+                    <tr><td>St Ives</td><td>Green shirts/navy shorts/navy socks</td></tr>
+                    <tr class="local"><td>Harlow</td><td>Green shirts/black shorts/green socks</td></tr>                
+                    <tr class="local"><td>Letchworth*</td><td>Green shirts/navy shorts/yellow socks</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="box">
+            <table class="table table-hover">
+                <thead>
+                    <tr><th colspan="2" class="center-align">Ladies</th></tr>
+                    <tr><th>Team</th><th>Colours</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Cambridge Nomads</td><td>Blue shirts/navy skirts/blue socks</td></tr>
+                    <tr><td>St Neots</td><td>Light blue shirts/navy skirts/light blue socks</td></tr>
+                    <tr><td>Bishops Stortford</td><td>Blue shirts/navy skirts/red socks</td></tr>
+                    <tr><td>Blueharts</td><td>Blue shirts/navy skirts/blue socks</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<p>Teams in normal text are league opponents; in <em>italics</em> are other local teams.<br />
+*Away shirts to be worn with home socks</p>{% endblock content %}

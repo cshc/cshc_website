@@ -1,0 +1,35 @@
+{% load core_tags %}
+
+<table class="table table-condensed table-hover table-center-align">
+    <thead>
+        <tr>
+            <th rowspan="2" class="left-align">Club</th>
+            <th rowspan="2"><abbr title="Played">P</abbr></th>
+            <th rowspan="2"><abbr title="Won">W</abbr></th>
+            <th rowspan="2"><abbr title="Drawn">D</abbr></th>
+            <th rowspan="2"><abbr title="Lost">L</abbr></th>
+            <th colspan="3"><abbr title="Average goals per game">Avg. Goals</abbr></th>
+            <th rowspan="2"><abbr title="Average points per game">Avg. Points</abbr></th>
+        </tr>
+        <tr>
+            <th><abbr title="Goals For">GF</abbr></th>
+            <th><abbr title="Goals Against">GA</abbr></th>
+            <th><abbr title="Goal Difference">GD</abbr></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for c in clubstats_list %}
+        <tr>
+            <td class="left-align">{{ c.club|urlise_model }}</td>
+            <td>{{ c.total_played }}</td>
+            <td>{{ c.total_won }}</td>
+            <td>{{ c.total_drawn }}</td>
+            <td>{{ c.total_lost }}</td>
+            <td>{{ c.avg_gf|floatformat:1 }}</td>
+            <td>{{ c.avg_ga|floatformat:1 }}</td>
+            <td>{{ c.avg_gd|stringformat:"+.1f" }}</td>
+            <td>{{ c.avg_points|floatformat:1 }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

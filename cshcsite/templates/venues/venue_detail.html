@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted display of the details of a particular venue.
+- Used by club.views.venues.details
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | {{ venue.name }}{% endblock %}
+
+{% block content %}
+
+{% url 'venue_list' as venue_list_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ venue_list_url }}">Venues</a> <span class="divider">/</span></li>
+  <li class="active">{{ venue.name }}</li>
+</ul>
+
+<div class="page-header">
+  <h1>{{ venue.name }}{% if venue.is_home %} <span class="align-right"><small><i class="icon-home"></i> Home Ground</small></span>{% endif %}</h1> 
+</div>
+
+{% if venue.notes %}
+<p class="lead">{{ venue.notes|safe }}</p>
+{% endif %}
+{% if venue.distance %}
+<p>{{ venue.name }} is {{ venue.distance }} miles from Cambridge.</p>
+{% endif %}
+{% if venue.url %}<p><i class="icon-globe"></i><a href="{{ venue.url }}" title="More details..." target="_blank">{{ venue.url }}</a></p>{% endif %}
+<div class="well">
+    <div class="row">
+        <div class="pull-right gmap3 map_large" id="map_canvas"></div>
+        <h4>Location</h4>
+        <address><strong>
+            {% if venue.addr1 %}{{ venue.addr1 }}</br>{% endif %}
+            {% if venue.addr2 %}{{ venue.addr2 }}</br>{% endif %}
+            {% if venue.addr3 %}{{ venue.addr3 }}</br>{% endif %}
+            {% if venue.addr_city %}{{ venue.addr_city }}</br>{% endif %}
+            {% if venue.addr_postcode %}{{ venue.addr_postcode }}</br></br>{% endif %}</strong>
+            {% if venue.phone %}<i class="icon-phone"></i>{{ venue.phone }}</br>{% endif %}
+        </address>
+    </div>
+</div>
+
+{% if match_schedule %}
+<h3>Upcoming matches at {{ venue.name }}</h3>
+{% include 'venues/_venue_match_schedule.html' %}
+{% endif %}
+
+{% endblock content %}
+
+
+{% block body_js %}
+    {{ block.super }}
+    {% include "venues/_venue_map_js.html" with venue_address=venue.full_address %}
+{% endblock body_js %}

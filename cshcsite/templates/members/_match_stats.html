@@ -1,0 +1,44 @@
+{% load core_tags %}
+
+{% if seasons %}
+
+    <table class="table table-striped table-hover table-condensed table-center-align">
+        <thead>
+            <tr><th rowspan="2" class="left-align">Season</th><th colspan="3">League</th><th colspan="3">Cup</th><th colspan="3">Friendly</th><th colspan="2">Awards</th></tr>
+            <tr>
+                <th><abbr title="Appearances">Apps</abbr></th>
+                <th><abbr title="Goals">Gls</abbr></th>
+                <th><abbr title="Clean Sheets">CS</abbr></th>
+                <th><abbr title="Appearances">Apps</abbr></th>
+                <th><abbr title="Goals">Gls</abbr></th>
+                <th><abbr title="Clean Sheets">CS</abbr></th>
+                <th><abbr title="Appearances">Apps</abbr></th>
+                <th><abbr title="Goals">Gls</abbr></th>
+                <th><abbr title="Clean Sheets">CS</abbr></th>
+                <th><i class="icon-star"></i><abbr title="Man of the Match">MOM</abbr></th>
+                <th><i class="icon-lemon"></i><abbr title="Lemon of the Match">LOM</abbr></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for season in seasons %}
+            <tr{% if season.is_total %} class="info total"{% endif %}>
+                <td class="left-align">{% if season.is_total %}Total{% else %}{{ season.season }}{% endif %}</td>
+                <td>{{ season.matches.league.appearances|default:"" }}</td>
+                <td>{{ season.matches.league.goals|default:"" }}</td>
+                <td>{{ season.matches.league.clean_sheets|default:"" }}</td>
+                <td>{{ season.matches.cup.appearances|default:"" }}</td>
+                <td>{{ season.matches.cup.goals|default:"" }}</td>
+                <td>{{ season.matches.cup.clean_sheets|default:"" }}</td>
+                <td>{{ season.matches.friendly.appearances|default:"" }}</td>
+                <td>{{ season.matches.friendly.goals|default:"" }}</td>
+                <td>{{ season.matches.friendly.clean_sheets|default:"" }}</td>
+                <td>{{ season.matches.mom|default:"" }}</td>
+                <td>{{ season.matches.lom|default:"" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    <p class="lead muted">Sorry - no stats available</p>
+{% endif %}

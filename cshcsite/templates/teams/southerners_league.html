@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+
+{% block title %}{{ block.super }} | Southerners League{% endblock title %}
+
+{% block content %}
+{% url 'southerners_league' as base_southerners_league_url %}
+{% url 'stats_overview' as stats_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li>Stats <span class="divider">/</span></li>
+  <li class="active">Southerners League</li>
+</ul>
+
+<div class="page-header">
+  <h1>Southerners League <small>{{ season }}</small><div class="pull-right">{% include 'core/_season_selector.html' with url_prefix=base_southerners_league_url %}</div></h1>
+</div>
+
+<div class="well pull-right">
+<h4>Scoring</h4>
+<p>The points are based on the following system:</p>
+<table class="table table-center-align">
+    <thead>
+        <tr><th>Result</th><th>Points</th><th>Bonus</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Win</td><td>3</td><td>+1 if goal difference > 2</td></tr>
+        <tr><td>Draw</td><td>1</td><td>+1 if goal difference > 2</td></tr>
+        <tr><td>Loss</td><td>0</td><td>-1 if goal difference > 2</td></tr>
+    </tbody>
+</table>
+</div>
+<p>The Southerners League is a fun comparison between the teams in the club giving a quick view of how they're all doing in relation to each other. Cancelled friendlies, 
+matches awarded as walkovers and tournament games have been ignored, as have games where the scores are not known.</p>
+
+
+
+<div id="southerners-league-table">
+{% include 'teams/_southerners_league_table.html' %}
+</div>
+
+{% if user.is_staff and is_current_season or user.is_superuser %}
+<button id="refresh-btn" class="btn btn-primary" type="button" title="Refresh Southerners League stats for {{ season }} (this might take a while)" ><i id="refresh-icon" class="icon icon-refresh"></i><span id="refresh-text">Refresh</span></button>
+{% endif %}
+
+{% endblock content %}
+
+{% block body_js %}
+{{ block.super }}
+
+{% url 'southerners_league_season_update' season.slug as refresh_southerners_league %}
+<script>
+{% if user.is_staff %}
+    $("#refresh-btn").click( function() {
+        $("#refresh-icon").addClass('icon-spin');
+        $("#refresh-text").text('Refreshing...');
+        $('#refresh-btn').attr("disabled", true);
+        $.ajax({
+            url: '{{ refresh_southerners_league }}', cache: false, success: function (result) {
+                $("#southerners-league-table").html(result);
+                $("#refresh-icon").removeClass('icon-spin');
+                $("#refresh-text").text('Refresh');
+                $('#refresh-btn').attr("disabled", false);
+            }
+        });
+    });
+{% endif %}
+</script>
+{% endblock body_js %}

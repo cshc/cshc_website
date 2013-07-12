@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Club Dinner 2011{% endblock %}
+
+{% block body_id %}dinner2011{% endblock body_id %}
+
+{% block content %}
+
+{% url 'about_social' as social %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ social }}">Social</a> <span class="divider">/</span></li>
+  <li class="active">2011 Club Dinner &amp; Awards</li>
+</ul>
+
+<div class="page-header">
+    <h1>Club Dinner &amp; Awards <small>2011</small><div class="pull-right">{% include 'core/social/_season_selector.html' with url_prefix='/archive/social/dinner' season='2011' %}</div></h1>
+</div>
+
+<p>If you didn't&nbsp;come to the 2011 Annual Dinner at Clare College then you missed a fantastic night. Great venue, great food, great&nbsp;company - another superb event for South.&nbsp;Thank you so much to&nbsp;Neil and&nbsp;Bex for a great job organising the evening.</p>
+<div class="row pics-row">
+    <div class="span6">
+        <img title="Clare College Great Hall" alt="Clare College Great Hall" src="{{ MEDIA_URL }}Social/Clare%20Great%20Hall.jpg" />
+    </div>
+    <div class="span6">
+        <img title="Clare College Cellar Bar" alt="Clare College Cellar Bar" src="{{ MEDIA_URL }}Social/Clare%20Cellars.jpg" />
+    </div>
+</div>
+<h3>2011 Club Award Winners</h3>
+<p>Each year, we give a number of awards to recognise the achievement and contribution of club members. Here are the award 
+winners for the 2010/11 season.</p>
+<table class="table awards">
+    <tbody>
+        <tr>
+            <td width="50%" style="text-align: center;"><u><b>CLUBMAN OF THE YEAR</b></u></td>
+            <td width="50%" style="text-align: center;"><u><b>CLUB WOMAN OF THE YEAR</b></u></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Ron Oren</td>
+            <td style="text-align: center;">Vicky Lavis</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">&nbsp;</td>
+            <td style="text-align: center;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men's 1sts Player of the Season</b></td>
+            <td style="text-align: center;"><b>Ladies' 1sts Player of the Season</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Mark Williams</td>
+            <td style="text-align: center;">Caroline Molony</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men's 1sts Outstanding Contribution</b></td>
+            <td style="text-align: center;"><b>Ladies' 1sts Best Newcomer</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Dave Aston</td>
+            <td style="text-align: center;">Lindsay Berends</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men's 2nds Player of the Season</b></td>
+            <td style="text-align: center;"><b>Ladies' 1st Most Improved Player</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Richard Claes</td>
+            <td style="text-align: center;">Alice Hug</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men's 2nds One Season Wonder</b></td>
+            <td style="text-align: center;"><b>Ladies' 2nds Player of the Season</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Mariano Rozenzvaig</td>
+            <td style="text-align: center;">Tracey Hunter</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men's 3rds Player of the Season</b></td>
+            <td style="text-align: center;"><b>Ladies' 2nds Best Newcomer</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Matt Kern</td>
+            <td style="text-align: center;">Serin Dabb</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men's 3rds Best Newcomer</b></td>
+            <td style="text-align: center;"><b>Ladies' 2nds Most Improved Player</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">Chris Collinson</td>
+            <td style="text-align: center;">Aisling Price</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men's 4ths Player of the Season</b></td>
+            <td style="text-align: center;"><b>Mixed Team Player of the Season</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">John Sharp</td>
+            <td style="text-align: center;">Jack Chalk</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men's 4ths Most Improved Player</b></td>
+            <td style="text-align: center;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">John Parker</td>
+            <td style="text-align: center;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2"><b>Umpires' Award</b></td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Vicky Lavis</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">&nbsp;</td>
+            <td style="text-align: center;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;" colspan="2"><span style="font-size: medium;"><b>Leading Goalscorers</b></span></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><b>Men</b></td>
+            <td style="text-align: center;"><b>Ladies</b></td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">1st: Rob Barton (32 goals, 1.07 GPG)</td>
+            <td style="text-align: center;">1st: Sian Tomlin (8 goals, 0.62 GPG)</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">2nd: Graham McCulloch (22 goals, 0.76 GPG)</td>
+            <td style="text-align: center;">2nd: Leonie Dickman (7 goals, 0.47 GPG)</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">3rd:&nbsp;John Greaves&nbsp;(10 goals, 0.48 GPG)</td>
+            <td style="text-align: center;">3rd:&nbsp;Alice Hug&nbsp;(7 goals, 0.33 GPG)</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2"><b>Special Thank You Awards</b></td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Lino Di Lorenzo - Men's Fixtures Secretary despite being unable to play all year.</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">John Benedikz - Umpiring Collossus, Men's 3rd XI organiser and Mixed Team motivator.</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">George Wych - Defensive maestro, financial wizard, website guru, fantasy league fixer and Amazonian bonus-getter</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Ellie Raffan - Training pitch champion</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2"><b>Comedy Awards</b></td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Red Mist Award (for argumentativeness towards umpires) - Bhav Virdi</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Master Procrastinator Award (for using hockey to avoid work) - Manu Bhardwaj</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Thankless Captaincy Award (for being ignored by his team and exploted by other captains) - Ky Ho</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Shield of Shameless Self Pity (for nominating himself for a Thankless Captaincy Award) - Ron Oren</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Lame Duck Award (for the most injured player) - Tracey Hunter</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Captain Keen Award (for efforts while injured) - Georgie Hurford</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">One Man Team Award (for playing every position on the pitch) - Lyn Wood</td>
+        </tr>
+        <tr>
+            <td valign="top" style="text-align: center;" colspan="2">Big Chocolate Coin (for keeping the ladies' finances mostly in the black) - Julie Sadler</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% comment %}
+This re-usable template displays the latest result for each team in the club.
+Context should have a 'latest_results' list of Match objects.
+{% endcomment %}
+
+{% if latest_results %}
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th></th><th>Team</th><th>Opposition</th><th>Score</th><th>Date</th><th>Report</th></tr>
+    </thead>
+    <tbody>
+    {% for m in latest_results %}
+        <tr>
+            <td>
+                {% include 'matches/_fixture_icon.html' with match=m %}
+            </td>
+            
+            <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team|capfirst }}</a></td>
+            <td><a href="{{ m.opp_team.club.get_absolute_url }}">{{ m.opp_team.name }}</a></td>
+            <td>{{ m.score_display }}</td>
+            <td>{{ m.date|date:"jS M" }}</td>
+            <td><a href="{{ m.get_absolute_url }}">
+            {% if m.final_scores_provided %}<i class="icon-file-alt"></i>{% else %}Fixture{% endif %}
+            </a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p class="lead muted">No recent results</p>
+{% endif %}

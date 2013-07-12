@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted display of the details of a particular opposition team.
+- Used by opposition_team_detail
+Currently just lists the values that will be needed by this template - no UI design here yet! 
+{% endcomment %}
+
+{% block title %}{{ block.super }} | {{ team }}{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>{{ team }}</h1>
+</div>
+
+<div class="row">
+<div class="span7">
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr><th>Property</th><th>Value</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Club</td><td><a href="{{ team.club.get_absolute_url }}" title="View club details">{{ team.club }}</a></td></tr>
+        <tr><td>Gender</td><td>{{ team.get_gender_display }}</td></tr>
+        <tr><td>Ordinal</td><td>{{team.get_ordinal_display }}</td></tr>
+    </tbody>
+</table>
+</div>
+</div>
+
+{% endblock %}

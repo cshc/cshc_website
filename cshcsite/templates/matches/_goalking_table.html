@@ -1,0 +1,36 @@
+{% load core_tags %}
+
+<table class="table table-condensed table-hover table-center-align">
+    <thead>
+        <tr><th>Rank</th>
+        <th class="left-align">Name</th>
+        <th><abbr title="Mens 1sts">M1</abbr></th>
+        <th><abbr title="Mens 2nds">M2</abbr></th>
+        <th><abbr title="Mens 3rds">M3</abbr></th>
+        <th><abbr title="Mens 1sts">M4</abbr></th>
+        <th><abbr title="Ladies 1sts">L1</abbr></th>
+        <th><abbr title="Ladies 2nds">L2</abbr></th>
+        <th><abbr title="Mixed team">Mix</abbr></th>
+        <th><abbr title="Indoor team">Ind</abbr></th>
+        <th><abbr title="Total goals scored">Total</abbr></th>
+        <th><abbr title="Goals per game">GPG</abbr></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for gk in goalking_list %}
+        <tr>
+            <td class="{{ gk.member.gender|lower }}">{{ gk.rank }}</td>
+            <td class="left-align">{{ gk.member|urlise_model }}</td>
+            <td>{{ gk.m1_goals|default:"" }}</td>
+            <td>{{ gk.m2_goals|default:"" }}</td>
+            <td>{{ gk.m3_goals|default:"" }}</td>
+            <td>{{ gk.m4_goals|default:"" }}</td>
+            <td>{{ gk.l1_goals|default:"" }}</td>
+            <td>{{ gk.l2_goals|default:"" }}</td>
+            <td>{{ gk.mixed_goals|default:"" }}</td>
+            <td>{{ gk.indoor_goals|default:"" }}</td>
+            <td>{{ gk.total_goals }}</td>
+            <td>{{ gk.goals_per_game|floatformat:1 }}</td>
+    {% endfor %}
+    </tbody>
+</table>

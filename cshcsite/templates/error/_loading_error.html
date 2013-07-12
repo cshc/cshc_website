@@ -1,0 +1,12 @@
+{% comment %}
+
+Optional context values are:
+'placeholder_id'    - the id of the placeholder <div>
+'placeholder_class' - the class of the placeholder <div>
+'error_text'  - the text to use instead of the default 'Could not load dynamic content'
+
+{% endcomment %}
+
+<div class="placeholder{% if placeholder_class %} {{ placeholder_class }}{% endif %}">
+    <div class="alert alert-error">{% if error_text %}{{ error_text }}{% else %}Could not load dynamic content{% endif %}</div>
+</div>

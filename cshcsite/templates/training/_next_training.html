@@ -1,0 +1,26 @@
+{% comment %}
+This re-usable template displays the next training sessions.
+Context should have a 'trainingsession_list' list of TrainingSession objects.
+{% endcomment %}
+
+{% url 'trainingsession_ical_feed' as calendar %}
+<h3 id="next-training">Next Training<span class="pull-right"><a href="{{ calendar }}" title=".ics calendar of training sessions" target="_blank"><button class="btn btn-small btn-info"><i class="icon-calendar"></i>Calendar (.ics)</button></a></span></h3>
+{% if trainingsession_list %}
+    <table class="next-training table table-striped">
+        <thead>
+            <tr><th>Date</th><th>Time</th><th>Training</th><th>Venue</th></tr>
+        </thead>
+        <tbody>
+            {% for t in trainingsession_list %}
+            <tr>
+                <td>{{ t.datetime|date:"D d-M" }}</td>
+                <td>{{ t.datetime|time }}</td>
+                <td>{{ t.description }}</td>
+                <td><a href="{{ t.venue.get_absolute_url }}">{{ t.venue.short_name }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="lead muted">No upcoming training sessions.</p>
+{% endif %}

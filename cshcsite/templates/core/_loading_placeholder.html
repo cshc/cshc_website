@@ -1,0 +1,16 @@
+{% comment %}
+
+Optional context values are:
+'icon_class'        - added to the class of the icon
+'placeholder_id'    - the id of the placeholder <div>
+'placeholder_class' - the class of the placeholder <div>
+'placeholder_text'  - the text to use instead of the default 'Loading...'
+
+{% endcomment %}
+
+<div {% if placeholder_id %}id="{{ placeholder_id }}"{% endif %} class="placeholder{% if placeholder_class %} {{ placeholder_class }}{% endif %}">
+    <script>
+        document.write("<i class='icon-spinner icon-spin {% if icon_class %}{{ icon_class }} {% endif %}'></i>{% if placeholder_text %}{{ placeholder_text }}{% else %}Loading...{% endif %}")
+    </script>
+    <noscript><div class="alert alert-error">Sorry - this requires JavaScript!</div></noscript>
+</div>

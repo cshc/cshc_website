@@ -1,0 +1,124 @@
+{% load core_tags %}
+
+{% url 'join_us' as join_us %}
+{% url 'membershipenquiry_create' as join_us_redirected %}
+
+{% url 'about_us' as about_us %}
+{% url 'pitch_directions' as pitch_directions %}
+{% url 'upcoming_trainingsession_list' as training %}
+{% url 'about_fees' as fees %}
+{% url 'about_kit' as kit %}
+{% url 'about_social' as social %}
+{% url 'about_committee' as committee %}
+{% url 'calendar' as calendar %}
+
+{% url 'clubteam_list' as team_list %}
+{% url 'clubteam_detail' 'm1' as team_m1 %}
+{% url 'clubteam_detail' 'm2' as team_m2 %}
+{% url 'clubteam_detail' 'm3' as team_m3 %}
+{% url 'clubteam_detail' 'm4' as team_m4 %}
+{% url 'clubteam_detail' 'm5' as team_m5 %}
+{% url 'clubteam_detail' 'l1' as team_l1 %}
+{% url 'clubteam_detail' 'l2' as team_l2 %}
+{% url 'clubteam_detail' 'mixed' as team_mixed %}
+{% url 'clubteam_detail' 'indoor' as team_indoor %}
+{% url 'clubteam_detail' 'vets' as team_vets %}
+
+{% url 'goal_king' as goal_king %}
+{% url 'southerners_league' as southerners %}
+{% url 'opposition_club_list' as rivals %}
+
+{% url 'latest_results' as latest_results_url %}
+{% url 'next_fixtures' as next_fixtures_url %}
+
+{% url 'about_minutes' as minutes_url %}
+{% url 'chairmans_notes' as chairmans_notes %}
+{% url 'dinner2012' as dinner2012 %}
+{% url 'dinner2011' as dinner2011 %}
+{% url 'dinner2010' as dinner2010 %}
+{% url 'dinner2009' as dinner2009 %}
+{% url 'dinner2008' as dinner2008 %}
+{% url 'dinner2007' as dinner2007 %}
+{% url 'tour2008' as tour2008 %}
+
+<ul class="nav pull-right">
+    <li><a href="{{ join_us }}" class="{% active join_us_redirected %}">Join Us</a></li>
+    
+    {# Teams #}
+    <li class="dropdown">
+        <a href="#"  class="dropdown-toggle {% active '/teams/' %}" data-toggle="dropdown">Teams <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ team_list }}" class="{% active team_list %}">Team overview</a></li>
+            <li class="nav-header">Ladies</li>
+            <li><a href="{{ team_l1 }}" class="{% active team_l1 %}">Ladies 1sts</a></li>
+            <li><a href="{{ team_l2 }}" class="{% active team_l2 %}">Ladies 2nds</a></li>
+            <li class="divider"></li>
+            <li class="nav-header">Mens</li>
+            <li><a href="{{ team_m1 }}" class="{% active team_m1 %}">Mens 1sts</a></li>
+            <li><a href="{{ team_m2 }}" class="{% active team_m2 %}">Mens 2nds</a></li>
+            <li><a href="{{ team_m3 }}" class="{% active team_m3 %}">Mens 3rds</a></li>
+            <li><a href="{{ team_m4 }}" class="{% active team_m4 %}">Mens 4ths</a></li>
+            <li><a href="{{ team_m5 }}" class="{% active team_m5 %}">Mens 5ths</a></li>
+            <li class="divider"></li>
+            <li><a href="{{ team_mixed }}" class="{% active team_mixed %}">Mixed</a></li>
+            <li><a href="{{ team_indoor }}" class="{% active team_indoor %}">Indoor</a></li>
+            <li><a href="{{ team_vets }}" class="{% active team_vets %}">Vets</a></li>
+        </ul>
+    </li>
+
+    {# Matches #}
+    <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li><a href="{{ latest_results_url }}" class="{% active latest_results_url %}">Latest results</a></li>
+        <li><a href="{{ next_fixtures_url }}" class="{% active next_fixtures_url %}">Next fixtures</a></li>
+        <li><a href="#">Match search<i class="icon-search"></i></a></li>
+    </ul>
+    </li>
+
+    {# Club #}
+    <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Club <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li><a href="{{ about_us }}" class="{% active about_us %}">About Us</a></li>
+        <li><a href="{{ pitch_directions }}" class="{% active pitch_directions %}">Pitch Directions</a></li>
+        <li><a href="{{ training }}" class="{% active training %}">Training</a></li>
+        <li><a href="{{ social }}" class="{% active social %}">Social</a></li>
+        <li><a href="{{ kit }}" class="{% active kit %}">Kit</a></li>
+        <li><a href="{{ fees }}" class="{% active fees %}">Fees</a></li>
+        <li><a href="{{ committee }}" class="{% active committee %}">Committee</a></li>
+        <li><a href="{{ calendar }}" class="{% active calendar %}">Calendar</a></li>
+    </ul>
+    </li>
+
+    {# Stats #}
+    <li class="dropdown">
+        <a href="#"  class="dropdown-toggle" data-toggle="dropdown">Stats <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ goal_king }}" class="{% active goal_king %}">Goal King</a></li>
+            <li><a href="{{ southerners }}" class="{% active southerners %}">Southerners League</a></li>
+            <li><a href="{{ rivals }}" class="{% active rivals %}">Rivals</a></li>
+        </ul>
+    </li>
+
+    {# Archive #}
+    <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Archive <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li><a href="{{ minutes_url }}" class="{% active minutes_url %}">Meeting minutes</a></li>
+        <li><a href="{{ chairmans_notes }}" class="{% active chairmans_notes %}">Chairman's notes</a></li>
+        <li class="dropdown-submenu">
+            <a href="#">Social</a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ dinner2012 }}" class="{% active dinner2012 %}">Club Dinner 2012</a></li>
+                <li><a href="{{ dinner2011 }}" class="{% active dinner2011 %}">Club Dinner 2011</a></li>
+                <li><a href="{{ dinner2010 }}" class="{% active dinner2010 %}">Club Dinner 2010</a></li>
+                <li><a href="{{ dinner2009 }}" class="{% active dinner2009 %}">Club Dinner 2009</a></li>
+                <li><a href="{{ dinner2008 }}" class="{% active dinner2008 %}">Club Dinner 2008</a></li>
+                <li><a href="{{ dinner2007 }}" class="{% active dinner2007 %}">Club Dinner 2007</a></li>
+                <li><a href="{{ tour2008 }}" class="{% active tour2008 %}">Tour 2008</a></li>
+            </ul>
+        </li>
+    </ul>
+    </li>
+</ul>

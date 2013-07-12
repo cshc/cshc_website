@@ -1,0 +1,13 @@
+{% load core_tags %}
+
+<div class="btn-group btn-large">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" title="Select season">
+    {{ season }}
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    {% for s in season_list %}
+        <li {% if s == season %}class="active"{% endif %}><a href="{{ url_prefix }}{{ s.slug }}/">{{ s }}</a></li>
+    {% endfor %}
+  </ul>
+</div>

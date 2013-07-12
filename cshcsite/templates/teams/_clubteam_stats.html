@@ -1,0 +1,20 @@
+<div class="tabbable"> 
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tabFixRes" data-toggle="tab">Fixtures/Results</a></li>
+    {% if division %}<li><a href="#tabLeagueTable" data-toggle="tab">League Table</a></li>{% endif %}
+    <li><a href="#tabSquad" data-toggle="tab">Squad Roster</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tabFixRes">
+      {% include 'matches/_fixture_list.html' %}
+    </div>
+    {% if division %}
+    <div class="tab-pane" id="tabLeagueTable">
+      {% include 'teams/_league_table.html' %}
+    </div>
+    {% endif %}
+    <div class="tab-pane" id="tabSquad">
+      {% include 'teams/_squad_list.html' %}
+    </div>
+  </div>
+</div>

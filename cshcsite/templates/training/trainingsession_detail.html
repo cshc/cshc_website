@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | {{ trainingsession }}{% endblock %}
+
+{% block content %}
+{% url 'trainingsession_list' as trainingsession_list_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ trainingsession_list_url }}">Training</a> <span class="divider">/</span></li>
+  <li class="active">{{ trainingsession.description }}</li>
+</ul>
+
+<div class="page-header">
+    <h1>{{ trainingsession.description }}</h1>
+</div>
+
+<blockquote>
+    <b>Venue:</b> {{ trainingsession.venue }}</br><b>Date:</b> {{ trainingsession.date }}</br><b>Time:</b> {{ trainingsession.time }}
+</blockquote>
+
+{% endblock %}
+

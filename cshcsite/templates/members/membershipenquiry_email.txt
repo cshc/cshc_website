@@ -1,0 +1,19 @@
+{{ name }} is interested in Cambridge South!
+
+Email address: {{ email }}
+Phone: {{ phone }}
+Add to mailing list? {{ join_mail_list|yesno }}
+
+Previous hockey experience:
+{% if hockey_exp != None %}
+{{ hockey_exp }}
+{% else %}
+(None)
+{% endif %}
+
+Comments/Questions:
+{% if comments != None %}
+{{ comments }}
+{% else %}
+(None)
+{% endif %}
