@@ -10,6 +10,7 @@ from competitions.models import Season
 from awards.models import MatchAward, MatchAwardWinner
 from teams.models import ClubTeam
 from .models import Match, GoalKing, Appearance
+from .filters import MatchFilter
 
 log = logging.getLogger(__name__)
 
@@ -18,6 +19,12 @@ class MatchListView(ListView):
     """A generic match list view"""
     model = Match
 
+    def get_context_data(self, **kwargs):
+        context = super(MatchList, self).get_context_data(**kwargs)
+        match_qs = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season')
+        context['filter'] = MatchFilter(self.request.GET, queryset=match_qs)
+        return context
+
 
 class MatchesByDateView(TemplateView):
 
@@ -25,7 +32,7 @@ class MatchesByDateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MatchesByDateView, self).get_context_data(**kwargs)
-        
+                
         date_str = kwargs['date']
         dt = datetime.strptime(date_str, "%d-%b-%y")
 
@@ -91,7 +98,7 @@ class LatestResultsView(TemplateView):
 class NextFixturesView(TemplateView):
     """View for the next match fixtures (one per team)"""
 
-    template_name='matches/next_fixtures.html'
+    template_name = 'matches/next_fixtures.html'
 
     def get_context_data(self, **kwargs):
         context = super(NextFixturesView, self).get_context_data(**kwargs)

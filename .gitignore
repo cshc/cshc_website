@@ -4,3 +4,5 @@ themes/classic/views/
 *.pyc
 *.swp
 *.sqlite
+.ropeproject/
+cshcsite\cshcsite\cshc.db

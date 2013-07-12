@@ -1,35 +1,55 @@
 {% extends "base.html" %}
 
+{% load core_tags %}
+{% load i18n %}
+{% load pagination_tags %}
+{% load sorter_tags %}
+
 {% comment %}
-Formatted summary display of matches.
-- Used by club.views.matches.index
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Filter-able, sortable, paginated display of matches.
 {% endcomment %}
 
 {% block title %}{{ block.super }} | Matches{% endblock %}
 
 {% block content %}
 
-<<h3>Latest Results</h3>
-<div class="row">
-<div class="span7">
-{% if latest_results %}
-{% include "matches/_latest_results.html" %}
-{% else %}
-<p>No recent results.</p>
-{% endif %}
-</div>
-</div>
+<h1>Find a match</h1>
 
-<h3>Next Fixtures</h3>
-<div class="row">
-<div class="span7">
-{% if next_fixtures %}
-{% include "matches/_next_fixtures.html" %}
-{% else %}
-<p class="lead muted">No upcoming fixtures.</p>
-{% endif %}
-</div>
-</div>
+    <div class="well">
+        <h4>Filter</h4>
+        <form action="" method="get">
+                {{ filter.form.as_p }}
+                <input type="submit" />
+        </form>
+        <!-- TODO: Custom form. Ref: https://docs.djangoproject.com/en/1.5/topics/forms/#customizing-the-form-template -->
+    </div>
+    {% sort filter.qs as sorted_list %}
+    {% autopaginate sorted_list 4 as sorted_filter_list %}
+
+    {% if sorted_filter_list %}
+        <table id="matches" class="table">
+            <thead>
+                <tr>
+                   <th>{% sortlink by "date" "-date" %}Date{% endsortlink %}</th>
+                   <th>{% sortlink by "our_team" "-our_team" %}Our Team{% endsortlink %}</th>
+                   <th>{% sortlink by "opp_team" "-opp_team" %}Opposition{% endsortlink %}</th>
+                </tr>
+            </thead>
+            {% for match in sorted_filter_list %}
+                <tr>
+                    <td class="no-break"><a title="Matches on {{ match.date|date:"d-M-y" }}" href="{% url 'matches_by_date' match.date|date:"d-M-y"%}">{{ match.date|date:"d-M-y" }}</a></td>
+                    <td>{{ match.our_team }}</td>
+                    <td>{{ match.opp_team }}</td>
+                    <td>{{ match.venue }}</td>
+                    <td>{{ match.our_score }}</td>
+                    <td>{{ match.opp_score }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="lead muted">No matches found!</p>
+    {% endif %}
+
+    {% paginate %}
 
 {% endblock content %}

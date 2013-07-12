@@ -2,7 +2,7 @@
 Django==1.5
 
 # Support for PostgreSQL
-psycopg2==2.4.6
+#psycopg2==2.4.6
 
 # Support for using database URLs in settings
 dj-database-url==0.2.1
@@ -45,3 +45,12 @@ easy-thumbnails==1.2
 
 # Twitter API v1.1 support
 twython==3.0
+
+# Filtering support for list views
+django-filter==0.6
+
+# Pagination template tags
+django-pagination==1.0.7
+
+# Sorting template tags
+django-sorter==0.2

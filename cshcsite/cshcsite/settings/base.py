@@ -179,6 +179,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -217,6 +218,8 @@ THIRD_PARTY_APPS = (
     'django_mobile',
     'tinymce',
     'easy_thumbnails',
+    'pagination',
+    'sorter',
 )
 
 # Apps specific for this project go here.
@@ -423,3 +426,23 @@ THUMBNAIL_ALIASES = {
 
 THUMBNAIL_DEBUG = False
 ########## END EASY THUMBNAILS CONFIGURATION
+
+
+
+########## django-sorter CONFIGURATION
+SORTER_ALLOWED_CRITERIA = {
+    'sort': ['our_team', 
+             'opp_team', 
+             'venue', 
+             'fixture_type', 
+             'date', 
+             'home_away',
+             'alt_outcome',
+             'our_score',
+             'opp_score',
+             'season',
+             'division',
+             'cup',
+    ],
+}
+########## END django-sorter CONFIGURATION
