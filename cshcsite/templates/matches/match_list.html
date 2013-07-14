@@ -11,38 +11,103 @@ Filter-able, sortable, paginated display of matches.
 
 {% block title %}{{ block.super }} | Matches{% endblock %}
 
+{% block body_id %}match-list{% endblock body_id %}
+
 {% block content %}
 
-<h1>Find a match</h1>
+{% url 'match_list' as match_list_url %}
 
-    <div class="well">
-        <h4>Filter</h4>
+<div class="page-header">
+    <h1>Search all matches</h1>
+</div>
+
+<p class="lead">Use the filters below to find exactly the matches you're looking for!</p>
+
+     <div class="row" id="filter">
+        <div class="span12"><h4>Filter</h4></div>
         <form action="" method="get">
-                {{ filter.form.as_p }}
-                <input type="submit" />
-        </form>
-        <!-- TODO: Custom form. Ref: https://docs.djangoproject.com/en/1.5/topics/forms/#customizing-the-form-template -->
+        <div class="span12">{{ filter.form.non_field_errors }}</div>
+        <div class="span4">
+            <div class="fieldWrapper">
+                {{ filter.form.our_team.errors }}
+                <label for="id_our_team">Our team:</label>
+                {{ filter.form.our_team }}
+            </div>
+            <div class="fieldWrapper">
+                {{ filter.form.opp_team.errors }}
+                <label for="id_opp_team">Opposition:</label>
+                {{ filter.form.opp_team }}
+            </div>
+            <div class="fieldWrapper">
+                {{ filter.form.date.errors }}
+                <label for="id_date">Date:</label>
+                {{ filter.form.date }}
+            </div>
+            <div class="fieldWrapper">
+                {{ filter.form.venue.errors }}
+                <label for="id_venue">Venue:</label>
+                {{ filter.form.venue }}
+            </div>
+        </div>    
+        <div class="span4">
+            <div class="fieldWrapper">
+                {{ filter.form.season.errors }}
+                <label for="id_season">Season:</label>
+                {{ filter.form.season }}
+            </div>
+            <div class="fieldWrapper">
+                {{ filter.form.division.errors }}
+                <label for="id_division">Division:</label>
+                {{ filter.form.division }}
+            </div>
+            <div class="fieldWrapper">
+                {{ filter.form.home_away.errors }}
+                <label for="id_home_away">Home/Away:</label>
+                {{ filter.form.home_away }}
+            </div>
+            <div class="fieldWrapper">
+                {{ filter.form.fixture_type.errors }}
+                <label for="id_fixture_type">Fixture type:</label>
+                {{ filter.form.fixture_type }}
+            </div>
+        </div>    
+        <div class="span4">
+            <div class="fieldWrapper players">
+                {{ filter.form.players.errors }}
+                <label id="label_players" for="id_players">Players:</label>
+                {{ filter.form.players }}
+            </div>
+        </div>    
+        <div class="span12"><input class="btn btn-primary" type="submit" /><input class="btn" type="reset" value="Reset" /><button class="btn" onclick="reset_form();">Reset</button></div>
     </div>
+    </form>
+
+    <hr/>
     {% sort filter.qs as sorted_list %}
-    {% autopaginate sorted_list 4 as sorted_filter_list %}
+    {% autopaginate sorted_list 20 as sorted_filter_list %}
 
     {% if sorted_filter_list %}
         <table id="matches" class="table">
             <thead>
                 <tr>
-                   <th>{% sortlink by "date" "-date" %}Date{% endsortlink %}</th>
-                   <th>{% sortlink by "our_team" "-our_team" %}Our Team{% endsortlink %}</th>
-                   <th>{% sortlink by "opp_team" "-opp_team" %}Opposition{% endsortlink %}</th>
+                    <th></th>
+                    <th>{% sortlink by "date" "-date" %}Date{% endsortlink %}</th>
+                    <th>{% sortlink by "our_team" "-our_team" %}Team{% endsortlink %}</th>
+                    <th>Score</th>
+                    <th>{% sortlink by "opp_team" "-opp_team" %}Opposition{% endsortlink %}</th>
+                    <th>{% sortlink by "venue" "-venue" %}Venue{% endsortlink %}</th>
+                    <th></th>
                 </tr>
             </thead>
             {% for match in sorted_filter_list %}
                 <tr>
+                    <td>{% include 'matches/_fixture_icon.html' %}</td>
                     <td class="no-break"><a title="Matches on {{ match.date|date:"d-M-y" }}" href="{% url 'matches_by_date' match.date|date:"d-M-y"%}">{{ match.date|date:"d-M-y" }}</a></td>
-                    <td>{{ match.our_team }}</td>
+                    <td><a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.long_name }}</a></td>
+                    <td>{{ match.score_display }}</td>
                     <td>{{ match.opp_team }}</td>
-                    <td>{{ match.venue }}</td>
-                    <td>{{ match.our_score }}</td>
-                    <td>{{ match.opp_score }}</td>
+                    <td>{% if match.venue %}<a href="{{ match.venue.get_absolute_url }}" title="{{ match.venue.name }}">{{ match.venue.simple_name }}</a>{% elif match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
+                    <td><a href="{{ match.get_absolute_url }}" title="Match details"><i class="icon-file-alt"></i></a></td>
                 </tr>
             {% endfor %}
         </table>
@@ -53,3 +118,12 @@ Filter-able, sortable, paginated display of matches.
     {% paginate %}
 
 {% endblock content %}
+
+{% block body_js %}
+{{ block.super }}
+<script>
+   function reset_form() {
+        $('select option:first-child').attr("selected", "selected");
+    });
+</script>
+{% endblock %}

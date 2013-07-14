@@ -20,8 +20,9 @@ class MatchListView(ListView):
     model = Match
 
     def get_context_data(self, **kwargs):
-        context = super(MatchList, self).get_context_data(**kwargs)
+        context = super(MatchListView, self).get_context_data(**kwargs)
         match_qs = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season')
+        match_qs = match_qs.prefetch_related('players').defer('report_body', 'pre_match_hype').order_by('-date')
         context['filter'] = MatchFilter(self.request.GET, queryset=match_qs)
         return context
 

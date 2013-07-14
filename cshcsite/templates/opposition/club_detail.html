@@ -70,7 +70,7 @@ Currently just lists the values that will be needed by this template - no UI des
         </thead>
         <tbody>
         {% for c in clubstats_list %}
-            <tr>
+            <tr{% if not c.team %} class="info"{% endif %}>
                 <td class="left-align">{% if c.team %}<a href="javascript:void(0)" onclick="expand('{{ c.team.slug }}')">{{ c.team }}</a>{% else %}All{% endif %}</td>
 
                 <td class="highlight">{{ c.total_played }}</td>

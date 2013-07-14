@@ -48,7 +48,7 @@ class ClubDetailView(TemplateView):
         context = super(ClubDetailView, self).get_context_data(**kwargs)
         club_slug = kwargs['slug']
         club = Club.objects.get(slug=club_slug)
-        club_stats = ClubStats.objects.select_related('club', 'team').order_by('team__position').filter(club=club)
+        club_stats = list(ClubStats.objects.select_related('club', 'team').order_by('team__position').filter(club=club))
 
         # Get all matches against this club
         matches = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(opp_team__club=club).order_by('date')
@@ -73,7 +73,12 @@ class ClubDetailView(TemplateView):
         for team, fixtures in all_team_fixtures.iteritems():
             all_team_fixtures[team] = sorted(fixtures, key=lambda f: f.match.date)
 
-        log.debug(all_team_fixtures)
+        # Shift the totals column to the end of the list
+        all_teams = club_stats[0]
+        assert all_teams.team is None
+        club_stats.remove(all_teams)
+        club_stats.append(all_teams)
+
         context['club'] = club
         context['clubstats_list'] = club_stats
         context['all_team_fixtures'] = all_team_fixtures

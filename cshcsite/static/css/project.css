@@ -217,3 +217,14 @@ Page-specific
 
 .pics-row img { display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; max-height: 500px; }
 table.awards td { border: none; }
+
+#match-list #filter { background-color: rgb(219, 230, 219); }
+#match-list #filter label { display: inline-block; margin-right: 10px; width: 80px; }
+#match-list #filter select { width: 200px; }
+#match-list #filter select#id_date_day { width: 55px; }
+#match-list #filter select#id_date_month { width: 55px; }
+#match-list #filter select#id_date_year { width: 85px; }
+#match-list #filter label#label_players { display: block; }
+#match-list #filter select#id_players { height: 125px; width: 100%; }
+#match-list #filter div.players {padding-right: 10px;}
+#match-list #filter input, #match-list #filter button { margin: 10px 10px 15px 0px; }

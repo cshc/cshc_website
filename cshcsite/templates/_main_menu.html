@@ -30,6 +30,7 @@
 
 {% url 'latest_results' as latest_results_url %}
 {% url 'next_fixtures' as next_fixtures_url %}
+{% url 'match_list' as match_list_url %}
 
 {% url 'about_minutes' as minutes_url %}
 {% url 'chairmans_notes' as chairmans_notes %}
@@ -72,7 +73,7 @@
     <ul class="dropdown-menu">
         <li><a href="{{ latest_results_url }}" class="{% active latest_results_url %}">Latest results</a></li>
         <li><a href="{{ next_fixtures_url }}" class="{% active next_fixtures_url %}">Next fixtures</a></li>
-        <li><a href="#">Match search<i class="icon-search"></i></a></li>
+        <li><a href="{{ match_list_url }}">Match search<i class="icon-search"></i></a></li>
     </ul>
     </li>
 

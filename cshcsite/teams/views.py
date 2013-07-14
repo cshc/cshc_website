@@ -67,6 +67,9 @@ class ClubTeamDetailView(TemplateView):
         team = get_object_or_404(ClubTeam, slug=kwargs['slug'])
         context['clubteam'] = team
         
+        # Get the seasons in which this team competed
+        part_seasons = [part.season for part in ClubTeamSeasonParticipation.objects.select_related('season').filter(team=team).only('season').order_by('season__start')]
+        
         # The season may or may not be specified in the URL by its slug. 
         # If it isn't, we use the current season
         season_slug = kwargs_or_none('season_slug', **kwargs)
@@ -74,23 +77,20 @@ class ClubTeamDetailView(TemplateView):
         if season_slug != None:
             season = Season.objects.get(slug=season_slug)
         else:
-            season =current_season
+            # Default to the most recent season
+            season = part_seasons[-1]
 
         # Retrieve captaincy information for this team
         context['captain'] = TeamCaptaincy.get_captain(team, season)
         context['vice_captain'] = TeamCaptaincy.get_vice_captain(team, season)
 
         # Get the participation information for this team and season
-        try:
-            participation = ClubTeamSeasonParticipation.objects.select_related('division__league', 'season').get(team=team, season=season)
-            context['participation'] = participation
-        except ClubTeamSeasonParticipation.DoesNotExist:
-            pass
+        participation = ClubTeamSeasonParticipation.objects.select_related('division__league', 'season').get(team=team, season=season)
+        context['participation'] = participation
 
         # Allow the template to display the season and a season selector
         context['season'] = season
-        # TODO: Only retrieve seasons in which this team participated
-        context['season_list'] = Season.objects.all()
+        context['season_list'] = part_seasons
         context['is_current_season'] = season == current_season
         return context
 
