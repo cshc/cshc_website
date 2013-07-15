@@ -161,11 +161,10 @@ Match Details
 Footers
 */
 #footer .row.sections { margin-bottom: 10px; }
-#footer .calendar div.icon { font-size: 60px; }
-#footer .calendar div.icon i { margin-right: 0.2em; margin-left: 0; }
-#footer .calendar p { font-size: 160%; font-style: italic; line-height:120% }
-#footer .calendar p .cs { font-size: 120%; }
-
+#footer .calendar div.icon, #footer .contact-us div.icon { font-size: 60px; }
+#footer .calendar div.icon i, #footer .contact-us div.icon i { margin-right: 0.2em; margin-left: 0; }
+#footer .calendar p, #footer .contact-us p { font-size: 160%; font-style: italic; line-height:120% }
+#footer .calendar p .em, #footer .contact-us p .em { font-size: 120%; }
 
 /******************************************************************************
 Page-specific
@@ -178,6 +177,13 @@ Page-specific
 #join-us textarea { padding: 11px; width: 94%; margin: 0,0,0,10px; border-radius: 3px; height: 113px; }
 #join-us input[type="submit"] { float: right; text-transform: uppercase; color: #fff; background: #187CCC; font-size: 15px; padding: 4px 12px; border: 0 none; border-radius: 3px; -webkit-transition: background linear .2s, box-shadow linear .2s; -moz-transition: background linear .2s, box-shadow linear .2s; -o-transition: background linear .2s, box-shadow linear .2s; transition: background linear .2s, box-shadow linear .2s; }
 #join-us input[type="submit"]:hover { background: #252528; }
+
+#contact-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
+#contact-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
+#contact-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 89%; }
+#contact-us textarea { padding: 11px; width: 94%; margin: 0,0,0,10px; border-radius: 3px; height: 113px; }
+#contact-us input[type="submit"] { float: right; text-transform: uppercase; color: #fff; background: #187CCC; font-size: 15px; padding: 4px 12px; border: 0 none; border-radius: 3px; -webkit-transition: background linear .2s, box-shadow linear .2s; -moz-transition: background linear .2s, box-shadow linear .2s; -o-transition: background linear .2s, box-shadow linear .2s; transition: background linear .2s, box-shadow linear .2s; }
+#contact-us input[type="submit"]:hover { background: #252528; }
 
 #our-teams .row.mens { margin-bottom:20px; }
 #our-teams .row.ladies { margin-bottom:20px; }
@@ -228,3 +234,5 @@ table.awards td { border: none; }
 #match-list #filter select#id_players { height: 125px; width: 100%; }
 #match-list #filter div.players {padding-right: 10px;}
 #match-list #filter input, #match-list #filter button { margin: 10px 10px 15px 0px; }
+
+

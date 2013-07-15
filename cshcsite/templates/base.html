@@ -76,6 +76,7 @@
     {% block content %}
 
     {% endblock content %}
+    
     </div><!-- container -->
 
     <footer id="footer">
@@ -83,6 +84,7 @@
             {% block footer %}
             <div class="row sections">
                 {% include 'core/_footer_cal.html' %}
+                {% include 'core/_footer_contact.html' %}
             </div>
             {% endblock footer %}
             <div class="row credits">
@@ -121,7 +123,7 @@
     <script src="{{ STATIC_URL }}js/bootstrap-tooltip.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap-popover.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap-button.js"></script>
-    
+
     {#<script src="{{ STATIC_URL }}js/loader.js"></script>#}
     <script src="{{ STATIC_URL }}clean_canvas/js/theme.js"></script>
     <script src="{{ STATIC_URL }}js/project.js"></script>

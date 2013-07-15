@@ -1,12 +1,17 @@
 import logging
 from django.views.generic import TemplateView
+from django.views.generic.edit import FormView
+from django.contrib import messages
+from django.template import loader, Context
+from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
 from twython import Twython
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
-from core.views import AjaxGeneral, kwargs_or_none, add_clubinfo_to_context
+from core.views import AjaxGeneral
 from core.models import ClubInfo
 from matches.views import LatestResultsView, NextFixturesView
 from training.views import UpcomingTrainingSessionsView
+from .forms import ContactForm
 
 log = logging.getLogger(__name__)
 
@@ -30,6 +35,41 @@ class HomeView(TemplateView):
         return context
 
 
+class ContactUsView(FormView):
+    """This is essentially the 'Join Us' form view"""
+    form_class = ContactForm
+    template_name = "core/contact.html"
+    success_url = '/contact/'
+
+    def send_email(self, form):
+        from_email = form.cleaned_data['email']
+        name = form.cleaned_data['name']
+        subject = "Message from {}: {}".format(name, form.cleaned_data['subject'])
+        message = form.cleaned_data('message')
+
+        try:
+            recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
+        except ClubInfo.DoesNotExist:
+                recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
+        send_mail(subject, message, from_email, [recipient_email], fail_silently=False)
+
+    def form_valid(self, form):
+        try:
+            self.send_email(form)
+            messages.info(self.request, "Thanks for your message. We'll be in touch shortly!")
+        except BadHeaderError:
+            log.warn("Failed to send email")
+            messages.warning(self.request, "Sorry - we were unable to send your message. Please try again later.")
+        return super(ContactUsView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.info(
+            self.request,
+            "Submission failed. Errors: {}".format(form.errors)
+        )
+        return super(ContactUsView, self).form_invalid(form)
+
+
 class AboutUsView(TemplateView):
     """Background and History"""
     template_name = 'core/about_us.html'
@@ -49,6 +89,7 @@ class CommitteeView(TemplateView):
         
         context['clubinfo'] = ClubInfo.objects.all()
         return context
+
 
 class LoadTweetsView(AjaxGeneral):
     """An Ajax-requested view for fetching the latest CSHC tweets. Uses Twython."""
