@@ -52,7 +52,7 @@ Maps
 
 .well .row, .hero-unit .row, .match-detail .row { margin-left: 20px; }
 
-.map_small { width: 370px; height: 220px; }
+.map_small { width: 370px; height: 220px; margin: 5px; }
 
 .gmap3 { border: 1px solid #C0C0C0; }
 
@@ -173,17 +173,17 @@ Page-specific
 #join-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
 #join-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
 #join-us input.phone { background: url('../clean_canvas/img/formphone.png') #fff no-repeat 5px; }
-#join-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 89%; }
-#join-us textarea { padding: 11px; width: 94%; margin: 0,0,0,10px; border-radius: 3px; height: 113px; }
+#join-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 90%; }
+#join-us textarea { padding: 11px; width: 94%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
 #join-us input[type="submit"] { float: right; text-transform: uppercase; color: #fff; background: #187CCC; font-size: 15px; padding: 4px 12px; border: 0 none; border-radius: 3px; -webkit-transition: background linear .2s, box-shadow linear .2s; -moz-transition: background linear .2s, box-shadow linear .2s; -o-transition: background linear .2s, box-shadow linear .2s; transition: background linear .2s, box-shadow linear .2s; }
 #join-us input[type="submit"]:hover { background: #252528; }
 
 #contact-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
 #contact-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
-#contact-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 89%; }
-#contact-us textarea { padding: 11px; width: 94%; margin: 0,0,0,10px; border-radius: 3px; height: 113px; }
-#contact-us input[type="submit"] { float: right; text-transform: uppercase; color: #fff; background: #187CCC; font-size: 15px; padding: 4px 12px; border: 0 none; border-radius: 3px; -webkit-transition: background linear .2s, box-shadow linear .2s; -moz-transition: background linear .2s, box-shadow linear .2s; -o-transition: background linear .2s, box-shadow linear .2s; transition: background linear .2s, box-shadow linear .2s; }
-#contact-us input[type="submit"]:hover { background: #252528; }
+#contact-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 90%; }
+#contact-us textarea { width: 96%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
+#contact-us input[type="submit"] { float: right; margin-right: 8px; }
+/*#contact-us input[type="submit"]:hover { background: #252528; }*/
 
 #our-teams .row.mens { margin-bottom:20px; }
 #our-teams .row.ladies { margin-bottom:20px; }
@@ -199,10 +199,12 @@ Page-specific
 
 #matches-by-date .table-score td.team-name { font-size: 150%; }
 #matches-by-date .table-score td.team-score { font-size: 250%; }
-#matches-by-date .match-detail { margin-bottom: 30px; padding-top: 5px; }
+#matches-by-date .match-detail { margin-bottom: 30px; }
+#matches-by-date .match-detail ul {padding-top: 5px;}
 #matches-by-date a.match-link:hover td.team-name { background-color: rgb(54, 134, 54); color: lightgray; }
 #matches-by-date a.match-link:hover td.team-score { background-color: rgb(94, 168, 94); color: white; }
 #matches-by-date .match-score a.match-link:hover { background-color: rgb(54, 134, 54); }
+#matches-by-date .map_small { width: 370px; height: 160px; }
 
 #kit tr.local td { font-style: italic; }
 

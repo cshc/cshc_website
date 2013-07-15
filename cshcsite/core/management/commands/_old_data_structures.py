@@ -239,6 +239,8 @@ class Old_Matches(Old_Table_Entry):
         # Tidy up/sanitize match report HTML
         if self.Match_Report is not None:
             self.Match_Report = self.Match_Report.rstrip('\n').replace('\n', '</p><p>')
+            # Add support for 'excerpt' from a match report (ref https://github.com/carljm/django-model-utils#splitfield)
+            self.Match_Report = self.Match_Report.replace('</p><p>', '<!-- split -->', 1)
             if not self.Match_Report.startswith('<'):
                 self.Match_Report = u"<p>{}</p>".format(self.Match_Report)
 

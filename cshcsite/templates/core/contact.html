@@ -17,19 +17,17 @@ Form used to email a message to the club secretary
         <h1><i class="icon-envelope"></i>Contact Us</h1>
     </div>
     <div class="row">
-        <div class="span4">
+        <div class="span5">
         <p class="lead">We'd love to hear from you, so drop us a line!</p>
         <p>Some more blurb</p>
         </div>
-        <div class="span7 offset1">
+        <div class="span7">
             <form action="{{ contact_us }}" method="post">{% csrf_token %}
-                <div class="row">
                     <input id="id_name" maxlength="255" name="name" class="name" type="text" placeholder="Name">
                     <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email">
-                    <input id="id_subject" maxlength="254" name="subject" type="text" placeholder="Subject">
+                    <input id="id_subject" maxlength="254" name="subject" class="subject" type="text" placeholder="Subject">
                     <textarea id="id_message" name="message" placeholder="Message"></textarea>
-                    <input type="submit" value="Send your message">
-                </div>
+                    <input class="btn btn-primary" type="submit" value="Send your message">
             </form>
         </div>
     </div>

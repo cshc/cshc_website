@@ -6,7 +6,7 @@ Context should have a 'next_fixtures' list of Match objects.
 {% if next_fixtures %}
 <table class="table table-condensed table-hover">
     <thead>
-        <tr><th></th><th>Team</th><th>Opposition</th><th>Venue</th><th>Date</th><th>Start time</th></tr>
+        <tr><th></th><th>Team</th><th>Opposition</th><th>Venue</th><th>Date</th><th>Start time</th><th>Fixture</th></tr>
     </thead>
     <tbody>
     {% for m in next_fixtures %}
@@ -14,11 +14,13 @@ Context should have a 'next_fixtures' list of Match objects.
             <td>
                 {% include 'matches/_fixture_icon.html' with match=m %}
             </td>
-            <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team.long_name }}</a></td>
+            <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team|capfirst }}</a></td>
             <td><a href="{{ m.opp_team.club.get_absolute_url }}">{{ m.opp_team.name }}</a></td>
             <td><a href="{{ m.venue.get_absolute_url }}">{{ m.venue.name }}</a></td>
             <td>{{ m.date|date:"jS M" }}</td>
-            <td>{{ m.time }}</td></tr>
+            <td>{{ m.time }}</td>
+            <td><a href="{{ m.get_absolute_url }}">Fixture</a></td>
+            </tr>
     {% endfor %}
     </tbody>
 </table>

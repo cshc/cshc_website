@@ -45,7 +45,7 @@ class ContactUsView(FormView):
         from_email = form.cleaned_data['email']
         name = form.cleaned_data['name']
         subject = "Message from {}: {}".format(name, form.cleaned_data['subject'])
-        message = form.cleaned_data('message')
+        message = form.cleaned_data['message']
 
         try:
             recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
