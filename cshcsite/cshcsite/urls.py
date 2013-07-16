@@ -15,6 +15,8 @@ urlpatterns = patterns('',
 
     url(r'^calendar/$',               TemplateView.as_view(template_name='core/calendar.html'),  name='calendar'),
     url(r'^contact/$',                views.ContactUsView.as_view(),  name='contact_us'),
+    url(r'^commission/$',             TemplateView.as_view(template_name='core/commission.html'),  name='commission'),
+    url(r'^offers/$',                 TemplateView.as_view(template_name='core/offers.html'),  name='members_offers'),
     
     url(r'^about/pitch-directions/$', HomeVenueListView.as_view(), name='pitch_directions'),            # Pitch directions - basically a list of home venues
     url(r'^about/social/$',           TemplateView.as_view(template_name='core/social.html'), name='about_social'),
