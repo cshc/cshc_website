@@ -78,7 +78,7 @@ Filter-able, sortable, paginated display of matches.
                 {{ filter.form.players }}
             </div>
         </div>    
-        <div class="span12"><input class="btn btn-primary" type="submit" /><input class="btn" type="reset" value="Reset" /><button class="btn" onclick="reset_form();">Reset</button></div>
+        <div class="span12"><input class="btn btn-primary" type="submit" /><input class="btn" type="reset" value="Reset" /></div>
     </div>
     </form>
 
@@ -118,12 +118,3 @@ Filter-able, sortable, paginated display of matches.
     {% paginate %}
 
 {% endblock content %}
-
-{% block body_js %}
-{{ block.super }}
-<script>
-   function reset_form() {
-        $('select option:first-child').attr("selected", "selected");
-    });
-</script>
-{% endblock %}

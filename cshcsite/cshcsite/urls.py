@@ -59,8 +59,6 @@ urlpatterns = patterns('',
 
 # Static pages - use the flatpage app
 urlpatterns += patterns('django.contrib.flatpages.views',
-    url(r'^members-offers/$',       'flatpage', {'url': '/members-offers/'},    name='members_offers'),
-    url(r'^commission/$',           'flatpage', {'url': '/commission/'},        name='commission'),
     
 )
 

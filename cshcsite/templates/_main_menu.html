@@ -11,6 +11,7 @@
 {% url 'about_social' as social %}
 {% url 'about_committee' as committee %}
 {% url 'calendar' as calendar %}
+{% url 'members_offers' as members_offers %}
 
 {% url 'clubteam_list' as team_list %}
 {% url 'clubteam_detail' 'm1' as team_m1 %}
@@ -89,6 +90,7 @@
         <li><a href="{{ fees }}" class="{% active fees %}">Fees</a></li>
         <li><a href="{{ committee }}" class="{% active committee %}">Committee</a></li>
         <li><a href="{{ calendar }}" class="{% active calendar %}">Calendar</a></li>
+        <li><a href="{{ members_offers }}" class="{% active members_offers %}">Members Offers</a></li>
     </ul>
     </li>
 

@@ -42,41 +42,49 @@ Currently just lists the values that will be needed by this template - no UI des
 
     <div class="row match-detail">    
         <div class="span12">
-            {% if m.match.is_in_past %}
-                <ul class="inline">
-                    {% if m.mom_winners %}
-                        <li><i class="icon icon-star"></i>
-                        {% for mom in m.mom_winners %}
-                            <a href="{{ mom.member.get_absolute_url }}" title="{{ mom.comment }}">{{ mom.member.last_name }}</a>{% if not forloop.last %}, {% endif %} 
-                        {% endfor %}            
-                        </li>
+            <div class="match-content">
+                {% if m.match.is_in_past %}
+                    <ul class="inline">
+                        {% if m.mom_winners %}
+                            <li><i class="icon icon-star"></i>
+                            {% for mom in m.mom_winners %}
+                                <a href="{{ mom.member.get_absolute_url }}" title="{{ mom.comment }}">{{ mom.member.last_name }}</a>{% if not forloop.last %}, {% endif %} 
+                            {% endfor %}            
+                            </li>
+                        {% endif %}
+                        {% if m.lom_winners %}
+                            <li><i class="icon icon-lemon"></i>
+                            {% for lom in m.lom_winners %}
+                                <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.last_name }}</a>{% if not forloop.last %}, {% endif %} 
+                            {% endfor %}            
+                            </li>
+                        {% endif %}
+                        {% if m.scoring_appearances %}
+                            <li><strong>Scorers:</strong> 
+                            {% for scorer in m.scoring_appearances %}
+                                <a href="{{ scorer.member.get_absolute_url }}">{{ scorer.member.last_name }}</a>{% if scorer.goals > 1 %}({{ scorer.goals }}){% endif %}{% if not forloop.last %}, {% endif %} 
+                            {% endfor %}
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <h4>{{ m.match.match_title_text }}</h4>
+                    {{ m.match.report_body.excerpt|safe }}
+                    {% if m.match.report_body.has_more %}
+                        <p class="pull-right"><a href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
-                    {% if m.lom_winners %}
-                        <li><i class="icon icon-lemon"></i>
-                        {% for lom in m.lom_winners %}
-                            <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.last_name }}</a>{% if not forloop.last %}, {% endif %} 
-                        {% endfor %}            
-                        </li>
+                {% else %}
+                    <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
+                    <ul class="inline">
+                        <li><i class="icon icon-time"></i>{% if m.match.time %}{{ m.match.time|time:"H:i" }}{% else %}TBD{% endif %}</li>
+                        <li><i class="icon icon-map-marker"></i>{% if m.match.venue %}{{ m.match.venue|urlise_model }}{% else %}TBD{% endif %}</li>
+                        {% if m.match.division %}<li><i class="icon icon-table"></i>{{ m.match.division }}</li>{% endif %}
+                    </ul>
+                    {{ m.match.pre_match_hype.excerpt|safe }}
+                    {% if m.match.pre_match_hype.has_more %}
+                        <p class="pull-right"><a href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
-                    {% if m.scoring_appearances %}
-                        <li><strong>Scorers:</strong> 
-                        {% for scorer in m.scoring_appearances %}
-                            <a href="{{ scorer.member.get_absolute_url }}">{{ scorer.member.last_name }}</a>{% if scorer.goals > 1 %}({{ scorer.goals }}){% endif %}{% if not forloop.last %}, {% endif %} 
-                        {% endfor %}
-                        </li>
-                    {% endif %}
-                </ul>
-                <h4>{{ m.match.match_title_text }}</h4>
-                {{ m.match.report_body.excerpt|safe }}
-            {% else %}
-                <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
-                <ul class="inline">
-                    <li><i class="icon icon-time"></i>{% if m.match.time %}{{ m.match.time|time:"H:i" }}{% else %}TBD{% endif %}</li>
-                    <li><i class="icon icon-map-marker"></i>{% if m.match.venue %}{{ m.match.venue|urlise_model }}{% else %}TBD{% endif %}</li>
-                    {% if m.match.division %}<li><i class="icon icon-table"></i>{{ m.match.division }}</li>{% endif %}
-                </ul>
-                {{ m.match.pre_match_hype.excerpt|safe }}
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
     

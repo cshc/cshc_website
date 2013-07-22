@@ -9,8 +9,6 @@ script: ./cshcsite/manage.py test
 notifications:
   email:
     recipients:
-      - simon@jellypig.co.uk
       - graham@grahammcculloch.co.uk
-      - matt.kern@undue.org
     on_success: change
     on_failure: always
