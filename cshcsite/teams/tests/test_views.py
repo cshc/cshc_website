@@ -11,14 +11,14 @@ class ClubTeamViewTest(TestCase):
     """Tests for views that relate to the ClubTeam model"""
 
     def setUp(self):
-        self.test_clubteam, c_created = ClubTeam.objects.get_or_create(gender=TeamGender.mens, ordinal=TeamOrdinal.T1)
+        self.test_clubteam, c_created = ClubTeam.objects.get_or_create(short_name="Test", long_name="Test team", gender=TeamGender.mens, ordinal=TeamOrdinal.T1, position=20)
 
     def test_ClubTeamListView(self):
         """ Tests that the ClubTeamListView view contains the test ClubTeam """
         url = reverse('clubteam_list')
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
-        retrieved_clubteam = response.context['clubteam_list'].get(pk=self.test_clubteam.pk)
+        retrieved_clubteam = response.context['teams'][0][1][0]
         self.assertClubTeamEquals(self.test_clubteam, retrieved_clubteam)
 
     def test_ClubTeamDetailView(self):

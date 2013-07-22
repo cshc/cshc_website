@@ -12,15 +12,15 @@ log = logging.getLogger(__name__)
 @register.filter()
 def urlise_model(model, linktext=None):
     """
-    Given a model object, 
+    Given a model object,
     returns an <a> link to the model (using the model's get_absolute_url() method)
-    
+
     Accepts an optional argument to use as the link text;
     otherwise uses the model's string representation
     """
-    if linktext == None:
+    if linktext is None:
         linktext = "%s" % model
-        
+
     return mark_safe("<a href='{}' title='{}'>{}</a>".format(model.get_absolute_url(), model, linktext))
 
 
@@ -29,15 +29,15 @@ def obfuscate(email, linktext=None, autoescape=None):
     """
     Given a string representing an email address,
 	returns a mailto link with rot13 JavaScript obfuscation.
-	
+
     Accepts an optional argument to use as the link text;
 	otherwise uses the email address itself.
     Ref: http://djangosnippets.org/snippets/1475/
 
-    An email address obfuscation template filter based on the ROT13 Encryption function 
+    An email address obfuscation template filter based on the ROT13 Encryption function
     in Textmate's HTML bundle.
-    The filter should be applied to a string representing an email address. You can optionally 
-    pass the filter an argument that will be used as the email link text (otherwise it will 
+    The filter should be applied to a string representing an email address. You can optionally
+    pass the filter an argument that will be used as the email link text (otherwise it will
     simply use the email address itself).
     Example usage:
     {{ email_address|obfuscate:"Contact me!" }}
@@ -52,8 +52,8 @@ def obfuscate(email, linktext=None, autoescape=None):
     else:
         esc = lambda x: x
 
-    email = re.sub('@','\\\\100', re.sub('\.', '\\\\056', \
-        esc(email))).encode('rot13')
+    email = re.sub('@', '\\\\100', re.sub('\.', '\\\\056',
+                   esc(email))).encode('rot13')
 
     if linktext:
         linktext = esc(linktext).encode('rot13')
@@ -70,11 +70,10 @@ obfuscate.needs_autoescape = True
 
 @register.tag
 def active(parser, token):
-    """ 
+    """
     Used to apply the 'active' class based on the current URL.
     Ref: http://stackoverflow.com/questions/340888/navigation-in-django
     """
-    import re
     args = token.split_contents()
     template_tag = args[0]
     if len(args) < 2:
@@ -85,6 +84,7 @@ def active(parser, token):
 class NavSelectedNode(template.Node):
     def __init__(self, patterns):
         self.patterns = patterns
+
     def render(self, context):
         path = context['request'].path
         for p in self.patterns:
@@ -93,10 +93,9 @@ class NavSelectedNode(template.Node):
                 return "active"
         return ""
 
-    
-
 ############################################################################################
 # CLUB INFO
+
 
 @register.filter()
 def lookup_value(queryset, key):
@@ -109,7 +108,7 @@ def lookup_value(queryset, key):
     try:
         return queryset.get(key=key).value
     except ClubInfo.DoesNotExist:
-         return None
+        return None
 
 
 @register.simple_tag
@@ -118,7 +117,7 @@ def clubinfo(key):
     try:
         return ClubInfo.objects.get(key=key).value
     except ClubInfo.DoesNotExist:
-         return None
+        return None
 
 
 @register.assignment_tag
@@ -129,7 +128,7 @@ def get_clubinfo(key):
 
 @register.simple_tag
 def clubinfo_email(key, linktext=None):
-    """A simple tag that returns an obfuscated mailto: link to the email address matching 
+    """A simple tag that returns an obfuscated mailto: link to the email address matching
     the given key from the ClubInfo table."""
     return obfuscate(clubinfo(key), linktext)
 clubinfo_email.needs_autoescape = True

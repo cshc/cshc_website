@@ -1,8 +1,6 @@
 # Django settings for cshcsite project - local development environment
 
 
-from os.path import join, normpath
-
 from base import *
 
 
@@ -38,12 +36,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'test',                      
-        'USER': 'root',                      
-        'PASSWORD': '',                  
-        'HOST': '',                      
-        'PORT': '',                      
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 

@@ -14,8 +14,8 @@ class ClubTeamSeasonParticipationTest(TestCase):
 
     def setUp(self):
         self.test_url = "http://www.example.com"
-        self.test_team1, t1_created = ClubTeam.objects.get_or_create(gender=TeamGender.mens, ordinal=TeamOrdinal.T1)
-        self.test_team2, t2_created = ClubTeam.objects.get_or_create(gender=TeamGender.mens, ordinal=TeamOrdinal.T2)
+        self.test_team1, t1_created = ClubTeam.objects.get_or_create(short_name="Test1", long_name="Test team 1", gender=TeamGender.mens, ordinal=TeamOrdinal.T1, position=20)
+        self.test_team2, t2_created = ClubTeam.objects.get_or_create(short_name="Test2", long_name="Test team 2", gender=TeamGender.mens, ordinal=TeamOrdinal.T2, position=21)
         self.test_league, l_created = League.objects.get_or_create(name="Test League", url=self.test_url)
         self.test_div, d_created = Division.objects.get_or_create(name="Test Division", league=self.test_league, gender=TeamGender.mens)
         self.test_cup, c_created = Cup.objects.get_or_create(name="Test Cup")
@@ -39,4 +39,3 @@ class ClubTeamSeasonParticipationTest(TestCase):
         participation2 = ClubTeamSeasonParticipation(team=participation1.team, season=participation1.season)
         participation1.save()
         self.assertRaises(IntegrityError, participation2.save)
-

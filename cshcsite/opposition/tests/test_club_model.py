@@ -12,7 +12,7 @@ class ClubTest(TestCase):
     def setUp(self):
         self.test_url = "http://www.example.com"
         self.test_club = Club(name="Test Club 1", website=self.test_url)
-        
+
     def test_clubs_can_be_added_and_removed(self):
         """ Tests that clubs can be added to the database and then removed """
         countBefore = Club.objects.all().count()
@@ -28,8 +28,8 @@ class ClubTest(TestCase):
     def test_club_name_cannot_be_none(self):
         """ Tests that you must specify the name of the club """
         self.test_club.name = None
-        self.assertEqual(None,self.test_club.name)
-        self.assertRaisesMessage(IntegrityError, "opposition_club.name may not be NULL", self.test_club.save)
+        self.assertEqual(None, self.test_club.name)
+        self.assertRaises(IntegrityError, self.test_club.save)
 
     def test_club_website_is_optional(self):
         """ Tests that you dont' have to specify the website url for a club """

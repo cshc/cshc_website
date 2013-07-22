@@ -12,8 +12,8 @@ class ClubTeamTest(TestCase):
     def test_clubteams_can_be_added_and_removed(self):
         """ Tests that club teams can be added to the database and then removed """
         countBefore = ClubTeam.objects.all().count()
-        tc1 = ClubTeam(gender=TeamGender.mens, ordinal=TeamOrdinal.T9)
-        tc2 = ClubTeam(gender=TeamGender.ladies, ordinal=TeamOrdinal.T9)
+        tc1 = ClubTeam(short_name="Test1", long_name="Test team 1", gender=TeamGender.mens, ordinal=TeamOrdinal.T9, position=20)
+        tc2 = ClubTeam(short_name="Test2", long_name="Test team 2", gender=TeamGender.ladies, ordinal=TeamOrdinal.T9, position=21)
         tc1.save()
         tc2.save()
         self.assertEqual(countBefore + 2, ClubTeam.objects.all().count())

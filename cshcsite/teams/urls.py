@@ -6,49 +6,49 @@ urlpatterns = patterns('',
 
     # E.g. '/teams/'
     url(r'^/?$',
-        views.ClubTeamListView.as_view(), 
+        views.ClubTeamListView.as_view(),
         name="clubteam_list"
     ),
-    
+
     # E.g. '/teams/southerners/'
     url(r'^southerners/$',
-        views.SouthernersSeasonView.as_view(), 
+        views.SouthernersSeasonView.as_view(),
         name="southerners_league"
     ),
 
     # E.g. '/teams/southerners/2011-2012/'
     url(r'^southerners/(?P<season_slug>[-\w]+)/$',
-        views.SouthernersSeasonView.as_view(), 
+        views.SouthernersSeasonView.as_view(),
         name="southerners_league_season"
     ),
 
     # E.g. '/teams/southerners/2011-2012/ajax/'
     url(r'^southerners/(?P<season_slug>[-\w]+)/ajax/$',
-        views.SouthernersSeasonUpdateView.as_view(), 
+        views.SouthernersSeasonUpdateView.as_view(),
         name="southerners_league_season_update"
     ),
 
     # E.g. '/teams/m1/'
     url(r'^(?P<slug>[-\w]+)/$',
-        views.ClubTeamDetailView.as_view(), 
+        views.ClubTeamDetailView.as_view(),
         name="clubteam_detail"
     ),
-    
+
     # E.g. '/teams/m1/2011-2012/'
     url(r'^(?P<slug>[-\w]+)/(?P<season_slug>[-\w]+)/$',
-        views.ClubTeamDetailView.as_view(), 
+        views.ClubTeamDetailView.as_view(),
         name="clubteam_season_detail"
     ),
 
     # E.g. /teams/m1.ics'
     url(r'^(?P<slug>[-\w]+).ics$',
-        feeds.ClubTeamMatchICalFeed(), 
+        feeds.ClubTeamMatchICalFeed(),
         name="clubteam_ical_feed"
     ),
 
     # E.g. /teams/m1.rss'
     url(r'^(?P<slug>[-\w]+).rss$',
-        feeds.RssClubTeamMatchReportsFeed(), 
+        feeds.RssClubTeamMatchReportsFeed(),
         name="clubteam_match_rss_feed"
     ),
 

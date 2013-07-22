@@ -1,3 +1,3 @@
 from test_team_captaincy_model import TeamCaptaincyTest
-from test_division_participation_model import DivisionParticipationTest
+from test_participation_model import ClubTeamSeasonParticipationTest
 from test_views import ClubTeamViewTest

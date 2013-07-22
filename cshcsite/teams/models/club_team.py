@@ -8,18 +8,14 @@ log = logging.getLogger(__name__)
 
 class ClubTeamManager(models.Manager):
     """Model manager for the ClubTeam model"""
-        
+
     def mens(self):
         """Returns only men's teams"""
         return self.get_query_set().filter(gender=TeamGender.mens)
-        
+
     def ladies(self):
         """Returns only ladies teams"""
         return self.get_query_set().filter(gender=TeamGender.ladies)
-        
-    def mixed(self):
-        """Returns only mixed teams"""
-        return self.get_query_set().filter(gender=TeamGender.mixed)
 
     def m1(self):
         """Returns the Men's 1sts team"""
@@ -94,14 +90,14 @@ class ClubTeam(models.Model):
     #blurb = models.TextField(blank=True)
 
     objects = ClubTeamManager()
-    
+
     class Meta:
         app_label = 'teams'
         ordering = ['position']
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.short_name)
-        super(ClubTeam, self).save(*args, **kwargs) 
+        super(ClubTeam, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.short_name
@@ -113,4 +109,3 @@ class ClubTeam(models.Model):
     def abbr_name(self):
         """Returns an abbreviated name, including the club (e.g. 'Cambridge South 1')"""
         return "Cambridge South {}".format(ordinal_from_TeamOrdinal(self.ordinal))
-        

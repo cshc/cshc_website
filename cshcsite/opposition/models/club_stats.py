@@ -60,22 +60,22 @@ class ClubStats(models.Model):
     def total_won(self):
         """Return the total number of games won (home and away)"""
         return self.home_won + self.away_won
-    
+
     @property
     def total_drawn(self):
         """Return the total number of games drawn (home and away)"""
         return self.home_drawn + self.away_drawn
-    
+
     @property
     def total_lost(self):
         """Return the total number of games lost (home and away)"""
         return self.home_lost + self.away_lost
-    
+
     @property
     def total_gf(self):
         """Return the total number of goals for (home and away)"""
         return self.home_gf + self.away_gf
-    
+
     @property
     def total_ga(self):
         """Return the total number of goals against (home and away)"""
@@ -100,7 +100,7 @@ class ClubStats(models.Model):
         """Returns the average goal difference per game against this club"""
         return self.avg_gf - self.avg_ga
 
-    @property 
+    @property
     def avg_points(self):
         """Returns the average number of points per match against this club"""
         if self.total_played == 0:
@@ -147,12 +147,11 @@ class ClubStats(models.Model):
             self.away_gf += match.our_score
             self.away_ga += match.opp_score
 
-
     def accumulate_stats(self, stats):
         """Accumulate the given stats to the totals.
            Note: This should only be called for 'totals' stats.
         """
-        assert self.team == None
+        assert self.team is None
         self.home_won += stats.home_won
         self.home_drawn += stats.home_drawn
         self.home_lost += stats.home_lost

@@ -11,21 +11,21 @@ class Club(models.Model):
     """Represents an opposition club"""
     # The club name
     name = models.CharField("Club Name", max_length=255, unique=True, default=None)
-    
+
     # The club website (if it has one)
     website = models.URLField("Club Website", blank=True)
 
     # Indicates whether this club's men's kit currently clashes with our men's kit
     kit_clash_men = models.BooleanField("Kit-clash (men)", default=False, help_text="Does this club's mens kit clash with our mens kit?")
-    
+
     # Indicates whether this club's ladies kit currently clashes with our ladies kit
     kit_clash_ladies = models.BooleanField("Kit-clash (ladies)", default=False, help_text="Does this club's ladies kit clash with our ladies kit?")
-    
+
     # Indicates whether this club's mixed team's kit currently clashes with our mixed team's kit
     kit_clash_mixed = models.BooleanField("Kit-clash (mixed)", default=False, help_text="Does this club's mixed team kit clash with our mixed team kit?")
-    
+
     # The default venue for this club, if known
-    default_venue = models.ForeignKey(Venue, null=True ,help_text="The venue this club usually plays at (if known)")
+    default_venue = models.ForeignKey(Venue, null=True, help_text="The venue this club usually plays at (if known)")
 
     # Auto-generated slug
     slug = models.SlugField("Slug")
@@ -36,7 +36,7 @@ class Club(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(Club, self).save(*args, **kwargs) 
+        super(Club, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name

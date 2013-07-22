@@ -1,6 +1,5 @@
 import logging
 from django.test import TestCase
-from django.contrib.auth.models import User
 from datetime import date
 from core.models import TeamGender, TeamOrdinal
 from members.models import Member
@@ -13,12 +12,10 @@ class TeamCaptaincyTest(TestCase):
     """Tests for the TeamCaptaincy model"""
 
     def setUp(self):
-        self.user1, u1_created = User.objects.get_or_create(username="gm", first_name="Graham", last_name="McCulloch", email="test@test.com")
-        self.user2, u1_created = User.objects.get_or_create(username="nh", first_name="Nathan", last_name="McCulloch", email="test2@test.com")
-        self.test_member1, m1_created = Member.objects.get_or_create(user=self.user1, gender=Member.GENDER.Male, pref_position=Member.POSITION.Fwd)
-        self.test_member2, m2_created = Member.objects.get_or_create(user=self.user2, gender=Member.GENDER.Male, pref_position=Member.POSITION.Fwd)
+        self.test_member1, m1_created = Member.objects.get_or_create(first_name="Graham", last_name="McCulloch", gender=Member.GENDER.Male, pref_position=Member.POSITION.Fwd)
+        self.test_member2, m2_created = Member.objects.get_or_create(first_name="Mark", last_name="Williams", gender=Member.GENDER.Male, pref_position=Member.POSITION.Fwd)
         self.test_url = "http://www.example.com"
-        self.test_team, t_created = ClubTeam.objects.get_or_create(gender=TeamGender.mens, ordinal=TeamOrdinal.T1)
+        self.test_team, t_created = ClubTeam.objects.get_or_create(short_name="Test1", long_name="Test team 1", gender=TeamGender.mens, ordinal=TeamOrdinal.T1, position=20)
 
     def test_team_captaincies_can_be_added_and_removed(self):
         """ Tests that team captaincies can be added to the database and then removed """

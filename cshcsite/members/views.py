@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.template import loader, Context
 from django.core.mail import send_mail, BadHeaderError
-from django.core.urlresolvers import reverse
 from braces.views import SelectRelatedMixin, StaffuserRequiredMixin
 from core.models import ClubInfo
 from core.views import AjaxGeneral
@@ -22,30 +21,28 @@ log = logging.getLogger(__name__)
 class MemberListView(SelectRelatedMixin, ListView):
     """View with a list of all members"""
     model = Member
-    select_related = ["user"]
 
 
 class MemberDetailView(SelectRelatedMixin, DetailView):
     """View of a particular member"""
     model = Member
-    select_related = ["user"]
 
     def get_context_data(self, **kwargs):
         context = super(MemberDetailView, self).get_context_data(**kwargs)
-    
+
         member = context["member"]
-        
+
         # Add recent match reports written by this member
         context['recent_match_reports'] = get_recent_match_reports(member)
-        
+
         # Add recent match awards won by this member
         context['recent_match_awards'] = get_recent_match_awards(member)
-        
+
         # Add recent End Of Season awards won by this member
         context['recent_end_of_season_awards'] = get_recent_end_of_season_awards(member)
 
         return context
-    
+
 
 class MembershipEnquiryListView(ListView):
     """View with a list of all membership enquiries"""
@@ -77,7 +74,7 @@ class MembershipEnquiryCreateView(FormView):
             'comments': form.cleaned_data['comments'],
         })
         subject = "New enquiry from {}".format(c['name'])
-        
+
         message = t.render(c)
         try:
             recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
@@ -96,10 +93,10 @@ class MembershipEnquiryCreateView(FormView):
         except ClubInfo.DoesNotExist:
             c['secretary_name'] = ""
             c['secretary_email'] = 'secretary@cambridgesouthhockeyclub.co.uk'
-            
+
         from_email = c['secretary_email']
         subject = "Your enquiry with Cambridge South Hockey Club"
-        
+
         message = t.render(c)
         recipient_email = form.cleaned_data['email']
         send_mail(subject, message, from_email, [recipient_email], fail_silently=False)
@@ -134,7 +131,7 @@ class MemberStatsView(AjaxGeneral):
         # Get all the appearances for this member
         apps = Appearance.objects.by_member(member).select_related('member__user', 'match__season', 'match__our_team').filter(match__our_team__personal_stats=True).order_by('match__date')
         log.debug("Got {} appearances for {}".format(apps.count(), member))
-        
+
         # This will be keyed on the season id, with a special 'totals' entry for the combined totals from all seasons.
         season_dict = {}
 
@@ -150,7 +147,7 @@ class MemberStatsView(AjaxGeneral):
         # Get all match awards won by this member
         awards = MatchAwardWinner.objects.by_member(member).select_related('match__season', 'match__our_team').filter(match__our_team__personal_stats=True)
         log.debug("Got {} match awards for {}".format(awards.count(), member))
-        
+
         for award in awards:
             # Add the awards to the relevant season's running total
             if not season_dict.has_key(award.match.season_id):

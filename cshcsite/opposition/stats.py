@@ -1,11 +1,9 @@
 import logging
 from models.club import Club
 from models.club_stats import ClubStats
-from teams.models import ClubTeam
 from matches.models import Match
 
 log = logging.getLogger(__name__)
-
 
 
 def update_all_club_stats():
@@ -19,6 +17,7 @@ def update_all_club_stats():
         clubstats.append(club_totals)
 
     return clubstats
+
 
 def update_club_stats_for_club(club):
     """Updates the Club Stats entries for the specified opposition club"""

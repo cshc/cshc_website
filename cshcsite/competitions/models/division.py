@@ -1,5 +1,5 @@
 import logging
-from django.db import models, IntegrityError
+from django.db import models
 from core.models import TeamGender
 from league import League
 
@@ -20,11 +20,10 @@ class Division(models.Model):
 
     class Meta:
         app_label = 'competitions'
-        # A division's name must be unique within a league. 
+        # A division's name must be unique within a league.
         # However two different leagues can have divisions with the same name
-        unique_together = ('name', 'league',)   
+        unique_together = ('name', 'league',)
         ordering = ['league', 'gender', 'name']
 
     def __unicode__(self):
         return "{} {}".format(self.league.name, self.name)
-
