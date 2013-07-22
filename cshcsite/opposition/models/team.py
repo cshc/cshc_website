@@ -1,7 +1,7 @@
 import logging
 from django.db import models
 from django.template.defaultfilters import slugify
-from core.models import TeamGender, ordinal_from_TeamOrdinal
+from core.models import TeamGender
 from club import Club
 
 log = logging.getLogger(__name__)

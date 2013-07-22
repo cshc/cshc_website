@@ -52,8 +52,12 @@ def obfuscate(email, linktext=None, autoescape=None):
     else:
         esc = lambda x: x
 
-    email = re.sub('@', '\\\\100', re.sub('\.', '\\\\056',
-                   esc(email))).encode('rot13')
+    try:
+        email = re.sub('@', '\\\\100', re.sub('\.', '\\\\056',
+                       esc(email))).encode('rot13')
+    except TypeError:
+        log.warn("Failed to obfuscate email address")
+        email = ''
 
     if linktext:
         linktext = esc(linktext).encode('rot13')

@@ -31,7 +31,6 @@ class ClubTeamListView(TemplateView):
 
         all_teams = ClubTeam.objects.all()
 
-
         mens_teams = list(all_teams.filter(gender=TeamGender.mens))
         ladies_teams = list(all_teams.filter(gender=TeamGender.ladies))
         other_teams = list(all_teams.filter(gender=TeamGender.mixed))
@@ -41,18 +40,18 @@ class ClubTeamListView(TemplateView):
                 team.photo = ClubTeamSeasonParticipation.objects.current().by_team(team)[0].team_photo.url
             except:
                 log.warn("Could not get team photo for {}".format(team))
-                team.photo = '/media/team_photos/placeholder_small.jpg' # TODO: Team photo placeholder
+                team.photo = '/media/team_photos/placeholder_small.jpg'  # TODO: Team photo placeholder
             team.blurb = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque ' + \
                          'laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi ' + \
                          'architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas ' + \
                          'sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione ' + \
                          'voluptatem sequi nesciunt.'
-            team.ical = reverse('clubteam_ical_feed', kwargs={'slug':team.slug})
-            team.rss = reverse('clubteam_match_rss_feed', kwargs={'slug':team.slug})
-
+            team.ical = reverse('clubteam_ical_feed', kwargs={'slug': team.slug})
+            team.rss = reverse('clubteam_match_rss_feed', kwargs={'slug': team.slug})
 
         context['teams'] = (('mens', mens_teams), ('ladies', ladies_teams), ('other', other_teams))
         return context
+
 
 class ClubTeamDetailView(TemplateView):
     """View of a particular ClubTeam"""
@@ -62,19 +61,19 @@ class ClubTeamDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ClubTeamDetailView, self).get_context_data(**kwargs)
-        
+
         # The team is specified in the URL by its slug
         team = get_object_or_404(ClubTeam, slug=kwargs['slug'])
         context['clubteam'] = team
-        
+
         # Get the seasons in which this team competed
         part_seasons = [part.season for part in ClubTeamSeasonParticipation.objects.select_related('season').filter(team=team).only('season').order_by('season__start')]
-        
-        # The season may or may not be specified in the URL by its slug. 
+
+        # The season may or may not be specified in the URL by its slug.
         # If it isn't, we use the current season
         season_slug = kwargs_or_none('season_slug', **kwargs)
         current_season = Season.current()
-        if season_slug != None:
+        if season_slug is not None:
             season = Season.objects.get(slug=season_slug)
         else:
             # Default to the most recent season
@@ -120,7 +119,7 @@ class ClubTeamStatsView(AjaxGeneral):
         # Get all the award winners for this team and season
         award_winners = MatchAwardWinner.objects.select_related('member__user', 'match__season', 'award').filter(match__season_id=season_id, match__our_team__slug=team_slug)
 
-        match_lookup = { match.pk: MatchStats(match) for match in matches}
+        match_lookup = {match.pk: MatchStats(match) for match in matches}
         squad_lookup = {}
 
         for app in appearances:
@@ -135,7 +134,7 @@ class ClubTeamStatsView(AjaxGeneral):
 
         # Scrape the league table if we've got a link to the league table
         participation = first_or_none(ClubTeamSeasonParticipation.objects.select_related('team').filter(team__slug=team_slug, season_id=season_id, division_tables_url__isnull=False))
-            
+
         if participation is not None and not_none_or_empty(participation.division_tables_url):
                 context['participation'] = participation
                 # TODO: Currently this is fairly 'hard-coded'. If a team moves out of these divisions, this code
@@ -153,8 +152,6 @@ class ClubTeamStatsView(AjaxGeneral):
                     log.warn("No league table to be scraped for team {}".format(participation.team.abbr_name()))
         else:
             log.warn("No league table link for {} in season {}".format(team_slug, season_id))
-
-            
 
         # first build the list of list of matches by date
         matches_by_date = defaultdict(list)
@@ -177,14 +174,15 @@ class ClubTeamStatsView(AjaxGeneral):
         return context
 
 ###############################################################################
-# SOUTHERNERS LEAGUE 
+# SOUTHERNERS LEAGUE
+
 
 class SouthernersMixin(object):
     """Provides useful methods for Southerners League views"""
     def get_southerners_list(self, season):
         """Returns a list of Southerners League items for the specified season"""
 
-        # We convert the queryset to a list so we can add a 'rank' attribute to each item 
+        # We convert the queryset to a list so we can add a 'rank' attribute to each item
         team_list = list(Southerner.objects.by_season(season))
 
         # Apply ranking
@@ -203,6 +201,7 @@ class SouthernersMixin(object):
 
         return team_list
 
+
 class SouthernersSeasonView(SouthernersMixin, TemplateView):
     """View for displaying the Southerners League stats for a particular season"""
     template_name = 'teams/southerners_league.html'
@@ -220,7 +219,7 @@ class SouthernersSeasonView(SouthernersMixin, TemplateView):
 
         # If we're viewing this season's stats we may not have a season_slug keyword arg.
         season_slug = kwargs_or_none('season_slug', **kwargs)
-        if season_slug != None:
+        if season_slug is not None:
             season = Season.objects.get(slug=season_slug)
         else:
             season = Season.current()
@@ -247,5 +246,4 @@ class SouthernersSeasonUpdateView(SouthernersMixin, AjaxGeneral):
         season = Season.objects.get(slug=season_slug)
         update_clubstats_for_season(season)
 
-        return { 'team_list': self.get_southerners_list(season) }
-
+        return {'team_list': self.get_southerners_list(season)}

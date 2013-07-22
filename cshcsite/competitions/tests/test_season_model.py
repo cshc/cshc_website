@@ -1,7 +1,7 @@
 import logging
 from django.test import TestCase
 from django.db import IntegrityError
-from datetime import datetime, date, timedelta
+from datetime import date, timedelta
 from ..models import Season
 
 log = logging.getLogger(__name__)

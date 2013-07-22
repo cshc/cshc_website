@@ -1,15 +1,14 @@
 import logging
 from django.test import TestCase
-from django.contrib.auth.models import User
 from django.db import IntegrityError
-from datetime import datetime, date
+from datetime import date
 from core.models import TeamGender, TeamOrdinal
 from teams.models import ClubTeam
 from opposition.models import Team, Club
 from members.models import Member
 from venues.models import Venue
 from competitions.models import Season
-from matches.models import Match, Appearance
+from matches.models import Match
 from .models import MatchAward, EndOfSeasonAward, MatchAwardWinner, EndOfSeasonAwardWinner
 
 log = logging.getLogger(__name__)
@@ -65,23 +64,21 @@ class AwardWinnerTest(TestCase):
     """Tests for Award Winners"""
 
     def setUp(self):
-        self.user1, u1_created = User.objects.get_or_create(username="gm", first_name="Graham", last_name="McCulloch", email="test@test.com")
-        self.user2, u2_created = User.objects.get_or_create(username="nh", first_name="Nathan", last_name="Humphreys", email="test2@test.com")
-        self.test_member1, m1_created = Member.objects.get_or_create(user=self.user1, gender=Member.GENDER.Male, pref_position=Member.POSITION.Fwd)
-        self.test_member2, m2_created = Member.objects.get_or_create(user=self.user2, gender=Member.GENDER.Male, pref_position=Member.POSITION.Mid)
+        self.test_member1, m1_created = Member.objects.get_or_create(first_name="Graham", last_name="McCulloch", gender=Member.GENDER.Male, pref_position=Member.POSITION.Fwd)
+        self.test_member2, m2_created = Member.objects.get_or_create(first_name="Nathan", last_name="Humphreys", gender=Member.GENDER.Male, pref_position=Member.POSITION.Mid)
         self.test_season, s_created = Season.objects.get_or_create(start=date(2012, 9, 1), end=date(2013, 8, 31))
-        
+
 
 class MatchAwardWinnerTest(AwardWinnerTest):
     """Tests for Match Award Winners"""
 
     def setUp(self):
-        super(MatchAwardWinnerTest, self).setUp() 
+        super(MatchAwardWinnerTest, self).setUp()
         self.test_url = "http://www.example.com"
         self.test_venue, v_created = Venue.objects.get_or_create(name="Venue 1", short_name="Ven1")
         self.test_their_club, c_created = Club.objects.get_or_create(name="Test Club 2", website=self.test_url)
-        self.test_our_team, t1_created = ClubTeam.objects.get_or_create(gender=TeamGender.mens, ordinal=TeamOrdinal.T1)
-        self.test_their_team, t2_created = Team.objects.get_or_create(club=self.test_their_club, gender=TeamGender.mens, ordinal=TeamOrdinal.T1)
+        self.test_our_team, t1_created = ClubTeam.objects.get_or_create(short_name="Test1", long_name="Test team 1", gender=TeamGender.mens, ordinal=TeamOrdinal.T1, position=20)
+        self.test_their_team, t2_created = Team.objects.get_or_create(club=self.test_their_club, gender=TeamGender.mens, ordinal=TeamOrdinal.T1, name="Opp team 1", short_name="Opp1")
         self.test_match, m_created = Match.objects.get_or_create(our_team=self.test_our_team, opp_team=self.test_their_team, home_away=Match.HOME_AWAY.home, fixture_type=Match.FIXTURE_TYPE.Friendly, date=date(2012, 10, 1))
         self.test_match_award1, ma1_created = MatchAward.objects.get_or_create(name="Man of the match - test")
         self.test_match_award2, ma2_created = MatchAward.objects.get_or_create(name="Lemon of the match - test")
@@ -96,8 +93,8 @@ class MatchAwardWinnerTest(AwardWinnerTest):
         self.assertEqual(countBefore + 2, MatchAwardWinner.objects.all().count())
         awardWinner1.delete()
         awardWinner2.delete()
-        self.assertEqual(countBefore, MatchAwardWinner.objects.all().count())   
-        
+        self.assertEqual(countBefore, MatchAwardWinner.objects.all().count())
+
     def test_awardee_or_member_must_be_specified(self):
         """Test that you must specify either the member or the awardee for an award winner"""
         unidentified_award_winner = MatchAwardWinner(match=self.test_match, award=self.test_match_award1, comment="A note")
@@ -108,7 +105,7 @@ class EndOfSeasonAwardWinnerTest(AwardWinnerTest):
     """Tests for End of Season Award Winners"""
 
     def setUp(self):
-        super(EndOfSeasonAwardWinnerTest, self).setUp() 
+        super(EndOfSeasonAwardWinnerTest, self).setUp()
         self.test_award1, ea1_created = EndOfSeasonAward.objects.get_or_create(name="1st team: Member of the season - test")
         self.test_award2, ea2_created = EndOfSeasonAward.objects.get_or_create(name="1st team: Most improved - test")
 
@@ -122,4 +119,4 @@ class EndOfSeasonAwardWinnerTest(AwardWinnerTest):
         self.assertEqual(countBefore + 2, EndOfSeasonAwardWinner.objects.all().count())
         awardWinner1.delete()
         awardWinner2.delete()
-        self.assertEqual(countBefore, EndOfSeasonAwardWinner.objects.all().count()) 
+        self.assertEqual(countBefore, EndOfSeasonAwardWinner.objects.all().count())

@@ -1,6 +1,6 @@
 {% load core_tags %}
 
-{% url 'join_us' as join_us %}
+{% url 'contact_us' as contact_us %}
 {% url 'membershipenquiry_create' as join_us_redirected %}
 
 {% url 'about_us' as about_us %}
@@ -44,8 +44,7 @@
 {% url 'tour2008' as tour2008 %}
 
 <ul class="nav pull-right">
-    <li><a href="{{ join_us }}" class="{% active join_us_redirected %}">Join Us</a></li>
-    
+
     {# Teams #}
     <li class="dropdown">
         <a href="#"  class="dropdown-toggle {% active '/teams/' %}" data-toggle="dropdown">Teams <b class="caret"></b></a>
@@ -124,4 +123,7 @@
         </li>
     </ul>
     </li>
+
+    <li><a href="{{ contact_us }}" class="{% active contact_us %}">Contact Us</a></li>
+
 </ul>

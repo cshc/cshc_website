@@ -2,6 +2,8 @@
 
 {% block title %}{{ block.super }} | Pitch directions{% endblock %}
 
+{% block body_id %}pitch-directions{% endblock body_id %}
+
 {% block content %}
 
 {% url 'venue_list' as venues_url %}
@@ -10,26 +12,45 @@
     <h1>Pitch Directions</h1>
 </div>
 
-<h3>Home Pitches</h3>
-<p>If you have the pleasure of playing against us we use one of a number of pitches around Cambridge. Click on the links below for a map.</p>
+<div class="row">
+	<div class="span8">
+		<div class="section_header">
+			<h3>Home Pitches</h3>
+		</div>
+		<p>If you have the pleasure of playing against us we use one of a number of pitches around Cambridge. Click on the links below for a map.</p>
 
-<ul>
-{% for v in venue_list %}
-    <li>
-        <a href="{{ v.get_absolute_url }}" title="View venue details">{{ v.name }}</a>
-    </li>
-{% endfor %}
-</ul>
-<p>See you there!</p>
+		<ul>
+		{% for v in venue_list %}
+		    <li>
+		        <a href="{{ v.get_absolute_url }}" title="View venue details">{{ v.name }}</a>
+		    </li>
+		{% endfor %}
+		</ul>
+		<p>See you there!</p>
 
-<h3>Match Teas</h3>
-<p>For most of our matches, post-match teas are hosted at <strong>The Red Bull </strong>pub on 
-<a href="http://goo.gl/maps/z0igv" target="_blank">Barton Road, Cambridge, CB3 9JZ</a>.</p>
-<p>If you play us at Coldham&#39;s Common (aka The Abbey) astro, post-match teas are at <strong>The Corner House </strong>pub on 
-<a href="http://maps.google.co.uk/maps/place?q=The+Corner+House,+Newmarket+Road,+Cambridge&amp;hl=en&amp;cid=10646199698840456718" target="_blank">Newmarket Road, Cambridge, CB5 8JE</a>.</p>
-<h3>Away Games</h3>
-<p>Details of the pitch locations of the clubs we play against can be found on the <a href="{{ venues_url }}">Venues</a> page.</p>
-<p>Alternatively, a full list of all club astro pitches in the East Region with directions to them can be found 
-<a href="http://www.east-hockey.co.uk/clubs/clubastrosearch.asp" target="_blank">here</a>.</p>
+		<div class="section_header">
+			<h3>Away Games</h3>
+		</div>
+		<p>Details of the pitch locations of the clubs we play against can be found on the <a href="{{ venues_url }}">Venues</a> page.</p>
+		<p>Alternatively, a full list of all club astro pitches in the East Region with directions to them can be found
+		<a href="http://www.east-hockey.co.uk/clubs/clubastrosearch.asp" target="_blank">here</a>.</p>
+
+	</div>
+	<div class="span4">
+		<div class="box">
+			<h3><i class="icon-food"></i>Match Teas</h3>
+			<hr/>
+			<img src="{{ MEDIA_URL }}Web%20site%20images/red_bull.jpg">
+			<h4>The Red Bull</h4>
+			<p>For most of our matches, post-match teas are hosted at <strong>The Red Bull </strong>pub on
+			<a href="http://goo.gl/maps/z0igv" target="_blank">Barton Road, Cambridge, CB3 9JZ</a>.</p>
+			<hr/>
+			<img src="{{ MEDIA_URL }}Web%20site%20images/corner_house.jpg">
+			<h4>The Corner House</h4>
+			<p>If you play us at Coldham&#39;s Common (aka The Abbey) astro, post-match teas are at <strong>The Corner House </strong>pub on
+			<a href="http://maps.google.co.uk/maps/place?q=The+Corner+House,+Newmarket+Road,+Cambridge&amp;hl=en&amp;cid=10646199698840456718" target="_blank">Newmarket Road, Cambridge, CB5 8JE</a>.</p>
+		</div>
+	</div>
+</div>
 
 {% endblock content %}
