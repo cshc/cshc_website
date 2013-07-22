@@ -19,6 +19,8 @@ class ClubTeamAdmin(admin.ModelAdmin):
 
 
 class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):
+    search_fields = ('team', 'season', 'division')
+    list_filter = ('team', 'season')
     list_display = ('team', 'season', 'division', 'division_tables_url', 'final_pos', 'division_result')
 
 # Register all teams models with the admin interface

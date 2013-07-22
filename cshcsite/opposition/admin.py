@@ -25,13 +25,16 @@ class ClubAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     inlines = (TeamInline,)
     list_display = ('name', 'website', 'kit_clash_men', 'kit_clash_ladies', 'kit_clash_mixed', 'default_venue')
+    search_fields = ('name',)
 
 
 class TeamAdmin(admin.ModelAdmin):
     """Team admin interface"""
 
     readonly_fields = ('slug',)
-
+    search_fields = ('name',)
+    list_filter = ('club', 'gender')
+    list_display = ('club', 'name', 'gender')
 
 # Register all opposition models with the admin interface
 admin.site.register(Club, ClubAdmin)

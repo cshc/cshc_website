@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Static page with info about CSHC getting money from companies when you spend money with them.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Members Offers{% endblock %}
+
+{% block body_id %}offers{% endblock body_id %}
+
+{% block content %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Offers</li>
+</ul>
+
+<div class="page-header">
+    <h1>Members' Discount Offers</h1>
+</div>
+
+<p>Cambridge South has negotiated special deals for Club members with local sports equipment suppliers and sports injuries clinics.</p>
+<p>Mention you are a Club member or show your Membership Card (available from the {% clubinfo_email 'SecretaryEmail' 'Club Secretary' %} 
+when purchasing or booking.</p>
+<hr />
+<p>
+<a href="http://www.hobbssports.co.uk/" target="_blank">
+<img alt="Hobbs Sports" height="60" src="{{ MEDIA_URL }}Web%20site%20images/Hobbs%20Sports.png" /></a></p>
+<ul>
+<li>
+    <a href="http://www.hobbssports.co.uk" target="_blank">Hobbs Sports</a> on Sidney Street offer a <strong>10% discount</strong> on all clothing, kit, equipment and footwear.</li>
+<li>
+    Offer is subject to a minimum spend of &pound;10 and excludes sale items, official replica kit and services.</li>
+</ul>
+<hr />
+<p>
+<a href="http://www.activesportsbras.co.uk" target="_blank">
+<img alt="Active Sports Bras" src="{{ MEDIA_URL }}Web%20site%20images/Active_Sports_Bras.gif" /></a></p>
+<ul>
+<li>
+    <a href="http://www.activesportsbras.co.uk" target="_blank">Active Sports Bras</a> offer a wide range of top branded sports bras at discounted prices.</li>
+<li>
+    Enter the code <strong>CSHC10</strong> at checkout in order to receive a further <strong>10% off</strong> already reduced prices as well as <strong>free delivery</strong>.</li>
+</ul>
+<hr />
+<p>
+<a href="http://www.fitforsportclinic.com" target="_blank">
+<img alt="Fit For Sport" height="60" src="{{ MEDIA_URL }}Web%20site%20images/Fit%20For%20Sport.png" /></a></p>
+<ul>
+<li>
+    <a href="http://www.fitforsportclinic.com/" target="_blank">Fit For Sports</a> sports therapy and injury clinic provide a <strong>20% discount</strong> on treatments.</li>
+<li>
+    Treatments include sports massage, heat and cold therapies and joint mobilisations.</li>
+<li>
+    They have clinics at The Leys School in Cambridge and in Sawston.</li>
+<li>
+    Contact {{ 'megan@fitforsportclinic.com'|obfuscate:"Megan Williams" }} to book or enquire further.</li>
+</ul>
+<hr />
+<p>
+<a href="http://www.spritely-osteopathy.com" target="_blank">
+<img alt="Spritely Osteopathy" height="114" src="{{ MEDIA_URL }}Web%20site%20images/Spritely%20Logo%20(SG).jpg" /></a></p>
+<ul>
+<li>
+    <a href="http://www.spritely-osteopathy.com/" target="_blank">Spritely Osteopathy</a> give a <strong>25% discount</strong> to Club members, with treatments priced at &pound;30.</li>
+<li>
+    They will diagnose and treat most joint problems including cartilage issues to ankle sprains and of course lower back pain.</li>
+<li>
+    Based at the Innovation Centre at Cambridge Science Park.</li>
+<li>
+    Contact {{ 'melissa.brown@spritely-osteopathy.com'|obfuscate:"Melissa Brown" }} for more details or to book a treatment.</li>
+</ul>
+<hr />
+<p>
+<a href="http://www.nutritionist-resource.org.uk" target="_blank">
+<img alt="Nutritionist Resource" height="106" src="{{ MEDIA_URL }}Web%20site%20images/Nutritionist.png" /></a></p>
+<ul>
+<li>
+    <a href="http://www.nutritionist-resource.org.uk/articles/sports-nutrition.html " target="_blank">Nutritionist Resource</a> is an online web directory&nbsp;listing nutritionists all over the UK.</li>
+<li>
+    Each nutritionist has a profile indicating background, specialisms, qualifications and professional registrations.</li>
+<li>
+    The site also provides information covering areas that nutritionists can assist with,&nbsp;advice about good nutrition for optimum health for sports people,&nbsp;as well as a blog about the latest health news.</li>
+<li>
+    Contact {{ 'info@nutritionist-resource.org.uk'|obfuscate:"Nutritionist Resource" }} for more information.</li>
+</ul>
+<hr />
+<p>
+<a href="http://www.hotpink.co.uk" target="_blank">
+<img alt="Hot Pink Rings" src="{{ MEDIA_URL }}Web%20site%20images/Hot_Pink_logo.png" /></a></p>
+<ul>
+<li>
+    Run by our very own Manu Bhardwaj, 
+    <a href="http://www.hotpink.co.uk" target="_blank">Hot Pink</a> are the new way to buy the perfect engagement, eternity or other special occasion ring, designed using the latest technology and 100% bespoke to your requirements.</li>
+<li>
+    As well as a free initial consultation, CSHC members will also receive a 10% discount on all purchases&nbsp;AND Hot Pink&nbsp;will donate a referral commission to Club funds for each ring purchased.</li>
+</ul>
+
+
+{% endblock content %}

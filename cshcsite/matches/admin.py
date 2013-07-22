@@ -61,20 +61,29 @@ class MatchAdmin(admin.ModelAdmin):
         ('Result', {'fields': ['alt_outcome', 'our_score', 'opp_score', 'our_ht_score', 'opp_ht_score', 'opp_own_goals']}),
         ('Advanced', {'fields': ['ignore_for_goal_king', 'ignore_for_southerners', 'override_kit_clash', 'gpg_pro_rata']}),
         ('Pre-match hype', {
-            'classes': ('full-width',),  
+            'classes': ('full-width',),
             'fields': ['pre_match_hype']}),
 
         ('Report details', {'fields': ['report_title', 'report_author']}),
 
         ('Match report', {
-            'classes': ('full-width',),  
+            'classes': ('full-width',),
             'fields': ['report_body']}),
     ]
     list_display = ('date', 'our_team', 'opp_team', 'venue')
+    search_fields = ('our_team', 'opp_team', 'venue')
+    list_filter = ('our_team', 'opp_team', 'venue', 'fixture_type', 'home_away')
+
+
+class AppearanceAdmin(admin.ModelAdmin):
+
+    model = Appearance
+    search_fields = ('member',)
+    list_filter = ('green_card', 'yellow_card', 'red_card')
 
 
 # Register matches models with the admin system
 admin.site.register(Match, MatchAdmin)
-admin.site.register(Appearance)
-# NOTE: We do not register the GoalKing model - this is derived from other models 
+admin.site.register(Appearance, AppearanceAdmin)
+# NOTE: We do not register the GoalKing model - this is derived from other models
 # and should never be edited via the admin interface
