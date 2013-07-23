@@ -54,6 +54,3 @@ django-pagination==1.0.7
 
 # Sorting template tags
 django-sorter==0.2
-
-# A Django test runner based on unittest2's test discovery
-django-discover-runner==0.3
