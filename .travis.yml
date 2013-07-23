@@ -8,7 +8,7 @@ install:
   - "mkdir -p /home/travis/build/logs"
   - "chmod a+w /home/travis/build/logs"
 # # command to run tests
-script: ./cshcsite/manage.py test
+script: ./cshcsite/manage.py test --settings=cshcsite.settings.test
 notifications:
   email:
     recipients:
