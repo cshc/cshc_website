@@ -2,9 +2,11 @@ language: python
 python:
   - "2.7"
 # command to install dependencies
-install: 
+install:
   - "pip install -r requirements.txt --use-mirrors"
   - "chmod +x ./cshcsite/manage.py"
+  - "mkdir -p /home/travis/build/logs"
+  - "chmod a+w /home/travis/build/logs"
 # # command to run tests
 script: ./cshcsite/manage.py test
 notifications:
