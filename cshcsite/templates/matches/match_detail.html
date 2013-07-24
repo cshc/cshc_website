@@ -4,7 +4,7 @@
 {% comment %}
 Formatted display of details about a particular match.
 - Used by match_detail
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | {{ match.match_title_text }}{% endblock %}
@@ -14,14 +14,14 @@ Currently just lists the values that will be needed by this template - no UI des
 {% block content %}
 
 {% url 'matches_by_date' match.date|date:"d-M-y" as matches_by_date %}
-    
+
 <div class="row quick-links">
     <div class="pull-right">
         {% if match.fixture_type == "league" %}<i class="icon icon-table"></i>{% if match.division.fixtures_url %}<a href="{{ match.division.fixtures_url }}">{{ match.division }}</a>{% else %}{{ match.division }}{% endif %}&nbsp;&nbsp;{% endif %}
         {% if match.fixture_type == "cup" %}<i class="icon icon-trophy"></i>{{ match.cup }}&nbsp;&nbsp;{% endif %}
         {% if match.venue %}<i class="icon icon-map-marker"></i>{{ match.venue|urlise_model }}&nbsp;&nbsp;{% endif %}
         <i class="icon icon-calendar"></i><a href="{{ matches_by_date }}">{{ match.date }}</a>&nbsp;&nbsp;
-        {% if match.time %}<i class="icon icon-time"></i>{{ match.time }}&nbsp;&nbsp;{% endif %}
+        {% if match.time %}<i class="icon icon-time"></i>{{ match.time|time:"H:i" }}&nbsp;&nbsp;{% endif %}
     </div>
 </div>
 

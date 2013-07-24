@@ -9,11 +9,12 @@ from teams.models import ClubTeam, ClubTeamSeasonParticipation
 from opposition.models import Club, Team
 from matches.models import Match, Appearance
 from awards.models import MatchAward, MatchAwardWinner
-from core.models import not_none_or_empty, TeamGender, TeamOrdinal
+from core.models import TeamGender, TeamOrdinal
 
 old_date_format = '%d/%m/%Y'    # e.g. '01/09/2009'
 old_time_format1 = '%H:%M:%S'   # e.g. '00:00:00'
 old_time_format2 = '%H:%M'      # e.g. '00:00'
+
 
 def get_digits(str1):
     c = ""
@@ -22,15 +23,16 @@ def get_digits(str1):
             c += i
     return c
 
+
 class Old_Table_Entry:
 
     def __init__(self, field_values):
-        
+
         try:
             for attr_name, attr_value in zip(self.__class__.field_names, field_values):
                 #v = bytearray(attr_value).replace('\x92', '\'').replace('\x93', '"').replace('\x94', '"').replace('\xa3', '\x9c').decode('utf-8')
                 v = bytearray(attr_value).decode('cp1252')
-                    
+
                 #print 'AFTER', type(v) # v.encode('string_escape')
                 setattr(self, attr_name, v)
                 #setattr(self, attr_name, attr_value)
@@ -41,7 +43,7 @@ class Old_Table_Entry:
         # Lists of strings explaining errors and warnings associated with this data row
         self.errors = []
         self.warnings = []
-    
+
     @property
     def new_table_class(self):
        return globals()[self.__class__.new_table_name]
@@ -112,14 +114,14 @@ class Old_Table_Entry:
         a = getattr(self, field_name)
         if a != 'True' and a != 'False':
             self.errors.append("{0} must be a boolean value (value = {1})".format(field_name, a))
-         
+
     def _validate_date(self, field_name):
         a = getattr(self, field_name)
         try:
             datetime.strptime(a, old_date_format)
         except:
             self.errors.append("{0} must be a date in the format dd/mm/yyyy (value = {1})".format(field_name, a))
-         
+
     def _validate_time(self, field_name):
         a = getattr(self, field_name)
         try:
@@ -154,15 +156,15 @@ class Old_Match_Players(Old_Table_Entry):
         self.MOM = str(math.ceil(float(self.MOM)))
         self.LOM = str(math.ceil(float(self.LOM)))
         if self.MOM_Comment is None:
-            self.MOM_Comment = '' 
+            self.MOM_Comment = ''
         if self.LOM_Comment is None:
-            self.LOM_Comment = '' 
+            self.LOM_Comment = ''
         if self.Own_Goals == '' or self.Own_Goals is None:
             self.Own_Goals = 0
 
         # TEMP
-        #self.MOM_Comment = '' 
-        #self.LOM_Comment = '' 
+        #self.MOM_Comment = ''
+        #self.LOM_Comment = ''
 
     def validate(self):
         self._validate_positive_integer('Match_Player_ID')
@@ -191,16 +193,16 @@ class Old_Match_Players(Old_Table_Entry):
            return new_match_player
 
 
-class Old_Match_Reports(Old_Table_Entry):    
+class Old_Match_Reports(Old_Table_Entry):
     field_names = ('Match_Date', 'Report_Link')
-    
+
     @property
     def pk(self):
         # Override as we don't want to return an int
         return self.Match_Date
 
 
-class Old_Matches(Old_Table_Entry):    
+class Old_Matches(Old_Table_Entry):
     field_names = ('Match_ID','Match_Date','Match_Type','CSHC_Team_ID','Opposition_Team_ID','Match_Time',
                    'Venue_ID','Home_Away','CSHC_Score','Opposition_Score','CSHC_Score_Half','Opposition_Score_Half',
                    'Walkover','Ignore_For_Southerners','Ignore_For_Goal_Kings','Match_Report','Short_Comment',
@@ -225,7 +227,7 @@ class Old_Matches(Old_Table_Entry):
         if self.Match_Time == 'TBC' or self.Match_Time == 'TBA':
             #self.warnings.append("'{0}' time set to null".format(self.Match_Time))
             self.Match_Time = None
-        if self.Venue_ID == '0':
+        if self.Venue_ID in ('0', '-1'):
             # Issue #20 - no need to warn, just silently fix this up
             #self.warnings.append("Venue_ID value '0' set to null")
             self.Venue_ID = None
@@ -278,7 +280,7 @@ class Old_Matches(Old_Table_Entry):
         if((self.CSHC_Score != None and self.Opposition_Score == None) or
             (self.CSHC_Score == None and self.Opposition_Score != None)):
             self.errors.append("Both scores must be provided")
-            
+
         # ...same goes for half time scores
         if((self.CSHC_Score_Half != None and self.Opposition_Score_Half == None) or
             (self.CSHC_Score_Half == None and self.Opposition_Score_Half != None)):
@@ -288,10 +290,10 @@ class Old_Matches(Old_Table_Entry):
         if(self.CSHC_Score != None and self.Own_Goals_For != None and
             int(self.Own_Goals_For) > int(self.CSHC_Score)):
             self.errors.append("Too many opposition own goals")
-            
+
         # Half-time scores must be <= the final scores
         if(self.CSHC_Score_Half != None and self.Opposition_Score_Half != None and self.CSHC_Score != None and self.Opposition_Score != None):
-            if(int(self.CSHC_Score_Half) > int(self.CSHC_Score) or 
+            if(int(self.CSHC_Score_Half) > int(self.CSHC_Score) or
                 int(self.Opposition_Score_Half) > int(self.Opposition_Score)):
                 self.errors.append("Half-time scores cannot be greater than final scores")
 
@@ -316,7 +318,7 @@ class Old_Matches(Old_Table_Entry):
         new_match.opp_team_id = self._get_foreign_key(new_tables, 'Team', 'Opposition_Team_ID')
         if self.Venue_ID is not None:
             new_match.venue_id = self._get_foreign_key(new_tables, 'Venue', 'Venue_ID')
-        new_match.home_away = Match.HOME_AWAY.home if self.Home_Away == 'Home' else Match.HOME_AWAY.away
+        new_match.home_away = Match.HOME_AWAY.Home if self.Home_Away == 'Home' else Match.HOME_AWAY.Away
         new_match.fixture_type = getattr(Match.FIXTURE_TYPE, self.Match_Type)
         new_match.date = datetime.strptime(self.Match_Date, old_date_format)
         if self.Match_Time is not None:
@@ -389,11 +391,11 @@ class Old_Opposition_Club_Teams(Old_Table_Entry):
         new_team = Team()
         new_team.club_id = self._get_foreign_key(new_tables, 'Club', 'Club_ID')
         if self.Sex == 'Men':
-            new_team.gender = TeamGender.mens
+            new_team.gender = TeamGender.Mens
         elif self.Sex == 'Ladies':
-            new_team.gender = TeamGender.ladies
+            new_team.gender = TeamGender.Ladies
         else:
-            new_team.gender = TeamGender.mixed
+            new_team.gender = TeamGender.Mixed
         new_team.name = self.Team_Name
         new_team.short_name = self.Short_Name
         return new_team
@@ -402,7 +404,7 @@ class Old_Opposition_Club_Teams(Old_Table_Entry):
 class Old_Opposition_Clubs(Old_Table_Entry):
     field_names = ('Club_Id', 'Club_Name', 'Club_Short_Name', 'Club_Link_Name', 'Default_Venue', 'Kit_Clash_Men', 'Kit_Clash_Ladies', 'Kit_Clash_Mixed', 'Mens_Fixtures')
     new_table_name = 'Club'
-      
+
     none_id = None
 
     def existing_check(self, new_row):
@@ -469,6 +471,9 @@ class Old_Players(Old_Table_Entry):
             self.First_Name = 'Joyce'
             self.Surname = '???'
             self.Sex = 'Female'
+        elif self.Surname in ('Seigo', 'Clark'):
+            self.warnings.append("'{}' has no first name. Setting to '???'.".format(self.Surname))
+            self.First_Name = '???'
 
     def validate(self):
         self._validate_positive_integer('Player_ID')
@@ -488,7 +493,7 @@ class Old_Players(Old_Table_Entry):
 
 class Old_Positions(Old_Table_Entry):
     field_names = ('Position', 'Order')
-        
+
     @property
     def pk(self):
         # Override as we don't want to return an int
@@ -545,7 +550,7 @@ class Old_Team_Seasons(Old_Table_Entry):
             elif self.League_Division.find('Cambs League') != -1:
                 division = self.League_Division.lstrip('Cambs League ')
             new_teamseason.division_id = pre_req['Division'][division].pk
-        
+
         return new_teamseason
 
 
@@ -567,7 +572,7 @@ class Old_Teams(Old_Table_Entry):
         return pre_req['ClubTeam'][self.Team_Name]
 
 
-class Old_Venues(Old_Table_Entry):  
+class Old_Venues(Old_Table_Entry):
     field_names = ('Venue_ID','Venue_Name','Venue_Display','Venue_Link','Venue_Distance','Venue_PostCode','Venue_LongName','xVenue_PitchCost','Venue_Short_Name')
     new_table_name = 'Venue'
 
@@ -586,10 +591,10 @@ class Old_Venues(Old_Table_Entry):
             Old_Venues.tbc_id = self.Venue_ID
             self.errors.append("'TBC' venue ignored (but Venue_ID cached for use when checking references to this 'venue')")
         if not self.Venue_Short_Name:
-            self.Venue_Short_Name = self.Venue_Name 
+            self.Venue_Short_Name = self.Venue_Name
         if not self.Venue_LongName:
-            self.Venue_LongName = self.Venue_Name 
-        if not self.Venue_Link:
+            self.Venue_LongName = self.Venue_Name
+        if not self.Venue_Link or 'wblink' in self.Venue_Link:
             self.Venue_Link = ''
         if not self.Venue_PostCode:
             self.Venue_PostCode = ''
@@ -603,4 +608,6 @@ class Old_Venues(Old_Table_Entry):
         new_venue.distance = int(float(self.Venue_Distance))
         if new_venue.name in ('Leys School', 'Coldhams Common', 'Wilberforce Road', 'St Catherine\'s College'):
             new_venue.is_home = True
+            # HACK: The short names for home venues are stored in the Venue_Display field!
+            new_venue.short_name = self.Venue_Display
         return new_venue

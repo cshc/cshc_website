@@ -18,7 +18,7 @@ def first_or_none(q):
         return None
 
 # Enumeration of choices for a team's gender. Used in multiple apps.
-TeamGender = Choices('mens', 'ladies', 'mixed')
+TeamGender = Choices('Mens', 'Ladies', 'Mixed')
 
 # Enumeration of choices for a team's ordinal. Used in multiple apps.
 TeamOrdinal = Choices(

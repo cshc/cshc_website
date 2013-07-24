@@ -2,12 +2,12 @@
     <h1>Fixture Details</h1>
 </div><!-- /header -->
 
-<div data-role="content">	
+<div data-role="content">
     <h4>{{ match.match_title_text }}</h4>
     <p><strong>{{ m.our_team.long_name }} {{ m.score_display }} {{ m.opp_team.short_name }}</strong></p>
     <p>H/T: {{ m.our_ht_score }} - {{ m.opp_ht_score }}</p>
     {% if appearances %}
-        <p>Scorers:&nbsp;
+        <p>Team played:&nbsp;
         {% for app in appearances %}
             {{ app.member }}{% if not forloop.last %},&nbsp;{% endif %}
         {% endfor %}

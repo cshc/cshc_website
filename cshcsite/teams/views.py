@@ -4,6 +4,7 @@ from datetime import datetime
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+import django_mobile
 from core.views import AjaxGeneral, saturdays_in_range
 
 from core.models import TeamGender, first_or_none, not_none_or_empty
@@ -31,9 +32,9 @@ class ClubTeamListView(TemplateView):
 
         all_teams = ClubTeam.objects.all()
 
-        mens_teams = list(all_teams.filter(gender=TeamGender.mens))
-        ladies_teams = list(all_teams.filter(gender=TeamGender.ladies))
-        other_teams = list(all_teams.filter(gender=TeamGender.mixed))
+        mens_teams = list(all_teams.filter(gender=TeamGender.Mens))
+        ladies_teams = list(all_teams.filter(gender=TeamGender.Ladies))
+        other_teams = list(all_teams.filter(gender=TeamGender.Mixed))
 
         for team in mens_teams + ladies_teams + other_teams:
             try:
@@ -41,11 +42,11 @@ class ClubTeamListView(TemplateView):
             except:
                 log.warn("Could not get team photo for {}".format(team))
                 team.photo = '/media/team_photos/placeholder_small.jpg'  # TODO: Team photo placeholder
-            team.blurb = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque ' + \
-                         'laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi ' + \
-                         'architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas ' + \
-                         'sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione ' + \
-                         'voluptatem sequi nesciunt.'
+            # team.blurb = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque ' + \
+            #              'laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi ' + \
+            #              'architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas ' + \
+            #              'sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione ' + \
+            #              'voluptatem sequi nesciunt.'
             team.ical = reverse('clubteam_ical_feed', kwargs={'slug': team.slug})
             team.rss = reverse('clubteam_match_rss_feed', kwargs={'slug': team.slug})
 
@@ -123,13 +124,14 @@ class ClubTeamStatsView(AjaxGeneral):
         squad_lookup = {}
 
         for app in appearances:
-            if not squad_lookup.has_key(app.member_id):
+            if app.member_id not in squad_lookup:
                 squad_lookup[app.member_id] = SquadMember(app.member)
             squad_lookup[app.member_id].add_appearance(app)
             match_lookup[app.match_id].add_appearance(app)
 
         for award_winner in award_winners:
-            squad_lookup[award_winner.member_id].add_award(award_winner.award)
+            if award_winner.member_id in squad_lookup:
+                squad_lookup[award_winner.member_id].add_award(award_winner.award)
             match_lookup[award_winner.match_id].add_award_winner(award_winner)
 
         # Scrape the league table if we've got a link to the league table
@@ -139,14 +141,14 @@ class ClubTeamStatsView(AjaxGeneral):
                 context['participation'] = participation
                 # TODO: Currently this is fairly 'hard-coded'. If a team moves out of these divisions, this code
                 # will need to be modified.
-                if participation.division.gender == TeamGender.mens:
+                if participation.division.gender == TeamGender.Mens:
                     if is_current_season:
                         context['division'] = get_east_leagues_nw_division(participation.division_tables_url, participation.division.name)
                     elif season.start < datetime(2003, 12, 01).date():
                         context['division'] = get_old_east_leagues_nw_division(participation.division_tables_url, participation.division.name)
                     else:
                         context['division'] = get_old_east_leagues_division(participation.division_tables_url, participation.division.name)
-                elif participation.division.gender == TeamGender.ladies:
+                elif participation.division.gender == TeamGender.Ladies:
                     context['division'] = get_east_leagues_cambs_division(participation.division_tables_url)
                 else:
                     log.warn("No league table to be scraped for team {}".format(participation.team.abbr_name()))

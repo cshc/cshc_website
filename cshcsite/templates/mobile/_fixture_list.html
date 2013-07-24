@@ -3,9 +3,9 @@
     <ul data-role='listview' data-divider-theme='d'>
         {% for m in match_list %}
         <li><a href="{{ m.get_absolute_url }}">
-            <h3>{{ m.our_team.short_name }} vs {{ m.opp_team.short_name }}</h3>
-            <p>{{ m.date|date:"jS M" }} {{ m.time }}</p>
-            <p class='ul-li-aside'>{{ m.venue.simple_name }}</p>
+            <p class='ul-li-aside'>{% if m.venue %}{{ m.simple_venue_name }}{% else %}Venue TBD{% endif %}</p>
+            <h2>{{ m.our_team.short_name }} vs {{ m.opp_team.short_name }}</h2>
+            <p>{{ m.date|date:"jS M" }} {% if m.time %}{{ m.time|time:"H:i" }}{% else %}TBD{% endif %}</p>
         </a></li>
         {% empty %}
         <li><h3>No matches</h3></li>

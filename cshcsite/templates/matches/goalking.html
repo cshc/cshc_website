@@ -7,6 +7,8 @@ Formatted display of the Goal King table for a particular season.
 
 {% block title %}{{ block.super }} | Goal King{% endblock %}
 
+{% block body_id %}goal-king{% endblock body_id %}
+
 {% block content %}
 {% url 'goal_king' as base_goal_king_url %}
 {% url 'stats_overview' as stats_url %}
@@ -21,9 +23,9 @@ Formatted display of the Goal King table for a particular season.
   <h1>Goal King <small>{{ season }}</small><div class="pull-right">{% include 'core/_season_selector.html' with url_prefix=base_goal_king_url %}</div></h1>
 </div>
 
-<p>This table includes all goals scored outdoors and indoors in competitive and friendly matches against external teams.</p>
+<p class="lead">This table includes all goals scored outdoors and indoors in competitive and friendly matches against external teams.</p>
 
-<p>Ladies are highlighted in <span class='female'>blue</span> and Men in <span class='male'>green</span>. 'GPG' is the average number of goals scored per game played.</p>
+<p class="lead">Ladies are highlighted in <span class='female'>blue</span> and Men in <span class='male'>green</span>. 'GPG' is the average number of goals scored per game played.</p>
 
 <div id="goalking-table">
 {% include 'matches/_goalking_table.html' %}

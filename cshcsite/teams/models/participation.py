@@ -72,6 +72,8 @@ class ClubTeamSeasonParticipation(models.Model):
     cup_result = models.CharField("Cup result", max_length=100, null=True, blank=True, default=None, help_text="Where did the team get to in the cup? (Enter once cup participation is complete)")
     """How the team got on in the cup"""
 
+    blurb = models.TextField(blank=True)
+    """Some optional comments about the team this season."""
 
     objects = PassThroughManager.for_queryset_class(ClubTeamSeasonParticipationQuerySet)()
 

@@ -48,7 +48,7 @@ Filter-able, sortable, paginated display of matches.
                 <label for="id_venue">Venue:</label>
                 {{ filter.form.venue }}
             </div>
-        </div>    
+        </div>
         <div class="span4">
             <div class="fieldWrapper">
                 {{ filter.form.season.errors }}
@@ -70,14 +70,14 @@ Filter-able, sortable, paginated display of matches.
                 <label for="id_fixture_type">Fixture type:</label>
                 {{ filter.form.fixture_type }}
             </div>
-        </div>    
+        </div>
         <div class="span4">
             <div class="fieldWrapper players">
                 {{ filter.form.players.errors }}
                 <label id="label_players" for="id_players">Players:</label>
                 {{ filter.form.players }}
             </div>
-        </div>    
+        </div>
         <div class="span12"><input class="btn btn-primary" type="submit" /><input class="btn" type="reset" value="Reset" /></div>
     </div>
     </form>
@@ -106,7 +106,7 @@ Filter-able, sortable, paginated display of matches.
                     <td><a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.long_name }}</a></td>
                     <td>{{ match.score_display }}</td>
                     <td>{{ match.opp_team }}</td>
-                    <td>{% if match.venue %}<a href="{{ match.venue.get_absolute_url }}" title="{{ match.venue.name }}">{{ match.venue.simple_name }}</a>{% elif match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
+                    <td>{% if match.venue %}<a href="{{ match.venue.get_absolute_url }}" title="{{ match.venue.name }}">{{ match.simple_venue_name }}</a>{% elif match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
                     <td><a href="{{ match.get_absolute_url }}" title="Match details"><i class="icon-file-alt"></i></a></td>
                 </tr>
             {% endfor %}

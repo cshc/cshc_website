@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <head> 
+    <head>
         <title>{% block title %}Cambridge South Hockey Club{% endblock title %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% block head_css %}
-      <!-- jQuery Mobile style sheet -->
-      <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" />
+        <!-- jQuery Mobile style sheet -->
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
 
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/project_mobile.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/project_mobile.css">
     {% endblock head_css %}
 
     {% block head_js %}
-      <!-- jQuery mobile script includes -->
-      <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-      <script src="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.js"></script>
+        <!-- jQuery mobile script includes -->
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
     {% endblock head_js %}
 
     {% block extra_head %}{% endblock extra_head %}
 </head>
 <body>
 
-{% block content %}{% endblock content %}
+    {% block content %}{% endblock content %}
 
 </body>
 </html>

@@ -12,15 +12,15 @@ class TeamManager(models.Manager):
 
     def mens(self):
         """Returns only men's teams"""
-        return self.get_query_set().filter(gender=TeamGender.mens)
+        return self.get_query_set().filter(gender=TeamGender.Mens)
 
     def ladies(self):
         """Returns only ladies teams"""
-        return self.get_query_set().filter(gender=TeamGender.ladies)
+        return self.get_query_set().filter(gender=TeamGender.Ladies)
 
     def mixed(self):
         """Returns only mixed teams"""
-        return self.get_query_set().filter(gender=TeamGender.mixed)
+        return self.get_query_set().filter(gender=TeamGender.Mixed)
 
 
 class Team(models.Model):

@@ -83,7 +83,7 @@ class Match(models.Model):
     venue = models.ForeignKey(Venue, null=True, blank=True, on_delete=models.SET_NULL)
 
     # Is the match a home or away fixture for South
-    home_away = models.CharField("Home/Away", max_length=5, choices=HOME_AWAY, default=HOME_AWAY.home)
+    home_away = models.CharField("Home/Away", max_length=5, choices=HOME_AWAY, default=HOME_AWAY.Home)
 
     # The type of fixture
     fixture_type = models.CharField("Fixture type", max_length=10, choices=FIXTURE_TYPE, default=FIXTURE_TYPE.League)
@@ -228,7 +228,7 @@ class Match(models.Model):
     @property
     def is_home(self):
         """Returns True if this is a home fixture"""
-        return self.home_away == Match.HOME_AWAY.home
+        return self.home_away == Match.HOME_AWAY.Home
 
     def kit_clash(self):
         """Returns true if there is a kit-clash for this fixture
@@ -353,8 +353,18 @@ class Match(models.Model):
         ""            (blank - no result yet)
         "Cancelled"   (alt_outcome not None)
         """
-        if(self.alt_outcome != None):
+        if self.alt_outcome is not None:
             return self.get_alt_outcome_display()
-        if(not self.final_scores_provided()):
+        if not self.final_scores_provided():
             return ""
         return "{}-{}".format(self.our_score, self.opp_score)
+
+    def simple_venue_name(self):
+        """Returns 'Away' if this is not a home match. Otherwise returns the short_name attribute value."""
+        assert self.venue is not None
+        if self.is_home:
+            if self.venue.short_name is not None:
+                return self.venue.short_name
+            else:
+                return self.venue.name
+        return "Away"

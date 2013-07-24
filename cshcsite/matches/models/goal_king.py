@@ -32,7 +32,7 @@ class GoalKing(models.Model):
 
     # The season this entry applies to
     season = models.ForeignKey(Season)
-    
+
     # The total number of games the member played in the season
     games_played = models.PositiveSmallIntegerField("Number of games played", default=0)
 
@@ -56,7 +56,7 @@ class GoalKing(models.Model):
     mixed_own_goals = models.PositiveSmallIntegerField("Own goals for Mixed team", default=0)
     indoor_own_goals = models.PositiveSmallIntegerField("Own goals for the Indoor team", default=0)
 
-    # These are attributes (db fields) rather than just methods so that we can take advantage of 
+    # These are attributes (db fields) rather than just methods so that we can take advantage of
     # SQL ordering - we typically want to order goal king entries by total goals.
     total_goals = models.PositiveSmallIntegerField("Total goals", editable=False)
     total_own_goals = models.PositiveSmallIntegerField("Total own goals", editable=False)
@@ -65,7 +65,7 @@ class GoalKing(models.Model):
 
     class Meta:
         app_label = 'matches'
-        unique_together = ('member', 'season')  
+        unique_together = ('member', 'season')
         ordering = ['season', 'member']
 
     def __unicode__(self):
@@ -76,7 +76,7 @@ class GoalKing(models.Model):
         self.total_goals = self.m1_goals + self.m2_goals + self.m3_goals + self.m4_goals + self.l1_goals + self.l2_goals + self.mixed_goals + self.indoor_goals
         self.total_own_goals = self.m1_own_goals + self.m2_own_goals + self.m3_own_goals + self.m4_own_goals + self.l1_own_goals + self.l2_own_goals + self.mixed_own_goals + self.indoor_own_goals
 
-        super(GoalKing, self).save(*args, **kwargs) 
+        super(GoalKing, self).save(*args, **kwargs)
 
     def goals_per_game(self):
         """Returns the number of goals scored per game"""
@@ -117,7 +117,7 @@ class GoalKing(models.Model):
         gender = appearance.match.our_team.gender
         ordinal = appearance.match.our_team.ordinal
 
-        if gender == TeamGender.mens:
+        if gender == TeamGender.Mens:
             if ordinal == TeamOrdinal.T1:
                 self.m1_goals += appearance.goals
                 self.m1_own_goals += appearance.own_goals
@@ -132,7 +132,7 @@ class GoalKing(models.Model):
                 self.m4_own_goals += appearance.own_goals
             else:
                 raise IntegrityError("Unexpected mens team: {}".format(ordinal))
-        elif gender == TeamGender.ladies:
+        elif gender == TeamGender.Ladies:
             if ordinal == TeamOrdinal.T1:
                 self.l1_goals += appearance.goals
                 self.l1_own_goals += appearance.own_goals
@@ -141,7 +141,7 @@ class GoalKing(models.Model):
                 self.l2_own_goals += appearance.own_goals
             else:
                 raise IntegrityError("Unexpected ladies team: {}".format(ordinal))
-        elif gender == TeamGender.mixed:
+        elif gender == TeamGender.Mixed:
             self.mixed_goals += appearance.goals
             self.mixed_own_goals += appearance.own_goals
         else:
@@ -164,7 +164,7 @@ class GoalKing(models.Model):
         # We just want the member id, the match team, the number of goals scored (and own goals)
         appearances = Appearance.objects.by_season(season).select_related('match__our_team').filter(match__ignore_for_goal_king=False, goals__gt=0).only('member', 'goals', 'own_goals', 'match__our_team')
         log.debug("Retrieved {} appearance entries for {}".format(appearances.count(), season))
-        
+
         for appearance in appearances:
             if not gk_lookup.has_key(appearance.member_id):
                 log.debug("Adding new Goal King entry for member {}".format(appearance.member_id))

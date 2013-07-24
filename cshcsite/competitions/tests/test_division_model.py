@@ -14,13 +14,13 @@ class DivisionTest(TestCase):
         self.test_url = "http://www.example.com"
         self.test_league = League(name="Test League", url=self.test_url)
         self.test_league.save()
-        self.test_div = Division(name="Test Division", league=self.test_league, gender=TeamGender.mens)
+        self.test_div = Division(name="Test Division", league=self.test_league, gender=TeamGender.Mens)
 
     def test_divisions_can_be_added_and_removed(self):
         """ Tests that divisions can be added to the database and then removed """
         countBefore = Division.objects.all().count()
-        div1 = Division(name="Test Division 1", league=self.test_league, gender=TeamGender.mens)
-        div2 = Division(name="Test Division 2", league=self.test_league, gender=TeamGender.mens)
+        div1 = Division(name="Test Division 1", league=self.test_league, gender=TeamGender.Mens)
+        div2 = Division(name="Test Division 2", league=self.test_league, gender=TeamGender.Mens)
         div1.save()
         div2.save()
         self.assertEqual(countBefore + 2, Division.objects.all().count())
@@ -39,7 +39,7 @@ class DivisionTest(TestCase):
         countBefore = Division.objects.all().count()
         self.test_div.save()
         # Create a new division with the same name and league
-        test_div2 = Division(name=self.test_div.name, league=self.test_div.league, gender=TeamGender.mens)
+        test_div2 = Division(name=self.test_div.name, league=self.test_div.league, gender=TeamGender.Mens)
 
         # Insert should fail as both divisions are in the same league and have the same name
         self.assertRaises(IntegrityError, test_div2.save)

@@ -39,7 +39,7 @@ class TeamViewTest(TestCase):
     def setUp(self):
         self.test_club_name = "Test Club"
         self.test_club, club_created = Club.objects.get_or_create(name=self.test_club_name)
-        self.test_team, team_created = Team.objects.get_or_create(club=self.test_club, gender=TeamGender.mens, name="Test team 1", short_name="T1")
+        self.test_team, team_created = Team.objects.get_or_create(club=self.test_club, gender=TeamGender.Mens, name="Test team 1", short_name="T1")
 
     def test_TeamListView(self):
         """ Tests that the TeamListView view contains the test team """

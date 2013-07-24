@@ -55,7 +55,7 @@ class Venue(models.Model):
     distance = models.PositiveSmallIntegerField("Distance to this venue", null=True)
     """Distance to this venue from the centre of Cambridge"""
 
-    
+
     objects = VenueManager()
 
     class Meta:
@@ -68,7 +68,7 @@ class Venue(models.Model):
     def save(self, *args, **kwargs):
         # Auto-populate the slug field
         self.slug = slugify(self.short_name)
-        super(Venue, self).save(*args, **kwargs) 
+        super(Venue, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):
@@ -77,9 +77,3 @@ class Venue(models.Model):
     def full_address(self):
         """ Returns the full address with (not None) address items separated by commas."""
         return ", ".join(filter(None, (self.addr1, self.addr2, self.addr3, self.addr_city, self.addr_postcode)))
-
-    def simple_name(self):
-        """Returns 'Away' if this is not a home venue. Otherwise returns the short_name attribute value."""
-        if(self.is_home):
-            return self.short_name
-        return "Away"

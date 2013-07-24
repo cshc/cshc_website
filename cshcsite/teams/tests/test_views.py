@@ -14,7 +14,7 @@ class ClubTeamViewTest(TestCase):
 
     def setUp(self):
         self.test_season, s_created = Season.objects.get_or_create(start=date(2012, 9, 1), end=date(2013, 8, 31))
-        self.test_clubteam, c_created = ClubTeam.objects.get_or_create(short_name="Test", long_name="Test team", gender=TeamGender.mens, ordinal=TeamOrdinal.T1, position=20)
+        self.test_clubteam, c_created = ClubTeam.objects.get_or_create(short_name="Test", long_name="Test team", gender=TeamGender.Mens, ordinal=TeamOrdinal.T1, position=20)
 
     def test_ClubTeamListView(self):
         """ Tests that the ClubTeamListView view contains the test ClubTeam """

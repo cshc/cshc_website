@@ -47,11 +47,11 @@ class Club(models.Model):
 
     def kit_clash(self, team_gender):
         """Returns true if, for the specified team gender, this club's kit clashes with our kit"""
-        if team_gender == TeamGender.mens:
+        if team_gender == TeamGender.Mens:
             return self.kit_clash_men
-        elif team_gender == TeamGender.ladies:
+        elif team_gender == TeamGender.Ladies:
             return self.kit_clash_ladies
-        elif team_gender == TeamGender.mixed:
+        elif team_gender == TeamGender.Mixed:
             return self.kit_clash_mixed
 
         raise AssertionError("Unexpected team gender")
