@@ -4,26 +4,27 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 from django.conf import settings
 from venues.views import HomeVenueListView
+from core.views import ContactSubmissionCreateView
 from . import views
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    
+
     url(r'^$', views.HomeView.as_view(), name='homepage'),                                              # The main landing page
     url(r'^about/$', views.AboutUsView.as_view(), name='about_us'),                                     # About Us
 
     url(r'^calendar/$',               TemplateView.as_view(template_name='core/calendar.html'),  name='calendar'),
-    url(r'^contact/$',                views.ContactUsView.as_view(),  name='contact_us'),
+    url(r'^contact/$',                ContactSubmissionCreateView.as_view(),  name='contact_us'),
     url(r'^commission/$',             TemplateView.as_view(template_name='core/commission.html'),  name='commission'),
     url(r'^offers/$',                 TemplateView.as_view(template_name='core/offers.html'),  name='members_offers'),
-    
+
     url(r'^about/pitch-directions/$', HomeVenueListView.as_view(), name='pitch_directions'),            # Pitch directions - basically a list of home venues
     url(r'^about/social/$',           TemplateView.as_view(template_name='core/social.html'), name='about_social'),
     url(r'^about/kit/$',              TemplateView.as_view(template_name='core/kit.html'), name='about_kit'),
     url(r'^about/fees/$',             TemplateView.as_view(template_name='core/fees.html'), name='about_fees'),
     url(r'^about/committee/$',        views.CommitteeView.as_view(), name='about_committee'),
-    
+
     url(r'^archive/minutes/$',         TemplateView.as_view(template_name='core/meeting_minutes.html'), name='about_minutes'),
     url(r'^archive/chairmans-notes/$', TemplateView.as_view(template_name='core/chairmans_notes.html'), name='chairmans_notes'),
     url(r'^archive/social/dinner2012/$', TemplateView.as_view(template_name='core/social/dinner2012.html'), name='dinner2012'),
@@ -50,16 +51,13 @@ urlpatterns = patterns('',
     # TinyMCE
     url(r'^tinymce/', include('tinymce.urls')),                                                         # Used for editor previews etc
 
-    # Redirects/aliases
-    url(r'^join-us/$', RedirectView.as_view(url='/members/enquiries/new/'), name='join_us'),            # Membership enquiry form
-
     # Ajax views
     url(r'^load-tweets/$', views.LoadTweetsView.as_view(), name='load_tweets_url'),
 )
 
 # Static pages - use the flatpage app
 urlpatterns += patterns('django.contrib.flatpages.views',
-    
+
 )
 
 

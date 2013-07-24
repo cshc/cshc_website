@@ -1,5 +1,5 @@
 import logging
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormView
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
@@ -43,80 +43,6 @@ class MemberDetailView(SelectRelatedMixin, DetailView):
 
         return context
 
-
-class MembershipEnquiryListView(ListView):
-    """View with a list of all membership enquiries"""
-    model = MembershipEnquiry
-
-
-class MembershipEnquiryDetailView(StaffuserRequiredMixin, DetailView):
-    """View of a particular membership enquiry"""
-    model = MembershipEnquiry
-
-
-class MembershipEnquiryCreateView(FormView):
-    """This is essentially the 'Join Us' form view"""
-    model = MembershipEnquiry
-    form_class = MembershipEnquiryForm
-    template_name = "members/join_us.html"
-    # TODO: Redirect to another page and give them more links to click on!
-    success_url = '/members/enquiries/new/'
-
-    def email_to_secretary(self, form):
-        from_email = form.cleaned_data['email']
-        t = loader.get_template('members/membershipenquiry_email.txt')
-        c = Context({
-            'name': "{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
-            'phone': form.cleaned_data['phone'],
-            'email': from_email,
-            'join_mail_list': form.cleaned_data['join_mail_list'],
-            'hockey_exp': form.cleaned_data['hockey_exp'],
-            'comments': form.cleaned_data['comments'],
-        })
-        subject = "New enquiry from {}".format(c['name'])
-
-        message = t.render(c)
-        try:
-            recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
-        except ClubInfo.DoesNotExist:
-                recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
-        send_mail(subject, message, from_email, [recipient_email], fail_silently=False)
-
-    def email_to_enquirer(self, form):
-        t = loader.get_template('members/membershipenquiry_welcome_email.txt')
-        c = Context({
-            'first_name': form.cleaned_data['first_name'],
-        })
-        try:
-            c['secretary_name'] = ClubInfo.objects.get(key='SecretaryName').value
-            c['secretary_email'] = ClubInfo.objects.get(key='SecretaryEmail').value
-        except ClubInfo.DoesNotExist:
-            c['secretary_name'] = ""
-            c['secretary_email'] = 'secretary@cambridgesouthhockeyclub.co.uk'
-
-        from_email = c['secretary_email']
-        subject = "Your enquiry with Cambridge South Hockey Club"
-
-        message = t.render(c)
-        recipient_email = form.cleaned_data['email']
-        send_mail(subject, message, from_email, [recipient_email], fail_silently=False)
-
-    def form_valid(self, form):
-        try:
-            self.email_to_secretary(form)
-            self.email_to_enquirer(form)
-            messages.info(self.request, "Thanks for your interest in Cambridge South. We'll be in touch shortly!")
-        except BadHeaderError:
-            log.warn("Failed to send email")
-            messages.warning(self.request, "Sorry - we were unable to process your enquiry. Please try again later.")
-        return super(MembershipEnquiryCreateView, self).form_valid(form)
-
-    def form_invalid(self, form):
-        messages.info(
-            self.request,
-            "Submission failed. Errors: {}".format(form.errors)
-        )
-        return super(MembershipEnquiryCreateView, self).form_invalid(form)
 
 class MemberStatsView(AjaxGeneral):
     """An AJAX-only view for calculating and displaying statistics related to a particular member"""

@@ -25,11 +25,16 @@ Form used to email a message to the club secretary
         </div>
         <div class="span7">
             <form action="{{ contact_us }}" method="post">{% csrf_token %}
-                    <input id="id_name" maxlength="255" name="name" class="name" type="text" placeholder="Name">
-                    <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email">
-                    <input id="id_subject" maxlength="254" name="subject" class="subject" type="text" placeholder="Subject">
-                    <textarea id="id_message" name="message" placeholder="Message"></textarea>
+                    <input id="id_first_name" maxlength="255" name="first_name" class="name" type="text" placeholder="First name*">
+                    <input id="id_last_name" maxlength="255" name="last_name" class="name" type="text" placeholder="Last name*">
+                    <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email*">
+                    <input id="id_phone" maxlength="25" name="phone" class="phone" type="text" placeholder="Phone">
+                    <textarea id="id_message" name="message" placeholder="Message*"></textarea>
+                    <label class="checkbox">
+                        <input id="id_mailing_list" name="mailing_list" type="checkbox"> I would like to join the Club mailing lists
+                    </label>
                     <input class="btn btn-primary" type="submit" value="Send your message">
+                    <p class="required">* required fields</p>
             </form>
         </div>
     </div>

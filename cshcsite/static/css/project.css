@@ -8,6 +8,11 @@ Bootstrap overrides
 hr { border-top-color: #e0e0e0;}
 
 /******************************************************************************
+Theme overrides
+*/
+/*#footer {background-color: #003A57;}*/
+
+/******************************************************************************
 Global Styles
 */
 
@@ -45,6 +50,8 @@ ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 
 ul.downloads { margin-top: 20px; }
 ul.downloads li { font-size: 150%; margin-bottom: 10px; }
+
+p.required {color: #A2A2A2; font-size: 80%;}
 
 /******************************************************************************
 Maps
@@ -185,6 +192,7 @@ Page-specific
 
 #contact-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
 #contact-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
+#contact-us input.phone { background: url('../clean_canvas/img/formphone.png') #fff no-repeat 5px; }
 #contact-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 90%; }
 #contact-us textarea { width: 96%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
 #contact-us input[type="submit"] { float: right; margin-right: 8px; }

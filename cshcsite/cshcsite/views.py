@@ -22,7 +22,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        
+
         # Latest Results
         LatestResultsView.add_latest_results_to_context(context)
 
@@ -33,41 +33,6 @@ class HomeView(TemplateView):
         UpcomingTrainingSessionsView.add_upcoming_training_to_context(context)
 
         return context
-
-
-class ContactUsView(FormView):
-    """This is essentially the 'Join Us' form view"""
-    form_class = ContactForm
-    template_name = "core/contact.html"
-    success_url = '/contact/'
-
-    def send_email(self, form):
-        from_email = form.cleaned_data['email']
-        name = form.cleaned_data['name']
-        subject = "Message from {}: {}".format(name, form.cleaned_data['subject'])
-        message = form.cleaned_data['message']
-
-        try:
-            recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
-        except ClubInfo.DoesNotExist:
-                recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
-        send_mail(subject, message, from_email, [recipient_email], fail_silently=False)
-
-    def form_valid(self, form):
-        try:
-            self.send_email(form)
-            messages.info(self.request, "Thanks for your message. We'll be in touch shortly!")
-        except BadHeaderError:
-            log.warn("Failed to send email")
-            messages.warning(self.request, "Sorry - we were unable to send your message. Please try again later.")
-        return super(ContactUsView, self).form_valid(form)
-
-    def form_invalid(self, form):
-        messages.info(
-            self.request,
-            "Submission failed. Errors: {}".format(form.errors)
-        )
-        return super(ContactUsView, self).form_invalid(form)
 
 
 class AboutUsView(TemplateView):
@@ -86,7 +51,7 @@ class CommitteeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CommitteeView, self).get_context_data(**kwargs)
-        
+
         context['clubinfo'] = ClubInfo.objects.all()
         return context
 

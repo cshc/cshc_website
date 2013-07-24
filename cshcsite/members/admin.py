@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Member, MembershipEnquiry
+from .models import Member
 
 
 class MemberAdmin(admin.ModelAdmin):
@@ -11,4 +11,3 @@ class MemberAdmin(admin.ModelAdmin):
 
 # Register all members models with the admin interface
 admin.site.register(Member, MemberAdmin)
-admin.site.register(MembershipEnquiry)

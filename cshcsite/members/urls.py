@@ -7,33 +7,14 @@ urlpatterns = patterns('',
 
     # E.g. '/members/'
     url(r'^$',
-        views.MemberListView.as_view(), 
+        views.MemberListView.as_view(),
         name="member_list"
     ),
-    
+
     # E.g. '/members/32/'
     url(r'^(?P<pk>\d+)/$',
-        views.MemberDetailView.as_view(), 
+        views.MemberDetailView.as_view(),
         name="member_detail"
-    ),
-
-
-    # E.g. '/members/enquiries/5/'
-    url(r'^enquiries/(?P<pk>\d+)/$',
-        views.MembershipEnquiryDetailView.as_view(), 
-        name="membershipenquiry_detail"
-    ),
-
-    # E.g. '/members/enquiries/'
-    url(r'^enquiries/$',
-        views.MembershipEnquiryListView.as_view(), 
-        name="membershipenquiry_list"
-    ),
-
-    # E.g. '/members/enquiries/new/'
-    url(r'^enquiries/new/$',
-        views.MembershipEnquiryCreateView.as_view(), 
-        name="membershipenquiry_create"
     ),
 
     # Ajax requests

@@ -1,0 +1,9 @@
+Hi {{ first_name }},
+
+Thanks for contacting us. We'll get back to you as soon as possible.
+
+{{ secretary_name }}
+Club Secretary
+
+Your message:
+{{ message }}
