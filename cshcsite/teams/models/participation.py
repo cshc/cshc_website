@@ -25,11 +25,11 @@ class ClubTeamSeasonParticipationQuerySet(QuerySet):
     def by_team(self, team):
         """Returns just the participations for the specified team"""
         return self.filter(team=team)
-    
+
 
 class ClubTeamSeasonParticipation(models.Model):
     """Represents the participation of a Cambridge South team in a particular season.
-    
+
        Includes division and cup participation.
     """
 
@@ -49,15 +49,18 @@ class ClubTeamSeasonParticipation(models.Model):
     team_photo = models.ImageField(upload_to='team_photos', null=True, blank=True)
     """A team photo (if available) from this sesason"""
 
+    team_photo_caption = models.TextField(blank=True)
+    """Caption for the team photo. Could include a list of who's who."""
+
     final_pos = models.PositiveSmallIntegerField("Final position", null=True, blank=True, default=None, help_text="Once the season is complete, enter the final league position here")
     """The final league position of the team"""
 
     division_result = models.CharField(max_length=20, choices=DIVISION_RESULT, null=True, blank=True, default=None, help_text="Set to one of the options if the team was promoted or relegated this season.")
     """Indicates if the team was promoted or relegated this season"""
-    
+
     # The (external) URL of the division leauge table
     division_tables_url = models.URLField("League table website", blank=True)
-    
+
     # The (external) URL of the division fixtures list
     division_fixtures_url = models.URLField("Fixtures website", blank=True)
 
@@ -70,8 +73,8 @@ class ClubTeamSeasonParticipation(models.Model):
     """How the team got on in the cup"""
 
 
-    objects = PassThroughManager.for_queryset_class(ClubTeamSeasonParticipationQuerySet)()   
-    
+    objects = PassThroughManager.for_queryset_class(ClubTeamSeasonParticipationQuerySet)()
+
 
     class Meta:
         app_label = 'teams'
@@ -100,5 +103,5 @@ class ClubTeamSeasonParticipation(models.Model):
         if self.cup is not None and (self.team.gender != self.cup.gender):
             raise IntegrityError("{} is a {} team but {} is a {} cup", self.team, self.team.get_gender_display(), self.cup, self.cup.get_gender_display());
 
-        super(ClubTeamSeasonParticipation, self).save(*args, **kwargs) 
+        super(ClubTeamSeasonParticipation, self).save(*args, **kwargs)
 

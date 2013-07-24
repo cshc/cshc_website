@@ -5,7 +5,7 @@
 {% comment %}
 Formatted display of the details of a particular team.
 - Used by clubteam_detail and clubteam_season_detail
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 
@@ -29,7 +29,7 @@ Currently just lists the values that will be needed by this template - no UI des
     <h1>{{ clubteam.long_name }} <small>{{ season }}</small>
     <div class="pull-right"><a href="{{ clubteam_calendar }}" target="_blank" title="{{ clubteam.long_name }} calendar"><i class="icon-calendar icon-small"></i></a>
             <a href="{{ clubteam_rss }}" target="_blank" title="{{ clubteam.long_name }} match report RSS feed"><i class="icon-rss icon-small"></i></a>{% include 'core/_season_selector.html' with url_prefix=base_team_url %}</div></h1>
-  
+
 </div>
 <div class="row">
     <div class="span6">
@@ -64,6 +64,7 @@ Currently just lists the values that will be needed by this template - no UI des
     </div>
     <div class="span6">
         <img src="{% if participation.team_photo %}{{ participation.team_photo.url }}{% else %}{{ MEDIA_URL }}team_photos/placeholder.jpg{% endif %}" class="img-rounded pull-right team-photo"></img>
+        <p class="caption">{{ participation.team_photo_caption }}</p>
     </div>
 </div>
 </br></br>
