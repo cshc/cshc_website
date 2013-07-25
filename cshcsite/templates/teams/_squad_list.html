@@ -5,27 +5,27 @@
     <table class="table table-striped table-hover table-condensed table-center-align table-middle-align">
         <thead>
             <tr>
-                <th></th>
+                <th class="priority3"></th>
                 <th class="left-align">Name</th>
-                <th class="left-align">Position</th>
+                <th class="priority2 left-align">Position</th>
                 <th>Appearances</th>
                 <th>Goals</th>
                 <th>Clean sheets</th>
-                <th><i class="icon-star"></i><abbr title="Man of the Match">MOM</abbr></th>
-                <th><i class="icon-lemon"></i><abbr title="Lemon of the Match">LOM</abbr></th>
-                </tr>
+                <th class="priority2"><i class="icon-star"></i><abbr title="Man of the Match">MOM</abbr></th>
+                <th class="priority2"><i class="icon-lemon"></i><abbr title="Lemon of the Match">LOM</abbr></th>
+            </tr>
         </thead>
         <tbody>
             {% for player in squad_list %}
             <tr>
-                <td>{% include 'members/_profile_pic_thumbnail.html' with member=player.member %}</td>
+                <td class="priority3">{% include 'members/_profile_pic_thumbnail.html' with member=player.member %}</td>
                 <td class="left-align">{{ player.member|urlise_model }}</td>
-                <td class="left-align">{{ player.member.get_pref_position_display }}</td>
+                <td class="priority2 left-align">{{ player.member.get_pref_position_display }}</td>
                 <td>{{ player.appearances }}</td>
                 <td>{{ player.goals|default:"" }}</td>
                 <td>{{ player.clean_sheets|default:"" }}</td>
-                <td>{{ player.mom|default:"" }}</td>
-                <td>{{ player.lom|default:"" }}</td>
+                <td class="priority2">{{ player.mom|default:"" }}</td>
+                <td class="priority2">{{ player.lom|default:"" }}</td>
             </tr>
             {% endfor %}
         </tbody>

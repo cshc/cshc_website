@@ -8,31 +8,31 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
 {% if match_list %}
     <table class="table table-condensed table-hover">
         <thead>
-            <tr><th></th><th>Date</th><th>Opposition</th><th>Time</th><th>Venue</th><th class="center-align">Result</br>(CS-Op)</th><th>Scorers</th><th>MOM</th><th>LOM</th><th>Match</br>Report</th></tr>
+            <tr><th class="priority3"></th><th>Date</th><th>Opposition</th><th class="priority2">Time</th><th class="priority2">Venue</th><th class="center-align">Result<br/>(CS-Op)</th><th class="priority3">Scorers</th><th class="priority3">MOM</th><th class="priority3">LOM</th><th class="priority3">Match<br/>Report</th></tr>
         </thead>
         <tbody>
         {% for date, matches in match_list %}
             {% for m in matches %}
             <tr class="{{ m.match.get_fixture_type_display|lower }}">
-                <td>
+                <td class="priority3">
                     {% include 'matches/_fixture_icon.html' with match=m.match %}
                 </td>
                 <td class="no-break">{{ date|date:"d-M-y" }}</td>
                 <td><a href="{{ m.match.opp_team.club.get_absolute_url }}">{{ m.match.opp_team.name }}</a>{% if m.match.kit_clash %}<i class="icon-user" title="Away kit"></i>{% endif %}</td>
-                <td>{% if m.match.time %}{{ m.match.time|time:"H:i" }}{% elif m.match.is_in_past %}???{% else %}<abbr title="Time not known">TBD</abbr>{% endif %}</td>
-                <td>{% if m.match.venue %}<a href="{{ m.match.venue.get_absolute_url }}" title="{{ m.match.venue.name }}">{{ m.match.simple_venue_name }}</a>{% elif m.match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
+                <td class="priority2">{% if m.match.time %}{{ m.match.time|time:"H:i" }}{% elif m.match.is_in_past %}???{% else %}<abbr title="Time not known">TBD</abbr>{% endif %}</td>
+                <td class="priority2">{% if m.match.venue %}<a href="{{ m.match.venue.get_absolute_url }}" title="{{ m.match.venue.name }}">{{ m.match.simple_venue_name }}</a>{% elif m.match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
                 <td class="center-align">{{ m.match.score_display }}</td>
-                <td>
+                <td class="priority3">
                 {% for scorer in m.scoring_appearances %}
                     <a href="{{ scorer.member.get_absolute_url }}">{{ scorer.member.last_name }}</a>{% if scorer.goals > 1 %}({{ scorer.goals }}){% endif %}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
                 </td>
-                <td>
+                <td class="priority3">
                 {% for mom in m.mom_winners %}
                     <a href="{{ mom.member.get_absolute_url }}" title="{{ mom.comment }}">{{ mom.member.last_name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
                 </td>
-                <td>
+                <td class="priority3">
                 {% for lom in m.lom_winners %}
                     <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.last_name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
