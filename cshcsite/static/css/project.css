@@ -6,6 +6,8 @@
 Bootstrap overrides
 */
 hr { border-top-color: #e0e0e0;}
+.dropdown-menu {margin: 0px;}
+ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
 
 /******************************************************************************
 Theme overrides
@@ -99,7 +101,7 @@ Twitter
 
 .profile-pic-small { width: 30px; height: auto; }
 
-.profile-pic-large { width: 100%; }
+.profile-pic-large { margin-left: auto; margin-right: auto; display: block; }
 
 .table th.middle-align, .table td.middle-align, .table tr.middle-align { vertical-align: middle; }
 
@@ -230,6 +232,7 @@ Page-specific
 #match-detail .row.quick-links { margin-bottom: 10px;}
 
 #team-detail .row.quick-links { margin-left: 0px; }
+#team-detail #clubteam-info {margin-top: 20px;}
 
 #chairmans-notes img.chairman { width: 300px; height: 300px; }
 

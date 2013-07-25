@@ -4,7 +4,7 @@
 {% comment %}
 Formatted display of the details of a particular opposition club.
 - Used by opposition_club_detail
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | {{ club }}{% endblock %}
@@ -28,7 +28,7 @@ Currently just lists the values that will be needed by this template - no UI des
         <p class="lead">The default venue for {{ club.name }} matches is {{ club.default_venue|urlise_model }}.</p>
         <p>Note - this does not mean all away matches against {{ club.name }} will be played here. Check the fixture details for the actual match venue.</p>
     </div>
-    <div class="span8">    
+    <div class="span8">
         <div class="gmap3 map_large" id="map_canvas"></div>
     </div>
 </div>
@@ -120,7 +120,6 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% block body_js %}
     {{ block.super }}
-    <script src="{{ STATIC_URL }}js/bootstrap-collapse.js"></script>
     {% if club.default_venue %}
         {% include "venues/_venue_map_js.html" with venue_address=club.default_venue.full_address %}
     {% endif %}

@@ -18,12 +18,12 @@ from .stats import MemberSeasonStat
 log = logging.getLogger(__name__)
 
 
-class MemberListView(SelectRelatedMixin, ListView):
+class MemberListView(ListView):
     """View with a list of all members"""
     model = Member
 
 
-class MemberDetailView(SelectRelatedMixin, DetailView):
+class MemberDetailView(DetailView):
     """View of a particular member"""
     model = Member
 

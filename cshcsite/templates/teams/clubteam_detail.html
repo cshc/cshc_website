@@ -25,12 +25,21 @@ Currently just lists the values that will be needed by this template - no UI des
   <li class="active">{{ clubteam.long_name }}</li>
 </ul>
 
-<div class="page-header">
-    <h1>{{ clubteam.long_name }} <small>{{ season }}</small>
-    <div class="pull-right"><a href="{{ clubteam_calendar }}" target="_blank" title="{{ clubteam.long_name }} calendar"><i class="icon-calendar icon-small"></i></a>
-            <a href="{{ clubteam_rss }}" target="_blank" title="{{ clubteam.long_name }} match report RSS feed"><i class="icon-rss icon-small"></i></a>{% include 'core/_season_selector.html' with url_prefix=base_team_url %}</div></h1>
-
+<div class="row">
+    <div class="span7">
+        <div class="page-header">
+            <h1>{{ clubteam.long_name }} <small>{{ season }}</small>
+            </h1>
+        </div>
+    </div>
+    <div class="span5">
+        <div class="pull-right">
+            <h1><a href="{{ clubteam_calendar }}" target="_blank" title="{{ clubteam.long_name }} calendar"><i class="icon-calendar icon-small"></i></a>
+                    <a href="{{ clubteam_rss }}" target="_blank" title="{{ clubteam.long_name }} match report RSS feed"><i class="icon-rss icon-small"></i></a>{% include 'core/_season_selector.html' with url_prefix=base_team_url %}</h1>
+        </div>
+    </div>
 </div>
+
 <div class="row">
     <div class="span6">
         {% if participation and participation.division %}
@@ -67,7 +76,6 @@ Currently just lists the values that will be needed by this template - no UI des
         <p class="caption">{{ participation.team_photo_caption }}</p>
     </div>
 </div>
-</br></br>
 
 {% include 'core/_loading_placeholder.html' with placeholder_id="clubteam-info" placeholder_text="Loading team stats..." %}
 

@@ -277,47 +277,47 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'awards': {    
+        'awards': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'competitions': {    
+        'competitions': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'core': {    
+        'core': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'cshcsite': {    
+        'cshcsite': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'matches': {    
+        'matches': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'members': {    
+        'members': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'mobile': {    
+        'mobile': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'opposition': {    
+        'opposition': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'teams': {    
+        'teams': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'training': {    
+        'training': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
-        'venues': {    
+        'venues': {
             'handlers': ['file','console'],
             'level': 'DEBUG',
          },
@@ -431,11 +431,11 @@ THUMBNAIL_DEBUG = False
 
 ########## django-sorter CONFIGURATION
 SORTER_ALLOWED_CRITERIA = {
-    'sort': ['our_team', 
-             'opp_team', 
-             'venue', 
-             'fixture_type', 
-             'date', 
+    'sort': ['our_team',
+             'opp_team',
+             'venue',
+             'fixture_type',
+             'date',
              'home_away',
              'alt_outcome',
              'our_score',
