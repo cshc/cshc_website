@@ -4,7 +4,7 @@
 {% comment %}
 Formatted display of all teams' matches on a particular season.
 - Used by club.views.matches.by_season
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | All matches in {{ season }}{% endblock %}
@@ -13,23 +13,23 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% block content %}
 
-{% 'matches_by_season' as base_matches_by_season %}
+{% url 'matches_by_season_default' as base_matches_by_season_url %}
 
 <div class="page-header">
-    <h1>All matches <small>{{ season }}</small><div class="pull-right">{% include 'core/_season_selector.html' with url_prefix=base_match_by_season_url %}</div></h1>
+    <h1>All matches <small>{{ season }}</small><div class="pull-right">{% include 'core/_season_selector.html' with url_prefix=base_matches_by_season_url %}</div></h1>
 </div>
 
-<p class"lead">Dates with matches are highlighted.</p>
+<p class="lead">Dates with matches are highlighted.</p>
 
 <div class"calendar">
     <div class="row">
-    {% for year, matches_by_month in matches_by_year %}
-        {% for month, matches in matches_by_month %}
-        <div class="span4">
-            {% event_calendar year, month, matches %}
-        </div>
+    {% for year, matches_by_month in matches_by_year.items %}
+        {% for month, m_list in matches_by_month.items %}
+            <div class="span3">
+                {% event_calendar year month m_list %}
+            </div>
         {% endfor %}
-    {% else %}
+    {% empty %}
         <p class="lead muted">No matches to display</p>
     {% endfor %}
     </div>

@@ -1,17 +1,11 @@
 import logging
 from django.views.generic import TemplateView
-from django.views.generic.edit import FormView
-from django.contrib import messages
-from django.template import loader, Context
-from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
 from twython import Twython
-from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 from core.views import AjaxGeneral
 from core.models import ClubInfo
 from matches.views import LatestResultsView, NextFixturesView
 from training.views import UpcomingTrainingSessionsView
-from .forms import ContactForm
 
 log = logging.getLogger(__name__)
 
@@ -73,7 +67,6 @@ class LoadTweetsView(AjaxGeneral):
         context['tweets'] = [LoadTweetsView.html_for_tweet(t) for t in tweets[:LoadTweetsView.NUM_TWEETS_TO_DISPLAY]]
         return context
 
-
     @staticmethod
     def html_for_tweet(tweet, use_display_url=True, use_expanded_url=False):
         """Return HTML for a tweet (urls, mentions, hashtags replaced with links)
@@ -121,7 +114,3 @@ class LoadTweetsView(AjaxGeneral):
                 text = text.replace(tweet['text'][start:end], url_html % (entity['url'], shown_url))
 
         return text
-
-class DataMigrationAdminView(LoginRequiredMixin, SuperuserRequiredMixin, TemplateView):
-    """A temporary view to assist in migrating data from the old Access database to the new database."""
-    template_name = 'core/data_migration.html'

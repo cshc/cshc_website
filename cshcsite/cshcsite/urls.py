@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from django.views.generic import RedirectView
 from django.views.generic import TemplateView
 from django.contrib import admin
 from django.conf import settings
@@ -45,7 +44,6 @@ urlpatterns = patterns('',
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/data-migration/', views.DataMigrationAdminView.as_view(), name='data_migration'),
     url(r'^admin/', include(admin.site.urls)),
 
     # TinyMCE

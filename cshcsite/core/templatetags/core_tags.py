@@ -1,8 +1,9 @@
 import logging
-from datetime import date
+from datetime import date, datetime
 from itertools import groupby
 from calendar import HTMLCalendar
 from django import template
+from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
 from core.models import ClubInfo
@@ -145,14 +146,15 @@ clubinfo_email.needs_autoescape = True
 # CALENDAR SUPPORT
 
 
-def do_event_calendar(parser, token):
+@register.tag
+def event_calendar(parser, token):
     """
     The template tag's syntax is {% event_calendar year month event_list %}
     """
-
     try:
         tag_name, year, month, event_list = token.split_contents()
     except ValueError:
+        log.error("Failed to parse token")
         raise template.TemplateSyntaxError, "%r tag requires three arguments" % token.contents.split()[0]
     return EventCalendarNode(year, month, event_list)
 
@@ -171,16 +173,32 @@ class EventCalendarNode(template.Node):
             raise template.TemplateSyntaxError
 
     def render(self, context):
+        # Get the variables from the context so the method is thread-safe.
         try:
-            # Get the variables from the context so the method is thread-safe.
-            my_event_list = self.event_list.resolve(context)
-            my_year = self.year.resolve(context)
-            my_month = self.month.resolve(context)
-            cal = EventCalendar(my_event_list)
-            return cal.formatmonth(int(my_year), int(my_month))
+            try:
+                my_event_list = self.event_list.resolve(context)
+            except template.VariableDoesNotExist:
+                log.error("event_list does not exist")
+                return
+            try:
+                my_year = self.year.resolve(context)
+            except template.VariableDoesNotExist:
+                log.error("year does not exist")
+                return
+            try:
+                my_month = self.month.resolve(context)
+            except template.VariableDoesNotExist:
+                log.error("month does not exist")
+                return
         except ValueError:
-            return          
-        except template.VariableDoesNotExist:
+            log.error("ValueError", exc_info=True)
+            return
+        try:
+            #log.debug("Creating EventCalendar. year = {}, month = {}, event_list = {}".format(my_year, my_month, my_event_list))
+            cal = EventCalendar(my_event_list)
+            return mark_safe(cal.formatmonth(int(my_year), int(my_month)))
+        except:
+            log.error("Unexpected exception", exc_info=True)
             return
 
 
@@ -194,6 +212,25 @@ class EventCalendar(HTMLCalendar):
         super(EventCalendar, self).__init__()
         self.events = self.group_by_day(events)
 
+    def formatweekday(self, weekday):
+        try:
+            if weekday == 0:
+                return "<th class='mon'>M</th>"
+            elif weekday == 1:
+                return "<th class='tue'>T</th>"
+            elif weekday == 2:
+                return "<th class='wed'>W</th>"
+            elif weekday == 3:
+                return "<th class='thu'>T</th>"
+            elif weekday == 4:
+                return "<th class='fri'>F</th>"
+            elif weekday == 5:
+                return "<th class='sat'>S</th>"
+            elif weekday == 6:
+                return "<th class='sun'>S</th>"
+        except:
+            log.error("Failed to formatweekday {}".format(weekday))
+
     def formatday(self, day, weekday):
         if day != 0:
             cssclass = self.cssclasses[weekday]
@@ -201,15 +238,19 @@ class EventCalendar(HTMLCalendar):
                 cssclass += ' today'
             if day in self.events:
                 cssclass += ' filled'
-                body = ['<ul>']
+                dt = self.events[day][0].date
+                matches_by_date_link = reverse('matches_by_date', args=[dt.strftime("%d-%b-%y")])
+                popover_title = '<a href=\'{}\'>Matches on {}</a>'.format(matches_by_date_link, dt.strftime("%d-%b"))
+                popover_content = ['<ul>']
                 for event in self.events[day]:
-                    body.append('<li>')
-                    body.append('<a href="%s">' % event.get_absolute_url())
-                    body.append(conditional_escape(event.series.primary_name))
-                    body.append('</a></li>')
-                body.append('</ul>')
-                return self.day_cell(cssclass, '<span class="dayNumber">%d</span> %s' % (day, ''.join(body)))
-            return self.day_cell(cssclass, '<span class="dayNumberNoEvents">%d</span>' % (day))
+                    popover_content.append('<li><a href=\'{}\' title=\'Match details...\'>'.format(event.get_absolute_url()))
+                    popover_content.append(conditional_escape("{} vs {}".format(event.our_team, event.opp_team)))
+                    popover_content.append('</a></li>')
+                popover_content.append('</ul>')
+                link_id = dt.strftime("%d-%b-%y")
+                link_open = '<a id="{}" href="#" class="pop", data-toggle="popover" data-placement="bottom" data-html="true" data-original-title="{}" title data-content="{}">'.format(link_id, popover_title, ''.join(popover_content))
+                return self.day_cell(cssclass, '<span class="dayNumber">{}{}</a></span>'.format(link_open, day))
+            return self.day_cell(cssclass, '<span class="dayNumberNoEvents">{}</span>'.format(day))
         return self.day_cell('noday', '&nbsp;')
 
     def formatmonth(self, year, month):
@@ -224,6 +265,3 @@ class EventCalendar(HTMLCalendar):
 
     def day_cell(self, cssclass, body):
         return '<td class="%s">%s</td>' % (cssclass, body)
-
-# Register the template tag so it is available to templates
-register.tag("event_calendar", do_event_calendar)

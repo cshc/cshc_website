@@ -28,39 +28,45 @@ class MatchListView(ListView):
         return context
 
 
-
 class MatchesBySeasonView(TemplateView):
 
     template_name = 'matches/matches_by_season.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super(MatchesBySeasonView, self).get_comtext_data(**kwargs)
-        .
-        season_slug = kwargs['season_slug']
-        season = Season.objects.get(slug=season_slug)
+    season_slug = None
 
-        matches = Match.objects.filter(season=season).defer('report_body', 'pre_match_hype').order_by('date')
-        
-        
-        m1 = filter(matches, lambda m: m.date.year == season.start.year)
-        m2 = filter(matches, lambda m: m.date.year == season.end.year)
-        matches_by_year = {season.start.year: groupby(m1, lambda m: m.date.month), season.end.year: groupby(m2, lambda m: m.date.month)}
-        
-        
+    def get_context_data(self, **kwargs):
+        context = super(MatchesBySeasonView, self).get_context_data(**kwargs)
+
+        if self.season_slug is None:
+            self.season_slug = kwargs['season_slug']
+        season = Season.objects.get(slug=self.season_slug)
+
+        match_list = Match.objects.filter(season=season).defer('report_body', 'pre_match_hype').order_by('date')
+
+        m1 = filter(lambda m: m.date.year == season.start.year, match_list)
+        m2 = filter(lambda m: m.date.year == season.end.year, match_list)
+
+        matches_by_year = {season.start.year: self.group_by_month(m1), season.end.year: self.group_by_month(m2)}
+
         context['matches_by_year'] = matches_by_year
         context['season'] = season
         context['season_list'] = Season.objects.all()
-        
+
         return context
+
+    def group_by_month(self, matches):
+        field = lambda m: m.date.month
+        return dict(
+            [(month, list(matches_in_month)) for month, matches_in_month in groupby(matches, field)]
+        )
 
 
 class MatchesByDateView(TemplateView):
 
-    template_name='matches/matches_by_date.html'
+    template_name = 'matches/matches_by_date.html'
 
     def get_context_data(self, **kwargs):
         context = super(MatchesByDateView, self).get_context_data(**kwargs)
-                
+
         date_str = kwargs['date']
         dt = datetime.strptime(date_str, "%d-%b-%y")
 
@@ -73,7 +79,7 @@ class MatchesByDateView(TemplateView):
         # Get all the award winners on this date
         award_winners = MatchAwardWinner.objects.select_related('member__user', 'award').filter(match__date=dt.date())
 
-        match_lookup = { match.pk: MatchStats(match) for match in matches}
+        match_lookup = {match.pk: MatchStats(match) for match in matches}
 
         for app in appearances:
             match_lookup[app.match_id].add_appearance(app)
@@ -88,15 +94,16 @@ class MatchesByDateView(TemplateView):
         next_match = first_or_none(Match.objects.only('date').filter(date__gt=dt.date()).order_by('date'))
         context['prev_date'] = prev_match.date if prev_match else None
         context['next_date'] = next_match.date if next_match else None
-        
+
         context['match_list'] = match_list
         context['date'] = dt.date()
         return context
 
+
 class LatestResultsView(TemplateView):
     """View for the latest results (one per team)"""
 
-    template_name='matches/latest_results.html'
+    template_name = 'matches/latest_results.html'
 
     def get_context_data(self, **kwargs):
         context = super(LatestResultsView, self).get_context_data(**kwargs)
@@ -170,7 +177,7 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
             - next_match:           the next match this team played/is due to play
         """
         context = super(MatchDetailView, self).get_context_data(**kwargs)
-    
+
         match = context["match"]
         # Add various bits of info to the context object
         same_date_matches = Match.objects.filter(date=match.date).exclude(pk=match.pk)
@@ -195,7 +202,7 @@ class GoalKingMixin(object):
     def get_goalking_list(self, season):
         """Returns a list of GoalKing items for the specified season"""
 
-        # We convert the queryset to a list so we can add a 'rank' attribute to each item 
+        # We convert the queryset to a list so we can add a 'rank' attribute to each item
         goalking_list = list(GoalKing.objects.by_season(season).select_related('member__user'))
 
         # Apply ranking
@@ -218,7 +225,7 @@ class GoalKingMixin(object):
 class GoalKingSeasonView(GoalKingMixin, TemplateView):
     """View for displaying the Goal King stats for a particular season"""
     template_name = 'matches/goalking.html'
-    
+
     def get_context_data(self, **kwargs):
         """
         Gets the context data for the view.
@@ -231,7 +238,7 @@ class GoalKingSeasonView(GoalKingMixin, TemplateView):
 
         # If we're viewing this season's stats we may not have a season_slug keyword arg.
         season_slug = kwargs_or_none('season_slug', **kwargs)
-        if season_slug != None:
+        if season_slug is not None:
             season = Season.objects.get(slug=season_slug)
         else:
             season = Season.current()
@@ -257,5 +264,4 @@ class GoalKingSeasonUpdateView(GoalKingMixin, AjaxGeneral):
         season = Season.objects.get(slug=season_slug)
         GoalKing.update_for_season(season)
 
-        return { 'goalking_list': self.get_goalking_list(season) }
-
+        return {'goalking_list': self.get_goalking_list(season)}

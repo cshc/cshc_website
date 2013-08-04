@@ -279,3 +279,10 @@ table.awards td { border: none; }
 
 #southerners div.box {padding: 10px;}
 
+table.month { margin-bottom: 20px;}
+table.month tbody td, table.month thead td { min-width: 20px;}
+table.month .dayNumberNoEvents { color: #B3B3B3;}
+table.month .dayNumber { font-weight: bold;}
+
+#matches-by-season .popover { max-width: 400px;}
+
