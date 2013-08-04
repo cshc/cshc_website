@@ -606,7 +606,7 @@ class Old_Venues(Old_Table_Entry):
         new_venue.url = self.Venue_Link
         new_venue.addr_postcode = self.Venue_PostCode
         new_venue.distance = int(float(self.Venue_Distance))
-        if new_venue.name in ('Leys School', 'Coldhams Common', 'Wilberforce Road', 'St Catherine\'s College'):
+        if new_venue.name in ('Leys School', 'Coldhams Common', 'Wilberforce Road', 'St Catherine\'s College', 'St John\'s'):
             new_venue.is_home = True
             # HACK: The short names for home venues are stored in the Venue_Display field!
             new_venue.short_name = self.Venue_Display

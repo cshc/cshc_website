@@ -6,6 +6,8 @@
 Bootstrap overrides
 */
 hr { border-top-color: #e0e0e0;}
+.dropdown-menu {margin: 0px;}
+ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
 
 /******************************************************************************
 Theme overrides
@@ -99,7 +101,7 @@ Twitter
 
 .profile-pic-small { width: 30px; height: auto; }
 
-.profile-pic-large { width: 100%; }
+.profile-pic-large { margin-left: auto; margin-right: auto; display: block; }
 
 .table th.middle-align, .table td.middle-align, .table tr.middle-align { vertical-align: middle; }
 
@@ -178,6 +180,19 @@ Footers
 #footer .footer-link p { font-size: 160%; font-style: italic; line-height:120% }
 #footer .footer-link p .em { font-size: 120%; }
 
+
+/******************************************************************************
+Responsive
+*/
+@media only screen and (max-width: 640px) {
+	.table tbody { font-size: 12px; }
+	.table th, .table td { padding: 1px;}
+	.table th.priority2, .table td.priority2 {display: none;}
+	.table th.priority3, .table td.priority3 {display: none;}
+}
+
+
+
 /******************************************************************************
 Page-specific
 */
@@ -221,6 +236,8 @@ Page-specific
 #matches-by-date .match-content { padding-right: 10px; }
 
 #kit tr.local td { font-style: italic; }
+#kit td.kit-pic { text-align: center; width: 160px;}
+#kit span.label-kit {font-size: 20px; margin-bottom: 20px; margin-top: 20px; padding: 5px; line-height: 20px;}
 
 #committee .media-object { width: 50px; height: 50px; }
 #committee .media-body p { font-size: 120%; color: rgb(141, 139, 139); font-weight: bold; }
@@ -230,6 +247,7 @@ Page-specific
 #match-detail .row.quick-links { margin-bottom: 10px;}
 
 #team-detail .row.quick-links { margin-left: 0px; }
+#team-detail #clubteam-info {margin-top: 20px;}
 
 #chairmans-notes img.chairman { width: 300px; height: 300px; }
 

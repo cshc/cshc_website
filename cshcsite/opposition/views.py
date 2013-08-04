@@ -6,7 +6,7 @@ from core.views import AjaxGeneral
 from matches.models import Match, Appearance
 from awards.models import MatchAwardWinner
 from core.stats import MatchStats
-from . import stats 
+from . import stats
 from .models import Club, Team, ClubStats
 
 log = logging.getLogger(__name__)
@@ -20,7 +20,7 @@ class ClubListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ClubListView, self).get_context_data(**kwargs)
-        
+
         club_stats = ClubStats.objects.totals()
         context['clubstats_list'] = club_stats
         return context
@@ -32,7 +32,7 @@ class ClubStatsUpdateView(AjaxGeneral):
 
     def get_template_context(self, **kwargs):
         """
-        Updates the Opposition Club stats and then returns the context data 
+        Updates the Opposition Club stats and then returns the context data
         for the template, containing just a 'clubstats_list' item
         """
 
@@ -74,10 +74,11 @@ class ClubDetailView(TemplateView):
             all_team_fixtures[team] = sorted(fixtures, key=lambda f: f.match.date)
 
         # Shift the totals column to the end of the list
-        all_teams = club_stats[0]
-        assert all_teams.team is None
-        club_stats.remove(all_teams)
-        club_stats.append(all_teams)
+        if club_stats:
+            all_teams = club_stats[0]
+            assert all_teams.team is None
+            club_stats.remove(all_teams)
+            club_stats.append(all_teams)
 
         context['club'] = club
         context['clubstats_list'] = club_stats

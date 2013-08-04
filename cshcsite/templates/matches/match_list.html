@@ -90,23 +90,23 @@ Filter-able, sortable, paginated display of matches.
         <table id="matches" class="table">
             <thead>
                 <tr>
-                    <th></th>
+                    <th class="priority3"></th>
                     <th>{% sortlink by "date" "-date" %}Date{% endsortlink %}</th>
                     <th>{% sortlink by "our_team" "-our_team" %}Team{% endsortlink %}</th>
                     <th>Score</th>
                     <th>{% sortlink by "opp_team" "-opp_team" %}Opposition{% endsortlink %}</th>
-                    <th>{% sortlink by "venue" "-venue" %}Venue{% endsortlink %}</th>
+                    <th class="priority2">{% sortlink by "venue" "-venue" %}Venue{% endsortlink %}</th>
                     <th></th>
                 </tr>
             </thead>
             {% for match in sorted_filter_list %}
                 <tr>
-                    <td>{% include 'matches/_fixture_icon.html' %}</td>
+                    <td class="priority3">{% include 'matches/_fixture_icon.html' %}</td>
                     <td class="no-break"><a title="Matches on {{ match.date|date:"d-M-y" }}" href="{% url 'matches_by_date' match.date|date:"d-M-y"%}">{{ match.date|date:"d-M-y" }}</a></td>
                     <td><a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.long_name }}</a></td>
                     <td>{{ match.score_display }}</td>
                     <td>{{ match.opp_team }}</td>
-                    <td>{% if match.venue %}<a href="{{ match.venue.get_absolute_url }}" title="{{ match.venue.name }}">{{ match.simple_venue_name }}</a>{% elif match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
+                    <td class="priority2">{% if match.venue %}<a href="{{ match.venue.get_absolute_url }}" title="{{ match.venue.name }}">{{ match.simple_venue_name }}</a>{% elif match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
                     <td><a href="{{ match.get_absolute_url }}" title="Match details"><i class="icon-file-alt"></i></a></td>
                 </tr>
             {% endfor %}
