@@ -21,6 +21,12 @@ urlpatterns = patterns('',
         views.MatchesByDateView.as_view(), 
         name="matches_by_date"
     ),
+    
+    # E.g. '/matches/2011-2012/'
+    url(r'^(?P<season_slug>[-\w]+)/$',
+        views.MatchesBySeasonView.as_view(), 
+        name="matches_by_season"
+    ),
 
     # E.g. '/matches/latest-results/'
     url(r'^latest-results/$',

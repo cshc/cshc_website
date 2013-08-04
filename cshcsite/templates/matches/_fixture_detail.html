@@ -1,8 +1,8 @@
 {% load core_tags %}
 
 <div class="row match-detail">
-    {% if match.venue %}
     <div class="row">
+    {% if match.venue %} 
         <div class="pull-right gmap3 map_large" id="map_canvas"></div>
         <h3><i class="icon icon-map-marker" title="Match venue"></i>{{ match.venue|urlise_model }}</h3>
         <address><strong>
@@ -14,8 +14,11 @@
             {% if match.venue.phone %}<i class="icon-phone"></i>{{ match.venue.phone }}</br>{% endif %}
             {% if match.venue.url %}<i class="icon-globe"></i>{{ match.venue.url|urlizetrunc:"50" }}{% endif %}
         </address>
+    {% else %}
+        <h3><i class="icon icon-map-marker" title="Match venue"></i>Venue TBD</h3>
+    {% endif %} 
     </div>
-    {% endif %}
+    
 </div>
 
 <div class="row match-report">

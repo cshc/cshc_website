@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime, date
+from itertools import groupby
 from django.views.generic import DetailView, ListView, TemplateView
 from exceptions import IndexError
 from braces.views import SelectRelatedMixin
@@ -24,6 +25,32 @@ class MatchListView(ListView):
         match_qs = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season')
         match_qs = match_qs.prefetch_related('players').defer('report_body', 'pre_match_hype').order_by('-date')
         context['filter'] = MatchFilter(self.request.GET, queryset=match_qs)
+        return context
+
+
+
+class MatchesBySeasonView(TemplateView):
+
+    template_name = 'matches/matches_by_season.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(MatchesBySeasonView, self).get_comtext_data(**kwargs)
+        .
+        season_slug = kwargs['season_slug']
+        season = Season.objects.get(slug=season_slug)
+
+        matches = Match.objects.filter(season=season).defer('report_body', 'pre_match_hype').order_by('date')
+        
+        
+        m1 = filter(matches, lambda m: m.date.year == season.start.year)
+        m2 = filter(matches, lambda m: m.date.year == season.end.year)
+        matches_by_year = {season.start.year: groupby(m1, lambda m: m.date.month), season.end.year: groupby(m2, lambda m: m.date.month)}
+        
+        
+        context['matches_by_year'] = matches_by_year
+        context['season'] = season
+        context['season_list'] = Season.objects.all()
+        
         return context
 
 

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load core_tags %}
 
 {% comment %}
 Formatted display of all teams' matches on a particular season.
@@ -8,31 +9,30 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% block title %}{{ block.super }} | All matches in {{ season }}{% endblock %}
 
+{% block body_id %}matches-by-season{% endblock body_id %}
+
 {% block content %}
 
+{% 'matches_by_season' as base_matches_by_season %}
+
 <div class="page-header">
-    <h1>All matches - {{ season }}</h1>
+    <h1>All matches <small>{{ season }}</small><div class="pull-right">{% include 'core/_season_selector.html' with url_prefix=base_match_by_season_url %}</div></h1>
 </div>
 
-<div class="row">
-<table class="table table-condensed table-hover">
-    <thead>
-        <tr><th>Date</th><th>Team</th><th>Opposition</th><th>Start time</th><th>Venue</th><th>Result (CS-Op)</th><th>Scorers</th><th>MOM</th><th>LOM</th></tr>
-    </thead>
-    <tbody>
-    {% for m in matches %}
-        <tr><td>{{ m.date }}</td>
-        <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team.long_name }}</a></td>
-        <td><a href="{{ m.opp_team.club.get_absolute_url }}">{{ m.opp_team.name }}</a></td>
-        <td>{{ m.time }}</td>
-        <td><a href="{{ m.venue.get_absolute_url }}">{{ m.venue.name }}</a></td>
-        <td>{{ m.score_display }}</td>
-        <td></td>
-        <td></td>
-        <td></td></tr>
+<p class"lead">Dates with matches are highlighted.</p>
+
+<div class"calendar">
+    <div class="row">
+    {% for year, matches_by_month in matches_by_year %}
+        {% for month, matches in matches_by_month %}
+        <div class="span4">
+            {% event_calendar year, month, matches %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="lead muted">No matches to display</p>
     {% endfor %}
-    </tbody>
-</table>
+    </div>
 </div>
 
 {% endblock %}
