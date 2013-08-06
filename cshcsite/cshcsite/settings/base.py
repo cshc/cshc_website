@@ -220,6 +220,7 @@ THIRD_PARTY_APPS = (
     'easy_thumbnails',
     'pagination',
     'sorter',
+    'disqus',
 )
 
 # Apps specific for this project go here.
@@ -446,3 +447,14 @@ SORTER_ALLOWED_CRITERIA = {
     ],
 }
 ########## END django-sorter CONFIGURATION
+
+########## django-disqus CONFIGURATION
+
+DISQUS_API_KEY = 'IC6F5qGFNAdVlYjyaIjyeyJpNZM8hJ1DKsQqGBT331JVgTnYGwQO8J5dwQIatqmk'
+
+
+# Ref: http://disqus.com/api/applications/
+DISQUS_SECRET_KEY = '0IvucLH2Di89ey0wL147G9DnUgIw360ZoErOh21jugYfO3t9iGkQZ2zyBh9Fc124'
+DISQUS_PUBLIC_KEY = 'dOfHbDmOW4hpltEuDmFJO6xOA50FmpH80MFQuDc9OCTkgszxZRwIKxBqar4HZzrW'
+
+########## END django-disqus CONFIGURATION

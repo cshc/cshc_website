@@ -52,3 +52,9 @@ CACHES = {}
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = get_env_setting('CSHCSITE_SECRET_KEY')
 ########## END SECRET CONFIGURATION
+
+########## django-disqus CONFIGURATION
+
+DISQUS_WEBSITE_SHORTNAME = 'cshc-prod'
+
+########## END django-disqus CONFIGURATION

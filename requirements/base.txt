@@ -54,3 +54,6 @@ django-pagination==1.0.7
 
 # Sorting template tags
 django-sorter==0.2
+
+# Support for the disqus commenting framework
+django-disqus==0.4

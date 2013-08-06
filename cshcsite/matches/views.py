@@ -40,7 +40,7 @@ class MatchesBySeasonView(TemplateView):
             self.season_slug = kwargs['season_slug']
         season = Season.objects.get(slug=self.season_slug)
 
-        match_list = Match.objects.filter(season=season).defer('report_body', 'pre_match_hype').order_by('date')
+        match_list = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(season=season).defer('report_body', 'pre_match_hype').order_by('date')
 
         m1 = filter(lambda m: m.date.year == season.start.year, match_list)
         m2 = filter(lambda m: m.date.year == season.end.year, match_list)

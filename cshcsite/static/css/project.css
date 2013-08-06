@@ -50,6 +50,8 @@ ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 .box .price span.qty { font-size: 47px; margin-right:4px; position: relative; top: 2px; }
 .box .price span.annual{ font-style: italic; font-weight: 300; font-size: 15px; }
 
+.side-box { padding: 10px; }
+
 ul.downloads { margin-top: 20px; }
 ul.downloads li { font-size: 150%; margin-bottom: 10px; }
 
@@ -93,7 +95,6 @@ table tbody td.male { background-color: rgb(153,255,153); /* Green */ }
 Twitter
 */
 
-.twitter-box { padding: 10px; }
 #twitter-stream li { padding-bottom: 5px; margin-bottom: 10px; border-bottom: 1px solid rgb(221, 221, 221); }
 
 

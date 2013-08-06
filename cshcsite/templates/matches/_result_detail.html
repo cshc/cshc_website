@@ -1,6 +1,9 @@
 {% load core_tags %}
 {% load thumbnail %}
 
+{% load disqus_tags %}
+
+
 <div class="row match-detail">
     <div class="span6">
         <h4><i class="icon icon-group"></i>Team played</h4>
@@ -34,7 +37,7 @@
                     </a>
                     <div class="media-body">
                         <h5>{% if mom_winner.member %}{{ mom_winner.member|urlise_model }}{% else %}{{ mom_winner.awardee }}{% endif %}</h5>
-                        <p>{{ mom_winner.comment }}</p>
+                        <p>{{ mom_winner.comment|safe }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -48,7 +51,7 @@
                     </a>
                     <div class="media-body">
                         <h5>{% if lom_winner.member %}{{ lom_winner.member|urlise_model }}{% else %}{{ lom_winner.awardee }}{% endif %}</h5>
-                        <p>{{ lom_winner.comment }}</p>
+                        <p>{{ lom_winner.comment|safe }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -57,9 +60,23 @@
 </div>
 
 <div class="row match-report">
+
     <h3>{{ match.match_title_text }}</h3>
+
+    {% comment %}
+    <p><a href="{{ match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ match.pk }}">View Comments</a></p>
+    {% disqus_num_replies %}
+    {% endcomment %}
+
     {% if match.report_author %}<p class="muted"><i class="icon-pencil" title="written by"></i>{{ match.report_author|urlise_model }}</p>{% endif %}
     {{ match.report_body|safe }}
+    <hr/>
+
+    {% set_disqus_developer 1 %}
+    {% set_disqus_title match.match_title_text %}
+    {% disqus_show_comments %}
+    {% disqus_config request.user %}
+
 </div>
 
 

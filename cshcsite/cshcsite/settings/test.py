@@ -18,3 +18,9 @@ DATABASES = {
         "PORT": "",
     },
 }
+
+########## django-disqus CONFIGURATION
+
+DISQUS_WEBSITE_SHORTNAME = 'cshc-test'
+
+########## END django-disqus CONFIGURATION

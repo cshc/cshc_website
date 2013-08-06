@@ -54,7 +54,7 @@ class LoadTweetsView(AjaxGeneral):
     """An Ajax-requested view for fetching the latest CSHC tweets. Uses Twython."""
     template_name = 'core/_tweets.html'
 
-    NUM_TWEETS_TO_DISPLAY = 10
+    NUM_TWEETS_TO_DISPLAY = 6
 
     def get_template_context(self, **kwargs):
         context = {}

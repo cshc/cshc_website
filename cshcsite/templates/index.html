@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load core_tags %}
 
-
 {% block head_css %}
 {{ block.super }}
 <link href="{{ STATIC_URL }}clean_canvas/css/lib/animate.css" media="screen, projection" rel="stylesheet" >
@@ -84,11 +83,17 @@ Wednesday evenings at the <a href="{{ abbey_url }}">Coldham's Common</a> pitch o
         {% include "matches/_next_fixtures.html" %}
         <hr/>
         {% include 'training/_next_training.html' %}
+
     </div>
     <div class="span5">
-        <div class="box twitter-box">
+        <div class="box side-box">
             <h3><i class="icon-twitter"></i>Twitterings...</h3>
             {% include 'core/_loading_placeholder.html' with placeholder_id="twitter-stream" placeholder_text="Loading tweets..." %}
+        </div>
+        <div class="box side-box">
+            {% load disqus_tags %}
+            <h3><i class="icon-comment"></i>Recent comments</h3>
+            {% cshc_disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 10 50 0 24 %}
         </div>
     </div>
 </div>
