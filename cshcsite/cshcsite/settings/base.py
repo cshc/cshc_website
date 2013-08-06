@@ -5,6 +5,7 @@ from os.path import abspath, basename, dirname, join, normpath
 from os import environ
 from sys import path
 
+
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.
 from django.core.exceptions import ImproperlyConfigured
@@ -180,6 +181,7 @@ MIDDLEWARE_CLASSES = (
     'django_mobile.middleware.MobileDetectionMiddleware',
     'django_mobile.middleware.SetFlavourMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    'maintenancemode.middleware.MaintenanceModeMiddleware',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -221,6 +223,7 @@ THIRD_PARTY_APPS = (
     'pagination',
     'sorter',
     'disqus',
+    'maintenancemode',
 )
 
 # Apps specific for this project go here.
@@ -458,3 +461,13 @@ DISQUS_SECRET_KEY = '0IvucLH2Di89ey0wL147G9DnUgIw360ZoErOh21jugYfO3t9iGkQZ2zyBh9
 DISQUS_PUBLIC_KEY = 'dOfHbDmOW4hpltEuDmFJO6xOA50FmpH80MFQuDc9OCTkgszxZRwIKxBqar4HZzrW'
 
 ########## END django-disqus CONFIGURATION
+
+
+########## django-maintenancemode CONFIGURATION
+# Ref: https://pypi.python.org/pypi/django-maintenancemode
+
+MAINTENANCE_MODE = False
+MAINTENANCE_IGNORE_URLS = (
+    r'^/admin/.*',
+)
+########## END django-maintenancemode CONFIGURATION

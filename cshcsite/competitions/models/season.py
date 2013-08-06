@@ -37,9 +37,7 @@ class Season(models.Model):
 
     def save(self, *args, **kwargs):
         # Make sure the start is before the end!
-        if (self.start != None and
-            self.end != None and
-            self.start >= self.end):
+        if (self.start is not None and self.end is not None and self.start >= self.end):
             raise IntegrityError("The start of the season must be before the end of the season")
 
         # Prevent any overlapping seasons
@@ -53,18 +51,31 @@ class Season(models.Model):
 
         super(Season, self).save(*args, **kwargs)
 
-
     @staticmethod
     def current():
         """Returns the current season"""
         try:
             return Season.objects.by_date(datetime.now().date())
         except Season.DoesNotExist:
-            log.error("Could not return current season. (Date = %s)" % datetime.now().date())
-            raise
+            log.warn("Current season not found. Creating now")
+            return Season.create_current_season()
 
     @staticmethod
     def is_current_season(season_id):
         """Returns true if the specified season ID is the ID of the current season"""
         log.debug("Current season ID = {}".format(Season.current().pk))
         return Season.current().pk == season_id
+
+    @staticmethod
+    def create_current_season():
+        current = Season()
+        dt = datetime.now()
+        if dt.month >= 9:
+            start_year = dt.year
+        else:
+            start_year = dt.year - 1
+
+        current.start = datetime(year=start_year, month=9, day=1)
+        current.end = datetime(year=start_year+1, month=8, day=31)
+        current.save()
+        return current
