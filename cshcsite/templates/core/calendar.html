@@ -31,7 +31,12 @@
 </div>
 {# TODO: Point this at a calendar that's subscribed to our new feeds #}
 <iframe frameborder="0" class="calendar" scrolling="no" src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;mode=MONTH&amp;height=600&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=cshc.men.3%40gmail.com&amp;color=%238C500B&amp;src=cshc.ladies%40gmail.com&amp;color=%23182C57&amp;src=cshc.men.2%40gmail.com&amp;color=%23125A12&amp;src=cshc.men.4%40gmail.com&amp;color=%23B1440E&amp;src=cshc.men.1%40gmail.com&amp;color=%2342104A&amp;src=cshc.club%40gmail.com&amp;color=%238D500B&amp;ctz=Europe%2FLondon" ></iframe>
-<hr/>
+
+<section id="feeds">
+<div class="section_header">
+    <h3>Calendar feeds</h3>
+</div>
+
 <p>There are a series of calendars that you can link into your normal calendar client (Outlook, iPhone etc). The addresses are in the table below.</p>
 <table class="table table-hover">
 <thead>
@@ -78,11 +83,11 @@
         <td>Training</td>
         <td><a href="{{ training_cal }}" title="Training calendar">http:/{{ request.get_host }}{{ training_cal }}</a></td>
     </tr>
-   
+
 </tbody>
 </table>
 <p>How you actually subscribe to the calendar depends on the client that you are using. For a start&nbsp;you can try clicking on the links above and see if your OS will automatically start the subcription. Also below are some instructions for Outlook 2007 and the Apple iPhone and iCal. If anyone else wants to write instructions for other clients then please email them to George and he will add them to the site.</p>
-<h3>Outlook 2007</h3>
+<h4>Outlook 2007</h4>
 <ol>
 <li>
     Select Tools &gt; Account Settings</li>
@@ -101,7 +106,7 @@
 <li>
     Go to the Calendar view in Outlook and on the left hand side you should now see, under &quot;Other Calendars&quot; a check box for &quot;CSHC&quot;. If you don&#39;t see it then wait a few minutes and it should refresh (try closing Outlook and reopening if necessary). Tick the check box when you see it and the calendar should appear.</li>
 </ol>
-<h3>iPhone</h3>
+<h4>iPhone</h4>
 <ol>
 <li>
     Copy the iCal link.</li>
@@ -118,7 +123,7 @@
 <li>
     The calendar is now viewable in the pre-installed &quot;Calendar&quot; app.</li>
 </ol>
-<h3>Apple iCal</h3>
+<h4>Apple iCal</h4>
 <ol>
 <li>
     Copy the iCal link.</li>
@@ -131,5 +136,6 @@
 <li>
     Click OK.</li>
 </ol>
+</section>
 
 {% endblock content %}

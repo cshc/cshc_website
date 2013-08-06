@@ -171,6 +171,13 @@ Match Details
 .table .highlight { background-color: #ccffcc; }
 
 /******************************************************************************
+Login form
+*/
+#login-modal input {display: block;}
+#login-modal {width: 250px; margin-left: -125px;}
+#login-modal #login_submit {margin-left: auto; margin-right: auto; display: block; text-align: center; }
+
+/******************************************************************************
 Footers
 */
 #footer .row.sections { margin-bottom: 10px; }
@@ -256,6 +263,7 @@ Page-specific
 
 #latest-results a.subscribe { margin-left: auto; margin-right: auto; display: block; text-align: center; }
 
+
 .pics-row img { display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; max-height: 500px; }
 table.awards td { border: none; }
 
@@ -286,4 +294,4 @@ table.month .dayNumberNoEvents { color: #B3B3B3;}
 table.month .dayNumber { font-weight: bold;}
 
 #matches-by-season .popover { max-width: 400px;}
-
+#matches-by-season a.calendar { margin-left: auto; margin-right: auto; display: block; text-align: center; }
