@@ -447,6 +447,11 @@ SORTER_ALLOWED_CRITERIA = {
              'season',
              'division',
              'cup',
+             'first_name',
+             'last_name',
+             'gender',
+             'pref_position',
+             'is_current',
     ],
 }
 ########## END django-sorter CONFIGURATION

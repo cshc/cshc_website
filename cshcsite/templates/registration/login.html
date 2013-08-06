@@ -4,11 +4,15 @@
 
 {% block content %}
 
-<h1>Login</h1>
+{% url 'password_reset' as password_reset %}
+
+<div class="page-header">
+    <h1>Login</h1>
+</div>
 
 <form action="{% url 'django.contrib.auth.views.login' %}" method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Login" />
 </form>
-
+<p><a href="{{ password_reset }}">Forgot password?</a></p>
 {% endblock content %}

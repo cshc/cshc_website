@@ -1,6 +1,8 @@
 {% load core_tags %}
 
 {% url 'contact_us' as contact_us %}
+{% url 'login' as login %}
+{% url 'logout' as logout %}
 
 {% url 'about_us' as about_us %}
 {% url 'pitch_directions' as pitch_directions %}
@@ -123,5 +125,11 @@
     </li>
 
     <li><a href="{{ contact_us }}" class="{% active contact_us %}">Contact Us</a></li>
+
+    {% if user.is_authenticated %}
+    <li><a href="{{ logout }}" class="{% active logout %}">Logout</a></li>
+    {% else %}
+    <li><a href="{{ login }}" class="{% active login %}">Login</a></li>
+    {% endif %}
 
 </ul>

@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load core_tags %}
+{% load i18n %}
+{% load pagination_tags %}
+{% load sorter_tags %}
 
 {% comment %}
-Formatted display of all members.
-- Used by member_list
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Filter-able, sortable, paginated display of members.
 {% endcomment %}
 
 {% block title %}{{ block.super }} | Club members{% endblock %}
+
+{% block body_id %}member-list{% endblock body_id %}
 
 {% block content %}
 
@@ -20,19 +24,36 @@ Currently just lists the values that will be needed by this template - no UI des
     <h1>Club members</h1>
 </div>
 
-<table class="table table-condensed table-hover">
-    <thead>
-        <tr><th></th><th>Name</th><th>Gender</th><th>Pref Position</th></tr>
-    </thead>
-    <tbody>
-    {% for m in member_list %}
-        <tr>
-            <td>{% include 'members/_profile_pic_thumbnail.html' with member=m %}</td>
-            <td><a href="{{ m.get_absolute_url }}" title="View member details">{{ m.full_name }}</a></td>
-            <td>{{ m.get_gender_display|capfirst }}</td>
-            <td>{{ m.get_pref_position_display|capfirst }}</td>
-    {% endfor %}
-    </tbody>
-</table>
+    {% sort filter.qs as sorted_list %}
+    {% autopaginate sorted_list 20 as sorted_filter_list %}
 
-{% endblock %}
+    {% if sorted_filter_list %}
+        <table id="members" class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="priority3"></th>
+                    <th>{% sortlink by "first_name" "-first_name" %}First Name{% endsortlink %}</th>
+                    <th>{% sortlink by "last_name" "-last_name" %}Last Name{% endsortlink %}</th>
+                    <th>{% sortlink by "gender" "-gender" %}M/F{% endsortlink %}</th>
+                    <th>{% sortlink by "pref_position" "-pref_position" %}Position{% endsortlink %}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            {% for member in sorted_filter_list %}
+                <tr>
+                    <td class="priority3">{# TODO: photo #}</td>
+                    <td>{{ member.first_name }}</td>
+                    <td>{{ member.last_name }}</td>
+                    <td>{{ member.get_gender_display }}</td>
+                    <td>{{ member.get_pref_position_display }}</td>
+                    <td><a href="{{ member.get_absolute_url }}" title="Member details"><i class="icon-chevron-sign-right"></i></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="lead muted">No members found!</p>
+    {% endif %}
+
+    {% paginate %}
+
+{% endblock content %}

@@ -1,7 +1,9 @@
 # -*-encoding: utf-8-*-
-
+import string
+import random
 import math
 from datetime import datetime
+from django.contrib.auth.models import User
 from competitions.models import Season, League, Division, Cup
 from members.models import Member
 from venues.models import Venue

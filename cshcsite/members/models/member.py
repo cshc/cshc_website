@@ -9,10 +9,12 @@ log = logging.getLogger(__name__)
 class Member(models.Model):
     """
     Represents a member of Cambridge South Hockey Club. Alternatively this can
-    be thought of as a 'Player' model. 
+    be thought of as a 'Player' model.
 
     User accounts will be associated with a member instance wherever possible.
     """
+
+    user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
 
     # Members first name (required)
     first_name = models.CharField(max_length=100, default=None)
@@ -24,7 +26,7 @@ class Member(models.Model):
     GENDER = Choices('Male', 'Female')
 
     # Each member has a preferred position (or unknown)
-    POSITION = Choices((0, 'GK', 'Goalkeeper'), 
+    POSITION = Choices((0, 'GK', 'Goalkeeper'),
                        (1, 'GK_Def', 'Goalkeeper/Defender'),
                        (2, 'GK_Mid', 'Goalkeeper/Midfielder'),
                        (3, 'GK_Fwd', 'Goalkeeper/Forward'),
@@ -50,7 +52,7 @@ class Member(models.Model):
     class Meta:
         app_label = 'members'
         ordering = ['first_name', 'last_name']
- 
+
     def __unicode__(self):
         return self.full_name()
 

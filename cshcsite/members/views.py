@@ -1,19 +1,13 @@
 import logging
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import FormView
-from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from django.template import loader, Context
-from django.core.mail import send_mail, BadHeaderError
-from braces.views import SelectRelatedMixin, StaffuserRequiredMixin
-from core.models import ClubInfo
 from core.views import AjaxGeneral
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
-from .models import Member, MembershipEnquiry
-from .forms import MembershipEnquiryForm
+from .models import Member
 from .util import get_recent_match_awards, get_recent_end_of_season_awards, get_recent_match_reports
 from .stats import MemberSeasonStat
+from .filters import MemberFilter
 
 log = logging.getLogger(__name__)
 
@@ -21,6 +15,12 @@ log = logging.getLogger(__name__)
 class MemberListView(ListView):
     """View with a list of all members"""
     model = Member
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberListView, self).get_context_data(**kwargs)
+        member_qs = Member.objects.all()
+        context['filter'] = MemberFilter(self.request.GET, queryset=member_qs)
+        return context
 
 
 class MemberDetailView(DetailView):
