@@ -1,3 +1,2 @@
 from test_member_model import MemberTest
-from test_membership_enquiry_model import MembershipEnquiryTest
 from test_views import MemberViewTest
