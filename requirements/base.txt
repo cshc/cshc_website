@@ -2,7 +2,7 @@
 Django==1.5
 
 # Support for PostgreSQL
-#psycopg2==2.4.6
+#psycopg2==2.5
 
 # Support for using database URLs in settings
 dj-database-url==0.2.1
