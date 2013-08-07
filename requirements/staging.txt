@@ -1,1 +1,4 @@
 -r base.txt
+
+# Support for PostgreSQL
+#psycopg2==2.5
