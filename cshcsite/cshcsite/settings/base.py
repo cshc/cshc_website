@@ -269,11 +269,11 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         },
-        'file': {
-            'level': 'WARN',
-            'class': 'logging.FileHandler',
-            'filename': '../../logs/debug.log',
-        },
+        # 'file': {
+        #     'level': 'WARN',
+        #     'class': 'logging.FileHandler',
+        #     'filename': '../../logs/debug.log',
+        # },
     },
     'loggers': {
         'django.request': {
@@ -282,47 +282,47 @@ LOGGING = {
             'propagate': True,
         },
         'awards': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'competitions': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'core': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'cshcsite': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'matches': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'members': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'mobile': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'opposition': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'teams': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'training': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
         'venues': {
-            'handlers': ['file','console'],
+            'handlers': ['console'],
             'level': 'DEBUG',
          },
 
