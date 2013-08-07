@@ -10,7 +10,6 @@ import subprocess
 import re
 import inspect
 from django.core.management.base import BaseCommand, CommandError
-from django.contrib.auth.models import User
 from optparse import make_option
 from core.models import TeamOrdinal
 from competitions.models import Cup, Division, League, Season

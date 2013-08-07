@@ -16,7 +16,7 @@ def get_disqus_sso(user):
 
         data = json.dumps({
             'id': user.pk,
-            'username': user.username,
+            'username': user.get_full_name(),   # TODO: Are spaces ok here?
             'email': user.email,
             # TODO: link comments to members where possible
             #'url': user.get_absolute_url(),

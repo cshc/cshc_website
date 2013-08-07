@@ -1,7 +1,6 @@
 import logging
 from django.test import TestCase
 from django.db import IntegrityError
-from django.contrib.auth.models import User
 from datetime import date
 from core.models import TeamGender, TeamOrdinal
 from teams.models import ClubTeam

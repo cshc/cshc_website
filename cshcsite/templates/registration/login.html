@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}{{ block.super }} | Login{% endblock title %}
+{% block title %}{{ block.super }} | Sign in{% endblock title %}
 
 {% block content %}
 
 {% url 'password_reset' as password_reset %}
+{% url 'register' as register %}
 
 <div class="page-header">
-    <h1>Login</h1>
+    <h1>Sign in</h1>
 </div>
 
 <form action="{% url 'django.contrib.auth.views.login' %}" method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Login" />
+    <input type="submit" value="Sign in" />
 </form>
 <p><a href="{{ password_reset }}">Forgot password?</a></p>
+<p>Don't have an account? <a href="{{ register }}">Sign up!</a></p>
 {% endblock content %}

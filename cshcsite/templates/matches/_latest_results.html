@@ -18,7 +18,7 @@ Context should have a 'latest_results' list of Match objects.
             <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team|capfirst }}</a></td>
             <td><a href="{{ m.opp_team.club.get_absolute_url }}">{{ m.opp_team.name }}</a></td>
             <td>{{ m.score_display }}</td>
-            <td><a title="Matches on {{ m.date|date:"d-M-y" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a></td>
+            <td class="no-break"><a title="Matches on {{ m.date|date:"d-M-y" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a></td>
             <td><a href="{{ m.get_absolute_url }}">
             {% if m.final_scores_provided %}<i class="icon-file-alt"></i>{% else %}Fixture{% endif %}
             </a></td>

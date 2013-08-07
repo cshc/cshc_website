@@ -17,8 +17,8 @@ Context should have a 'next_fixtures' list of Match objects.
             <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team|capfirst }}</a></td>
             <td><a href="{{ m.opp_team.club.get_absolute_url }}">{{ m.opp_team.name }}</a></td>
             <td>{% if m.venue %}<a href="{{ m.venue.get_absolute_url }}">{{ m.venue.name }}{% else %}TBD{% endif %}</a></td>
-            <td><a title="Matches on {{ m.date|date:"d-M-y" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a></td>
-            <td>{% if m.time %}{{ m.time|time:"H:i" }}{% else %}TBD{% endif %}</td>
+            <td class="no-break"><a title="Matches on {{ m.date|date:"d-M-y" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a></td>
+            <td class="no-break">{% if m.time %}{{ m.time|time:"H:i" }}{% else %}TBD{% endif %}</td>
             <td><a href="{{ m.get_absolute_url }}">Fixture</a></td>
             </tr>
     {% endfor %}

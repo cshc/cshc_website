@@ -1,13 +1,13 @@
 import logging
 from datetime import timedelta
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, CreateView
 from django.shortcuts import render_to_response
 from django.contrib import messages
 from django.template import RequestContext, loader, Context
 from django.core.mail import send_mail, BadHeaderError
 from django.utils.decorators import method_decorator
-from .models import ClubInfo, ContactSubmission
-from .forms import ContactSubmissionForm
+from .models import ClubInfo, ContactSubmission, CshcUser
+from .forms import ContactSubmissionForm, UserCreationForm
 
 log = logging.getLogger(__name__)
 
@@ -156,3 +156,13 @@ class ContactSubmissionCreateView(FormView):
             "Submission failed. Errors: {}".format(form.errors)
         )
         return super(ContactSubmissionCreateView, self).form_invalid(form)
+
+
+class RegisterUserView(CreateView):
+
+    model = CshcUser
+    form_class = UserCreationForm
+
+    template_name = "registration/register_new_user.html"
+    # TODO: Redirect to a new view with a welcome message
+    success_url = '/'

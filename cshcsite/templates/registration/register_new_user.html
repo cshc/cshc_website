@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | Sign up{% endblock title %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Sign up</h1>
+</div>
+
+<p class="lead">Creating a Cambridge South Hockey Club account enables you to comment on match reports, view and edit your own player profile (once
+    we've linked your account to your player profile) and generally get a better experience from the site.</p>
+<form action="{% url 'register' %}" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register" />
+</form>
+<p>Already have an account? <a href="{% url 'login' %}">Sign in!</a></p>
+{% endblock content %}

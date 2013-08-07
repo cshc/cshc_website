@@ -1,5 +1,5 @@
 import logging
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from model_utils import Choices
 
@@ -14,7 +14,7 @@ class Member(models.Model):
     User accounts will be associated with a member instance wherever possible.
     """
 
-    user = models.OneToOneField(User, null=True, on_delete=models.SET_NULL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     # Members first name (required)
     first_name = models.CharField(max_length=100, default=None)

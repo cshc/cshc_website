@@ -127,27 +127,13 @@
     <li><a href="{{ contact_us }}" class="{% active contact_us %}">Contact us</a></li>
 
     {% if user.is_authenticated %}
-    <li><a href="{{ logout }}?next={{ request.get_full_path }}" class="{% active logout %}">Sign out</a></li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request.user.get_short_name }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ logout }}?next={{ request.get_full_path }}" class="{% active logout %}">Sign out</a></li>
+        </ul>
     {% else %}
-    <li><a href="#login-modal" data-toggle="modal" class="{% active login %}">Sign in</a></li>
+    <li><a href="{{ login }}" data-toggle="modal" class="{% active login %}">Sign in</a></li>
     {% endif %}
 
 </ul>
-
-{% url 'login' as quick_login %}
-{% url 'password_reset' as password_reset %}
-
-<div id="login-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="login-title" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="login-title">Sign In</h3>
-    </div>
-    <div class="modal-body">
-        <form action="{{ quick_login }}?next={{ request.get_full_path }}" method="post">{% csrf_token %}
-            <input id="id_username" maxlength="254" name="username" class="username" type="text" placeholder="Username">
-            <input id="id_password" name="password" class="password" type="password" placeholder="Password">
-            <input id="login_submit" class="btn btn-primary" type="submit" value="Sign in">
-        </form>
-        <p><a href="{{ password_reset }}">Forgot password?</a></p>
-  </div>
-</div>

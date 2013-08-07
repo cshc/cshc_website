@@ -6,7 +6,7 @@ import collections
 import traceback
 from optparse import make_option
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
+from core.models import CshcUser
 from members.models import Member
 
 USERS_DIR = "import"
@@ -54,9 +54,9 @@ def details_same(a, b):
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
-        make_option('--test',
+        make_option('--sim',
                     action='store_true',
-                    dest='test',
+                    dest='simulate',
                     default=False,
                     help='Test run (doesn\'t actually create the users)'),
     )
@@ -107,25 +107,27 @@ class Command(BaseCommand):
             except StopIteration:
                 pass
             else:
-                u = self.create_user(matching_details)
+                u = self.create_user(matching_details, options['simulate'])
                 player.user = u
                 player.save()
-                print "Associating new User '{}' with Member '{}'".format(u, player)
+                print "Associating User '{}' with Member '{}'".format(u, player)
                 members.remove(matching_details)
                 conversion_count += 1
 
         print "DONE: Associated {} Users with Members".format(conversion_count)
 
-    def create_user(self, member_details):
-        for i in range(10):
-            username = "{}_{}{}".format(member_details.first_name, member_details.last_name, "" if i == 0 else i)
-            try:
-                new_user = User.objects.create_user(username)
-            except:
-                print ("WARNING: User already exists with username '{}'".format(username))
-                continue
-            new_user.first_name = member_details.first_name
-            new_user.last_name = member_details.last_name
-            new_user.email = member_details.email
-            new_user.save()
-            return new_user
+    def create_user(self, member_details, simulate):
+        try:
+            new_user = CshcUser.objects.get(email=member_details.email)
+        except CshcUser.DoesNotExist:
+            if not simulate:
+                new_user = CshcUser.objects.create_user(email=member_details.email,
+                                                        first_name=member_details.first_name,
+                                                        last_name=member_details.last_name)
+            else:
+                new_user = CshcUser(email=member_details.email,
+                                    first_name=member_details.first_name,
+                                    last_name=member_details.last_name)
+
+        print ("WARNING: User already exists with email '{}'".format(member_details.email))
+        return new_user

@@ -73,7 +73,7 @@ DATABASES = {
 
 ########## AUTHENTICATION CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-AUTH_USER_MODEL
-#AUTH_USER_MODEL = 'club.Member'
+AUTH_USER_MODEL = 'core.CshcUser'
 
 ########## END AUTHENTICATION CONFIGURATION
 

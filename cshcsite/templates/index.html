@@ -4,41 +4,19 @@
 {% block head_css %}
 {{ block.super }}
 <link href="{{ STATIC_URL }}clean_canvas/css/lib/animate.css" media="screen, projection" rel="stylesheet" >
-<link href="{{ STATIC_URL }}clean_canvas/css/index.css" rel="stylesheet" media="screen" />
 {% endblock head_css %}
 
 {% block title %}{{ block.super }} | Home{% endblock %}
 
 {% block navbar_class %}navbar transparent navbar-inverse navbar-fixed-top{% endblock navbar_class %}
 
-{% block feature-slider %}
+{% block top-banner %}
 {% url 'contact_us' as contact_us %}
 
-<section id="feature_slider" class="">
-    <!--
-        Each slide is composed by <img> and .info
-        - .info's position is customized with css in index.css
-        - each <img> parallax effect is declared by the following params inside its class:
+<div id="top-banner">
 
-        example: class="asset left-472 sp600 t120 z3"
-        left-472 means left: -472px from the center
-        sp600 is speed transition
-        t120 is top to 120px
-        z3 is z-index to 3
-        Note: Maintain this order of params
-
-        For the backgrounds, you can combine from the bgs folder :D
-    -->
-    <article class="slide" id="contact-slide" style="background: url('{{ STATIC_URL }}img/backgrounds/astro1.png') repeat-x top center;">
-        <img class="asset left-30 sp600 t120 z1" src="{{ STATIC_URL }}clean_canvas/img/slides/scene1/macbook.png" />
-        <div class="info">
-            <h2>Join the friendliest hockey club in town</h2>
-            <a href="{{ contact_us }}">Contact us!</a>
-        </div>
-    </article>
-
-</section>
-{% endblock feature-slider %}
+</div>
+{% endblock top-banner %}
 
 {% block content %}
 

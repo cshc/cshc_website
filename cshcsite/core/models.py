@@ -1,5 +1,10 @@
 import logging
 from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.mail import send_mail
+from django.utils.http import urlquote
+from django.core.urlresolvers import reverse
 from model_utils import Choices
 
 log = logging.getLogger(__name__)
@@ -94,3 +99,69 @@ class ContactSubmission(models.Model):
     def full_name(self):
         """Full name of the person making the enquiry"""
         return "{} {}".format(self.first_name, self.last_name)
+
+
+class CshcUserManager(BaseUserManager):
+
+    def create_user(self, email, password=None, **extra_fields):
+        """
+        Creates and saves a User with the given email and password.
+        """
+        now = timezone.now()
+        if not email:
+            raise ValueError('Users must have an email address')
+        email = BaseUserManager.normalize_email(email)
+        user = self.model(email=email,
+                          is_staff=False, is_active=True, is_superuser=False,
+                          last_login=now, date_joined=now, **extra_fields)
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password, **extra_fields):
+        u = self.create_user(email, password, **extra_fields)
+        u.is_staff = True
+        u.is_active = True
+        u.is_superuser = True
+        u.save(using=self._db)
+        return u
+
+
+class CshcUser(AbstractBaseUser, PermissionsMixin):
+
+    USERNAME_FIELD = 'email'
+    #REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    email = models.EmailField(verbose_name='email address', unique=True, db_index=True)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+    is_staff = models.BooleanField('staff status', default=False, help_text='Designates whether the user can log into this admin site.')
+    is_active = models.BooleanField('active', default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.')
+    date_joined = models.DateTimeField('date joined', default=timezone.now)
+
+    objects = CshcUserManager()
+
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
+        app_label = 'core'
+        ordering = ['first_name', 'last_name']
+
+    def __unicode__(self):
+        return self.email
+
+    def get_full_name(self):
+        return "{} {}".format(self.first_name, self.last_name).strip()
+
+    def get_short_name(self):
+        return self.first_name.strip()
+
+    def get_absolute_url(self):
+        return reverse('user_profile', args=[urlquote(self.username)])
+
+    def email_user(self, subject, message, from_email=None):
+        """
+        Sends an email to this User.
+        """
+        send_mail(subject, message, from_email, [self.email])

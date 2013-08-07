@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
-
+from core.views import RegisterUserView
 from . import views
 
 urlpatterns = patterns('',
@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/ajax/stats/$', views.MemberStatsView.as_view(), name='member_stats_ajax'),
 
     # Accounts. Ref: https://github.com/django/django/blob/master/django/contrib/auth/urls.py
+    url(r'^register/$', RegisterUserView.as_view(), name='register'),
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
     url(r'^password-change/$', 'django.contrib.auth.views.password_change', name='password_change'),
