@@ -18,7 +18,7 @@
         <tbody>
             {% for player in squad_list %}
             <tr>
-                <td class="priority3">{% include 'members/_profile_pic_thumbnail.html' with member=player.member %}</td>
+                <td class="priority3">{#{% include 'members/_profile_pic_thumbnail.html' with member=player.member %}#}</td>
                 <td class="left-align">{{ player.member|urlise_model }}</td>
                 <td class="priority2 left-align">{{ player.member.get_pref_position_display }}</td>
                 <td>{{ player.appearances }}</td>

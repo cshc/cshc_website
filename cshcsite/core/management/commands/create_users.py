@@ -129,6 +129,7 @@ class Command(BaseCommand):
                 new_user = CshcUser(email=member_details.email,
                                     first_name=member_details.first_name,
                                     last_name=member_details.last_name)
+        else:
+            print ("WARNING: User already exists with email '{}'".format(member_details.email))
 
-        print ("WARNING: User already exists with email '{}'".format(member_details.email))
         return new_user
