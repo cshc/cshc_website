@@ -75,7 +75,7 @@ class ClubDetailView(TemplateView):
 
         # Shift the totals column to the end of the list
         if club_stats:
-            all_teams = club_stats[0]
+            all_teams = filter(lambda c: c.team is None, club_stats)[0]
             assert all_teams.team is None
             club_stats.remove(all_teams)
             club_stats.append(all_teams)
