@@ -2,6 +2,10 @@
 from .base import *
 import dj_database_url
 
+# TEMP
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
 ########## DATABASE CONFIGURATION
 DATABASES = {'default': dj_database_url.config()}
 ########## END DATABASE CONFIGURATION
