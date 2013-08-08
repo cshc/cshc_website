@@ -10,6 +10,7 @@ import subprocess
 import re
 import inspect
 from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
 from optparse import make_option
 from core.models import TeamOrdinal
 from competitions.models import Cup, Division, League, Season
@@ -21,7 +22,6 @@ from awards.models import MatchAward, MatchAwardWinner
 from _old_data_structures import *
 
 IMPORT_DIR = 'import'
-MDB_FILE = 'CSHC_2009.mdb'
 CONVERSION_OUTPUT_DIR = 'csv'
 
 class OldTable:
@@ -112,7 +112,7 @@ class Command(BaseCommand):
         # PARSE CSV FILES
 
         for table_name, old_table in old_tables.iteritems():
-            file_path = os.path.join('.', IMPORT_DIR, CONVERSION_OUTPUT_DIR, '{0}.csv'.format(table_name))
+            file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, CONVERSION_OUTPUT_DIR, '{0}.csv'.format(table_name))
             with open(file_path, 'rb') as table_file:
                 reader = csv.reader(table_file)
                 first_row = True

@@ -6,6 +6,7 @@ import collections
 import traceback
 from optparse import make_option
 from django.core.management.base import BaseCommand
+from django.conf import settings
 from core.models import CshcUser
 from members.models import Member
 
@@ -75,7 +76,7 @@ class Command(BaseCommand):
 
         # Read in all members from the csv file
         members = []
-        filename = os.path.join('.', USERS_DIR, USERS_FILE)
+        filename = os.path.join(settings.SITE_ROOT, USERS_DIR, USERS_FILE)
         with open(filename, 'rb') as f:
             reader = csv.reader(f)
             first_row = True
