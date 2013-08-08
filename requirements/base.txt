@@ -11,7 +11,7 @@ Pillow==2.0.0
 South==0.7.6
 
 # Useful tools for models
-django-model-utils==1.2.0
+django-model-utils==1.4
 
 # Support for mobile website detection etc
 django_mobile==0.3
