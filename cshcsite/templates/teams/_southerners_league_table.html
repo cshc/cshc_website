@@ -28,7 +28,7 @@
             <td>{{ team.result_points }}</td>
             <td>{{ team.bonus_points }}</td>
             <td>{{ team.total_points }}</td>
-            <td>{{ team.avg_points_per_game|floatformat }}</td>
+            <td>{{ team.avg_points_per_game|floatformat:1 }}</td>
         </tr>
         {% endfor %}
     </tbody>

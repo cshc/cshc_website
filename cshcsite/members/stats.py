@@ -36,7 +36,7 @@ class MatchesStat(object):
             self.clean_sheets += 1
 
     def accumulate(self, matchesStat):
-        """Add the specified match statistics to the running totals""" 
+        """Add the specified match statistics to the running totals"""
         assert self.is_total
         self.appearances += matchesStat.appearances
         self.goals += matchesStat.goals
@@ -91,7 +91,7 @@ class SeasonMatchesStat(object):
             self.lom += 1
 
     def accumulate(self, seasonMatchesStat):
-        """Add the specified match statistics to the running totals""" 
+        """Add the specified match statistics to the running totals"""
         assert self.is_total()
         self.mom += seasonMatchesStat.mom
         self.lom += seasonMatchesStat.lom
@@ -170,7 +170,7 @@ class SeasonTeamStat(object):
         self._appearances[appearance.match.our_team.slug] += 1
 
     def accumulate(self, seasonTeamStat):
-        """Add the specified team statistics to the running totals""" 
+        """Add the specified team statistics to the running totals"""
         assert self.is_total()
         for k, v in seasonTeamStat._appearances.items():
             self._appearances[k] += v
@@ -195,32 +195,32 @@ class SeasonSuccessStat(object):
         self.total_goals_for = 0
         # Total (team) goals against - used to calculate an average per game
         self.total_goals_against = 0
-        
+
     def avg_goals_for(self):
         """Returns the average number of goals scored per game in matches this member played in"""
         if self.played == 0:
-            return 0
+            return 0.0
 
-        return self.total_goals_for / self.played
+        return float(self.total_goals_for) / float(self.played)
 
     def avg_goals_against(self):
         """Returns the average number of goals scored per game by the opposition in matches this member played in"""
         if self.played == 0:
-            return 0
-        
-        return self.total_goals_against / self.played
+            return 0.0
+
+        return float(self.total_goals_against) / float(self.played)
 
     def avg_points(self):
         """Returns the average number of points per game in matches this member played in"""
         if self.played == 0:
-            return 0
-        
-        return self.total_points() / self.played
+            return 0.0
+
+        return float(self.total_points()) / float(self.played)
 
     def total_points(self):
         """Returns the total number of points accumulated in matches this member played in"""
         return (Match.POINTS_FOR_WIN * self.won) + (Match.POINTS_FOR_DRAW * self.drawn) + (Match.POINTS_FOR_LOSS * self.lost)
-   
+
     def is_total(self):
         """Returns True if this instance represents an accumulating total"""
         return self.season == None
@@ -239,7 +239,7 @@ class SeasonSuccessStat(object):
         self.total_goals_against += match.opp_score
 
     def accumulate(self, seasonSuccessStat):
-        """Add the specified success record statistics to the running totals""" 
+        """Add the specified success record statistics to the running totals"""
         assert self.is_total()
         self.played += seasonSuccessStat.played
         self.won += seasonSuccessStat.won
@@ -274,7 +274,7 @@ class MemberSeasonStat(object):
         self.success.add_match(appearance.match)
 
     def accumulate(self, memberSeasonStat):
-        """Add the specified member season statistics to the running totals""" 
+        """Add the specified member season statistics to the running totals"""
         assert self.is_total()
         self.matches.accumulate(memberSeasonStat.matches)
         self.teams.accumulate(memberSeasonStat.teams)

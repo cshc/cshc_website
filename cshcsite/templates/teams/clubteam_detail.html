@@ -34,7 +34,7 @@ Currently just lists the values that will be needed by this template - no UI des
     </div>
     <div class="span5">
         <div class="pull-right">
-            <h1><a href="{{ clubteam_calendar }}" target="_blank" title="{{ clubteam.long_name }} calendar"><i class="icon-calendar icon-small"></i></a>
+            <h1><a class="no-mobile" href="{{ clubteam_calendar }}" target="_blank" title="{{ clubteam.long_name }} calendar"><i class="icon-calendar icon-small"></i></a>
                     <a href="{{ clubteam_rss }}" target="_blank" title="{{ clubteam.long_name }} match report RSS feed"><i class="icon-rss icon-small"></i></a>{% include 'core/_season_selector.html' with url_prefix=base_team_url %}</h1>
         </div>
     </div>

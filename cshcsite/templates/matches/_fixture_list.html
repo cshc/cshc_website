@@ -8,7 +8,7 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
 {% if match_list %}
     <table class="table table-condensed table-hover">
         <thead>
-            <tr><th class="priority3"></th><th>Date</th><th>Opposition</th><th class="priority2">Time</th><th class="priority2">Venue</th><th class="center-align">Result<br/>(CS-Op)</th><th class="priority3">Scorers</th><th class="priority3">MOM</th><th class="priority3">LOM</th><th class="priority3">Match<br/>Report</th></tr>
+            <tr><th class="priority3"></th><th>Date</th><th>Opposition</th><th class="priority2">Time</th><th class="priority2">Venue</th><th class="center-align">Result<br/>(CS-Op)</th><th class="priority3">Scorers</th><th class="priority3">MOM</th><th class="priority3">LOM</th><th>Match<br/>Report</th></tr>
         </thead>
         <tbody>
         {% for date, matches in match_list %}
@@ -42,7 +42,7 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
             {% empty %}
                 {% if fill_blanks %}
                 <tr>
-                    <td></td><td class="no-break">{{ date|date:"d-M-y" }}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td class="priority3"><i class="icon-ban-circle" title="No match"></i></td><td class="no-break">{{ date|date:"d-M-y" }}</td><td></td><td class="priority2"></td><td class="priority2"></td><td></td><td class="priority3"></td><td class="priority3"></td><td class="priority3"></td><td></td>
                 </tr>
                 {% endif %}
             {% endfor %}
