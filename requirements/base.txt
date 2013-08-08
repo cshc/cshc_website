@@ -57,3 +57,6 @@ django-disqus==0.4
 
 # Maintenance mode!
 django-maintenancemode==0.10
+
+# Static file serving
+dj-static==0.0.5
