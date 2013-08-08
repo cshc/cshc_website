@@ -10,6 +10,7 @@ import dj_database_url
 DATABASES = {'default': dj_database_url.config()}
 ########## END DATABASE CONFIGURATION
 
+ALLOWED_HOSTS = ['cshcsite.heroku.com']
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key

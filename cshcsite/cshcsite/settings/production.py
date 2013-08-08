@@ -1,6 +1,9 @@
 # Django settings for cshcsite project - production environment
 from base import *
 
+
+ALLOWED_HOSTS = ['cambridgesouthhockeyclub.co.uk']
+
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
