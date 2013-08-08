@@ -413,6 +413,8 @@ class Old_Opposition_Clubs(Old_Table_Entry):
 
     def fixup(self):
         Old_Table_Entry.fixup(self)
+        if self.Default_Venue <= 0:
+            self.Default_Venue = None
         if self.Club_Name == 'None':
             Old_Opposition_Clubs.none_id = self.Club_Id
             self.errors.append("'None' club ignored (but Club_Id cached for use when checking references to this 'club')")

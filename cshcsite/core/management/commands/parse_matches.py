@@ -3,6 +3,7 @@ import sys
 import csv
 import inspect
 from django.core.management.base import BaseCommand, CommandError
+from django.core.exceptions import ObjectDoesNotExist
 from _old_data_structures import *
 
 IMPORT_DIR = 'import'
@@ -17,11 +18,11 @@ class OldTable:
         self.table_class = table_class
         self.rows = {}
 
-        
+
 def get_or_none(model, **kwargs):
     try:
         return model.objects.get(**kwargs)
-    except model.DoesNotExist:
+    except ObjectDoesNotExist:
         return None
 
 class Command(BaseCommand):
@@ -34,7 +35,7 @@ class Command(BaseCommand):
         old_data_table_classes = inspect.getmembers(sys.modules['core.management.commands._old_data_structures'], inspect.isclass)
         # Dictionary to store table names and corresponding classes
         old_tables = {}
-    
+
         for table in old_data_table_classes:
             if table[0] == 'Old_Table_Entry':
                 continue

@@ -10,6 +10,7 @@ import subprocess
 import re
 import inspect
 from django.core.management.base import BaseCommand, CommandError
+from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 from optparse import make_option
 from core.models import TeamOrdinal
@@ -41,7 +42,7 @@ class NewTableRow:
 def get_or_none(model, **kwargs):
     try:
         return model.objects.get(**kwargs)
-    except model.DoesNotExist:
+    except ObjectDoesNotExist:
         return None
 
 class Command(BaseCommand):
