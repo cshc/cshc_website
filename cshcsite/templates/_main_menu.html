@@ -130,10 +130,13 @@
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request.user.get_short_name }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
+            {% if user.is_staff %}
+            <li><a href="/admin/" class="{% active '/admin/' %}">Admin</a></li>
+            {% endif %}
             <li><a href="{{ logout }}?next={{ request.get_full_path }}" class="{% active logout %}">Sign out</a></li>
         </ul>
     {% else %}
-    <li><a href="{{ login }}" data-toggle="modal" class="{% active login %}">Sign in</a></li>
+    <li><a href="{{ login }}?next={{ request.get_full_path }}" data-toggle="modal" class="{% active login %}">Sign in</a></li>
     {% endif %}
 
 </ul>

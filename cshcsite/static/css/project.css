@@ -210,14 +210,19 @@ Footers
 /******************************************************************************
 Responsive
 */
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 767px) {
 	.table tbody { font-size: 12px; }
-	.table th, .table td { padding: 1px;}
+	.table th, .table td { padding: 6px 1px; }
 	.table th.priority2, .table td.priority2 {display: none;}
 	.table th.priority3, .table td.priority3 {display: none;}
 }
 
-
+/* Hide the top banner on smaller screens */
+@media only screen and (max-width: 767px) {
+    #top-banner,
+    .no-mobile {
+        display: none;
+    }
 
 /******************************************************************************
 Page-specific

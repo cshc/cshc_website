@@ -3,7 +3,7 @@
 {% comment %}
 Formatted display of the details of a particular member.
 - Used by member_details_view
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | {{ member }}{% endblock %}
@@ -19,7 +19,7 @@ Currently just lists the values that will be needed by this template - no UI des
 </ul>
 
 <div class="page-header">
-  <h1>{{ member }} {% if member.pref_position != 9 %}<small>{{ member.get_pref_position_display|capfirst }}</small>{% endif %}{% if member.is_current %}&nbsp;&nbsp;<span class="label label-success">Current</span>{% endif %}</h1>  
+  <h1>{{ member }} {% if member.pref_position != 9 %}<small>{{ member.get_pref_position_display|capfirst }} </small>{% endif %}{% if member.is_current %}<span class="label label-success">Current</span>{% endif %}</h1>
 </div>
 
 <div class="row">

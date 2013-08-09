@@ -26,9 +26,9 @@
                 <td>{{ season.success.won }}</td>
                 <td>{{ season.success.drawn }}</td>
                 <td>{{ season.success.lost }}</td>
-                <td>{{ season.success.avg_goals_for }}</td>
-                <td>{{ season.success.avg_goals_against }}</td>
-                <td>{{ season.success.avg_points }}</td>
+                <td>{{ season.success.avg_goals_for|floatformat:1 }}</td>
+                <td>{{ season.success.avg_goals_against|floatformat:1 }}</td>
+                <td>{{ season.success.avg_points|floatformat:1 }}</td>
             </tr>
             {% endfor %}
         </tbody>
