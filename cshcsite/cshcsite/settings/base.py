@@ -220,7 +220,8 @@ THIRD_PARTY_APPS = (
     # Mobile support:
     'django_mobile',
     'tinymce',
-    'easy_thumbnails',
+    #'easy_thumbnails',
+    'sorl.thumbnail',
     'pagination',
     'sorter',
     'disqus',

@@ -77,8 +77,11 @@ class ClubTeamDetailView(TemplateView):
         if season_slug is not None:
             season = Season.objects.get(slug=season_slug)
         else:
-            # Default to the most recent season
-            season = part_seasons[-1]
+            if part_seasons:
+                # Default to the most recent season
+                season = part_seasons[-1]
+            else:
+                season = Season.current()
 
         # Retrieve captaincy information for this team
         context['captain'] = TeamCaptaincy.get_captain(team, season)
