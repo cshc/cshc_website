@@ -38,7 +38,8 @@ django-suit==0.1.9
 django-tinymce==1.5.1
 
 # Support for (cached) thumbnails
-easy-thumbnails==1.2
+#easy-thumbnails==1.2
+sorl-thumbnail==11.12
 
 # Twitter API v1.1 support
 twython==3.0
