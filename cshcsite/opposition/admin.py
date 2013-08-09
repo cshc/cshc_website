@@ -7,7 +7,7 @@ class TeamInlineForm(ModelForm):
 
     class Meta:
         model = Team
-        
+
 
 class TeamInline(admin.TabularInline):
     """Inline admin interface for a Team model"""
@@ -34,7 +34,7 @@ class TeamAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     search_fields = ('name',)
     list_filter = ('club', 'gender')
-    list_display = ('club', 'name', 'gender')
+    list_display = ('name', 'club', 'gender')
 
 # Register all opposition models with the admin interface
 admin.site.register(Club, ClubAdmin)

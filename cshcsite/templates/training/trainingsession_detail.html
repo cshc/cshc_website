@@ -1,23 +1,29 @@
 {% extends "base.html" %}
 
+{% load core_tags %}
 {% block title %}{{ block.super }} | {{ trainingsession }}{% endblock %}
 
 {% block content %}
-{% url 'trainingsession_list' as trainingsession_list_url %}
+{% url 'upcoming_trainingsession_list' as upcoming_trainingsession_list %}
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
-  <li><a href="{{ trainingsession_list_url }}">Training</a> <span class="divider">/</span></li>
+  <li><a href="{{ upcoming_trainingsession_list }}">Training</a> <span class="divider">/</span></li>
   <li class="active">{{ trainingsession.description }}</li>
 </ul>
 
 <div class="page-header">
-    <h1>{{ trainingsession.description }}</h1>
+    <h1>{{ trainingsession.description }} <small> {{ trainingsession.datetime.date|date:"d M" }} at {{ trainingsession.datetime.time|time:"H:i" }}</small></h1>
 </div>
 
-<blockquote>
-    <b>Venue:</b> {{ trainingsession.venue }}</br><b>Date:</b> {{ trainingsession.date }}</br><b>Time:</b> {{ trainingsession.time }}
-</blockquote>
+<p class="lead">{{ trainingsession.description }} takes place at {{ trainingsession.venue|urlise_model }}.</p>
+
+<div class="gmap3 map_large" id="map_canvas"></div>
 
 {% endblock %}
+
+{% block body_js %}
+    {{ block.super }}
+    {% include "venues/_venue_map_js.html" with venue_address=trainingsession.venue.full_address %}
+{% endblock body_js %}
 

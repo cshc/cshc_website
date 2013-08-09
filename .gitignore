@@ -5,4 +5,5 @@ themes/classic/views/
 *.swp
 *.sqlite
 .ropeproject/
-cshcsite\cshcsite\cshc.db
+cshcsite/cshcsite/cshc.db
+cshcsite/media/uploads/

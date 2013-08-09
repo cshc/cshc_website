@@ -85,16 +85,17 @@ class ClubDetailView(TemplateView):
         context['all_team_fixtures'] = all_team_fixtures
         return context
 
+# Not implemented
 
-class TeamListView(SelectRelatedMixin, ListView):
-    """View for a list of opposition teams"""
+# class TeamListView(SelectRelatedMixin, ListView):
+#     """View for a list of opposition teams"""
 
-    model = Team
-    select_related = ["club"]
+#     model = Team
+#     select_related = ["club"]
 
 
-class TeamDetailView(SelectRelatedMixin, DetailView):
-    """View for a particular opposition team"""
+# class TeamDetailView(SelectRelatedMixin, DetailView):
+#     """View for a particular opposition team"""
 
-    model = Team
-    select_related = ["club"]
+#     model = Team
+#     select_related = ["club"]

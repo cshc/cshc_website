@@ -21,15 +21,17 @@ urlpatterns = patterns('',
         name="opposition_club_detail"
     ),
 
+    # Not implemented
+
     # E.g. 'opposition/teams/'
-    url(r'^teams/$',
-        views.TeamListView.as_view(),
-        name="opposition_team_list"
-    ),
+    # url(r'^teams/$',
+    #     views.TeamListView.as_view(),
+    #     name="opposition_team_list"
+    # ),
 
     # E.g. 'opposition/teams/cambridge-city-mens-1sts/'
-    url(r'^teams/(?P<slug>[-\w]+)/$',
-        views.TeamDetailView.as_view(),
-        name="opposition_team_detail"
-    ),
+    # url(r'^teams/(?P<slug>[-\w]+)/$',
+    #     views.TeamDetailView.as_view(),
+    #     name="opposition_team_detail"
+    # ),
 )
