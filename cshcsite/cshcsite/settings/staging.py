@@ -13,7 +13,7 @@ DATABASES = {'default': dj_database_url.config()}
 ALLOWED_HOSTS = ['cshcsite.heroku.com']
 
 # Ref: https://pypi.python.org/pypi/dj-static
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = normpath(join(SITE_ROOT, 'staticfiles'))
 STATIC_URL = '/static/'
 
 ########## SECRET CONFIGURATION
