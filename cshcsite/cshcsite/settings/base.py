@@ -421,17 +421,12 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 ########## END TINYMCE CONFIGURATION
 
-########## EASY THUMBNAILS CONFIGURATION
-# See: http://easy-thumbnails.readthedocs.org/en/latest/
+########## SORL-THUMBNAIL CONFIGURATION
+# See: http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
 
-THUMBNAIL_ALIASES = {
-    '': {
-        'avatar': {'size': (50, 50), 'crop': True},
-    },
-}
-
-THUMBNAIL_DEBUG = False
-########## END EASY THUMBNAILS CONFIGURATION
+#THUMBNAIL_ENGINE = 'sorl.thumbnail.engines.pgmagick_engine.Engine'
+THUMBNAIL_DEBUG = True
+########## END SORL-THUMBNAIL CONFIGURATION
 
 
 
