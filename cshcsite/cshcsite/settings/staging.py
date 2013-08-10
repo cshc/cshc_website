@@ -3,7 +3,7 @@ from .base import *
 import dj_database_url
 
 # TEMP
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ########## DATABASE CONFIGURATION
@@ -13,8 +13,8 @@ DATABASES = {'default': dj_database_url.config()}
 ALLOWED_HOSTS = ['cshcsite.heroku.com']
 
 # Ref: https://pypi.python.org/pypi/dj-static
-#STATIC_ROOT = 'staticfiles'
-#STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
