@@ -60,6 +60,7 @@ class SeasonMatchesStat(object):
         self._stats[Match.FIXTURE_TYPE.League] = MatchesStat(self.is_total())
         self._stats[Match.FIXTURE_TYPE.Cup] = MatchesStat(self.is_total())
         self._stats[Match.FIXTURE_TYPE.Friendly] = MatchesStat(self.is_total())
+        self._stats['All'] = MatchesStat(self.is_total())
 
     def league(self):
         """Returns a MatchesStats specific to League fixtures"""
@@ -73,6 +74,10 @@ class SeasonMatchesStat(object):
         """Returns a MatchesStats specific to Friendly fixtures"""
         return self._stats[Match.FIXTURE_TYPE.Friendly]
 
+    def all(self):
+        """Returns a MatchesStats for all fixtures"""
+        return self._stats['All']
+
     def is_total(self):
         """Returns True if this instance represents an accumulating total"""
         return self.season == None
@@ -81,6 +86,7 @@ class SeasonMatchesStat(object):
         """Add statistics from the specified appearance to the match stats"""
         assert not self.is_total()
         self._stats[appearance.match.fixture_type].add_appearance(appearance)
+        self._stats['All'].add_appearance(appearance)
 
     def add_award(self, award_winner):
         """Adds the specified MatchAward to the member's season match stats"""
