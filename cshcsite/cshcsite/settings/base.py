@@ -454,6 +454,7 @@ SORTER_ALLOWED_CRITERIA = {
              'gender',
              'pref_position',
              'is_current',
+             'is_home',
     ],
 }
 ########## END django-sorter CONFIGURATION

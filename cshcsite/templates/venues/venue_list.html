@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
+{% load core_tags %}
+{% load i18n %}
+{% load pagination_tags %}
+{% load sorter_tags %}
+
 {% comment %}
-Formatted display of all venues.
-- Used by venue_list
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Filter-able, sortable, paginated display of venues.
 {% endcomment %}
 
 {% block body_js %}
@@ -12,6 +15,8 @@ Currently just lists the values that will be needed by this template - no UI des
 {% endblock body_js %}
 
 {% block title %}{{ block.super }} | Match venues{% endblock %}
+
+{% block body_id %}venue-list{% endblock body_id %}
 
 {% block content %}
 
@@ -24,25 +29,48 @@ Currently just lists the values that will be needed by this template - no UI des
     <h1>Match venues</h1>
 </div>
 
-{% for v in venue_list %}
-<div class="row well">
-    <div class="span6">
-        <h3>{{ v.name }}</h3>
-        <address>
-            {% if v.addr1 %}{{ v.addr1 }}</br>{% endif %}
-            {% if v.addr2 %}{{ v.addr2 }}</br>{% endif %}
-            {% if v.addr3 %}{{ v.addr3 }}</br>{% endif %}
-            {% if v.addr_city %}{{ v.addr_city }}</br>{% endif %}
-            {% if v.addr_postcode %}{{ v.addr_postcode }}</br>{% endif %}
-            {% if v.phone %}<i class="icon-phone"></i> {{ v.phone }}</br>{% endif %}
-        </address>
-        <a href="{{ v.get_absolute_url }}"><button class="btn btn-primary" type="button">Details...</button></a>
-    </div>
+<div class="row" id="filter">
+    <div class="span12"><h4>Filter</h4></div>
+    <form action="" method="get" class="form-inline">
+    <div class="span12">{{ filter.form.non_field_errors }}</div>
     <div class="span4">
-        <div class="gmap3 map_small" id="map_canvas{{ forloop.counter0 }}"></div>
+        <div class="fieldWrapper">
+            {{ filter.form.is_home.errors }}
+            <label for="id_is_home">Home venues</label>
+            {{ filter.form.is_home }}
+        </div>
     </div>
-    
+    <div class="span12"><input class="btn btn-primary" type="submit" /><input class="btn" type="reset" value="Reset" /></div>
 </div>
-{% endfor %}
+</form>
+
+<hr/>
+{% sort filter.qs as sorted_list %}
+{% autopaginate sorted_list 20 as sorted_filter_list %}
+
+{% if sorted_filter_list %}
+    <table id="venues" class="table">
+        <thead>
+            <tr>
+                <th>Venue</th>
+                <th class="priority2">Address</th>
+                <th class="priority3">Phone</th>
+                <th>{% sortlink by "is_home" "-is_home" %}Home/Away{% endsortlink %}</th>
+            </tr>
+        </thead>
+        {% for venue in sorted_filter_list %}
+            <tr>
+                <td><a href="{{ venue.get_absolute_url }}" title="{{ venue.name }}">{{ venue.name }}</a></td>
+                <td class="priority2">{{ venue.full_address }}</td>
+                <td class="priorty3">{{ venue.phone }}</td>
+                <td>{% if venue.is_home %}<i class="icon-home"></i>{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p class="lead muted">No venues found!</p>
+{% endif %}
+
+{% paginate %}
 
 {% endblock %}

@@ -31,6 +31,8 @@ a.btt { display: block; text-align: right; }
 
 ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 
+.info-well {margin-top: 40px;}
+
 .box { box-shadow: 0px 0px 7px -1px rgb(214, 214, 214); border: 1px solid #d9d9d9; border-radius: 6px; background-color: #fff; margin: 2px 2px 20px 2px; }
 
 .box h3{
@@ -223,6 +225,7 @@ Responsive
     .no-mobile {
         display: none;
     }
+}
 
 /******************************************************************************
 Page-specific
@@ -290,7 +293,7 @@ Page-specific
 .pics-row img { display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; max-height: 500px; }
 table.awards td { border: none; }
 
-#match-list #filter { background-color: rgb(219, 230, 219); }
+#match-list #filter, #member-list #filter, #venue-list #filter { background-color: rgb(219, 230, 219); }
 #match-list #filter label { display: inline-block; margin-right: 10px; width: 80px; }
 #match-list #filter select { width: 200px; }
 #match-list #filter select#id_date_day { width: 55px; }
@@ -318,3 +321,8 @@ table.month .dayNumber { font-weight: bold;}
 
 #matches-by-season .popover { max-width: 400px;}
 #matches-by-season a.calendar { margin-left: auto; margin-right: auto; display: block; text-align: center; }
+
+#venue-list #id_is_home {width: 100px;}
+#venue-list #filter input, #venue-list #filter button { margin: 10px 10px 15px 0px; }
+
+#member-list #filter input, #member-list #filter button { margin: 10px 10px 15px 0px; }
