@@ -269,6 +269,21 @@ class Match(models.Model):
             return self.datetime() < datetime.now()
         return self.date < datetime.today().date()
 
+
+    def time_display(self):
+        """ Gets a formatted display of the match time.
+            
+            If the match time is not known, returns '???'
+            if the match is in the past or 'TBD' if the match
+            is in the future.
+        """
+        if self.time:
+            return self.time.strftime('%H:%M')
+        elif self.is_in_past():
+            return '???'
+        else:
+            return 'TBD'
+            
     def match_title_text(self):
         """
         Gets an appropriate match title regardless of the status of the match.
@@ -361,10 +376,15 @@ class Match(models.Model):
 
     def simple_venue_name(self):
         """Returns 'Away' if this is not a home match. Otherwise returns the short_name attribute value."""
-        assert self.venue is not None
-        if self.is_home:
-            if self.venue.short_name is not None:
-                return self.venue.short_name
-            else:
-                return self.venue.name
-        return "Away"
+        if self.venue:
+            if self.is_home:
+                if self.venue.short_name is not None:
+                    return self.venue.short_name
+                else:
+                    return self.venue.name
+            return "Away"
+        elif self.is_in_past():
+            return '???'
+        else:
+            return 'TBD'
+            

@@ -56,4 +56,8 @@ Filter-able, sortable, paginated display of members.
 
     {% paginate %}
 
+{% url admin:members_member_add as admin_url_add %}
+{% url admin:members_member_changelist as admin_url_list %}
+{% include 'core/_admin_link.html' with add_url=admin_url_add list_url=admin_url_list %}
+
 {% endblock content %}

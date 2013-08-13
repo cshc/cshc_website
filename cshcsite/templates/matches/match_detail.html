@@ -21,7 +21,11 @@ Currently just lists the values that will be needed by this template - no UI des
         {% if match.fixture_type == "cup" %}<i class="icon icon-trophy"></i>{{ match.cup }}&nbsp;&nbsp;{% endif %}
         {% if match.venue %}<i class="icon icon-map-marker"></i>{{ match.venue|urlise_model }}&nbsp;&nbsp;{% endif %}
         <i class="icon icon-calendar"></i><a href="{{ matches_by_date }}">{{ match.date }}</a>&nbsp;&nbsp;
-        {% if match.time %}<i class="icon icon-time"></i>{{ match.time|time:"H:i" }}&nbsp;&nbsp;{% endif %}
+        {% if match.time %}<i class="icon icon-time"></i>{{ match.time_display }}&nbsp;&nbsp;{% endif %}
+        
+        {% url admin:matches_match_change match.id as admin_url %}
+        {% include 'core/_admin_link.html' with edit_url=admin_url %}
+
     </div>
 </div>
 

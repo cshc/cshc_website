@@ -52,10 +52,27 @@ Currently just lists the values that will be needed by this template - no UI des
                 </p>
         {% endif %}
         <p>{{ clubteam.blurb|safe }}</p>
+
+        {% url admin:teams_team_captaincy_add as admin_url_add_captaincy %}
+
         <table class="table table-clean table-hcondensed">
         <tbody>
-            <tr><td class="dt">Captain:</td><td><strong>{% if captain %}{{ captain|urlise_model }}{% else %}(Unknown){% endif %}</strong></td></tr>
-            <tr><td class="dt">Vice-captain:</td><td><strong>{% if vice_captain %}{{ vice_captain|urlise_model }}{% else %}(Unknown){% endif %}</strong></td></tr>
+            <tr><td class="dt">Captain:</td><td><strong>
+            {% if captain %}
+                {{ captain|urlise_model }}
+            {% else %}
+                (Unknown)
+                {% include 'core/_admin_link.html' with add_url=admin_url_add_captaincy %}
+            {% endif %}
+            </strong></td></tr>
+            <tr><td class="dt">Vice-captain:</td><td><strong>
+            {% if vice_captain %}
+                {{ vice_captain|urlise_model }}
+            {% else %}
+                (Unknown)
+                {% include 'core/_admin_link.html' with add_url=admin_url_add_captaincy %}
+            {% endif %}
+            </strong></td></tr>
         </tbody>
         </table>
         <div class="row quick-links">
@@ -69,6 +86,15 @@ Currently just lists the values that will be needed by this template - no UI des
             {% else %}
                 <button disabled class="btn" title="No fixtures/results available on the league website"><i class="icon-external-link"></i>Fixtures/Results</button>
             {% endif %}
+
+            {% if participation %}
+                {% url admin:teams_clubteamseasonparticipation_change participation.id as admin_url_edit_part %}
+                {% include 'core/_admin_link.html' with edit_url=admin_url_edit_part %}
+            {% else %}
+                {% url admin:teams_clubteamseasonparticipation_add as admin_url_add_part %}
+                {% url admin:teams_clubteamseasonparticipation_changelist as admin_url_list_part %}
+	            {% include 'core/_admin_link.html' with add_url=admin_url_add_part list_url=admin_url_list_part %}
+            {% endif %}
         </div>
     </div>
     <div class="span6">
@@ -78,6 +104,9 @@ Currently just lists the values that will be needed by this template - no UI des
 </div>
 
 {% include 'core/_loading_placeholder.html' with placeholder_id="clubteam-info" placeholder_text="Loading team stats..." %}
+
+{% url admin:teams_clubteam_change clubteam.id as admin_url %}
+{% include 'core/_admin_link.html' with edit_url=admin_url %}
 
 {% endblock %}
 

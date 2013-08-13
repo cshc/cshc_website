@@ -25,6 +25,10 @@
         {% else %}
             <p>No team details available.</p>
         {% endif %}
+        
+        {% url admin:matches_appearance_add as admin_url_app_add %}
+        {% url admin:matches_appearance_changelist as admin_url_app_list %}
+        {% include 'core/_admin_link.html' with add_list=admin_url_app_add list_url=admin_url_app_list %}
 
     </div>
     <div class="span5">
@@ -56,6 +60,9 @@
                 </div>
             {% endfor %}
         {% endif %}
+        {% url admin:awards_match_award_winner_add as admin_url_aw_add %}
+        {% url admin:awards_match_award_winner_changelist as admin_url_aw_list %}       
+        {% include 'core/_admin_link.html' with add_list=admin_url_aw_add list_url=admin_url_aw_list %}
     </div>
 </div>
 

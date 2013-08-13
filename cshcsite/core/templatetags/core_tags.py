@@ -245,6 +245,8 @@ class EventCalendar(HTMLCalendar):
                 popover_content = ['<ul>']
                 for event in self.events[day]:
                     popover_content.append('<li><a href=\'{}\' title=\'Match details...\'>'.format(event.get_absolute_url()))
+                    popover_content.append('<span class=\'mini-label\'>{}</span>'.format('H' if event.is_home() else 'A'))
+                        popover_content.append('<span class=\'time\'>{}</span>'.format(event.time if event.time))                 
                     popover_content.append(conditional_escape("{} vs {}".format(event.our_team, event.opp_team)))
                     popover_content.append('</a></li>')
                 popover_content.append('</ul>')

@@ -19,7 +19,7 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
                 </td>
                 <td class="no-break"><a title="Matches on {{ m.match.date|date:"d-M-y" }}" href="{% url 'matches_by_date' m.match.date|date:"d-M-y"%}">{{ m.match.date|date:"jS M" }}</a></td>
                 <td><a href="{{ m.match.opp_team.club.get_absolute_url }}">{{ m.match.opp_team.name }}</a>{% if m.match.kit_clash %}<i class="icon-user" title="Away kit"></i>{% endif %}</td>
-                <td class="priority2">{% if m.match.time %}{{ m.match.time|time:"H:i" }}{% elif m.match.is_in_past %}???{% else %}<abbr title="Time not known">TBD</abbr>{% endif %}</td>
+                <td class="priority2">{{ m.match.time_display }}</td>
                 <td class="priority2">{% if m.match.venue %}<a href="{{ m.match.venue.get_absolute_url }}" title="{{ m.match.venue.name }}">{{ m.match.simple_venue_name }}</a>{% elif m.match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
                 <td class="center-align">{{ m.match.score_display }}</td>
                 <td class="priority3">

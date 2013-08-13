@@ -75,7 +75,7 @@ Currently just lists the values that will be needed by this template - no UI des
                 {% else %}
                     <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
                     <ul class="inline">
-                        <li><i class="icon icon-time"></i>{% if m.match.time %}{{ m.match.time|time:"H:i" }}{% else %}TBD{% endif %}</li>
+                        <li><i class="icon icon-time"></i>{{ if m.match.time_display }}</li>
                         <li><i class="icon icon-map-marker"></i>{% if m.match.venue %}{{ m.match.venue|urlise_model }}{% else %}TBD{% endif %}</li>
                         {% if m.match.division %}<li><i class="icon icon-table"></i>{{ m.match.division }}</li>{% endif %}
                     </ul>

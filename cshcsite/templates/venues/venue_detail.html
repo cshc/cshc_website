@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+mm{% extends "base.html" %}
 
 {% comment %}
 Formatted display of the details of a particular venue.
@@ -48,6 +48,10 @@ Currently just lists the values that will be needed by this template - no UI des
 <h3>Upcoming matches at {{ venue.name }}</h3>
 {% include 'venues/_venue_match_schedule.html' %}
 {% endif %}
+
+
+{% url admin:venues_venue_change venue.id as admin_url %}
+{% include 'core/_admin_link.html' with edit_url=admin_url %}
 
 {% endblock content %}
 
