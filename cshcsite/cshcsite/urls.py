@@ -10,6 +10,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
+    # Redirects from the old website
+    url(r'^pages/', include('core.redirect_urls')),
+
     url(r'^$', views.HomeView.as_view(), name='homepage'),                                              # The main landing page
     url(r'^about/$', views.AboutUsView.as_view(), name='about_us'),                                     # About Us
 
@@ -23,6 +26,8 @@ urlpatterns = patterns('',
     url(r'^about/kit/$',              TemplateView.as_view(template_name='core/kit.html'), name='about_kit'),
     url(r'^about/fees/$',             TemplateView.as_view(template_name='core/fees.html'), name='about_fees'),
     url(r'^about/committee/$',        views.CommitteeView.as_view(), name='about_committee'),
+    
+    url(r'^stats/$',                  TemplateView.as_view(template_name='core/stats.html'), name='stats'),
 
     url(r'^archive/minutes/$',         TemplateView.as_view(template_name='core/meeting_minutes.html'), name='about_minutes'),
     url(r'^archive/chairmans-notes/$', TemplateView.as_view(template_name='core/chairmans_notes.html'), name='chairmans_notes'),
