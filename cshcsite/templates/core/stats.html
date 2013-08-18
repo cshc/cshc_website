@@ -1,2 +1,25 @@
 {% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Static landing page for stats - mainly a redirect from the old site.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Stats{% endblock %}
+
+{% block body_id %}stats{% endblock body_id %}
+
+{% block content %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Stats</li>
+</ul>
+
+<div class="page-header">
+    <h1>Statistics</h1>
+</div>
+
+<p>TODO</p>
+{% endblock %}
 

@@ -126,6 +126,10 @@ class CshcUserManager(BaseUserManager):
         u.is_superuser = True
         u.save(using=self._db)
         return u
+        
+        
+    def make_random_password(self, length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789')
+        raise NotImplementedError('TODO: Copy from UserManager')
 
 
 class CshcUser(AbstractBaseUser, PermissionsMixin):
