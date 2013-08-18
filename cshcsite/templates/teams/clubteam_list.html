@@ -3,7 +3,7 @@
 {% comment %}
 Formatted display of all teams.
 - Used by clubteam_list
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | Teams{% endblock %}
@@ -45,7 +45,7 @@ Currently just lists the values that will be needed by this template - no UI des
     </div>
 {% endfor %}
 
-{% url admin:teams_clubteam_changelist as admin_url_list %}
-{% include 'core/_admin_link.html' with list_url=admin_url_list %}
+{% url 'admin:teams_clubteam_changelist' as admin_url_list %}
+{% include 'core/_admin_link.html' with list_url=admin_url_list list_label='List teams' %}
 
 {% endblock %}

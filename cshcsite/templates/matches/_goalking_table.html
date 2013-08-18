@@ -19,7 +19,7 @@
     <tbody>
     {% for gk in goalking_list %}
         <tr>
-            <td class="{{ gk.member.gender|lower }}">{{ gk.rank }}</td>
+            <td><span class="label label-{{ gk.member.gender|lower }}">{{ gk.rank }}</span></td>
             <td class="left-align">{{ gk.member|urlise_model }}</td>
             <td>{{ gk.m1_goals|default:"" }}</td>
             <td>{{ gk.m2_goals|default:"" }}</td>

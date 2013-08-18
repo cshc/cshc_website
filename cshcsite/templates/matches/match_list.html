@@ -114,9 +114,9 @@ Filter-able, sortable, paginated display of matches.
     {% endif %}
 
     {% paginate %}
-    
-    {% url admin:matches_match_add as admin_url_add %}
-    {% url admin:matches_match_changelist as admin_url_list %}
-    {% include 'core/_admin_link.html' with add_url=admin_url_add list_url=admin_url_list %}
+
+    {% url 'admin:matches_match_add' as admin_url_add %}
+    {% url 'admin:matches_match_changelist' as admin_url_list %}
+    {% include 'core/_admin_link.html' with add_url=admin_url_add list_url=admin_url_list add_label='Add match' list_label='List matches' %}
 
 {% endblock content %}

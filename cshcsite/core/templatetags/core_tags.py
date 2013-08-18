@@ -244,15 +244,18 @@ class EventCalendar(HTMLCalendar):
                 popover_title = '<a href=\'{}\'>Matches on {}</a>'.format(matches_by_date_link, dt.strftime("%d-%b"))
                 popover_content = ['<ul>']
                 for event in self.events[day]:
-                    popover_content.append('<li><a href=\'{}\' title=\'Match details...\'>'.format(event.get_absolute_url()))
-                    popover_content.append('<span class=\'mini-label\'>{}</span>'.format('H' if event.is_home() else 'A'))
-                        popover_content.append('<span class=\'time\'>{}</span>'.format(event.time if event.time))                 
-                    popover_content.append(conditional_escape("{} vs {}".format(event.our_team, event.opp_team)))
-                    popover_content.append('</a></li>')
+                    popover_content.append('<li>')
+                    if event.is_home:
+                        popover_content.append('<span class=\'label label-success\'>H</span>')
+                    else:
+                        popover_content.append('<span class=\'label\'>A</span>')
+                    popover_content.append('<span class=\'time\'>{}</span>'.format(event.time_display()))
+                    popover_content.append(conditional_escape("<a href=\'{}\' title=\'Match details...\'>{} vs {}</a>".format(event.get_absolute_url(), event.our_team, event.opp_team)))
+                    popover_content.append('</li>')
                 popover_content.append('</ul>')
                 link_id = dt.strftime("%d-%b-%y")
                 link_open = '<a id="{}" href="#" class="pop", data-toggle="popover" data-placement="bottom" data-html="true" data-original-title="{}" title data-content="{}">'.format(link_id, popover_title, ''.join(popover_content))
-                return self.day_cell(cssclass, '<span class="dayNumber">{}{}</a></span>'.format(link_open, day))
+                return self.day_cell(cssclass, '<span class="dayNumber label label-success">{}{}</a></span>'.format(link_open, day))
             return self.day_cell(cssclass, '<span class="dayNumberNoEvents">{}</span>'.format(day))
         return self.day_cell('noday', '&nbsp;')
 
@@ -263,7 +266,7 @@ class EventCalendar(HTMLCalendar):
     def group_by_day(self, events):
         field = lambda event: event.date.day
         return dict(
-            [(day, list(items)) for day, items in groupby(events, field)]
+            [(day, sorted(items, key=lambda i: i.time if i.time else i.datetime().time())) for day, items in groupby(events, field)]
         )
 
     def day_cell(self, cssclass, body):

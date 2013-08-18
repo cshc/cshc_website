@@ -3,7 +3,7 @@
 {% comment %}
 Formatted display of all clubs.
 - Used by opposition_club_list
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | Opposition Clubs{% endblock %}
@@ -19,8 +19,8 @@ Currently just lists the values that will be needed by this template - no UI des
     <h1>Opposition Clubs</h1>
 </div>
 
-<p>This table shows the average points (3 points for a Win, 1 point for a Draw) that South Teams have taken off rival clubs. 
-The higher the average, the better is South's record against that club. You can click on a club name to see a breakdown of the 
+<p>This table shows the average points (3 points for a Win, 1 point for a Draw) that South Teams have taken off rival clubs.
+The higher the average, the better is South's record against that club. You can click on a club name to see a breakdown of the
 matches played and then drill into Match Reports.</p>
 
 <div id="clubstats-table">
@@ -30,9 +30,9 @@ matches played and then drill into Match Reports.</p>
 <button id="refresh-btn" class="btn btn-primary" type="button" title="Refresh Club stats (this might take a while)" ><i id="refresh-icon" class="icon icon-refresh"></i><span id="refresh-text">Refresh</span></button>
 {% endif %}
 
-{% url admin:opposition_club_add as admin_url_add %}
-{% url admin:opposition_club_changelist as admin_url_list %}
-{% include 'core/_admin_link.html' with add_url=admin_url_add list_url=admin_url_list %}
+{% url 'admin:opposition_club_add' as admin_url_add %}
+{% url 'admin:opposition_club_changelist' as admin_url_list %}
+{% include 'core/_admin_link.html' with add_url=admin_url_add list_url=admin_url_list add_label='Add club' list_label='List clubs' %}
 
 {% endblock %}
 

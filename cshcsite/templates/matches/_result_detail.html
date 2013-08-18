@@ -25,10 +25,11 @@
         {% else %}
             <p>No team details available.</p>
         {% endif %}
-        
-        {% url admin:matches_appearance_add as admin_url_app_add %}
-        {% url admin:matches_appearance_changelist as admin_url_app_list %}
-        {% include 'core/_admin_link.html' with add_list=admin_url_app_add list_url=admin_url_app_list %}
+        <div class="span3">
+            {% url 'admin:matches_appearance_add' as admin_url_app_add %}
+            {% url 'admin:matches_appearance_changelist' as admin_url_app_list %}
+            {% include 'core/_admin_link.html' with add_url=admin_url_app_add list_url=admin_url_app_list add_label='Add appearance' list_label='List appearances' %}
+        </div>
 
     </div>
     <div class="span5">
@@ -60,9 +61,9 @@
                 </div>
             {% endfor %}
         {% endif %}
-        {% url admin:awards_match_award_winner_add as admin_url_aw_add %}
-        {% url admin:awards_match_award_winner_changelist as admin_url_aw_list %}       
-        {% include 'core/_admin_link.html' with add_list=admin_url_aw_add list_url=admin_url_aw_list %}
+        {% url 'admin:awards_matchawardwinner_add' as admin_url_aw_add %}
+        {% url 'admin:awards_matchawardwinner_changelist' as admin_url_aw_list %}
+        {% include 'core/_admin_link.html' with add_url=admin_url_aw_add list_url=admin_url_aw_list add_label='Add award winner' list_label='List award winners' %}
     </div>
 </div>
 

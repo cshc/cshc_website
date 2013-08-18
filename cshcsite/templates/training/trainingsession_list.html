@@ -64,8 +64,8 @@
     </div>
 </div>
 
-{% url admin:training_trainingsession_add as admin_url_add %}
-{% url admin:training_trainingsession_changelist as admin_url_list %}
-{% include 'core/_admin_link.html' with add_url=admin_url_add list_url=admin_url_list %}
+{% url 'admin:training_trainingsession_add' as admin_url_add %}
+{% url 'admin:training_trainingsession_changelist' as admin_url_list %}
+{% include 'core/_admin_link.html' with add_url=admin_url_add list_url=admin_url_list add_label='Add training session' list_label='List training sessions' %}
 
 {% endblock content %}

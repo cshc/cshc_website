@@ -82,8 +82,8 @@ Currently just lists the values that will be needed by this template - no UI des
 
 </div>
 
-{% url admin:members_member_change member.id as admin_url %}
-{% include 'core/_admin_link.html' with edit_url=admin_url %}
+{% url 'admin:members_member_change' member.id as admin_url %}
+{% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit member' %}
 
 {% endblock %}
 

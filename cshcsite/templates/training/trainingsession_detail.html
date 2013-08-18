@@ -4,6 +4,7 @@
 {% block title %}{{ block.super }} | {{ trainingsession }}{% endblock %}
 
 {% block content %}
+{% url 'calendar' as calendar %}
 {% url 'upcoming_trainingsession_list' as upcoming_trainingsession_list %}
 
 <ul class="breadcrumb">
@@ -26,8 +27,8 @@
     <a class="calendar" href="{{ calendar }}#feeds"><button class="btn btn-large btn-primary"><i class="icon-calendar"></i>Plug me in!</button></a>
 </div>
 
-{% url admin:training_trainingsession_change trainingsession.id as admin_url %}
-{% include 'core/_admin_link.html' with edit_url=admin_url %}
+{% url 'admin:training_trainingsession_change' trainingsession.id as admin_url %}
+{% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit training session details' %}
 
 {% endblock %}
 

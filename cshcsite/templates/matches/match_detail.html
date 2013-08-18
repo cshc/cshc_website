@@ -22,9 +22,9 @@ Currently just lists the values that will be needed by this template - no UI des
         {% if match.venue %}<i class="icon icon-map-marker"></i>{{ match.venue|urlise_model }}&nbsp;&nbsp;{% endif %}
         <i class="icon icon-calendar"></i><a href="{{ matches_by_date }}">{{ match.date }}</a>&nbsp;&nbsp;
         {% if match.time %}<i class="icon icon-time"></i>{{ match.time_display }}&nbsp;&nbsp;{% endif %}
-        
-        {% url admin:matches_match_change match.id as admin_url %}
-        {% include 'core/_admin_link.html' with edit_url=admin_url %}
+
+        {% url 'admin:matches_match_change' match.id as admin_url %}
+        {% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit match details' %}
 
     </div>
 </div>

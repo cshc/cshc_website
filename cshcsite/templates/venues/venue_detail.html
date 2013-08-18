@@ -1,9 +1,9 @@
-mm{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% comment %}
 Formatted display of the details of a particular venue.
 - Used by club.views.venues.details
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | {{ venue.name }}{% endblock %}
@@ -19,7 +19,7 @@ Currently just lists the values that will be needed by this template - no UI des
 </ul>
 
 <div class="page-header">
-  <h1>{{ venue.name }}{% if venue.is_home %} <span class="align-right"><small><i class="icon-home"></i> Home Ground</small></span>{% endif %}</h1> 
+  <h1>{{ venue.name }}{% if venue.is_home %} <span class="align-right"><small><i class="icon-home"></i> Home Ground</small></span>{% endif %}</h1>
 </div>
 
 {% if venue.notes %}
@@ -50,8 +50,8 @@ Currently just lists the values that will be needed by this template - no UI des
 {% endif %}
 
 
-{% url admin:venues_venue_change venue.id as admin_url %}
-{% include 'core/_admin_link.html' with edit_url=admin_url %}
+{% url 'admin:venues_venue_change' venue.id as admin_url %}
+{% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit venue' %}
 
 {% endblock content %}
 

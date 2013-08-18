@@ -25,7 +25,10 @@ i { margin-left: 0.5em; margin-right: 0.5em; }
 .no-break { overflow: hidden; white-space: nowrap; }
 .hero-unit h1 { margin-bottom: 20px; }
 
-.quick-links button { width:160px; margin-bottom: 20px; text-align: left; }
+.quick-links button { width:160px; text-align: left; }
+
+.admin-links { display: inline-block; margin-top: 5px; margin-bottom: 5px; }
+.admin-links .btn {padding: 4px 4px;}
 
 a.btt { display: block; text-align: right; }
 
@@ -83,6 +86,10 @@ Gender-specific
 span.female { background-color: rgb(153,204,255); /* Blue */ }
 
 span.male { background-color: rgb(153,255,153); /* Green */ }
+
+.label-female { background-color: rgb(153,204,255); color: black; /* Blue */ }
+
+.label-male { background-color: rgb(153,255,153);  color: black; /* Green */ }
 
 table tbody td.female { background-color: rgb(153,204,255); /* Blue */ }
 
@@ -278,7 +285,7 @@ Page-specific
 #committee .media { margin-top: 15px; }
 
 #match-detail .match-report p { font-size: 120%; }
-#match-detail .row.quick-links { margin-bottom: 10px;}
+#match-detail .row.quick-links { margin-bottom: 20px;}
 
 #team-detail .row.quick-links { margin-left: 0px; }
 #team-detail #clubteam-info {margin-top: 20px;}
@@ -315,11 +322,26 @@ table.awards td { border: none; }
 #southerners div.box {padding: 10px;}
 
 table.month { margin-bottom: 20px;}
-table.month tbody td, table.month thead td { min-width: 20px;}
+table.month tbody tr { padding-bottom: 1px; }
+
+table.month tbody td, table.month thead td { min-width: 24px; }
 table.month .dayNumberNoEvents { color: #B3B3B3;}
 table.month .dayNumber { font-weight: bold;}
+table.month .filled .dayNumber { margin-right: 2px; padding-left: 4px; padding-right: 4px; }
+table.month .filled a.pop {color: white;}
+/* Copied from .label, .badge in bootstrap.css */
+table.month .filled .dayNumber .popover {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 14px;
+    color: #fff;
+    text-shadow: none;
+    white-space: normal;
+}
+.popover ul {margin: 0 0 10px 0px;}
 
 #matches-by-season .popover { max-width: 400px;}
+#matches-by-season .popover .time {margin-left: 5px; margin-right: 5px; color: rgb(150, 150, 150);}
 #matches-by-season a.calendar { margin-left: auto; margin-right: auto; display: block; text-align: center; }
 
 #venue-list #id_is_home {width: 100px;}

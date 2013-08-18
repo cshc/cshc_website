@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
 from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
 from model_utils import Choices
@@ -126,10 +127,19 @@ class CshcUserManager(BaseUserManager):
         u.is_superuser = True
         u.save(using=self._db)
         return u
-        
-        
-    def make_random_password(self, length=10, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789')
-        raise NotImplementedError('TODO: Copy from UserManager')
+
+
+    def make_random_password(self, length=10,
+                             allowed_chars='abcdefghjkmnpqrstuvwxyz'
+                                           'ABCDEFGHJKLMNPQRSTUVWXYZ'
+                                           '23456789'):
+        """
+        Generates a random password with the given length and given
+        allowed_chars. Note that the default value of allowed_chars does not
+        have "I" or "O" or letters and digits that look similar -- just to
+        avoid confusion.
+        """
+        return get_random_string(length, allowed_chars)
 
 
 class CshcUser(AbstractBaseUser, PermissionsMixin):
