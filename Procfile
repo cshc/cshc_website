@@ -1,1 +1,1 @@
-web: gunicorn cshcsite.cshcsite.wsgi
+web: cd cshcsite && gunicorn cshcsite.wsgi
