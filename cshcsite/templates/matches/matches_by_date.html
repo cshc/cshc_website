@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load core_tags %}
+{% load disqus_tags %}
 
 {% comment %}
 Formatted display of matches on a particular date.
@@ -7,11 +8,18 @@ Formatted display of matches on a particular date.
 Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
-{% block title %}{{ block.super }} | Matches on {{ date }}{% endblock %}
+{% block title %}{{ block.super }} | Matches on {{ date|date:"jS F Y" }}{% endblock %}
 
 {% block body_id %}matches-by-date{% endblock body_id %}
 
 {% block content %}
+{% url 'match_list' as match_list_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ match_list_url }}">Matches</a> <span class="divider">/</span></li>
+  <li class="active">{{ date|date:"jS F Y" }}</li>
+</ul>
 
 <div class="page-header">
     <h1>Matches <small>{{ date|date:"jS F Y" }}</small></h1>
@@ -73,7 +81,9 @@ Currently just lists the values that will be needed by this template - no UI des
                         <p class="pull-right"><a href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
                 {% else %}
-                    <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
+                    {% if m.match.venue %}
+                        <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
+                    {% endif %}
                     <ul class="inline">
                         <li><i class="icon icon-time"></i>{{ m.match.time_display }}</li>
                         <li><i class="icon icon-map-marker"></i>{% if m.match.venue %}{{ m.match.venue|urlise_model }}{% else %}TBD{% endif %}</li>
@@ -84,6 +94,8 @@ Currently just lists the values that will be needed by this template - no UI des
                         <p class="pull-right"><a href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
                 {% endif %}
+                <p><i class="icon-comment"></i><a href="{{ m.match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ m.match.pk }}">View Comments</a></p>
+                {% disqus_num_replies %}
             </div>
         </div>
     </div>

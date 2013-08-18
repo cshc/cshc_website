@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load core_tags %}
+{% load disqus_tags %}
 
 {% comment %}
 Formatted display of details about a particular match.
@@ -14,6 +15,13 @@ Currently just lists the values that will be needed by this template - no UI des
 {% block content %}
 
 {% url 'matches_by_date' match.date|date:"d-M-y" as matches_by_date %}
+{% url 'match_list' as match_list_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ match_list_url }}">Matches</a> <span class="divider">/</span></li>
+  <li class="active">{{ match.match_title_text }}</li>
+</ul>
 
 <div class="row quick-links">
     <div class="pull-right">
@@ -52,6 +60,15 @@ Currently just lists the values that will be needed by this template - no UI des
 {% else %}
 {% include 'matches/_fixture_detail.html' %}
 {% endif %}
+
+<div class="row">
+    <hr/>
+
+    {% set_disqus_developer 1 %}
+    {% set_disqus_title match.match_title_text %}
+    {% disqus_show_comments %}
+    {% disqus_config request.user %}
+</div>
 
 <ul class="pager">
   <li class="previous{% if not prev_match %} disabled{% endif %}">

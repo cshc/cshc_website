@@ -71,7 +71,7 @@ Maps
 
 .well .row, .hero-unit .row, .match-detail .row { margin-left: 20px; }
 
-.map_small { width: 370px; height: 220px; margin: 5px; }
+.map_small { width: 370px; height: 220px; margin: 0 -10px 0 0; }
 
 .gmap3 { border: 1px solid #C0C0C0; }
 

@@ -12,6 +12,13 @@ Formatted display of the latest result for each team.
 {% block content %}
 {% url 'match_report_rss_feed' as matches_rss %}
 {% url 'match_report_atom_feed' as matches_atom %}
+{% url 'match_list' as match_list_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ match_list_url }}">Matches</a> <span class="divider">/</span></li>
+  <li class="active">Latest Results</li>
+</ul>
 
 <div class="page-header">
     <h1>Latest Results</h1>

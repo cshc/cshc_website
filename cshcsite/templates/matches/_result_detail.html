@@ -1,9 +1,6 @@
 {% load core_tags %}
 {% load thumbnail %}
 
-{% load disqus_tags %}
-
-
 <div class="row match-detail">
     <div class="span6">
         <h4><i class="icon icon-group"></i>Team played</h4>
@@ -78,12 +75,6 @@
 
     {% if match.report_author %}<p class="muted"><i class="icon-pencil" title="written by"></i>{{ match.report_author|urlise_model }}</p>{% endif %}
     {{ match.report_body|safe }}
-    <hr/>
-
-    {% set_disqus_developer 1 %}
-    {% set_disqus_title match.match_title_text %}
-    {% disqus_show_comments %}
-    {% disqus_config request.user %}
 
 </div>
 

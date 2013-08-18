@@ -10,6 +10,13 @@ Formatted display of the next fixture for each team.
 {% block body_id %}next-fixtures{% endblock body_id %}
 
 {% block content %}
+{% url 'match_list' as match_list_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ match_list_url }}">Matches</a> <span class="divider">/</span></li>
+  <li class="active">Next Fixtures</li>
+</ul>
 
 <div class="page-header">
     <h1>Next fixtures</h1>

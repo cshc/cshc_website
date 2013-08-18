@@ -15,6 +15,13 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% url 'matches_by_season_default' as base_matches_by_season_url %}
 {% url 'calendar' as calendar %}
+{% url 'match_list' as match_list_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ match_list_url }}">Matches</a> <span class="divider">/</span></li>
+  <li class="active">{{ season }}</li>
+</ul>
 
 <div class="page-header">
     <h1>All matches <small>{{ season }}</small><div class="pull-right">{% include 'core/_season_selector.html' with url_prefix=base_matches_by_season_url %}</div></h1>
