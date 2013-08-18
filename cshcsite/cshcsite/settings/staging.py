@@ -3,7 +3,7 @@ from .base import *
 import dj_database_url
 
 # TEMP
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ########## DATABASE CONFIGURATION
