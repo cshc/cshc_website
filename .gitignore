@@ -1,4 +1,5 @@
 assets/
+staticfiles
 protected/runtime/
 themes/classic/views/
 *.pyc

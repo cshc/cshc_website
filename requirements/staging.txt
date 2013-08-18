@@ -3,3 +3,7 @@
 # Support for PostgreSQL
 psycopg2==2.5
 
+
+gunicorn==17.5
+static==0.4
+wsgiref==0.1.2
