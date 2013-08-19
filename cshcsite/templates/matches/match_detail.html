@@ -10,6 +10,13 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% block title %}{{ block.super }} | {{ match.match_title_text }}{% endblock %}
 
+{% block extra_head %}
+{{ block.super }}
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "0c7c9558-eec5-47d4-b316-66389b9c6bd0", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+{% endblock extra_head %}
+
 {% block body_id %}match-detail{% endblock body_id %}
 
 {% block content %}
@@ -63,6 +70,11 @@ Currently just lists the values that will be needed by this template - no UI des
 
 <div class="row">
     <hr/>
+    <span class='st_sharethis_large' displayText='ShareThis'></span>
+    <span class='st_facebook_large' displayText='Facebook'></span>
+    <span class='st_twitter_large' displayText='Tweet'></span>
+    <span class='st_googleplus_large' displayText='Google +'></span>
+    <span class='st_email_large' displayText='Email'></span>
 
     {% set_disqus_developer 1 %}
     {% set_disqus_title match.match_title_text %}
