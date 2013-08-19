@@ -5,7 +5,7 @@ Django==1.5
 dj-database-url==0.2.1
 
 # Python Imaging Library fork
-Pillow==2.0.0
+Pillow==2.1
 
 # Database migration
 South==0.7.6
