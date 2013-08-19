@@ -152,7 +152,6 @@ Match Details
 .match-detail { background-color: rgb(221, 231, 217); }
 
 .match-detail .span6 .span3 { margin-left: 0px; }
-.match-detail .media { margin-top: 0px; }
 .match-links .btn { width: 190px; }
 
 .absoluteCenterWrapper { position: relative; /* Contains the image in the div */ }
