@@ -7,4 +7,3 @@ themes/classic/views/
 *.sqlite
 .ropeproject/
 cshcsite/cshcsite/cshc.db
-cshcsite/media/uploads/
