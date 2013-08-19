@@ -424,6 +424,7 @@ TINYMCE_DEFAULT_CONFIG = {
 ########## SORL-THUMBNAIL CONFIGURATION
 # See: http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
 
+THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.cached_db_kvstore.KVStore'
 #THUMBNAIL_ENGINE = 'sorl.thumbnail.engines.pgmagick_engine.Engine'
 THUMBNAIL_DEBUG = True
 ########## END SORL-THUMBNAIL CONFIGURATION
