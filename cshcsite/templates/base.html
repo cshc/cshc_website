@@ -25,6 +25,8 @@
     <link href="{{ STATIC_URL }}clean_canvas/css/theme.css" rel="stylesheet" >
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/project.css" rel="stylesheet">
+
+    <link type="text/css" href="{{ STATIC_URL }}css/feedback.css" rel="stylesheet"/>
     {% endblock head_css %}
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -38,6 +40,7 @@
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
                     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
 
+    {% block head_js %}
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -51,13 +54,15 @@
       })();
 
     </script>
-
-    {% block head_js %}{% endblock head_js %}
+    {% endblock head_js %}
     {% block extra_head %}{% endblock extra_head %}
   </head>
 
   <body class="{% block body_class %}pull_top{% endblock body_class %}" id="{% block body_id %}page{% endblock body_id %}">
     <div id="page-top"></div>
+
+    {% load feedback_widget %}
+    {% feedback_widget %}
 
     {% block menu %}
     <div class="{% block navbar_class %}navbar navbar-inverse navbar-static-top{% endblock navbar_class %}">
@@ -148,6 +153,7 @@
     {#<script src="{{ STATIC_URL }}js/loader.js"></script>#}
     <script src="{{ STATIC_URL }}clean_canvas/js/theme.js"></script>
     <script src="{{ STATIC_URL }}js/project.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/feedback.js"></script>
     {% endblock body_js %}
   </body>
 </html>

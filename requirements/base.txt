@@ -62,3 +62,6 @@ django-maintenancemode==0.10
 
 # Static file serving
 dj-static==0.0.5
+
+# Feedback form
+django-basic-feedback==1.0

@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^about/kit/$',              TemplateView.as_view(template_name='core/kit.html'), name='about_kit'),
     url(r'^about/fees/$',             TemplateView.as_view(template_name='core/fees.html'), name='about_fees'),
     url(r'^about/committee/$',        views.CommitteeView.as_view(), name='about_committee'),
-    
+
     url(r'^stats/$',                  TemplateView.as_view(template_name='core/stats.html'), name='stats'),
 
     url(r'^archive/minutes/$',         TemplateView.as_view(template_name='core/meeting_minutes.html'), name='about_minutes'),
@@ -39,6 +39,7 @@ urlpatterns = patterns('',
     url(r'^archive/social/dinner2007/$', TemplateView.as_view(template_name='core/social/dinner2007.html'), name='dinner2007'),
     url(r'^archive/social/tour2008/$', TemplateView.as_view(template_name='core/social/tour2008.html'), name='tour2008'),
 
+
     # Delegate to apps
     url(r'^matches/', include('matches.urls')),
     url(r'^members/', include('members.urls')),
@@ -46,6 +47,8 @@ urlpatterns = patterns('',
     url(r'^teams/', include('teams.urls')),
     url(r'^venues/', include('venues.urls')),
     url(r'^training/', include('training.urls')),
+
+    url(r'^feedback/', include('feedback.urls')),                  # Ref: https://github.com/SeanHayes/django-basic-feedback
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

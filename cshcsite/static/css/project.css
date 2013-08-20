@@ -228,6 +228,7 @@ Responsive
 /* Hide the top banner on smaller screens */
 @media only screen and (max-width: 767px) {
     #top-banner,
+    #feedback_widget,
     .no-mobile {
         display: none;
     }

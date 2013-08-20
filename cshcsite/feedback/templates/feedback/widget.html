@@ -1,0 +1,18 @@
+{% if user.is_authenticated %}
+<div id="feedback_widget">
+	<div id="feedback_tab" class="feedback_toggle">
+		<button type="button">Feedback</button>
+	</div>
+	<div class="feedback_toggle" id="feedback_panel">
+		<form id="feedback_form" method="post" action="{% url 'feedback' %}">
+			{% csrf_token %}
+			<p>
+				<label for="id_text">This is a new site design - and its <br/>very much a work-in-progress! <br/><br/>Do help us out by providing some <br/>feedback about this page:</label>
+				<textarea cols="40" id="id_text" name="text" rows="10"></textarea>
+			</p>
+			<input type="submit" id="feedback_submit" value="Submit" />
+			<button type="button">Close</button>
+		</form>
+	</div>
+</div>
+{%endif%}
