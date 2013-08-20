@@ -33,7 +33,7 @@ class RssMatchReportsFeed(Feed):
 
     def item_title(self, item):
         """Returns the title of the entry"""
-        return item.match_title_text()
+        return "[{}] {}".format(item.home_away_abbrev(), item.match_title_text())
 
     def item_author_name(self, item):
         """Returns the name of the author (of the match report), or None if no author specified"""
@@ -93,7 +93,7 @@ class MatchICalFeed(ICalFeed):
     def item_location(self, item):
         """Gets the location of a match calendar entry"""
         if item.venue_id is not None:
-            return item.venue.full_address()
+            return "{}, {}".format(item.venue.name, item.venue.full_address())
         else:
             return None
 

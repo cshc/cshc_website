@@ -243,6 +243,14 @@ class Match(models.Model):
         """Returns True if this is a home fixture"""
         return self.home_away == Match.HOME_AWAY.Home
 
+    def home_away_abbrev(self):
+        """ Returns an abbreviated representation of the home/away status
+        """
+        if self.is_home:
+            return 'H'
+        else:
+            return 'A'
+
     def kit_clash(self):
         """Returns true if there is a kit-clash for this fixture
 

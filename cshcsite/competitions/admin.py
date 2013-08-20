@@ -5,7 +5,7 @@ from .models import League, Division, Season, Cup
 
 class CupInline(admin.TabularInline):
     """Inline for cups - allows quick editing of cups in a league"""
-    
+
     model = Cup
     extra = 0
 
@@ -47,6 +47,7 @@ class LeagueAdmin(admin.ModelAdmin):
 class SeasonAdmin(admin.ModelAdmin):
     """Admin interface for the Season model"""
     model = Season
+    list_display = ('__unicode__', 'start', 'end')
     readonly_fields = ('slug',)
 
 

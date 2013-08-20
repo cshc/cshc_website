@@ -34,6 +34,7 @@ class Season(models.Model):
 
     def __unicode__(self):
         return self.slug
+    __unicode__.short_description = 'Season'
 
     def save(self, *args, **kwargs):
         # Make sure the start is before the end!
@@ -41,9 +42,9 @@ class Season(models.Model):
             raise IntegrityError("The start of the season must be before the end of the season")
 
         # Prevent any overlapping seasons
-        if Season.objects.filter(start__lte=self.start, end__gte=self.start).exists():
+        if Season.objects.exclude(pk=self.pk).filter(start__lte=self.start, end__gte=self.start).exists():
             raise IntegrityError("The starting date of this season overlaps with another season")
-        elif Season.objects.filter(start__lte=self.end, end__gte=self.end).exists():
+        elif Season.objects.exclude(pk=self.pk).filter(start__lte=self.end, end__gte=self.end).exists():
             raise IntegrityError("The end date of this season overlaps with another season")
 
         # Automatically set the slug field

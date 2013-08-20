@@ -76,4 +76,7 @@ class Venue(models.Model):
 
     def full_address(self):
         """ Returns the full address with (not None) address items separated by commas."""
-        return ", ".join(filter(None, (self.addr1, self.addr2, self.addr3, self.addr_city, self.addr_postcode)))
+        addr = ", ".join(filter(None, (self.addr1, self.addr2, self.addr3, self.addr_city, self.addr_postcode)))
+        if not addr.strip():
+            return 'Address unknown'
+        return addr
