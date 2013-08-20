@@ -98,7 +98,7 @@ Currently just lists the values that will be needed by this template - no UI des
         </div>
     </div>
     <div class="span6">
-        <img src="{% if participation.team_photo %}{{ participation.team_photo.url }}{% else %}{{ MEDIA_URL }}team_photos/placeholder.jpg{% endif %}" class="img-rounded pull-right team-photo"></img>
+        <img src="{% if participation.team_photo %}{{ participation.team_photo.url }}{% else %}{{ STATIC_URL }}media/team_photos/placeholder.jpg{% endif %}" class="img-rounded pull-right team-photo"></img>
         <p class="caption">{{ participation.team_photo_caption }}</p>
     </div>
 </div>

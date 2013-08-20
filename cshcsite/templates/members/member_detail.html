@@ -35,7 +35,7 @@ Currently just lists the values that will be needed by this template - no UI des
         {% if member.profile_pic %}
             <img class="profile-pic-large" src="{{ member.profile_pic.url }}"/>
         {% else %}
-            <img class="profile-pic-large" src="{{ MEDIA_URL }}profile_pics/default.jpg"/>
+            <img class="profile-pic-large" src="{{ STATIC_URL }}media/profile_pics/default.jpg"/>
         {% endif %}
     </div>
 </div>
