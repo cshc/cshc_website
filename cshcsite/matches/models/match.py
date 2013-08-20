@@ -1,9 +1,11 @@
 import logging
 from django.db import models, IntegrityError
 from django.db.models.query import QuerySet
-from datetime import datetime, date, time
+from django.utils import timezone
+from datetime import datetime, time
 from model_utils import Choices, fields
 from model_utils.managers import PassThroughManager
+from core.models import splitify, not_none_or_empty
 from teams.models import ClubTeam, ClubTeamSeasonParticipation
 from opposition.models import Team
 from members.models import Member
@@ -126,6 +128,9 @@ class Match(models.Model):
     # The actual match report text - can be HTML
     report_body = fields.SplitField("Match report", blank=True)
 
+    # The datetime at which the report was first published
+    report_pub_timestamp = models.DateTimeField("Match report publish timestamp", editable=False, default=None, null=True)
+
     # Advanced fields - typically leave as default value ######################
 
     # If True, this match should NOT count towards Goal King stats
@@ -223,6 +228,14 @@ class Match(models.Model):
         else:
             self.cup = None    # Clear the cup field
 
+        # Automatically add a split in the match report and pre-match-hype
+        self.report_body = splitify(self.report_body.content)
+        self.pre_match_hype = splitify(self.pre_match_hype.content)
+
+        # Timestamp the report publish datetime when its first created
+        if self.report_pub_timestamp is None and not_none_or_empty(self.report_body.content):
+            self.report_pub_timestamp = timezone.now()
+
         super(Match, self).save(*args, **kwargs)
 
     @property
@@ -272,7 +285,7 @@ class Match(models.Model):
 
     def time_display(self):
         """ Gets a formatted display of the match time.
-            
+
             If the match time is not known, returns '???'
             if the match is in the past or 'TBD' if the match
             is in the future.
@@ -283,7 +296,7 @@ class Match(models.Model):
             return '???'
         else:
             return 'TBD'
-            
+
     def match_title_text(self):
         """
         Gets an appropriate match title regardless of the status of the match.
@@ -387,4 +400,4 @@ class Match(models.Model):
             return '???'
         else:
             return 'TBD'
-            
+

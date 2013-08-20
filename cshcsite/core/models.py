@@ -1,6 +1,7 @@
 import logging
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
@@ -11,9 +12,14 @@ from model_utils import Choices
 log = logging.getLogger(__name__)
 
 
+def is_none_or_empty(s):
+    """Given a string, returns True if the string is equal to None and is not empty"""
+    return s is None or s.strip() == ""
+
+
 def not_none_or_empty(s):
     """Given a string, returns True if the string is not equal to None and is not empty"""
-    return s is not None and s.strip() != ""
+    return not is_none_or_empty(s)
 
 
 def first_or_none(q):
@@ -49,6 +55,17 @@ def ordinal_from_TeamOrdinal(team_ordinal):
     """Given a team ordinal, returns the actual ordinal part (stripping off the leading 'T')"""
     return team_ordinal.lstrip('T')
 
+def splitify(text):
+    """ Ensures a SPLIT_MARKER is inserted after the first paragraph of text.
+        Returns the text with the SPLIT_MARKER.
+
+        Ref: https://django-model-utils.readthedocs.org/en/latest/fields.html#splitfield
+    """
+    if text:
+        if not settings.SPLIT_MARKER in text:
+            if '</p><p>' in text:
+                text = text.replace('</p><p>', '</p>\r\n{}\r\n<p>'.format(settings.SPLIT_MARKER), 1)
+    return text
 
 class ClubInfo(models.Model):
     """This model is used as a look-up table for club information where the actual

@@ -22,7 +22,7 @@ class Division(models.Model):
         app_label = 'competitions'
         # A division's name must be unique within a league.
         # However two different leagues can have divisions with the same name
-        unique_together = ('name', 'league',)
+        unique_together = ('name', 'league', 'gender')
         ordering = ['league', 'gender', 'name']
 
     def __unicode__(self):

@@ -11,6 +11,7 @@ from opposition.models import Club, Team
 from matches.models import Match, Appearance
 from awards.models import MatchAward, MatchAwardWinner
 from core.models import TeamGender, TeamOrdinal
+from django.conf import settings
 
 old_date_format = '%d/%m/%Y'    # e.g. '01/09/2009'
 old_time_format1 = '%H:%M:%S'   # e.g. '00:00:00'
@@ -241,11 +242,12 @@ class Old_Matches(Old_Table_Entry):
             self.Home_Away = 'Away'
         # Tidy up/sanitize match report HTML
         if self.Match_Report is not None:
-            self.Match_Report = self.Match_Report.rstrip('\n').replace('\n', '</p><p>')
+            self.Match_Report = '<p>' + self.Match_Report.lstrip('<p>').rstrip('\n').replace('\n', '</p><p>') + '</p>'
             # Add support for 'excerpt' from a match report (ref https://github.com/carljm/django-model-utils#splitfield)
-            self.Match_Report = self.Match_Report.replace('</p><p>', '<!-- split -->', 1)
-            if not self.Match_Report.startswith('<'):
-                self.Match_Report = u"<p>{}</p>".format(self.Match_Report)
+            self.Match_Report = self.Match_Report.replace('</p><p>', '</p>\r\n{}\r\n<p>'.format(settings.SPLIT_MARKER), 1)
+
+            # Correct urls to media
+            self.Match_Report = self.Match_Report.replace('cambridgesouthhockeyclub.co.uk/media/', 'cambridgesouthhockeyclub.co.uk/static/media/')
 
         # TEMP
         #self.Match_Report = ''
@@ -470,11 +472,11 @@ class Old_Players(Old_Table_Entry):
             self.Surname = '???'
             self.Sex = 'Female'
         elif self.Surname == 'Joyce':
-            self.warnings.append("'Joyce' has no surname. Setting to '???'.")
+            self.warnings.append("'Joyce' has no first. Setting to '???'.")
             self.First_Name = 'Joyce'
             self.Surname = '???'
             self.Sex = 'Female'
-        elif self.Surname in ('Seigo', 'Clark'):
+        elif not self.First_Name and self.Surname in ('Seigo', 'Clark', 'Milbourn', 'Matthews'):
             self.warnings.append("'{}' has no first name. Setting to '???'.".format(self.Surname))
             self.First_Name = '???'
 

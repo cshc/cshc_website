@@ -48,11 +48,14 @@ TEMPLATE_DEBUG = DEBUG
 ########## MANAGER CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
-    ('Graham McCulloch', 'admin@grahammcculloch.co.uk'),
+    ('Graham McCulloch', 'website@cambridgesouthhockeyclub.co.uk'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
+
+SERVER_EMAIL = 'website@cambridgesouthhockeyclub.co.uk'
+
 ########## END MANAGER CONFIGURATION
 
 
@@ -341,6 +344,7 @@ WSGI_APPLICATION = 'wsgi.application'
 
 ########## MODEL-UTILS CONFIGURATION
 # See: https://github.com/carljm/django-model-utils
+SPLIT_MARKER = '<!-- split -->'
 SPLIT_DEFAULT_PARAGRAPHS = 1
 ########## END MODEL-UTILS CONFIGURATION
 
@@ -364,7 +368,7 @@ TWITTER_CONSUMER_SECRET = 'UDzGvhx2qQBodi8PY70a6ShFp2j0hZHocr7ZardkdlU'
 ########## MISC CONFIGURATION
 
 # See: https://docs.djangoproject.com/en/1.5/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = 'webmaster@cambridgesouthhockeyclub.co.uk'
+DEFAULT_FROM_EMAIL = 'website@cambridgesouthhockeyclub.co.uk'
 
 # See: https://docs.djangoproject.com/en/1.5/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = 'user_profile'

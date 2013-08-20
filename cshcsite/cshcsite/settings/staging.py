@@ -6,6 +6,8 @@ import dj_database_url
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+TEMPLATE_STRING_IF_INVALID = '######'
+
 ########## DATABASE CONFIGURATION
 DATABASES = {'default': dj_database_url.config()}
 ########## END DATABASE CONFIGURATION

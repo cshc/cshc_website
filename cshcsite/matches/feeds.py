@@ -11,8 +11,8 @@ log = logging.getLogger(__name__)
 
 
 class RssMatchReportsFeed(Feed):
-    """ 
-    Represents a feed of match reports. 
+    """
+    Represents a feed of match reports.
     Note: Default feed_type is RSS 2
     """
 
@@ -25,7 +25,7 @@ class RssMatchReportsFeed(Feed):
 
     def feed_url(self):
        return reverse('match_report_rss_feed')
-    
+
     def items(self):
         """ Returns the latest 10 match reports."""
         # TODO: Decide on number of reports to return
@@ -46,10 +46,8 @@ class RssMatchReportsFeed(Feed):
         return item.report_body
 
     def item_pubdate(self, item):
-        """Currently returns the date of the match itself (not actually when the report was 'published')"""
-        # TODO: This is not the published date but the actual date on which the match was played.
-        #       Do we need a report_pub_date field?
-        return item.datetime()
+        """Returns the date the match report was first published"""
+        return item.report_pub_date
 
 
 class AtomMatchReportsFeed(RssMatchReportsFeed):
@@ -69,8 +67,8 @@ class MatchICalFeed(ICalFeed):
     """
     The iCal calendar feed for all matches.
 
-    This feed returns all matches for the current season. By subscribing to this feed, anyone can see all CSHC matches 
-    in their own calendar. As match results are entered on the Cambridge South site, their calendar 
+    This feed returns all matches for the current season. By subscribing to this feed, anyone can see all CSHC matches
+    in their own calendar. As match results are entered on the Cambridge South site, their calendar
     will reflect these updates (i.e. the calendar entry title of matches in the past will contain the match score)."
     """
     product_id = '-//cambridgesouthhockeyclub.co.uk//Calendar 1.0//EN'
@@ -104,13 +102,13 @@ class MatchICalFeed(ICalFeed):
         return item.datetime()
 
     def item_end_datetime(self, item):
-        """Gets the end time of a match calendar entry. 
-        
-        If the start time is known, this is 70 minutes after the start time. 
+        """Gets the end time of a match calendar entry.
+
+        If the start time is known, this is 70 minutes after the start time.
         Otherwise it is just the same date as the start time.
         """
         if item.time is not None:
             return item.datetime() + timedelta(minutes=70)
         else:
             return item.datetime()
-    
+

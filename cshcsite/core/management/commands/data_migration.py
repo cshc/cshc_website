@@ -287,6 +287,9 @@ class Command(BaseCommand):
         new_divisions['Division 6NW'], created = Division.objects.get_or_create(name='Division 6NW', league=leagues['East League'], gender=TeamGender.Mens)
         new_divisions['Division 7NW'], created = Division.objects.get_or_create(name='Division 7NW', league=leagues['East League'], gender=TeamGender.Mens)
 
+        new_divisions['Division 3NW(S)'], created = Division.objects.get_or_create(name='Division 3NW(S)', league=leagues['East League'], gender=TeamGender.Ladies)
+        new_divisions['Division 4NW(S)'], created = Division.objects.get_or_create(name='Division 4NW(S)', league=leagues['East League'], gender=TeamGender.Ladies)
+
         # Cambs League
         new_divisions['Premier Division'], created = Division.objects.get_or_create(name='Premier Division', league=leagues['Cambs League'], gender=TeamGender.Ladies)
         new_divisions['1st Division'], created = Division.objects.get_or_create(name='1st Division', league=leagues['Cambs League'], gender=TeamGender.Ladies)
