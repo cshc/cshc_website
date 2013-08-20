@@ -43,7 +43,7 @@ def get_disqus_sso(user):
         // This adds the custom login/logout functionality
         this.sso = {
               name:   "CSHC",
-              button:  "/media/disqus-sso-login-button.gif",
+              button:  "/static/media/disqus-sso-login-button.gif",
               //icon:     "http://%(domain)s/favicon.png",
               url:        "http://%(domain)s/members/login/",
               logout:  "http://%(domain)s/members/logout/",

@@ -4,6 +4,7 @@ from datetime import datetime
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.conf import settings
 import django_mobile
 from core.views import AjaxGeneral, saturdays_in_range
 
@@ -41,7 +42,7 @@ class ClubTeamListView(TemplateView):
                 team.photo = ClubTeamSeasonParticipation.objects.current().by_team(team)[0].team_photo.url
             except:
                 log.warn("Could not get team photo for {}".format(team))
-                team.photo = '/media/team_photos/placeholder_small.jpg'  # TODO: Team photo placeholder
+                team.photo = settings.STATIC_URL + 'media/team_photos/placeholder_small.jpg'  # TODO: Team photo placeholder
             # team.blurb = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque ' + \
             #              'laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi ' + \
             #              'architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas ' + \
