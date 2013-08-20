@@ -230,6 +230,14 @@ class Match(models.Model):
         """Returns True if this is a home fixture"""
         return self.home_away == Match.HOME_AWAY.Home
 
+    def home_away_abbrev(self):
+        """ Returns an abbreviated representation of the home/away status
+        """
+        if self.is_home:
+            return 'H'
+        else:
+            return 'A'
+
     def kit_clash(self):
         """Returns true if there is a kit-clash for this fixture
 
@@ -272,7 +280,7 @@ class Match(models.Model):
 
     def time_display(self):
         """ Gets a formatted display of the match time.
-            
+
             If the match time is not known, returns '???'
             if the match is in the past or 'TBD' if the match
             is in the future.
@@ -283,7 +291,7 @@ class Match(models.Model):
             return '???'
         else:
             return 'TBD'
-            
+
     def match_title_text(self):
         """
         Gets an appropriate match title regardless of the status of the match.
@@ -387,4 +395,4 @@ class Match(models.Model):
             return '???'
         else:
             return 'TBD'
-            
+
