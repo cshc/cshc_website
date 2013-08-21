@@ -1,14 +1,23 @@
 import logging
 from datetime import timedelta
 from django.contrib.syndication.views import Feed
-from django.utils.feedgenerator import Atom1Feed
+from django.utils.feedgenerator import Atom1Feed, Rss201rev2Feed
 from django.core.urlresolvers import reverse
-from core.models import not_none_or_empty
+from django.contrib.sites.models import Site
 from django_ical.views import ICalFeed
 from .models import Match
 
 log = logging.getLogger(__name__)
 
+
+class ImageRssFeedGenerator(Rss201rev2Feed):
+    def add_root_elements(self, handler):
+        super(ImageRssFeedGenerator, self).add_root_elements(handler)
+        handler.startElement(u'image', {})
+        handler.addQuickElement(u"url", self.feed['image_url'])
+        handler.addQuickElement(u"title", self.feed['title'])
+        handler.addQuickElement(u"link", self.feed['link'])
+        handler.endElement(u'image')
 
 class RssMatchReportsFeed(Feed):
     """
@@ -17,11 +26,14 @@ class RssMatchReportsFeed(Feed):
     """
 
     _item_count = 10
-
+    feed_type = ImageRssFeedGenerator
     title = "Cambridge South Hockey Club Match Reports"
-    link = "/"
+    link = "http://" + Site.objects.all()[0].domain
     description = "Updates when new match reports are published for Cambridge South Hockey Club matches."
     feed_copyright = "Copyright (c) 2013, Cambridge South Hockey Club"
+
+    def feed_extra_kwargs(self, obj):
+        return {'image_url': self.link + '/static/media/crest.png'}
 
     def feed_url(self):
        return reverse('match_report_rss_feed')
@@ -51,7 +63,7 @@ class RssMatchReportsFeed(Feed):
 
     def item_pubdate(self, item):
         """Returns the date the match report was first published"""
-        return item.report_pub_date
+        return item.report_pub_timestamp
 
 
 class AtomMatchReportsFeed(RssMatchReportsFeed):
