@@ -51,7 +51,11 @@ Currently just lists the values that will be needed by this template - no UI des
                 {% endif %}
                 </p>
         {% endif %}
-        <p>{{ clubteam.blurb|safe }}</p>
+        {% if participation and participation.blurb %}
+            <p>{{ participation.blurb|safe }}</p>
+        {% else %}
+            <p>{{ clubteam.blurb|safe }}</p>
+        {% endif %}
 
         {% url 'admin:teams_teamcaptaincy_add' as admin_url_add_captaincy %}
 
