@@ -31,9 +31,13 @@ class RssMatchReportsFeed(Feed):
         # TODO: Decide on number of reports to return
         return Match.objects.reports().reverse()[:RssMatchReportsFeed._item_count]
 
+    def item_link(self, item):
+        """Gets the link/url of a match report entry"""
+        return item.get_absolute_url()
+
     def item_title(self, item):
         """Returns the title of the entry"""
-        return "[{}] {}".format(item.home_away_abbrev(), item.match_title_text())
+        return item.match_title_text()
 
     def item_author_name(self, item):
         """Returns the name of the author (of the match report), or None if no author specified"""
@@ -82,9 +86,13 @@ class MatchICalFeed(ICalFeed):
         """Gets all the matches that make up the calendar entries"""
         return Match.objects.this_season().select_related('our_team', 'opp_team__club', 'venue').order_by('date')
 
+    def item_description(self, item):
+        """Returns the item description - the actual match report"""
+        return item.match_title_text()
+
     def item_title(self, item):
         """Gets the title of a match calendar entry"""
-        return item.fixture_title()
+        return "[{}] {}".format(item.home_away_abbrev(), item.fixture_title())
 
     def item_link(self, item):
         """Gets the link/url of a match calendar entry"""

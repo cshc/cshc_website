@@ -36,9 +36,11 @@ class MatchesBySeasonView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MatchesBySeasonView, self).get_context_data(**kwargs)
 
-        if self.season_slug is None:
-            self.season_slug = kwargs['season_slug']
-        season = Season.objects.get(slug=self.season_slug)
+        season_slug = kwargs_or_none('season_slug', **kwargs)
+        if season_slug is not None:
+            season = Season.objects.get(slug=season_slug)
+        else:
+            season = Season.current()
 
         match_list = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(season=season).defer('report_body', 'pre_match_hype').order_by('date')
 

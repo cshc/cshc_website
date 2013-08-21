@@ -11,7 +11,7 @@ class TeamCaptaincy(models.Model):
     """Represents a member's term as captain of a team"""
 
     member = models.ForeignKey(Member)
-    
+
     team  = models.ForeignKey(ClubTeam)
 
     is_vice = models.BooleanField("Vice-captain?", default=False, help_text="Check if this member is the vice captain (as opposed to the captain)")
@@ -49,9 +49,9 @@ class TeamCaptaincy(models.Model):
     def _get_captain(team, season, is_vice):
         """Returns a Member object corresponding to the captain/vice-captain for the specified team and season, or None if there was no captaincy could be found"""
         try:
-            captaincy = first_or_none(TeamCaptaincy.objects.filter(team=team, start__lte=season.start, is_vice=is_vice).order_by('-start'))
+            captaincy = first_or_none(TeamCaptaincy.objects.filter(team=team, start__lte=season.end, is_vice=is_vice).order_by('-start'))
             if captaincy is not None:
                 return captaincy.member
         except TeamCaptaincy.DoesNotExist:
-            pass            
+            pass
         return None

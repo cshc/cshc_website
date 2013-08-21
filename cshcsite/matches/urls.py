@@ -24,7 +24,7 @@ urlpatterns = patterns('',
 
     # E.g. '/matches/by-season/'
     url(r'^by-season/$',
-        views.MatchesBySeasonView.as_view(**{'season_slug':Season.current().slug}),
+        views.MatchesBySeasonView.as_view(),
         name="matches_by_season_default"
     ),
 

@@ -41,7 +41,7 @@ Filter-able, sortable, paginated display of members.
             </thead>
             {% for member in sorted_filter_list %}
                 <tr>
-                    <td class="priority3">{# TODO: photo #}</td>
+                    <td class="priority3">{% include 'members/_profile_pic_thumbnail.html' %}</td>
                     <td>{{ member.first_name }}</td>
                     <td>{{ member.last_name }}</td>
                     <td>{{ member.get_gender_display }}</td>
