@@ -2,8 +2,7 @@
 from .base import *
 import dj_database_url
 
-# TEMP
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 TEMPLATE_STRING_IF_INVALID = '######'
