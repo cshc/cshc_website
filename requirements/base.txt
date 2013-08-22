@@ -65,3 +65,7 @@ dj-static==0.0.5
 
 # Feedback form
 django-basic-feedback==1.0
+
+# Storage (e.g. Amazon S3)
+boto==2.10.0
+django-storages

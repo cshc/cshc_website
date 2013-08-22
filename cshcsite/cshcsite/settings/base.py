@@ -229,6 +229,7 @@ THIRD_PARTY_APPS = (
     'sorter',
     'disqus',
     'maintenancemode',
+    'storages',
 )
 
 # Apps specific for this project go here.
@@ -480,3 +481,14 @@ MAINTENANCE_IGNORE_URLS = (
     r'^/admin/.*',
 )
 ########## END django-maintenancemode CONFIGURATION
+
+########## django-storages CONFIGURATION
+# Ref: http://blog.doismellburning.co.uk/2012/07/14/using-amazon-s3-to-host-your-django-static-files/
+if not DEBUG:
+    AWS_ACCESS_KEY_ID = "AKIAIE3O6JWRZZRETY5Q"
+    AWS_SECRET_ACCESS_KEY = "SWi8SckLV8IIkWmKNN/6BMUDbqSV/y3RK1wU4N7T"
+    AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = S3_URL
+########## END django-storages CONFIGURATION
