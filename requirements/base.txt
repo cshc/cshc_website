@@ -69,3 +69,4 @@ django-basic-feedback==1.0
 # Storage (e.g. Amazon S3)
 boto==2.10.0
 django-storages
+django-s3-folder-storage==0.1

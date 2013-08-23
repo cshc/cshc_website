@@ -230,6 +230,7 @@ THIRD_PARTY_APPS = (
     'disqus',
     'maintenancemode',
     'storages',
+    's3_folder_storage',
 )
 
 # Apps specific for this project go here.
@@ -488,9 +489,13 @@ if not DEBUG:
     AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID') # ""
     AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY') # ""
     AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = S3_URL
-    MEDIA_URL = S3_URL
+    DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
+    DEFAULT_S3_PATH = "media"
+    STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
+    STATIC_S3_PATH = "static"
+    MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
+    MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_ROOT = "/%s/" % STATIC_S3_PATH
+    STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
+    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 ########## END django-storages CONFIGURATION
