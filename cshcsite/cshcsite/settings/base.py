@@ -486,8 +486,9 @@ MAINTENANCE_IGNORE_URLS = (
 ########## django-storages CONFIGURATION
 # Ref: http://blog.doismellburning.co.uk/2012/07/14/using-amazon-s3-to-host-your-django-static-files/
 if not DEBUG:
-    AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID') # ""
-    AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY') # ""
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
     DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
     DEFAULT_S3_PATH = "media"
