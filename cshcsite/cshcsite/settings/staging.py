@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ['*']
 
 # Ref: https://pypi.python.org/pypi/dj-static
 #STATIC_ROOT = 'staticfiles'
-STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
+#STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
