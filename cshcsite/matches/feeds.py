@@ -123,16 +123,19 @@ class MatchICalFeed(ICalFeed):
 
     def item_start_datetime(self, item):
         """Gets the start time of a match calendar entry"""
-        return item.datetime()
+        if item.time is not None:
+            return item.datetime()
+        else:
+            return item.date
 
     def item_end_datetime(self, item):
         """Gets the end time of a match calendar entry.
 
-        If the start time is known, this is 70 minutes after the start time.
+        If the start time is known, this is 90 minutes after the start time.
         Otherwise it is just the same date as the start time.
         """
         if item.time is not None:
-            return item.datetime() + timedelta(minutes=70)
+            return item.datetime() + timedelta(minutes=90)
         else:
-            return item.datetime()
+            return item.date
 
