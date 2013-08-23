@@ -16,6 +16,10 @@ TEMPLATE_DEBUG = DEBUG
 TEMPLATE_STRING_IF_INVALID = '######'
 ########## END DEBUG CONFIGURATION
 
+MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
+MEDIA_URL = '/media/'
+STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
+STATIC_URL = '/static/'
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
