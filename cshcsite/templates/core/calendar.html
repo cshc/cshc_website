@@ -43,7 +43,11 @@ All -  i7ngcunrs8icf3btp6llk1eav1bvuqol@import.calendar.google.com
 Training -  518kso0el5ciomvkf2fhmtuadgg09e31@import.calendar.google.com
 {% endcomment %}
 
-<iframe frameborder="0" height="800" scrolling="no" src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;mode=MONTH&amp;height800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;
+<div class="row">
+    <div class="span12">
+<iframe frameborder="0" height="800" scrolling="no" src="https://www.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showTz=0&amp;
+mode={% if flavour = 'mobile' %}AGENDA{% else %}MONTH{% endif %}&amp;
+height800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;
 src={{ m1_gcal }}&amp;color=%238C500B&amp;
 src={{ m2_gcal }}&amp;color=%23182C57&amp;
 src={{ m3_gcal }}&amp;color=%23125A12&amp;
@@ -52,7 +56,9 @@ src={{ m5_gcal }}&amp;color=%2342104A&amp;
 src={{ l1_gcal }}&amp;color=%238D500B&amp;
 src={{ l2_gcal }}&amp;color=%238D500B&amp;
 src={{ training_gcal }}&amp;color=%238C500B&amp;
-ctz=Europe%2FLondon" style="border-right-width: 0px; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" width="800"></iframe>
+ctz=Europe%2FLondon" style="border-right-width: 0px; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" width="100%"></iframe>
+    </div>
+</div>
 
 <section id="feeds">
 <div class="section_header">
