@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+from django.conf import settings
 from core.models import not_none_or_empty
 from matches.models import Match
 from matches.feeds import MatchICalFeed, ImageRssFeedGenerator
@@ -46,6 +47,7 @@ class RssClubTeamMatchReportsFeed(Feed):
        return "Cambridge South Hockey Club {} Match Reports".format(obj.long_name)
 
     link = "http://" + Site.objects.all()[0].domain
+    icon = settings.STATIC_URL + 'ico/favicon.ico'
 
     def description(self, obj):
        return "Updates when new match reports are published for Cambridge South Hockey Club {} matches.".format(obj.long_name)
@@ -53,7 +55,7 @@ class RssClubTeamMatchReportsFeed(Feed):
     feed_copyright = "Copyright (c) 2013, Cambridge South Hockey Club"
 
     def feed_extra_kwargs(self, obj):
-        return {'image_url': self.link + '/static/media/crest.png'}
+        return {'image_url': settings.STATIC_URL + 'media/crest.png'}
 
     def get_object(self, request, slug):
         return get_object_or_404(ClubTeam, slug=slug)
