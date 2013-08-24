@@ -1,0 +1,6 @@
+{% url 'member_stats_ajax' member.pk as member_stats %}
+<script>
+    $(function () {
+        ajax_load('{{ member_stats }}', 'stats');
+    });
+</script>

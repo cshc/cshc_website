@@ -1,0 +1,84 @@
+{% url 'user_profile' as user_profile %}
+
+<div class="row">
+
+    <div class="span8">
+        <div id="stats-wrapper">
+        <h3><i class="icon-table icon-large"></i>Player Stats</h3>
+            {% include 'core/_loading_placeholder.html' with placeholder_id="stats" placeholder_text="Loading member stats..." %}
+        </div>
+    </div>
+
+    <div class="span4">
+        {% if member.profile_pic %}
+            <img id="profile-pic" class="profile-pic-large" src="{{ member.profile_pic.url }}"/>
+        {% else %}
+            <img id="profile-pic" class="profile-pic-large" src="{{ STATIC_URL }}media/profile_pics/default.jpg"/>
+        {% endif %}
+        {% if member.user == request.user and is_profile %}
+        <div class="box side-box">
+            {% url 'password_change' as password_change %}
+            <div class="accordion" id="edit-profile-accordion">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#edit-profile-accordion" href="#collapseOne">
+                        Edit your profile
+                      </a>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <form enctype="multipart/form-data" action="{{ user_profile }}" method="post">{% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Save" />
+                        </form>
+                        <p><a href="{{ password_change }}">Change your password...</a></p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+{% if recent_match_reports %}
+<div class="span8">
+    <h3><i class="icon-file-alt icon-large"></i>Match reports by {{ member }}</h3>
+    <table class="table table-condensed">
+        <tbody>
+            {% for match in recent_match_reports %}
+                <tr><td>{{ match.date|date:"d-M-y" }}</td><td><a href="{{ match.get_absolute_url }}">{{ match.report_title }}</a></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if recent_match_awards %}
+<div class="span4">
+    <h3><i class="icon-star icon-large"></i>Latest match awards</h3>
+    <table class="table table-condensed">
+        <tbody>
+            {% for award in recent_match_awards %}
+                <tr><td>{{ award.match.date|date:"d-M-y" }}</td><td><a href="{{ award.match.get_absolute_url }}" title="Match details">{{ award.award.name }}</a></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if recent_end_of_season_awards %}
+<div class="span4">
+    <h3><i class="icon-trophy icon-large"></i>End of Season Awards</h3>
+    <table class="table table-condensed">
+        <tbody>
+            {% for award in recent_end_of_season_awards %}
+                <tr><td>{{ award.season }}</td><td>{{ award.award.name }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+</div>

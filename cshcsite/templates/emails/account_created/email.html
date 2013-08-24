@@ -1,0 +1,21 @@
+{% url 'login' as login %}
+{% url 'password_reset' as password_reset %}
+
+<p>Hello {{ first_name }},</p>
+
+<p>This is probably the moment you've been waiting for your whole life. And its finally here!</p>
+
+<p>A user account has been created for you on the <a href="{{  base_url }}">Cambridge South Hockey Club website</a>. You can login using
+the following credentials:</p>
+
+<p>Email address: <strong>{{ email }}</strong><br/>
+Password: <strong>{{ password }}</strong></p>
+
+<p>You should probably <a href="http://{{  base_url }}{{ login }}">sign in</a> soon and then <a href="{{  base_url }}{{ password_reset }}">reset
+    your password</a> to something you will remember.</p>
+
+<p>Now go check out the site! Comment on match reports, subscribe to the RSS feeds and the team's calendars, and much much more :-).
+    If you have any questions, feel free to just reply to this email.</p>
+<p>Thanks,</p>
+<p>Cambridge South Hockey Club</p>
+
