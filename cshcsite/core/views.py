@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.contrib import messages
 from django.template import RequestContext, loader, Context
 from django.core.mail import send_mail, BadHeaderError
+from django.contrib.sites.models import Site
 from django.utils.decorators import method_decorator
 from .models import ClubInfo, ContactSubmission, CshcUser
 from .forms import ContactSubmissionForm, UserCreationForm
@@ -15,6 +16,9 @@ log = logging.getLogger(__name__)
 one_day = timedelta(days=1)
 one_week = timedelta(days=7)
 
+
+def is_prod_site():
+    Site.objects.all()[0].domain_name.contains('cambridgesouthhockeyclub')
 
 def saturdays_in_season(season):
     """ Gets a list of all the Saturdays (match days) in the given season. """

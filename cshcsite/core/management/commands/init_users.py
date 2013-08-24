@@ -3,6 +3,7 @@
 import traceback
 from django.core.management.base import BaseCommand
 from django.template import loader, Context
+from django.contrib.sites.models import Site
 from optparse import make_option
 from core.models import CshcUser
 
@@ -50,6 +51,7 @@ class Command(BaseCommand):
             'last_name': user.last_name,
             'email': user.email,
             'password': password,
+            'base_url': "http://" + Site.objects.all()[0].domain
         })
 
         subject = "Your new Cambridge South Hockey Club website account"

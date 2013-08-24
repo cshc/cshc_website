@@ -500,3 +500,6 @@ if not DEBUG:
     STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 ########## END django-storages CONFIGURATION
+
+# Ref: http://www.civicuk.com/cookie-law/index
+COOKIE_CTRL_API_KEY = get_env_setting('COOKIE_CTRL_API_KEY')

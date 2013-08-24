@@ -30,3 +30,14 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 DISQUS_WEBSITE_SHORTNAME = 'cshc-staging'
 
 ########## END django-disqus CONFIGURATION
+
+
+########## EMAIL CONFIGURATION
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'cshc.club@gmail.com'
+EMAIL_HOST_PASSWORD = get_env_setting('EMAIL_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+########## END EMAIL CONFIGURATION
+
+COOKIE_CTRL_API_KEY = get_env_setting('COOKIE_CTRL_API_KEY')

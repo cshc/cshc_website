@@ -26,6 +26,7 @@ class HomeView(TemplateView):
         # Upcoming Training
         UpcomingTrainingSessionsView.add_upcoming_training_to_context(context)
 
+        context['cookie_ctrl_api_key'] = settings.COOKIE_CTRL_API_KEY
         return context
 
 
