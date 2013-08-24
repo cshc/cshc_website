@@ -1,0 +1,26 @@
+
+<script src="{{ STATIC_URL }}js/cookieControl-6.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+  cookieControl({
+      t: {
+          title: '<p>This site uses cookies to store information on your computer.</p>',
+          intro: '<p>Some of these cookies are essential to make our site work and others help us to improve by giving us some insight into how the site is being used.</p>',
+          full:'<p>These cookies are set when you submit a form, login or interact with the site by doing something that goes beyond clicking some simple links.</p><p>We also use some non-essential cookies to anonymously track visitors or enhance your experience of this site. If you\'re not happy with this, we won\'t set these cookies but some nice features on the site may be unavailable.</p><p>To control third party cookies, you can also <a class="ccc-settings" href="../../cookie-law/browser-settings" target="_blank">adjust your browser settings.</a></p>'
+      },
+      position:CookieControl.POS_LEFT,
+      style:CookieControl.STYLE_TRIANGLE,
+      theme:CookieControl.THEME_LIGHT, // light or dark
+      startOpen:true,
+      autoHide:7000,
+      subdomains:true,
+      protectedCookies: [], //list the cookies you do not want deleted, for example ['analytics', 'twitter']
+      apiKey: '{{ cookie_ctrl_api_key }}',
+      product: CookieControl.PROD_FREE,
+      consentModel: CookieControl.MODEL_INFO,
+      onAccept:function(){},
+      onReady:function(){},
+      onCookiesAllowed:function(){},
+      onCookiesNotAllowed:function(){}
+      });
+   //]]>
+</script>
