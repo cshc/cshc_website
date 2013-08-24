@@ -7,13 +7,11 @@ Expected context:
 {% endcomment %}
 
 {% load thumbnail %}
-{% comment %}
 {% thumbnail member.profile_pic "50x50" crop="center" as im %}
     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 {% empty %}
 	<img src="{{ STATIC_URL }}media/profile_pics/default.jpg" width="50" height="50">
 {% endthumbnail %}
-{% endcomment %}
 
 {# TEMP #}
-<img src="{{ STATIC_URL }}media/profile_pics/default.jpg" width="50" height="50">
+{#<img src="{{ STATIC_URL }}media/profile_pics/default.jpg" width="50" height="50">#}
