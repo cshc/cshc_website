@@ -38,7 +38,7 @@ class Member(models.Model):
                        (9, 'Other', 'Not known'))
 
     # An optional profile picture of the member
-    profile_pic = models.ImageField(upload_to='uploads/profile_pics', null=True, blank=True)
+    profile_pic = models.ImageField("Profile picture", upload_to='uploads/profile_pics', null=True, blank=True)
 
     # The member's gender
     gender = models.CharField("Gender", max_length=6, choices=GENDER, default=GENDER.Male)

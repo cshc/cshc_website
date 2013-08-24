@@ -3,10 +3,12 @@
 {% comment %}
 Formatted display of the details of a particular opposition team.
 - Used by opposition_team_detail
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | {{ team }}{% endblock %}
+
+{% block body_id %}team-detail{% endblock body_id %}
 
 {% block content %}
 

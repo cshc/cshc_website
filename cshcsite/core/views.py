@@ -155,7 +155,7 @@ class ContactSubmissionCreateView(FormView):
         return super(ContactSubmissionCreateView, self).form_valid(form)
 
     def form_invalid(self, form):
-        messages.info(
+        messages.error(
             self.request,
             "Submission failed. Errors: {}".format(form.errors)
         )

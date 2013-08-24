@@ -8,6 +8,8 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% block title %}{{ block.super }} | {{ member }}{% endblock %}
 
+{% block body_id %}member-detail{% endblock body_id %}
+
 {% block content %}
 
 {% url 'member_list' as member_list_url %}
@@ -22,65 +24,8 @@ Currently just lists the values that will be needed by this template - no UI des
   <h1>{{ member }} {% if member.pref_position != 9 %}<small>{{ member.get_pref_position_display|capfirst }} </small>{% endif %}{% if member.is_current %}<span class="label label-success">Current</span>{% endif %}</h1>
 </div>
 
-<div class="row">
+{% include 'members/_member_details.html' %}
 
-    <div class="span8">
-        <div id="stats-wrapper">
-        <h3><i class="icon-table icon-large"></i>Player Stats</h3>
-            {% include 'core/_loading_placeholder.html' with placeholder_id="stats" placeholder_text="Loading member stats..." %}
-        </div>
-    </div>
-
-    <div class="span4">
-        {% if member.profile_pic %}
-            <img class="profile-pic-large" src="{{ member.profile_pic.url }}"/>
-        {% else %}
-            <img class="profile-pic-large" src="{{ STATIC_URL }}media/profile_pics/default.jpg"/>
-        {% endif %}
-    </div>
-</div>
-
-<div class="row">
-{% if recent_match_reports %}
-<div class="span8">
-    <h3><i class="icon-file-alt icon-large"></i>Match reports by {{ member }}</h3>
-    <table class="table table-condensed">
-        <tbody>
-            {% for match in recent_match_reports %}
-                <tr><td>{{ match.date|date:"d-M-y" }}</td><td><a href="{{ match.get_absolute_url }}">{{ match.report_title }}</a></td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endif %}
-
-{% if recent_match_awards %}
-<div class="span4">
-    <h3><i class="icon-star icon-large"></i>Latest match awards</h3>
-    <table class="table table-condensed">
-        <tbody>
-            {% for award in recent_match_awards %}
-                <tr><td>{{ award.match.date|date:"d-M-y" }}</td><td><a href="{{ award.match.get_absolute_url }}" title="Match details">{{ award.award.name }}</a></td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endif %}
-
-{% if recent_end_of_season_awards %}
-<div class="span4">
-    <h3><i class="icon-trophy icon-large"></i>End of Season Awards</h3>
-    <table class="table table-condensed">
-        <tbody>
-            {% for award in recent_end_of_season_awards %}
-                <tr><td>{{ award.season }}</td><td>{{ award.award.name }}</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endif %}
-
-</div>
 
 {% url 'admin:members_member_change' member.id as admin_url %}
 {% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit member' %}
@@ -89,11 +34,5 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% block body_js %}
 {{ block.super }}
-
-{% url 'member_stats_ajax' member.pk as member_stats %}
-<script>
-    $(function () {
-        ajax_load('{{ member_stats }}', 'stats');
-    });
-</script>
+{% include 'members/_member_details_js.html' %}
 {% endblock body_js %}

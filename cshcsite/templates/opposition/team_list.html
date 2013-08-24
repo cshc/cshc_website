@@ -3,10 +3,12 @@
 {% comment %}
 Formatted display of all opposition teams.
 - Used by opposition_team_list
-Currently just lists the values that will be needed by this template - no UI design here yet! 
+Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
 {% block title %}{{ block.super }} | Opposition teams{% endblock %}
+
+{% block body_id %}team-list{% endblock body_id %}
 
 {% block content %}
 

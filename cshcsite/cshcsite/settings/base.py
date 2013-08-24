@@ -28,7 +28,7 @@ DJANGO_ROOT = dirname(dirname(abspath(__file__)))
 SITE_ROOT = dirname(DJANGO_ROOT)
 
 # Site name:
-SITE_NAME = basename(DJANGO_ROOT)
+SITE_NAME = 'CSHC'
 
 # Add our project to our pythonpath, this way we don't need to type our project
 # name in our dotted import paths:
@@ -192,7 +192,7 @@ MIDDLEWARE_CLASSES = (
 
 ########## URL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
-ROOT_URLCONF = '%s.urls' % SITE_NAME
+ROOT_URLCONF = 'cshcsite.urls'
 ########## END URL CONFIGURATION
 
 
@@ -503,3 +503,10 @@ if not DEBUG:
 
 # Ref: http://www.civicuk.com/cookie-law/index
 COOKIE_CTRL_API_KEY = get_env_setting('COOKIE_CTRL_API_KEY')
+
+
+########## templated-emails CONFIGURATION
+# Ref: https://github.com/philippWassibauer/templated-emails
+TEMPLATEDEMAILS_USE_PYNLINER = True
+#TEMPLATEDEMAILS_USE_CELERY = True
+########## END templated-emails CONFIGURATION

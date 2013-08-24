@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, url
-from django.views.generic import TemplateView
 from core.views import RegisterUserView
 from . import views
 
@@ -31,5 +30,5 @@ urlpatterns = patterns('',
     url(r'^password-reset/done/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),
     url(r'^reset/done/$', 'django.contrib.auth.views.password_reset_complete', name='password_reset_complete'),
     url(r'^reset/(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', 'django.contrib.auth.views.password_reset_confirm', name='password_reset_confirm'),
-    url(r'^profile/$', TemplateView.as_view(template_name='registration/profile.html'), name='user_profile'),
+    url(r'^profile/$', views.ProfileView.as_view(), name='user_profile'),
 )

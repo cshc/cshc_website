@@ -12,10 +12,15 @@ class Command(BaseCommand):
                     action='store_true',
                     dest='simulate',
                     default=False,
-                    help='Test run (doesn\'t actually save the password and email the users)'),
+                    help='Test run (doesn\'t actually email the user)'),
+        make_option('-w', '--welcome',
+                    action='store',
+                    type="string",
+                    dest='welcome_email',
+                    metavar='EMAIL',
+                    help='Send a welcome email to EMAIL'),
     )
-    help = 'Initializes each user that doesn\'t have a password set. A random password is ' + \
-           'generated and an email is sent to the user with their password.'
+    help = 'Various email tasks relating to users'
 
     def handle(self, *args, **options):
         try:
@@ -28,14 +33,13 @@ class Command(BaseCommand):
         if sim:
             print "#### SIMULATION ONLY ####"
 
-        # Get all users that don't have a password set.
-        users = filter(lambda u: not u.has_usable_password(), CshcUser.objects.all())
-
-        # For each user
-        for u in users:
-            password = create_password(u, sim)
+        if options['welcome_email']:
+            print "Sending welcome email to '{}'".format(options['welcome_email'])
+            email = options['welcome_email']
+            user = CshcUser.objects.get(email=email)
+            password = create_password(user, sim)
             # Email the user with their new password
-            email_user(u, password, sim)
+            email_user(user, password, sim)
 
 
 

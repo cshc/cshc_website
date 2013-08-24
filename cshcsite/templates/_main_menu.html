@@ -1,6 +1,7 @@
 {% load core_tags %}
 
 {% url 'contact_us' as contact_us %}
+{% url 'user_profile' as user_profile %}
 {% url 'login' as login %}
 {% url 'logout' as logout %}
 
@@ -130,6 +131,7 @@
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request.user.get_short_name }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
+            <li><a href="{{ user_profile }}" class="{% active user_profile %}">Profile</a></li>
             {% if user.is_staff %}
             <li><a href="/admin/" class="{% active '/admin/' %}">Admin</a></li>
             {% endif %}

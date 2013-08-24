@@ -70,3 +70,8 @@ django-basic-feedback==1.0
 boto==2.10.0
 django-storages
 django-s3-folder-storage==0.1
+
+# Html and Text based emails
+# The official one does not support settings.AUTH_USER_MODEL
+#templated-emails==0.6.9
+-e git+https://github.com/cshc/templated-emails#egg=templated-emails

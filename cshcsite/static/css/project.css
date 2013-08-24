@@ -55,12 +55,15 @@ ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 .box .price span.qty { font-size: 47px; margin-right:4px; position: relative; top: 2px; }
 .box .price span.annual{ font-style: italic; font-weight: 300; font-size: 15px; }
 
+
 .side-box { padding: 10px; }
 
 ul.downloads { margin-top: 20px; }
 ul.downloads li { font-size: 150%; margin-bottom: 10px; }
 
 p.required {color: #A2A2A2; font-size: 80%;}
+
+#profile-pic { margin-bottom: 30px; }
 
 /******************************************************************************
 Maps
@@ -175,6 +178,8 @@ Match Details
 
 #image-carousel.pull-left { margin-right: 20px; }
 
+#edit-profile-accordion {margin-bottom: 0;}
+#edit-profile-accordion .accordion-group {border: None;}
 
 .table .highlight { background-color: #ccffcc; }
 
@@ -315,6 +320,7 @@ table.awards td { border: none; }
 
 #training ul.details { font-size: 20px; margin-top: 20px;}
 #training ul.details li {margin-bottom: 10px;}
+
 
 #pitch-directions div.box {padding: 10px;}
 #pitch-directions div.box img { box-shadow: 1px 1px 6px 0px #888; border-radius: 5px; margin-bottom: 10px; max-width: 274px;}

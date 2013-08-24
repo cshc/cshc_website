@@ -1,15 +1,55 @@
 import logging
 from django.views.generic import DetailView, ListView
+from django.views.generic.edit import UpdateView
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
+from django.core.urlresolvers import reverse_lazy
+from braces.views import LoginRequiredMixin
 from core.views import AjaxGeneral
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
 from .models import Member
+from .forms import ProfileEditForm
 from .util import get_recent_match_awards, get_recent_end_of_season_awards, get_recent_match_reports
 from .stats import MemberSeasonStat
 from .filters import MemberFilter
 
 log = logging.getLogger(__name__)
+
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+    model = Member
+    template_name='registration/profile.html'
+    form_class = ProfileEditForm
+    success_url = reverse_lazy('user_profile')
+
+    def get_object(self, queryset=None):
+        try:
+            return Member.objects.get(user=self.request.user)
+        except Member.DoesNotExist:
+            return None
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context['is_profile'] = True # Differentiates between this view and MemberDetailView
+        try:
+            context['member'] = Member.objects.get(user=self.request.user)
+        except Member.DoesNotExist:
+            context['member'] =None
+        return context
+
+    def form_valid(self, form):
+        log.debug(form.cleaned_data['profile_pic'])
+        log.debug(form.cleaned_data['pref_position'])
+        messages.info(self.request, "Nice! Your profile has been updated.")
+        return super(ProfileView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(
+            self.request,
+            "Failed to update profile. Errors: {}".format(form.errors)
+        )
+        return super(ProfileView, self).form_invalid(form)
 
 
 class MemberListView(ListView):
@@ -56,7 +96,6 @@ class MemberStatsView(AjaxGeneral):
 
         # Get all the appearances for this member
         apps = Appearance.objects.by_member(member).select_related('member__user', 'match__season', 'match__our_team').filter(match__our_team__personal_stats=True).order_by('match__date')
-        log.debug("Got {} appearances for {}".format(apps.count(), member))
 
         # This will be keyed on the season id, with a special 'totals' entry for the combined totals from all seasons.
         season_dict = {}
@@ -64,29 +103,23 @@ class MemberStatsView(AjaxGeneral):
         for app in apps:
             # Add the appearance/match details to the relevant season's running total classes
             if not season_dict.has_key(app.match.season_id):
-                log.debug("Adding season stats for {}".format(app.match.season))
                 season_dict[app.match.season_id] = MemberSeasonStat(season=app.match.season)
 
-            log.debug("Adding appearance stats for match ID {}".format(app.match_id))
             season_dict[app.match.season_id].add_appearance(app)
 
         # Get all match awards won by this member
         awards = MatchAwardWinner.objects.by_member(member).select_related('match__season', 'match__our_team').filter(match__our_team__personal_stats=True)
-        log.debug("Got {} match awards for {}".format(awards.count(), member))
 
         for award in awards:
             # Add the awards to the relevant season's running total
             if not season_dict.has_key(award.match.season_id):
-                log.debug("Adding season stats for {}".format(award.match.season))
                 season_dict[award.match.season_id] = MemberSeasonStat(season=award.match.season)
-            log.debug("Adding awards stats for match ID {}".format(award.match_id))
             season_dict[award.match.season_id].matches.add_award(award)
 
         # Now create and calculate the combined totals for all seasons
         season_total = MemberSeasonStat()
 
         for season_id, season in season_dict.items():
-            log.debug("Adding {} season stats to total".format(season.season))
             season_total.accumulate(season)
 
         seasons = sorted(season_dict.values(), key=lambda s: s.season.start)

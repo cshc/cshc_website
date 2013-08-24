@@ -2,10 +2,37 @@
 
 {% block title %}{{ block.super }} | Profile{% endblock title %}
 
+{% block body_id %}user-profile{% endblock body_id %}
+
 {% block content %}
 
-<h1>TODO - profile</h1>
-<p>You are now logged in.</p>
-<p>Username: {{ user.username }}</p>
+{% url 'member_list' as member_list_url %}
+{% url 'password_change' as password_change %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ member_list_url }}">Members</a> <span class="divider">/</span></li>
+  <li class="active">Profile</li>
+</ul>
+
+<div class="page-header">
+  <h1>{{ request.user.get_full_name }}</h1>
+</div>
+
+{% if member %}
+{% include 'members/_member_details.html' %}
+{% else %}
+<p class="lead">Your account is not currently linked to a player/club member.</p>
+<ul class="nav nav-pills">
+  <li><a href="{{ password_change }}">Change your password...</a></li>
+</ul>
+{% endif %}
 
 {% endblock content %}
+
+{% if member %}
+{% block body_js %}
+{{ block.super }}
+{% include 'members/_member_details_js.html' %}
+{% endblock body_js %}
+{% endif %}
