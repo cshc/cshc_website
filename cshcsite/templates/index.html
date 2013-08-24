@@ -81,6 +81,6 @@ Wednesday evenings at the <a href="{{ abbey_url }}">Coldham's Common</a> pitch o
 
 {% block body_js %}
 {{ block.super }}
-<script type="text/javascript" src="{{ STATIC_URL }}clean_canvas/js/index-slider.js"></script>
+{% include 'core/_cookie_ctrl_js.html' %}
 {% include 'core/_tweets_js.html' %}
 {% endblock body_js %}
