@@ -8,60 +8,91 @@
 
 {% block title %}{{ block.super }} | Home{% endblock %}
 
+{% block body_id %}home{% endblock body_id %}
+
 {% block navbar_class %}navbar transparent navbar-inverse navbar-fixed-top{% endblock navbar_class %}
 
 {% block top-banner %}
-{% url 'contact_us' as contact_us %}
+{% url 'match_report_rss_feed' as matches_rss %}
+{% url 'calendar' as calendar %}
 
 <div id="top-banner">
+    <div class="container">
+        <div class="row">
+            <div class="span6">
+                <div class="banner-box">
+                    <span class="pull-right">
+                        <a href="{{ matches_rss }}" title="Subscribe to Cambridge South match reports" target="_blank" class="btn btn-small btn-warning">
+                            <i class="icon-rss"></i>Subscribe
+                        </a>
+                    </span>
+                    <h3 id="latest-results">Latest Results</h3>
+                    {% include "matches/_latest_results.html" %}
+                </div>
+            </div>
 
+            <div class="span6">
+                <div class="banner-box">
+                    <span class="pull-right">
+                        <a href="{{ calendar }}" title="Import match details into your own calendar" target="_blank" class="btn btn-small btn-primary">
+                            <i class="icon-calendar"></i>Calendar
+                        </a>
+                    </span>
+                    <h3 id="next-fixtures">Next Fixtures</h3>
+                    {% include "matches/_next_fixtures.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock top-banner %}
 
 {% block content %}
 
-{% url 'join_us' as join_us %}
+{% url 'contact_us' as contact_us %}
 {% url 'clubteam_list' as team_list %}
 {% url 'upcoming_trainingsession_list' as training %}
 {% url 'venue_detail' 'leys' as leys_url %}
 {% url 'venue_detail' 'abbey' as abbey_url %}
-{% url 'match_report_rss_feed' as matches_rss %}
-{% url 'match_report_atom_feed' as matches_atom %}
 
 <div class="page-header">
     <h1>Welcome to Cambridge South Hockey Club</h1>
 </div>
-<p class="lead">We are a friendly, lively, Cambridge-based club who run four Men's and two Ladies' teams as well as Mixed and Indoor sides.
-We offer something for everyone; whether you are experienced or new to the sport you will be very welcome at the club.</p>
-
-<div class="section_header">
-    <h3>Join Cambridge South</h3>
+<div class="row">
+    <div class="span9">
+        <p class="lead">We are a friendly, lively, Cambridge-based club who run four Men's and two Ladies' teams as well as Mixed and Indoor sides.</p>
+        <p class="lead">We offer something for everyone; whether you are experienced or new to the sport you will be very welcome at the club.</p>
+    </div>
+    <div class="span3">
+        <img class="img-polaroid" src="{{ STATIC_URL }}media/web site images/small_tackle.jpg"/>
+    </div>
 </div>
-<p>We are always looking for new players to <a href="{{ join_us }}">join us</a>. Feel free to look around this site to find out
-more about each of the <a href="{{ team_list }}">teams</a>. Better still, why not attend the <a href="{{ training }}">training</a> on
-Monday evenings during the season at <a href="{{ leys_url }}">The Leys School</a>, or our Pay and Play sessions at 20:00 on
-Wednesday evenings at the <a href="{{ abbey_url }}">Coldham's Common</a> pitch or simply come along to watch a match live?</p>
-
 <hr/>
 <div class="row">
     <div class="span7">
-        <div class="section_header">
-            <span class="pull-right">
-                <a href="{{ matches_rss }}" title="Subscribe to Cambridge South match reports" target="_blank" class="btn btn-small btn-warning">
-                    <i class="icon-rss"></i>Subscribe
-                </a>
-            </span>
-            <h3 id="latest-results">Latest Results</h3>
+        <div id="join-us" class="box box-dark box-green">
+            <div class="row">
+                <div class="span7">
+                    <h3>Join Cambridge South</h3>
+                </div>
+                <div class="span3">
+                    <div class="box-content">
+                        <img class="h_center" src="{{ STATIC_URL }}media/web site images/l2_2012_small.jpg"/>
+                        <a href="{{ contact_us }}" class="h_center"><button class="btn">Get in touch...</button></a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="box-content">
+                        <p>We are always looking for new players to join us. Feel free to look around this site to find out
+                        more about each of the <a class="inline" href="{{ team_list }}">teams</a>. Better still, why not attend the <a class="inline" href="{{ training }}">training</a> on
+                        Monday evenings during the season at <a class="inline" href="{{ leys_url }}">The Leys School</a>, or our Pay and Play sessions at 8pm on
+                        Wednesday evenings at the <a class="inline" href="{{ abbey_url }}">Coldham's Common</a> pitch or simply come along to watch a match live?
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% include "matches/_latest_results.html" %}
-        <hr/>
-        <div class="section_header">
-            <h3 id="next-fixtures">Next Fixtures</h3>
-        </div>
-        {% include "matches/_next_fixtures.html" %}
-        <hr/>
         {% include 'training/_next_training.html' %}
-
     </div>
     <div class="span5">
         <div class="box side-box">

@@ -14,6 +14,8 @@ Theme overrides
 */
 /*#footer {background-color: #003A57;}*/
 
+.navbar .brand {padding: 0px 20px 0px;}
+
 /******************************************************************************
 Global Styles
 */
@@ -36,7 +38,7 @@ ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 
 .info-well {margin-top: 40px;}
 
-.box { box-shadow: 0px 0px 7px -1px rgb(214, 214, 214); border: 1px solid #d9d9d9; border-radius: 6px; background-color: #fff; margin: 2px 2px 20px 2px; }
+.box { box-shadow: 0px 0px 7px -1px rgb(214, 214, 214); border-radius: 6px; background-color: #fff }
 
 .box h3{
     color: rgb(83, 83, 83);
@@ -54,8 +56,13 @@ ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 .box .price span.pound { font-size: 32px; position: relative; top: -6px; margin-right: 3px; }
 .box .price span.qty { font-size: 47px; margin-right:4px; position: relative; top: 2px; }
 .box .price span.annual{ font-style: italic; font-weight: 300; font-size: 15px; }
+.box img { box-shadow: 1px 1px 6px 0px #888; border-radius: 5px;}
 
-
+.box-dark {background-color: rgba(0, 0, 0, 0.7); color: white; }
+.box-dark a.inline {color: white; border-bottom: 1px white dotted; }
+.box-dark a.inline:hover {color: rgb(216, 221, 255); border-bottom: 1px rgb(216, 221, 255) dotted;}
+.box.box-dark h3{color: white;}
+.box-green {background-color: rgba(10, 122, 0, 0.7);}
 .side-box { padding: 10px; }
 
 ul.downloads { margin-top: 20px; }
@@ -70,6 +77,8 @@ p.required {color: #A2A2A2; font-size: 80%;}
 .profile-pic-small { width: 30px; height: auto; }
 
 .profile-pic-large { margin-left: auto; margin-right: auto; display: block; }
+
+.h_center {margin-left: auto; margin-right: auto; display: block; text-align: center; }
 
 /******************************************************************************
 Maps
@@ -204,12 +213,25 @@ Top Banner
     z-index: -9999;
     background-size: 100%;
     background:url('../img/backgrounds/astro1.png') no-repeat 0 0px;
-    width:100%; height: 480px;
+    background-color: rgba(34, 102, 28, 0.6);
+    width:100%;
     -webkit-background-size: cover !important;
        -moz-background-size: cover !important;
          -o-background-size: cover !important;
             background-size: cover !important;
 }
+
+#top-banner .container {margin-top: 105px; margin-bottom:20px;}
+.banner-box {font-size: 80%; }
+.banner-box h3 {color: white;}
+.banner-box {background-color: rgba(34, 102, 28, 0.7); color: white; padding: 10px;}
+.banner-box .table-hover tbody tr:hover>td, .banner-box .table-hover tbody tr:hover>th {background-color: rgba(34, 102, 28, 0.9);}
+.banner-box .table th, .banner-box .table td {border-top: 1px solid #8A8A8A;}
+.banner-box a {color: rgb(216, 221, 255);}
+.banner-box a:hover {color: rgb(177, 186, 252);}
+.banner-box a.btn {color: white; margin-top: 18px;}
+.banner-box .table {margin-bottom: 5px;}
+.banner-box .table-condensed th, .banner-box .table-condensed td {padding: 1px 5px;}
 
 /******************************************************************************
 Login form
@@ -242,7 +264,13 @@ Responsive
 
 /* Hide the top banner on smaller screens */
 @media only screen and (max-width: 767px) {
-    #top-banner,
+    #top-banner
+    {
+        background: rgba(34, 102, 28, 0.6);
+        margin-right: -20px;
+        margin-left: -20px;
+    }
+    #top-banner .container {margin: 0;}
     #feedback_widget,
     .no-mobile {
         display: none;
@@ -253,13 +281,10 @@ Responsive
 Page-specific
 */
 
-#join-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
-#join-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
-#join-us input.phone { background: url('../clean_canvas/img/formphone.png') #fff no-repeat 5px; }
-#join-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 90%; }
-#join-us textarea { padding: 11px; width: 94%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
-#join-us input[type="submit"] { float: right; text-transform: uppercase; color: #fff; background: #187CCC; font-size: 15px; padding: 4px 12px; border: 0 none; border-radius: 3px; -webkit-transition: background linear .2s, box-shadow linear .2s; -moz-transition: background linear .2s, box-shadow linear .2s; -o-transition: background linear .2s, box-shadow linear .2s; transition: background linear .2s, box-shadow linear .2s; }
-#join-us input[type="submit"]:hover { background: #252528; }
+#home #join-us { margin-bottom: 20px; padding-bottom: 20px;}
+#home #join-us h3 { margin: 10px 0 5px 10px;}
+#home #join-us img {margin-bottom: 15px;}
+#home #join-us .box-content {margin: 5px 10px 5px 10px;}
 
 #contact-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
 #contact-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
@@ -267,7 +292,6 @@ Page-specific
 #contact-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 90%; }
 #contact-us textarea { width: 96%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
 #contact-us input[type="submit"] { float: right; margin-right: 8px; }
-/*#contact-us input[type="submit"]:hover { background: #252528; }*/
 
 #our-teams .row.mens { margin-bottom:20px; }
 #our-teams .row.ladies { margin-bottom:20px; }

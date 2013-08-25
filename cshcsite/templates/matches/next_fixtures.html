@@ -11,6 +11,7 @@ Formatted display of the next fixture for each team.
 
 {% block content %}
 {% url 'match_list' as match_list_url %}
+{% url 'calendar' as calendar %}
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
@@ -23,13 +24,17 @@ Formatted display of the next fixture for each team.
 </div>
 
 <div class="row">
-<div class="span7">
-{% if next_fixtures %}
-{% include "matches/_next_fixtures.html" %}
-{% else %}
-<p class="lead muted">No upcoming fixtures.</p>
-{% endif %}
-</div>
+    <div class="span7">
+        {% include "matches/_next_fixtures.html" %}
+    </div>
+
+    <div class="span5">
+        <div class="well">
+            <h3>Make it easy for yourself!</h3>
+            <p class="lead">All Cambridge South fixtures are available as a <strong>.ics calendar feed</strong> that you can link into your own calendar client (Outlook, iPhone etc).</p>
+            <a class="calendar" href="{{ calendar }}#feeds"><button class="btn btn-large btn-primary"><i class="icon-calendar"></i>Plug me in!</button></a>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

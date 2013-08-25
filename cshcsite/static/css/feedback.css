@@ -2,7 +2,7 @@
 {
 	position: fixed;
 	left: 0;
-	top: 62px;
+	top: 68px;
 	z-index: 100;
 }
 #feedback_tab
@@ -24,22 +24,25 @@
 	padding-bottom: 8px;
 	padding-right: 10px;
 	padding-left: 10px;
-	border: 3px solid #333333;
+	border: none; /*3px solid #333333;*/
+	border-radius: 0 0 5px 5px;
 	font-weight: bold;
 	cursor: pointer;
-	background-color: rgb(168, 213, 168);
+	background-color: rgba(34, 102, 28, 0.7);
+	color: white;
 }
 #feedback_tab button:hover
 {
-	background-color: rgb(105, 175, 105);
+	background-color: rgba(34, 102, 28, 0.9);
 }
 
 #feedback_panel
 {
 	display: none;
 	/*max-width: 240px;*/
-	background-color: rgb(168, 213, 168);
+	background-color: rgba(34, 102, 28, 0.7);
 	padding: 10px;
+	color: white;
 }
 #feedback_panel p label, #feedback_panel p textarea{
 	vertical-align: top;
