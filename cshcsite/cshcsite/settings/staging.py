@@ -2,7 +2,7 @@
 from .base import *
 import dj_database_url
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 TEMPLATE_STRING_IF_INVALID = '######'
@@ -12,10 +12,6 @@ DATABASES = {'default': dj_database_url.config()}
 ########## END DATABASE CONFIGURATION
 
 ALLOWED_HOSTS = ['*']
-
-# Ref: https://pypi.python.org/pypi/dj-static
-#STATIC_ROOT = 'staticfiles'
-#STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
