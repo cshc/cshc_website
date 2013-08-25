@@ -18,7 +18,7 @@ one_week = timedelta(days=7)
 
 
 def is_prod_site():
-    Site.objects.all()[0].domain_name.contains('cambridgesouthhockeyclub')
+    return 'cambridgesouthhockeyclub' in Site.objects.all()[0].domain
 
 def saturdays_in_season(season):
     """ Gets a list of all the Saturdays (match days) in the given season. """

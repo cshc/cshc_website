@@ -65,6 +65,12 @@ p.required {color: #A2A2A2; font-size: 80%;}
 
 #profile-pic { margin-bottom: 30px; }
 
+.team-photo { width: 100%; }
+
+.profile-pic-small { width: 30px; height: auto; }
+
+.profile-pic-large { margin-left: auto; margin-right: auto; display: block; }
+
 /******************************************************************************
 Maps
 */
@@ -110,11 +116,9 @@ Twitter
 #twitter-stream li { padding-bottom: 5px; margin-bottom: 10px; border-bottom: 1px solid rgb(221, 221, 221); }
 
 
-.team-photo { width: 100%; }
-
-.profile-pic-small { width: 30px; height: auto; }
-
-.profile-pic-large { margin-left: auto; margin-right: auto; display: block; }
+/******************************************************************************
+Tables
+*/
 
 .table th.middle-align, .table td.middle-align, .table tr.middle-align { vertical-align: middle; }
 
@@ -137,6 +141,12 @@ Twitter
 .table-clean th, .table-clean td { border: none; }
 
 .table-hcondensed { width: auto; }
+
+.table tbody tr td a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
 
 /******************************************************************************
 Match Details

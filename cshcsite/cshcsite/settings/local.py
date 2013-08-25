@@ -8,7 +8,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = False
+DEBUG = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
@@ -16,10 +16,10 @@ TEMPLATE_DEBUG = DEBUG
 TEMPLATE_STRING_IF_INVALID = '######'
 ########## END DEBUG CONFIGURATION
 
-# MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
-# MEDIA_URL = '/media/'
-# STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
-# STATIC_URL = '/static/'
+MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
+MEDIA_URL = '/media/'
+STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
+STATIC_URL = '/static/'
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend

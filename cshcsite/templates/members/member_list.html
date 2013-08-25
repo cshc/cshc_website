@@ -25,10 +25,12 @@ Filter-able, sortable, paginated display of members.
 </div>
 
     {% sort filter.qs as sorted_list %}
-    {% autopaginate sorted_list 20 as sorted_filter_list %}
+    {% autopaginate sorted_list 40 as sorted_filter_list %}
+
+    {% paginate %}
 
     {% if sorted_filter_list %}
-        <table id="members" class="table table-hover">
+        <table id="members" class="table table-hover table-middle-align">
             <thead>
                 <tr>
                     <th class="priority3"></th>
@@ -36,19 +38,21 @@ Filter-able, sortable, paginated display of members.
                     <th>{% sortlink by "last_name" "-last_name" %}Last Name{% endsortlink %}</th>
                     <th>{% sortlink by "gender" "-gender" %}M/F{% endsortlink %}</th>
                     <th>{% sortlink by "pref_position" "-pref_position" %}Position{% endsortlink %}</th>
-                    <th></th>
                 </tr>
             </thead>
+            <tbody>
             {% for member in sorted_filter_list %}
+            {% with member_url=member.get_absolute_url %}
                 <tr>
-                    <td class="priority3">{% include 'members/_profile_pic_thumbnail.html' %}</td>
-                    <td>{{ member.first_name }}</td>
-                    <td>{{ member.last_name }}</td>
-                    <td>{{ member.get_gender_display }}</td>
-                    <td>{{ member.get_pref_position_display }}</td>
-                    <td><a href="{{ member.get_absolute_url }}" title="Member details"><i class="icon-chevron-sign-right"></i></a></td>
+                    <td class="priority3"><a href="{{ member_url }}" title="Member details">{% include 'members/_profile_pic_thumbnail.html' %}</a></td>
+                    <td><a href="{{ member_url }}" title="Member details">{{ member.first_name }}</a></td>
+                    <td><a href="{{ member_url }}" title="Member details">{{ member.last_name }}</a></td>
+                    <td><a href="{{ member_url }}" title="Member details">{{ member.get_gender_display }}</a></td>
+                    <td><a href="{{ member_url }}" title="Member details">{{ member.get_pref_position_display }}</a></td>
                 </tr>
+            {% endwith %}
             {% endfor %}
+            </tbody>
         </table>
     {% else %}
         <p class="lead muted">No members found!</p>

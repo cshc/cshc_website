@@ -1,8 +1,9 @@
 import logging
 from django.views.generic import TemplateView
 from django.conf import settings
+from django.contrib import messages
 from twython import Twython
-from core.views import AjaxGeneral
+from core.views import AjaxGeneral, is_prod_site
 from core.models import ClubInfo
 from matches.views import LatestResultsView, NextFixturesView
 from training.views import UpcomingTrainingSessionsView
@@ -44,17 +45,21 @@ class CalendarView(TemplateView):
     template_name='core/calendar.html'
 
     def get_context_data(self, **kwargs):
-        context = super(CalendarView, self).get_context_data(**kwargs)
         # Tip: Login to google calendar cshc.club@gmail.com (password in 'Account Details' Google Doc) to get these addresses
-        context['l1_gcal'] = 'rcmrog43u5r5k57h3j1oucu3r006fg33@import.calendar.google.com'
-        context['l2_gcal'] = '7tk5noich08ids16311j27ojjb98oujk@import.calendar.google.com'
-        context['m1_gcal'] = '573u7geq99bulhg68uncj25vea94k4dp@import.calendar.google.com'
-        context['m2_gcal'] = 'qce47d4uu444p9lrig3n8delpchqqltn@import.calendar.google.com'
-        context['m3_gcal'] = 'mt13h74th0fltsaruoac08758l4ii9ma@import.calendar.google.com'
-        context['m4_gcal'] = 'gbder73n5i8n4bo3ptfa0q9pehuptrjn@import.calendar.google.com'
-        context['m5_gcal'] = 'e8tm3j8v87r3u937ld5nverep725mvv8@import.calendar.google.com'
-        context['all_gcal'] = 'i7ngcunrs8icf3btp6llk1eav1bvuqol@import.calendar.google.com'
-        context['training_gcal'] = '518kso0el5ciomvkf2fhmtuadgg09e31@import.calendar.google.com'
+        context = super(CalendarView, self).get_context_data(**kwargs)
+        if is_prod_site():
+            messages.warn("No Google Calendars imported yet for the production site")
+            # TODO: Set google calendar urls for production site feeds
+        else:
+            context['l1_gcal'] = 'rcmrog43u5r5k57h3j1oucu3r006fg33@import.calendar.google.com'
+            context['l2_gcal'] = '7tk5noich08ids16311j27ojjb98oujk@import.calendar.google.com'
+            context['m1_gcal'] = '573u7geq99bulhg68uncj25vea94k4dp@import.calendar.google.com'
+            context['m2_gcal'] = 'qce47d4uu444p9lrig3n8delpchqqltn@import.calendar.google.com'
+            context['m3_gcal'] = 'mt13h74th0fltsaruoac08758l4ii9ma@import.calendar.google.com'
+            context['m4_gcal'] = 'gbder73n5i8n4bo3ptfa0q9pehuptrjn@import.calendar.google.com'
+            context['m5_gcal'] = 'e8tm3j8v87r3u937ld5nverep725mvv8@import.calendar.google.com'
+            context['all_gcal'] = 'i7ngcunrs8icf3btp6llk1eav1bvuqol@import.calendar.google.com'
+            context['training_gcal'] = '518kso0el5ciomvkf2fhmtuadgg09e31@import.calendar.google.com'
         return context
 
 
