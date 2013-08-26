@@ -266,9 +266,13 @@ Responsive
 @media only screen and (max-width: 767px) {
     #top-banner
     {
-        background: rgba(34, 102, 28, 0.6);
+        background:url('../img/backgrounds/astro2.png') no-repeat 0 0px;
+        left:0;
+        right:0;
+        position: relative;
         margin-right: -20px;
         margin-left: -20px;
+        width: auto;
     }
     #top-banner .container {margin: 0;}
     #feedback_widget,

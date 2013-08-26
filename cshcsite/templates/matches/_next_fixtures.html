@@ -6,17 +6,17 @@ Context should have a 'next_fixtures' list of Match objects.
 {% if next_fixtures %}
     <table class="table table-condensed table-hover">
         <thead>
-            <tr><th></th><th>Team</th><th>Opposition</th><th>Venue</th><th>Date</th><th>Start time</th><th>Fixture</th></tr>
+            <tr><th class="priority3"></th><th>Team</th><th>Opposition</th><th>Venue</th><th>Date</th><th>Start time</th><th>Fixture</th></tr>
         </thead>
         <tbody>
         {% for m in next_fixtures %}
             <tr>
-                <td>
+                <td class="priority3">
                     {% include 'matches/_fixture_icon.html' with match=m %}
                 </td>
                 <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team|capfirst }}</a></td>
                 <td><a href="{{ m.opp_team.club.get_absolute_url }}">{{ m.opp_team.name }}</a></td>
-                <td>{% if m.venue %}<a href="{{ m.venue.get_absolute_url }}">{{ m.venue.name }}{% else %}TBD{% endif %}</a></td>
+                <td>{% if m.venue %}<a href="{{ m.venue.get_absolute_url }}" title="{{ m.venue.name }}">{{ m.simple_venue_name }}</a>{% else %}TBD{% endif %}</td>
                 <td class="no-break"><a title="Matches on {{ m.date|date:"d-M-y" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a></td>
                 <td class="no-break">{{ m.time_display }}</td>
                 <td><a href="{{ m.get_absolute_url }}">Fixture</a></td>

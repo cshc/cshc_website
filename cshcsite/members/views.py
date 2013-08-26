@@ -4,6 +4,7 @@ from django.views.generic.edit import UpdateView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
+from templated_emails.utils import send_templated_email
 from braces.views import LoginRequiredMixin
 from core.views import AjaxGeneral
 from matches.models import Appearance
@@ -31,6 +32,14 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
+        if 'r' in self.request.GET:
+            try:
+                send_templated_email([self.request.user.email], 'emails/req_player_link', {'user': self.request.user })
+            except:
+                log.error("Failed to send player link request email for {}".format(self.request.user), exc_info=True)
+                messages.error(self.request, "Sorry - we were unable to handle your request. Please try again later.")
+            else:
+                messages.success(self.request, "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
         context['is_profile'] = True # Differentiates between this view and MemberDetailView
         try:
             context['member'] = Member.objects.get(user=self.request.user)
@@ -41,7 +50,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         log.debug(form.cleaned_data['profile_pic'])
         log.debug(form.cleaned_data['pref_position'])
-        messages.info(self.request, "Nice! Your profile has been updated.")
+        messages.success(self.request, "Nice! Your profile has been updated.")
         return super(ProfileView, self).form_valid(form)
 
     def form_invalid(self, form):

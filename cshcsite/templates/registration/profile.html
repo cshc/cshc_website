@@ -22,7 +22,11 @@
 {% if member %}
 {% include 'members/_member_details.html' %}
 {% else %}
-<p class="lead">Your account is not currently linked to a player/club member.</p>
+<div class="well">
+    <p class="lead">Your account is not currently linked to a player/club member. If you believe your account <em>should</em> be linked to a player/club member you can request it here:</p>
+    {% url 'user_profile' as user_profile %}
+    <a class="btn btn-primary" href="{{ user_profile }}?r=1">Connect my account to a player</a>
+</div>
 <ul class="nav nav-pills">
   <li><a href="{{ password_change }}">Change your password...</a></li>
 </ul>

@@ -1,7 +1,8 @@
 import logging
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from itertools import groupby
 from django.views.generic import DetailView, ListView, TemplateView
+from django.utils import timezone
 from exceptions import IndexError
 from braces.views import SelectRelatedMixin
 from core.models import first_or_none
@@ -124,7 +125,10 @@ class LatestResultsView(TemplateView):
         latest_results = []
         for team in ClubTeam.objects.only('pk'):
             try:
-                result = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team_id=team.pk, date__lt=datetime.now().date()).order_by('-date')[0]
+                now = timezone.now()
+                min_date = now - timedelta(days=365)
+                log.debug("Min date: {}".format(min_date))
+                result = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team_id=team.pk, date__gt=min_date.date(), date__lt=now.date()).order_by('-date')[0]
                 latest_results.append(result)
             except IndexError:
                 pass    # Don't worry if there's no latest result for that team

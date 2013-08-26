@@ -3,10 +3,10 @@ from datetime import timedelta
 from django.views.generic import TemplateView, FormView, CreateView
 from django.shortcuts import render_to_response
 from django.contrib import messages
-from django.template import RequestContext, loader, Context
-from django.core.mail import send_mail, BadHeaderError
+from django.template import RequestContext
 from django.contrib.sites.models import Site
 from django.utils.decorators import method_decorator
+from templated_emails.utils import send_templated_email
 from .models import ClubInfo, ContactSubmission, CshcUser
 from .forms import ContactSubmissionForm, UserCreationForm
 
@@ -106,52 +106,44 @@ class ContactSubmissionCreateView(FormView):
     success_url = '/contact/'
 
     def email_to_secretary(self, form):
-        from_email = form.cleaned_data['email']
-        t = loader.get_template('core/contact_email_to_secretary.txt')
-        c = Context({
+        email = form.cleaned_data['email']
+        context = {
             'name': "{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
             'phone': form.cleaned_data['phone'],
-            'email': from_email,
+            'email': email,
             'join_mail_list': form.cleaned_data['mailing_list'],
             'message': form.cleaned_data['message'],
-        })
-        subject = "Message from {}".format(c['name'])
+        }
 
-        message = t.render(c)
         try:
             recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
         except ClubInfo.DoesNotExist:
                 recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
-        send_mail(subject, message, from_email, [recipient_email], fail_silently=False)
+        send_templated_email([recipient_email], 'emails/contact_secretary', context)
 
     def email_to_enquirer(self, form):
-        t = loader.get_template('core/contact_thanks_email.txt')
-        c = Context({
+        context = {
             'first_name': form.cleaned_data['first_name'],
             'message': form.cleaned_data['message'],
-        })
+        }
         try:
-            c['secretary_name'] = ClubInfo.objects.get(key='SecretaryName').value
-            c['secretary_email'] = ClubInfo.objects.get(key='SecretaryEmail').value
+            context['secretary_name'] = ClubInfo.objects.get(key='SecretaryName').value
+            context['secretary_email'] = ClubInfo.objects.get(key='SecretaryEmail').value
         except ClubInfo.DoesNotExist:
-            c['secretary_name'] = ""
-            c['secretary_email'] = 'secretary@cambridgesouthhockeyclub.co.uk'
+            context['secretary_name'] = ""
+            context['secretary_email'] = 'secretary@cambridgesouthhockeyclub.co.uk'
 
-        from_email = c['secretary_email']
-        subject = "Your enquiry with Cambridge South Hockey Club"
-
-        message = t.render(c)
         recipient_email = form.cleaned_data['email']
-        send_mail(subject, message, from_email, [recipient_email], fail_silently=False)
+        send_templated_email([recipient_email], 'emails/contact_sender', context)
 
     def form_valid(self, form):
         try:
             self.email_to_secretary(form)
             self.email_to_enquirer(form)
             messages.info(self.request, "Thanks for your message. We'll be in touch shortly!")
-        except BadHeaderError:
-            log.warn("Failed to send email")
-            messages.warning(self.request, "Sorry - we were unable to send your message. Please try again later.")
+        except:
+            log.warn("Failed to send contact us email")
+            messages.error(self.request, "Sorry - we were unable to send your message. Please try again later.")
         return super(ContactSubmissionCreateView, self).form_valid(form)
 
     def form_invalid(self, form):

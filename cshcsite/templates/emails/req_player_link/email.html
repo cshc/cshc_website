@@ -1,0 +1,6 @@
+{% url 'admin:members_member_changelist' as admin_url_list %}
+<p><strong>{{ user.get_full_name }}</strong> has requested their account be linked to a player/club member.</p>
+
+<p>To action this, find the matching 'Member' entry in the <a href="{{ base_url }}{{ admin_url_list }}">admin interface</a>, set the 'User' property to '{{ user.get_full_name }}' from the dropdown list, and save it.</p>
+
+<p>Cambridge South Hockey Club</p>

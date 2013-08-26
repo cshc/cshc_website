@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.contrib import messages
 from twython import Twython
+from templated_emails.utils import send_templated_email
 from core.views import AjaxGeneral, is_prod_site
 from core.models import ClubInfo
 from matches.views import LatestResultsView, NextFixturesView
@@ -48,7 +49,7 @@ class CalendarView(TemplateView):
         # Tip: Login to google calendar cshc.club@gmail.com (password in 'Account Details' Google Doc) to get these addresses
         context = super(CalendarView, self).get_context_data(**kwargs)
         if is_prod_site():
-            messages.warn("No Google Calendars imported yet for the production site")
+            messages.warning(self.request, "No Google Calendars imported yet for the production site")
             # TODO: Set google calendar urls for production site feeds
         else:
             context['l1_gcal'] = 'rcmrog43u5r5k57h3j1oucu3r006fg33@import.calendar.google.com'

@@ -250,7 +250,7 @@ class EventCalendar(HTMLCalendar):
                     else:
                         popover_content.append('<span class=\'label\'>A</span>')
                     popover_content.append('<span class=\'time\'>{}</span>'.format(event.time_display()))
-                    popover_content.append(conditional_escape("<a href=\'{}\' title=\'Match details...\'>{} vs {}</a>".format(event.get_absolute_url(), event.our_team, event.opp_team)))
+                    popover_content.append(conditional_escape("<a href=\'{}\' title=\'Match details...\'>{} vs {}, <span class=\'text-success\'>{}</span></a>".format(event.get_absolute_url(), event.our_team, event.opp_team, event.simple_venue_name())))
                     popover_content.append('</li>')
                 popover_content.append('</ul>')
                 link_id = dt.strftime("%d-%b-%y")

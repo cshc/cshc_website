@@ -6,12 +6,12 @@ Context should have a 'latest_results' list of Match objects.
 {% if latest_results %}
 <table class="table table-condensed table-hover">
     <thead>
-        <tr><th></th><th>Team</th><th>Opposition</th><th>Score</th><th>Date</th><th>Report</th></tr>
+        <tr><th class="priority3"></th><th>Team</th><th>Opposition</th><th>Score</th><th>Date</th><th>Report</th></tr>
     </thead>
     <tbody>
     {% for m in latest_results %}
         <tr>
-            <td>
+            <td class="priority3">
                 {% include 'matches/_fixture_icon.html' with match=m %}
             </td>
 
