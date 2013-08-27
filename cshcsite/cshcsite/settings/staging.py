@@ -30,10 +30,8 @@ DISQUS_WEBSITE_SHORTNAME = 'cshc-staging'
 
 ########## EMAIL CONFIGURATION
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'cshc'
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_HOST_USER = 'cshc.club@gmail.com'
-EMAIL_HOST_PASSWORD = get_env_setting('EMAIL_PASSWORD')
+EMAIL_HOST_USER = get_env_setting('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = get_env_setting('SENDGRID_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 ########## END EMAIL CONFIGURATION
