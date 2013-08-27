@@ -127,7 +127,6 @@ class LatestResultsView(TemplateView):
             try:
                 now = timezone.now()
                 min_date = now - timedelta(days=365)
-                log.debug("Min date: {}".format(min_date))
                 result = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team_id=team.pk, date__gt=min_date.date(), date__lt=now.date()).order_by('-date')[0]
                 latest_results.append(result)
             except IndexError:

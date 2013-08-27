@@ -1,24 +1,27 @@
 {% load core_tags %}
 
 <div class="row match-detail">
-    <div class="row">
-    {% if match.venue %} 
-        <div class="pull-right gmap3 map_large" id="map_canvas"></div>
-        <h3><i class="icon icon-map-marker" title="Match venue"></i>{{ match.venue|urlise_model }}</h3>
-        <address><strong>
-            {% if match.venue.addr1 %}{{ match.venue.addr1 }}</br>{% endif %}
-            {% if match.venue.addr2 %}{{ match.venue.addr2 }}</br>{% endif %}
-            {% if match.venue.addr3 %}{{ match.venue.addr3 }}</br>{% endif %}
-            {% if match.venue.addr_city %}{{ match.venue.addr_city }}</br>{% endif %}
-            {% if match.venue.addr_postcode %}{{ match.venue.addr_postcode }}</br></br>{% endif %}</strong>
-            {% if match.venue.phone %}<i class="icon-phone"></i>{{ match.venue.phone }}</br>{% endif %}
-            {% if match.venue.url %}<i class="icon-globe"></i>{{ match.venue.url|urlizetrunc:"50" }}{% endif %}
-        </address>
+    {% if match.venue %}
+        <div class="span4">
+            <h3><i class="icon icon-map-marker" title="Match venue"></i>{{ match.venue|urlise_model }}</h3>
+            <address><strong>
+                {% if match.venue.addr1 %}{{ match.venue.addr1 }}</br>{% endif %}
+                {% if match.venue.addr2 %}{{ match.venue.addr2 }}</br>{% endif %}
+                {% if match.venue.addr3 %}{{ match.venue.addr3 }}</br>{% endif %}
+                {% if match.venue.addr_city %}{{ match.venue.addr_city }}</br>{% endif %}
+                {% if match.venue.addr_postcode %}{{ match.venue.addr_postcode }}</br></br>{% endif %}</strong>
+                {% if match.venue.phone %}<i class="icon-phone"></i>{{ match.venue.phone }}</br>{% endif %}
+                {% if match.venue.url %}<i class="icon-globe"></i>{{ match.venue.url|urlizetrunc:"50" }}{% endif %}
+            </address>
+        </div>
+        <div class="span8">
+            <div class="gmap3 map_large" id="map_canvas"></div>
+        </div>
     {% else %}
+    <div class="span12">
         <h3><i class="icon icon-map-marker" title="Match venue"></i>Venue TBD</h3>
-    {% endif %} 
     </div>
-    
+    {% endif %}
 </div>
 
 <div class="row match-report">

@@ -68,6 +68,15 @@ Currently just lists the values that will be needed by this template - no UI des
 {% include 'matches/_fixture_detail.html' %}
 {% endif %}
 
+<ul class="pager">
+  <li class="previous{% if not prev_match %} disabled{% endif %}">
+    <a href="{% if prev_match %}{{ prev_match.get_absolute_url }}{% else %}#{% endif %}" {% if prev_match %}title="{{ prev_match.fixture_title }}"{% endif %}>&larr; Previous match</a>
+  </li>
+  <li class="next{% if not next_match %} disabled{% endif %}">
+    <a href="{% if next_match %}{{ next_match.get_absolute_url }}{% else %}#{% endif %}" {% if next_match %}title="{{ next_match.fixture_title }}"{% endif %}>Next match &rarr;</a>
+  </li>
+</ul>
+
 <div class="row">
     <hr/>
     <span class='st_sharethis_large' displayText='ShareThis' st_title='{{ match.match_title_text }}' st_summary='{% if match.report_body %}{{ match.report_body|truncatewords:100 }}{% else %}{{ match }}{% endif %}'></span>
@@ -85,16 +94,6 @@ Currently just lists the values that will be needed by this template - no UI des
     {% disqus_show_comments %}
     {% disqus_config request.user %}
 </div>
-
-<ul class="pager">
-  <li class="previous{% if not prev_match %} disabled{% endif %}">
-    <a href="{% if prev_match %}{{ prev_match.get_absolute_url }}{% else %}#{% endif %}" {% if prev_match %}title="{{ prev_match.fixture_title }}"{% endif %}>&larr; Previous match</a>
-  </li>
-  <li class="next{% if not next_match %} disabled{% endif %}">
-    <a href="{% if next_match %}{{ next_match.get_absolute_url }}{% else %}#{% endif %}" {% if next_match %}title="{{ next_match.fixture_title }}"{% endif %}>Next match &rarr;</a>
-  </li>
-</ul>
-
 
 {% if same_date_matches|length > 0 %}
 <div class="row same-day">
