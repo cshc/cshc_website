@@ -146,7 +146,7 @@ Tables
 
 .table-hcondensed { width: auto; }
 
-.table tbody tr td a {
+#member-list .table tbody tr td a {
   display: inline-block;
   width: 100%;
   height: 100%;
