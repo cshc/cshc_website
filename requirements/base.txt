@@ -23,7 +23,7 @@ django-braces==1.0.0
 python-dateutil==2.1
 
 # (django-ical) iCalendar parser/generator
-icalendar==3.3
+icalendar==3.5
 
 # iCal feeds based on Django's syndication framework
 django-ical==1.2
