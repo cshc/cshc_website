@@ -12,7 +12,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-auth.mythic-beasts.com'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', 'justfornow')   # TODO: move to environment variable
+EMAIL_HOST_PASSWORD = get_env_setting('EMAIL_HOST_PASSWORD')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
 EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'webmaster@cambridgesouthhockeyclub.co.uk')    # Important: NOT website@...
@@ -36,9 +36,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cshc',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'USER': 'cshc',
+        'PASSWORD': get_env_setting('DB_PASSWORD'),
+        'HOST': 'http://mysql-51.int.mythic-beasts.com',
         'PORT': '',
     }
 }

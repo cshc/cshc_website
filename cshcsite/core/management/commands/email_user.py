@@ -6,6 +6,7 @@ from optparse import make_option
 from core.models import CshcUser
 from _command_utils import email_user, create_password
 
+
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('--sim',

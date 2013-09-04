@@ -4,6 +4,7 @@ from django.views.generic.edit import UpdateView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth import views as auth_views
 from templated_emails.utils import send_templated_email
 from braces.views import LoginRequiredMixin
 from core.views import AjaxGeneral
@@ -16,6 +17,13 @@ from .stats import MemberSeasonStat
 from .filters import MemberFilter
 
 log = logging.getLogger(__name__)
+
+
+def login(request, *args, **kwargs):
+    if request.method == 'POST':
+        if not request.POST.get('remember_me', None):
+            request.session.set_expiry(0)
+    return auth_views.login(request, *args, **kwargs)
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):

@@ -7,11 +7,11 @@
 
 {% block content %}
 {% url 'southerners_league' as base_southerners_league_url %}
-{% url 'stats_overview' as stats_url %}
+{% url 'stats' as stats_url %}
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
-  <li>Stats <span class="divider">/</span></li>
+  <li><a href="{{ stats_url }}">Stats</a> <span class="divider">/</span></li>
   <li class="active">Southerners League</li>
 </ul>
 

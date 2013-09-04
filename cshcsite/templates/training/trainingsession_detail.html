@@ -14,18 +14,26 @@
 </ul>
 
 <div class="page-header">
-    <h1>{{ trainingsession.description }} <small> {{ trainingsession.datetime.date|date:"d M" }} at {{ trainingsession.datetime.time|time:"H:i" }}</small></h1>
+    <h1>{{ trainingsession.description }} <small> {{ trainingsession.datetime.date|date:"jS M" }} at {{ trainingsession.datetime.time|time:"H:i" }}</small></h1>
 </div>
 
 <p class="lead">{{ trainingsession.description }} takes place at {{ trainingsession.venue|urlise_model }}.</p>
 
-<div class="gmap3 map_large" id="map_canvas"></div>
-
-<div class="well info-well">
-    <h3>Make it easy for yourself!</h3>
-    <p class="lead">All Cambridge South training sessions are available as a <strong>.ics calendar feed</strong> that you can link into your own calendar client (Outlook, iPhone etc).</p>
-    <a class="calendar" href="{{ calendar }}#feeds"><button class="btn btn-large btn-primary"><i class="icon-calendar"></i>Plug me in!</button></a>
+<div class="row">
+    <div class="span8">
+        <div class="gmap3 map_large" id="map_canvas"></div>
+        {% include 'core/_gmap_link.html' with venue=match.venue %}
+    </div>
+    <div class="span4">
+      <div class="well">
+          <h3>Make it easy for yourself!</h3>
+          <p class="lead">All Cambridge South training sessions are available as a <strong>.ics calendar feed</strong> that you can link into your own calendar client (Outlook, iPhone etc).</p>
+          <a class="calendar" href="{{ calendar }}#feeds"><button class="btn btn-large btn-primary"><i class="icon-calendar"></i>Plug me in!</button></a>
+      </div>
+    </div>
 </div>
+
+
 
 {% url 'admin:training_trainingsession_change' trainingsession.id as admin_url %}
 {% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit training session details' %}

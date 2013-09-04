@@ -106,10 +106,14 @@ class Command(BaseCommand):
             try:
                 matching_details = next(x for x in members if details_same_as_member(x, player))
             except StopIteration:
-                pass
+                # Players without a user associated with them are deemed not to be current
+                player.is_current = False
+                player.save()
             else:
                 u = self.create_user(matching_details, options['simulate'])
                 player.user = u
+                # Players with a user associated with them are deemed to be current
+                player.is_current = True
                 player.save()
                 print "Associating User '{}' with Member '{}'".format(u, player)
                 members.remove(matching_details)

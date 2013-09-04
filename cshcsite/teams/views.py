@@ -69,7 +69,7 @@ class ClubTeamDetailView(TemplateView):
         context['clubteam'] = team
 
         # Get the seasons in which this team competed
-        part_seasons = [part.season for part in ClubTeamSeasonParticipation.objects.select_related('season').filter(team=team).only('season').order_by('season__start')]
+        part_seasons = [part.season for part in ClubTeamSeasonParticipation.objects.select_related('season').filter(team=team).only('season').order_by('-season__start')]
 
         # The season may or may not be specified in the URL by its slug.
         # If it isn't, we use the current season
@@ -80,7 +80,7 @@ class ClubTeamDetailView(TemplateView):
         else:
             if part_seasons:
                 # Default to the most recent season
-                season = part_seasons[-1]
+                season = part_seasons[0]
             else:
                 season = Season.current()
 
@@ -234,7 +234,7 @@ class SouthernersSeasonView(SouthernersMixin, TemplateView):
 
         context['season'] = season
         context['is_current_season'] = season == Season.current()
-        context['season_list'] = Season.objects.all()
+        context['season_list'] = Season.objects.all().order_by("-start")
         return context
 
 

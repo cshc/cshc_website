@@ -107,8 +107,8 @@ Filter-able, sortable, paginated display of matches.
             {% for match in sorted_filter_list %}
                 <tr>
                     <td class="priority3">{% include 'matches/_fixture_icon.html' %}</td>
-                    <td class="no-break"><a title="Matches on {{ match.date|date:"d-M-y" }}" href="{% url 'matches_by_date' match.date|date:"d-M-y"%}">{{ match.date|date:"d-M-y" }}</a></td>
-                    <td><a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.long_name }}</a></td>
+                    <td class="no-break"><a title="Matches on {{ match.date|date:"jS M Y" }}" href="{% url 'matches_by_date' match.date|date:"d-M-y"%}">{{ match.date|date:"jS M Y" }}</a></td>
+                    <td><a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.short_name }}</a></td>
                     <td>{{ match.score_display }}</td>
                     <td>{{ match.opp_team }}</td>
                     <td class="priority2">{% if match.venue %}<a href="{{ match.venue.get_absolute_url }}" title="{{ match.venue.name }}">{{ match.simple_venue_name }}</a>{% elif match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>

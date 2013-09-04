@@ -98,6 +98,9 @@ USE_L10N = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
+
+SESSION_COOKIE_AGE = 365*24*60*60   # one year in seconds
+
 ########## END GENERAL CONFIGURATION
 
 

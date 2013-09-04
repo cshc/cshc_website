@@ -8,7 +8,7 @@ Formatted display of matches on a particular date.
 Currently just lists the values that will be needed by this template - no UI design here yet!
 {% endcomment %}
 
-{% block title %}{{ block.super }} | Matches on {{ date|date:"jS F Y" }}{% endblock %}
+{% block title %}{{ block.super }} | Matches on {{ date|date:"jS M Y" }}{% endblock %}
 
 {% block body_id %}matches-by-date{% endblock body_id %}
 
@@ -18,11 +18,11 @@ Currently just lists the values that will be needed by this template - no UI des
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
   <li><a href="{{ match_list_url }}">Matches</a> <span class="divider">/</span></li>
-  <li class="active">{{ date|date:"jS F Y" }}</li>
+  <li class="active">{{ date|date:"jS M Y" }}</li>
 </ul>
 
 <div class="page-header">
-    <h1>Matches <small>{{ date|date:"jS F Y" }}</small></h1>
+    <h1>Matches <small>{{ date|date:"jS M Y" }}</small></h1>
 </div>
 
 {% include 'matches/_date_pager.html' %}
@@ -83,6 +83,7 @@ Currently just lists the values that will be needed by this template - no UI des
                 {% else %}
                     {% if m.match.venue %}
                         <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
+                        {% include 'core/_gmap_link.html' with venue=m.match.venue %}
                     {% endif %}
                     <ul class="inline">
                         <li><i class="icon icon-time"></i>{{ m.match.time_display }}</li>

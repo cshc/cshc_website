@@ -32,6 +32,7 @@ Currently just lists the values that will be needed by this template - no UI des
     </div>
     <div class="span8">
         <div class="gmap3 map_large" id="map_canvas"></div>
+        {% include 'core/_gmap_link.html' with venue=club.default_venue %}
     </div>
 </div>
 {% endif %}
@@ -44,8 +45,8 @@ Currently just lists the values that will be needed by this template - no UI des
             <tr>
                 <th rowspan="2" class="left-align">Team</th>
                 <th colspan="6" class="highlight">All</th>
-                <th colspan="6">Home</th>
-                <th colspan="6">Away</th>
+                <th class="priority3" colspan="6">Home</th>
+                <th class="priority3" colspan="6">Away</th>
             </tr>
             <tr>
                 <th class="highlight"><abbr title="Played">P</abbr></th>
@@ -55,19 +56,19 @@ Currently just lists the values that will be needed by this template - no UI des
                 <th class="highlight"><abbr title="Goals For">GF</abbr></th>
                 <th class="highlight"><abbr title="Goals Against">GA</abbr></th>
 
-                <th><abbr title="Played">P</abbr></th>
-                <th><abbr title="Won">W</abbr></th>
-                <th><abbr title="Drawn">D</abbr></th>
-                <th><abbr title="Lost">L</abbr></th>
-                <th><abbr title="Goals For">GF</abbr></th>
-                <th><abbr title="Goals Against">GA</abbr></th>
+                <th class="priority3"><abbr title="Played">P</abbr></th>
+                <th class="priority3"><abbr title="Won">W</abbr></th>
+                <th class="priority3"><abbr title="Drawn">D</abbr></th>
+                <th class="priority3"><abbr title="Lost">L</abbr></th>
+                <th class="priority3"><abbr title="Goals For">GF</abbr></th>
+                <th class="priority3"><abbr title="Goals Against">GA</abbr></th>
 
-                <th><abbr title="Played">P</abbr></th>
-                <th><abbr title="Won">W</abbr></th>
-                <th><abbr title="Drawn">D</abbr></th>
-                <th><abbr title="Lost">L</abbr></th>
-                <th><abbr title="Goals For">GF</abbr></th>
-                <th><abbr title="Goals Against">GA</abbr></th>
+                <th class="priority3"><abbr title="Played">P</abbr></th>
+                <th class="priority3"><abbr title="Won">W</abbr></th>
+                <th class="priority3"><abbr title="Drawn">D</abbr></th>
+                <th class="priority3"><abbr title="Lost">L</abbr></th>
+                <th class="priority3"><abbr title="Goals For">GF</abbr></th>
+                <th class="priority3"><abbr title="Goals Against">GA</abbr></th>
             </tr>
         </thead>
         <tbody>
@@ -82,19 +83,19 @@ Currently just lists the values that will be needed by this template - no UI des
                 <td class="highlight">{{ c.total_gf }}</td>
                 <td class="highlight">{{ c.total_ga }}</td>
 
-                <td>{{ c.home_played }}</td>
-                <td>{{ c.home_won }}</td>
-                <td>{{ c.home_drawn }}</td>
-                <td>{{ c.home_lost }}</td>
-                <td>{{ c.home_gf }}</td>
-                <td>{{ c.home_ga }}</td>
+                <td class="priority3">{{ c.home_played }}</td>
+                <td class="priority3">{{ c.home_won }}</td>
+                <td class="priority3">{{ c.home_drawn }}</td>
+                <td class="priority3">{{ c.home_lost }}</td>
+                <td class="priority3">{{ c.home_gf }}</td>
+                <td class="priority3">{{ c.home_ga }}</td>
 
-                <td>{{ c.away_played }}</td>
-                <td>{{ c.away_won }}</td>
-                <td>{{ c.away_drawn }}</td>
-                <td>{{ c.away_lost }}</td>
-                <td>{{ c.away_gf }}</td>
-                <td>{{ c.away_ga }}</td>
+                <td class="priority3">{{ c.away_played }}</td>
+                <td class="priority3">{{ c.away_won }}</td>
+                <td class="priority3">{{ c.away_drawn }}</td>
+                <td class="priority3">{{ c.away_lost }}</td>
+                <td class="priority3">{{ c.away_gf }}</td>
+                <td class="priority3">{{ c.away_ga }}</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -50,53 +50,33 @@
 {% block content %}
 
 {% url 'contact_us' as contact_us %}
-{% url 'clubteam_list' as team_list %}
-{% url 'upcoming_trainingsession_list' as training %}
-{% url 'venue_detail' 'leys' as leys_url %}
-{% url 'venue_detail' 'abbey' as abbey_url %}
 
 <div class="page-header">
     <h1>Welcome to Cambridge South Hockey Club</h1>
 </div>
 <div class="row">
     <div class="span9">
-        <p class="lead">We are a friendly, lively, Cambridge-based club who run four Men's and two Ladies' teams as well as Mixed and Indoor sides.</p>
+        <p class="lead">We are a friendly, lively, Cambridge-based club who run five Men's and two Ladies' teams as well as Mixed and Indoor sides.</p>
         <p class="lead">We offer something for everyone; whether you are experienced or new to the sport you will be very welcome at the club.</p>
     </div>
     <div class="span3">
-        <img class="img-polaroid" src="{{ STATIC_URL }}media/Web%20site%20images/small_tackle.jpg"/>
+        <img alt="CSHC Crest" src="{{ STATIC_URL }}media/crest.png" id="crest" />
     </div>
 </div>
 <hr/>
 <div class="row">
     <div class="span7">
-        <div id="join-us" class="box box-dark box-green">
-            <div class="row">
-                <div class="span7">
-                    <h3>Join Cambridge South</h3>
-                </div>
-                <div class="span3">
-                    <div class="box-content">
-                        <img class="h_center" src="{{ STATIC_URL }}media/Web%20site%20images/l2_2012_small.jpg"/>
-                        <a href="{{ contact_us }}" class="h_center"><button class="btn">Get in touch...</button></a>
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="box-content">
-                        <p>We are always looking for new players to join us. Feel free to look around this site to find out
-                        more about each of the <a class="inline" href="{{ team_list }}">teams</a>. Better still, why not attend the <a class="inline" href="{{ training }}">training</a> on
-                        Monday evenings during the season at <a class="inline" href="{{ leys_url }}">The Leys School</a>, or our Pay and Play sessions at 8pm on
-                        Wednesday evenings at the <a class="inline" href="{{ abbey_url }}">Coldham's Common</a> pitch or simply come along to watch a match live?
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div id="join-us">
+            <h3>Join Cambridge South!</h3>
+            <img class="img-polaroid" src="{{ STATIC_URL }}media/Rolling/M2vsEly2.jpg"/>
+            <img class="img-polaroid" src="{{ STATIC_URL }}media/Rolling/L2vsHunts1.jpg"/>
+            <a href="{{ contact_us }}" class="btn btn-large btn-success">Get in touch...</a>
         </div>
         {% include 'training/_next_training.html' %}
     </div>
     <div class="span5">
         <div class="box side-box">
-            <h3><i class="icon-twitter"></i>Twitterings...</h3>
+            <h3><i class="icon-twitter"></i>Twitterings... <span class="pull-right"><a class="btn btn-small btn-info" href="https://twitter.com/cambsouthhc" target="_blank"><i class="icon-twitter"></i>Follow cambsouthhc</a></span></h3>
             {% include 'core/_loading_placeholder.html' with placeholder_id="twitter-stream" placeholder_text="Loading tweets..." %}
         </div>
         <div class="box side-box">

@@ -11,6 +11,12 @@ Static landing page for stats - mainly a redirect from the old site.
 
 {% block content %}
 
+{% url 'goal_king' as goal_king %}
+{% url 'southerners_league' as southerners %}
+{% url 'clubteam_list' as team_list %}
+{% url 'member_list' as member_list %}
+{% url 'opposition_club_list' as opp_list %}
+
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
   <li class="active">Stats</li>
@@ -20,6 +26,25 @@ Static landing page for stats - mainly a redirect from the old site.
     <h1>Statistics</h1>
 </div>
 
-<p>TODO</p>
+<img id="stats-img" class="img-polaroid pull-right" src="{{ STATIC_URL }}media/Web%20site%20images/statistics.jpg">
+
+<blockquote>
+  <p>Life is not just a series of calculations and a sum total of statistics,
+    it's about experience, it's about participation, it is something more complex
+    and more interesting than what is obvious.</p>
+  <small>Daniel Libeskind</small>
+</blockquote>
+
+<p class="lead">...that being said, we like our statistics here at Cambridge South! You'll find statistics
+on each <a href="{{ member_list }}">club member</a>, on the various <a href="{{ team_list }}">Cambridge
+South teams</a> and on all the <a href="{{ opp_list }}">opposition clubs</a> we've played against.</p>
+
+<p class="lead">In addition, we have some special statistics - and the collection is growing!</p>
+
+<ul class="inline">
+    <li><a class="btn" href="{{ goal_king }}">Goal King</a></li>
+    <li><a class="btn" href="{{ southerners }}">Southerners League</a></li>
+</ul>
+
 {% endblock %}
 

@@ -52,7 +52,7 @@ class MatchesBySeasonView(TemplateView):
 
         context['matches_by_year'] = matches_by_year
         context['season'] = season
-        context['season_list'] = Season.objects.all()
+        context['season_list'] = Season.objects.all().order_by("-start")
 
         return context
 
@@ -251,7 +251,7 @@ class GoalKingSeasonView(GoalKingMixin, TemplateView):
         context['goalking_list'] = self.get_goalking_list(season)
 
         context['season'] = season
-        context['season_list'] = Season.objects.all()
+        context['season_list'] = Season.objects.all().order_by("-start")
         return context
 
 

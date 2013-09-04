@@ -98,7 +98,7 @@ Currently just lists the values that will be needed by this template - no UI des
 {% if same_date_matches|length > 0 %}
 <div class="row same-day">
     <div class="well">
-        <h4>Other matches on {{ match.date }}</h4>
+        <h4>Other matches on {{ match.date|date:"jS M" }}</h4>
         <ul>
             {% for m in same_date_matches %}
                 <li><a href="{{ m.get_absolute_url }}">{{ m.match_title_text }}</a></li>

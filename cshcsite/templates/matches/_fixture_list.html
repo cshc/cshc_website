@@ -8,7 +8,18 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
 {% if match_list %}
     <table class="table table-condensed table-hover">
         <thead>
-            <tr><th class="priority3"></th><th>Date</th><th>Opposition</th><th class="priority2">Time</th><th class="priority2">Venue</th><th class="center-align">Result<br/>(CS-Op)</th><th class="priority3">Scorers</th><th class="priority3">MOM</th><th class="priority3">LOM</th><th>Match<br/>Report</th></tr>
+            <tr>
+                <th class="priority3"></th>
+                <th>Date</th>
+                <th>Opposition</th>
+                <th class="priority2">Time</th>
+                <th class="priority2">Venue</th>
+                <th class="center-align">Result<br/>(CS-Op)</th>
+                <th class="priority3">Scorers</th>
+                <th class="priority3"><abbr title="Man of the Match"><i class="icon-star"></i></abbr></th>
+                <th class="priority3"><abbr title="Lemon of the Match"><i class="icon-lemon"></i></abbr></th>
+                <th>Match<br/>Report</th>
+            </tr>
         </thead>
         <tbody>
         {% for date, matches in match_list %}
@@ -17,7 +28,7 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
                 <td class="priority3">
                     {% include 'matches/_fixture_icon.html' with match=m.match %}
                 </td>
-                <td class="no-break"><a title="Matches on {{ m.match.date|date:"d-M-y" }}" href="{% url 'matches_by_date' m.match.date|date:"d-M-y"%}">{{ m.match.date|date:"jS M" }}</a></td>
+                <td class="no-break"><a title="Matches on {{ m.match.date|date:"jS M" }}" href="{% url 'matches_by_date' m.match.date|date:"d-M-y"%}">{{ m.match.date|date:"jS M" }}</a></td>
                 <td><a href="{{ m.match.opp_team.club.get_absolute_url }}">{{ m.match.opp_team.name }}</a>{% if m.match.kit_clash %}<i class="icon-user" title="Away kit"></i>{% endif %}</td>
                 <td class="priority2">{{ m.match.time_display }}</td>
                 <td class="priority2">{% if m.match.venue %}<a href="{{ m.match.venue.get_absolute_url }}" title="{{ m.match.venue.name }}">{{ m.match.simple_venue_name }}</a>{% elif m.match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
@@ -42,7 +53,7 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
             {% empty %}
                 {% if fill_blanks %}
                 <tr>
-                    <td class="priority3"><i class="icon-ban-circle" title="No match"></i></td><td class="no-break">{{ date|date:"d-M-y" }}</td><td></td><td class="priority2"></td><td class="priority2"></td><td></td><td class="priority3"></td><td class="priority3"></td><td class="priority3"></td><td></td>
+                    <td class="priority3"><i class="icon-ban-circle" title="No match"></i></td><td class="no-break">{{ date|date:"jS M" }}</td><td></td><td class="priority2"></td><td class="priority2"></td><td></td><td class="priority3"></td><td class="priority3"></td><td class="priority3"></td><td></td>
                 </tr>
                 {% endif %}
             {% endfor %}

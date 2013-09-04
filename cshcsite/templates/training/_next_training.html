@@ -6,7 +6,7 @@ Context should have a 'trainingsession_list' list of TrainingSession objects.
 {% url 'trainingsession_ical_feed' as calendar %}
 <div class="section_header">
     <span class="pull-right">
-        <a href="{{ calendar }}" title=".ics calendar of training sessions" target="_blank" class="btn btn-small btn-info">
+        <a href="{{ calendar }}" title=".ics calendar of training sessions" target="_blank" class="btn btn-small btn-primary">
             <i class="icon-calendar"></i>Calendar (.ics)
         </a>
     </span>
@@ -20,7 +20,7 @@ Context should have a 'trainingsession_list' list of TrainingSession objects.
         <tbody>
             {% for t in trainingsession_list %}
             <tr>
-                <td>{{ t.datetime|date:"D d-M" }}</td>
+                <td>{{ t.datetime|date:"D jS M" }}</td>
                 <td>{{ t.datetime|time }}</td>
                 <td>{{ t.description }}</td>
                 <td><a href="{{ t.venue.get_absolute_url }}">{{ t.venue.short_name }}</a></td>

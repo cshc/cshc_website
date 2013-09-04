@@ -11,11 +11,11 @@ Formatted display of the Goal King table for a particular season.
 
 {% block content %}
 {% url 'goal_king' as base_goal_king_url %}
-{% url 'stats_overview' as stats_url %}
+{% url 'stats' as stats_url %}
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
-  <li>Stats <span class="divider">/</span></li>
+  <li><a href="{{ stats_url }}">Stats</a> <span class="divider">/</span></li>
   <li class="active">Goal King</li>
 </ul>
 

@@ -54,7 +54,7 @@ class Command(BaseCommand):
             help='Delete existing models'),
         )
     args = '<table_name table_name ...>'
-    help = 'Migrates tables from the old MDB file. Use -c to also convert the MDB file to CSV first.'
+    help = 'Migrates tables from the old MDB file (stored in csv format).'
 
     def handle(self, *args, **options):
         try:
