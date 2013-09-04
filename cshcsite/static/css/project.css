@@ -206,7 +206,7 @@ Top Banner
     display: block;
     overflow: hidden;
     left: 0; top: 0;
-    z-index: -9999;
+    /*z-index: -9999;*/
     background-size: 100%;
     background:url('../img/backgrounds/astro1.png') no-repeat 0 0px;
     background-color: rgba(34, 102, 28, 0.6);
