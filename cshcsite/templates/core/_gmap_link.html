@@ -1,0 +1,5 @@
+{% if flavour = 'mobile' %}
+  {% if venue.full_address %}
+    <a class="gmap-link btn btn-large btn-primary" href="comgooglemaps://?q={{ venue.full_address }}">View in Google Maps</a>
+  {% endif %}
+{% endif %}
