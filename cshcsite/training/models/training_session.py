@@ -49,6 +49,7 @@ class TrainingSession(models.Model):
     class Meta:
         app_label = 'training'
         ordering = ['datetime']
+        unique_together = ('description', 'datetime')
 
     def __unicode__(self):
         return "{} ({})".format(self.description, self.datetime)

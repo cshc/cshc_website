@@ -146,13 +146,6 @@ class ContactSubmissionCreateView(FormView):
             messages.error(self.request, "Sorry - we were unable to send your message. Please try again later.")
         return super(ContactSubmissionCreateView, self).form_valid(form)
 
-    def form_invalid(self, form):
-        messages.error(
-            self.request,
-            "Submission failed. Errors: {}".format(form.errors)
-        )
-        return super(ContactSubmissionCreateView, self).form_invalid(form)
-
 
 class RegisterUserView(CreateView):
 

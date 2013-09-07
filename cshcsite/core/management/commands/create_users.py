@@ -121,6 +121,7 @@ class Command(BaseCommand):
 
         print "DONE: Associated {} Users with Members".format(conversion_count)
 
+
     def create_user(self, member_details, simulate):
         try:
             new_user = CshcUser.objects.get(email=member_details.email)

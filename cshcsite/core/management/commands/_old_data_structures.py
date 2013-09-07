@@ -540,6 +540,10 @@ class Old_Team_Seasons(Old_Table_Entry):
             if self.Cup_Position == 'N/A':
                 self.Cup_Position = None
 
+        # Treat Printwize league as East League
+        if self.League_Division:
+            self.League_Division = self.League_Division.lstrip('Printwize ')
+
     def validate(self):
         self._validate_positive_integer('Team_Season_ID')
         self._validate_positive_integer('Team')
@@ -554,6 +558,8 @@ class Old_Team_Seasons(Old_Table_Entry):
                 division = self.League_Division.lstrip('East League ')
             elif self.League_Division.find('Cambs League') != -1:
                 division = self.League_Division.lstrip('Cambs League ')
+            elif self.League_Division.find('Crowe Insurance') != -1:
+                division = self.League_Division.lstrip('Crowe Insurance ')
             new_teamseason.division_id = pre_req['Division'][division].pk
 
         return new_teamseason

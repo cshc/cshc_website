@@ -101,7 +101,7 @@ class ContactSubmission(models.Model):
 
     # Optional attributes:
     phone = models.CharField("Phone number", max_length=30, blank=True)
-    message = models.TextField("Message", blank=True, help_text="Message (comments/questions etc)")
+    message = models.TextField("Message", help_text="Message (comments/questions etc)")
     our_notes = models.TextField(blank=True, help_text="Any notes from the club about this enquiry")
 
     # Automatically created attributes

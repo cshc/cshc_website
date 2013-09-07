@@ -48,7 +48,7 @@ Currently just lists the values that will be needed by this template - no UI des
 <table class="table table-score">
 <tbody>
     <tr>
-        <td class="team-name">{{ match.our_team.abbr_name }}</td>
+        <td class="team-name"><a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.abbr_name }}</a></td>
         {% if match.final_scores_provided %}
         <td class="team-score">{{ match.our_score }}</td>
         <td class="team-score score-divider">-</td>
@@ -56,7 +56,7 @@ Currently just lists the values that will be needed by this template - no UI des
         {% else %}
         <td class="team-score">vs</td>
         {% endif %}
-        <td class="team-name">{{ match.opp_team.name }}</td>
+        <td class="team-name"><a href="{{ match.opp_team.club.get_absolute_url }}">{{ match.opp_team.name }}</a></td>
     </td>
 </tbody>
 </table>

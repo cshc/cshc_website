@@ -25,16 +25,34 @@ Form used to email a message to the club secretary
         </div>
         <div class="span7">
             <form action="{{ contact_us }}" method="post">{% csrf_token %}
-                    <input id="id_first_name" maxlength="255" name="first_name" class="name" type="text" placeholder="First name*">
-                    <input id="id_last_name" maxlength="255" name="last_name" class="name" type="text" placeholder="Last name*">
-                    <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email*">
-                    <input id="id_phone" maxlength="25" name="phone" class="phone" type="text" placeholder="Phone">
-                    <textarea id="id_message" name="message" placeholder="Message*"></textarea>
-                    <label class="checkbox">
-                        <input id="id_mailing_list" name="mailing_list" type="checkbox"> I would like to join the Club mailing lists
-                    </label>
-                    <input class="btn btn-primary" type="submit" value="Send your message">
-                    <p class="required">* required fields</p>
+
+                {{ form.first_name.errors }}
+                <label for="id_first_name" class="control-label required"></label>
+                <input id="id_first_name" maxlength="255" name="first_name" class="name" type="text" placeholder="First name*">
+
+                {{ form.last_name.errors }}
+                <label for="id_last_name" class="control-label required"></label>
+                <input id="id_last_name" maxlength="255" name="last_name" class="name" type="text" placeholder="Last name*">
+
+                {{ form.email.errors }}
+                <label for="id_email" class="control-label required"></label>
+                <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email*">
+
+                {{ form.phone.errors }}
+                <label for="id_phone" class="control-label"></label>
+                <input id="id_phone" maxlength="25" name="phone" class="phone" type="text" placeholder="Phone">
+
+                {{ form.message.errors }}
+                <label for="id_message" class="control-label required"></label>
+                <textarea id="id_message" name="message" placeholder="Message*"></textarea>
+
+                {{ form.mailing_list.errors }}
+                <label class="control-label checkbox">
+                    <input id="id_mailing_list" name="mailing_list" type="checkbox"> I would like to join the Club mailing lists
+                </label>
+
+                <input class="btn btn-primary" type="submit" value="Send your message">
+                <p class="required">* required fields</p>
             </form>
         </div>
     </div>

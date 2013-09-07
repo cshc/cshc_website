@@ -272,12 +272,15 @@ class Command(BaseCommand):
 
         new_leagues['East League'], created = League.objects.get_or_create(name='East League')
         new_leagues['Cambs League'], created = League.objects.get_or_create(name='Cambs League')
-
+        new_leagues['Crowe Insurance League'], created = League.objects.get_or_create(name='Crowe Insurance League')
         return new_leagues
 
     @staticmethod
     def add_division_prerequisites(leagues):
         new_divisions = {}
+
+        # Crowe Insurance Leagues
+        new_divisions['Division 3NW'], created = Division.objects.get_or_create(name='Division 3NW', league=leagues['Crowe Insurance League'], gender=TeamGender.Mens)
 
         # East Leagues
         new_divisions['Division 3NW'], created = Division.objects.get_or_create(name='Division 3NW', league=leagues['East League'], gender=TeamGender.Mens)

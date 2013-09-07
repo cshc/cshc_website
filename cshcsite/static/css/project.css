@@ -162,6 +162,8 @@ Match Details
 .table-score tbody tr td { border: none; line-height: normal; vertical-align: middle; text-align: center; }
 
 .table-score tbody tr td.team-name { background-color: rgb(15, 95, 15); color: lightgray; width: 40%; font-size: 250%; }
+.table-score tbody tr td.team-name a { color: lightgray; }
+.table-score tbody tr td.team-name a:hover { color: white; }
 
 .table-score tbody tr td.team-score { background-color: rgb(60, 141, 60); color: white; font-size: 400%; }
 
