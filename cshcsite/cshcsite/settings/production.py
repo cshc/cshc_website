@@ -38,7 +38,7 @@ DATABASES = {
         'NAME': 'cshc',
         'USER': 'cshc',
         'PASSWORD': get_env_setting('DB_PASSWORD'),
-        'HOST': 'http://mysql-51.int.mythic-beasts.com',
+        'HOST': 'mysql-51.int.mythic-beasts.com',
         'PORT': '',
     }
 }
@@ -47,7 +47,7 @@ DATABASES = {
 
 ########## CACHE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
-CACHES = {}
+#CACHES = {}
 ########## END CACHE CONFIGURATION
 
 
