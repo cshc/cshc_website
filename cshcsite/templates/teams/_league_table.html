@@ -1,22 +1,56 @@
-<h4>{{ participation.division }}&nbsp;&nbsp; <small>{{ participation.season }}</small></h4>
-<table class="table table-striped table-hover table-condensed">
-    <thead>
-        <tr><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th><th></th></tr>
-    </thead>
-    <tbody>
-        {% for t in division.teams %}
-        <tr {% if t.name == team.abbr_name %}class="success"{% endif %} >
-            <td>{{ t.name|capfirst }}</td>
-            <td>{{ t.played }}</td>
-            <td>{{ t.won }}</td>
-            <td>{{ t.drawn }}</td>
-            <td>{{ t.lost }}</td>
-            <td>{{ t.goals_for }}</td>
-            <td>{{ t.goals_against }}</td>
-            <td>{{ t.goal_difference }}</td>
-            <td>{{ t.points }}</td>
-            <td>{{ t.notes }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<h4>{{ division }}&nbsp;&nbsp; <small>{{ season }}</small></h4>
+{% if div_data %}
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr><th>Team</th>
+                <th><abbr title="Played">P</abbr></th>
+                <th><abbr title="Won">W</th>
+                <th><abbr title="Drawn">D</th>
+                <th><abbr title="Lost">L</th>
+                <th><abbr title="Goals For">GF</th>
+                <th><abbr title="Goals Against">GA</th>
+                <th><abbr title="Goal Difference">GD</th>
+                <th><abbr title="Points">Pts</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in div_data %}
+            <tr {% if t.team_name = clubteam.abbr_name %}class="success"{% endif %} >
+                <td><a href="{% if t.our_team %}{{ t.our_team.get_absolute_url }}{% else %}{{ t.opp_team.club.get_absolute_url }}{% endif %}">{{ t.team_name|capfirst }}</a></td>
+                <td>{{ t.played }}</td>
+                <td>{{ t.won }}</td>
+                <td>{{ t.drawn }}</td>
+                <td>{{ t.lost }}</td>
+                <td>{{ t.goals_for }}</td>
+                <td>{{ t.goals_against }}</td>
+                <td>{{ t.goal_difference }}</td>
+                <td>{{ t.points }}</td>
+                <td>{{ t.notes }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="lead muted">Sorry - league table not available</p>
+{% endif %}
+{% if user.is_staff and is_current_season %}
+    <button id="refresh-btn" class="btn btn-primary" type="button" title="Refresh league table" ><i id="refresh-icon" class="icon icon-refresh"></i><span id="refresh-text">Refresh</span></button>
+    {% url 'refresh_league_table' clubteam.slug season.pk as refresh_league_table %}
+
+    <script>
+        $("#refresh-btn").click( function() {
+            $("#refresh-icon").addClass('icon-spin');
+            $("#refresh-text").text('Refreshing...');
+            $('#refresh-btn').attr("disabled", true);
+            $.ajax({
+                url: '{{ refresh_league_table }}', cache: false, success: function (result) {
+                    $("#tabLeagueTable").html(result);
+                    $("#refresh-icon").removeClass('icon-spin');
+                    $("#refresh-text").text('Refresh');
+                    $('#refresh-btn').attr("disabled", false);
+                }
+            });
+        });
+    </script>
+{% endif %}

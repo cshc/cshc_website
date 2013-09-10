@@ -31,8 +31,10 @@ Currently just lists the values that will be needed by this template - no UI des
         <p>Note - this does not mean all away matches against {{ club.name }} will be played here. Check the fixture details for the actual match venue.</p>
     </div>
     <div class="span8">
-        <div class="gmap3 map_large" id="map_canvas"></div>
-        {% include 'core/_gmap_link.html' with venue=club.default_venue %}
+        {% if club.default_venue.address_known %}
+            <div class="gmap3 map_large" id="map_canvas"></div>
+            {% include 'core/_gmap_link.html' with venue=club.default_venue %}
+        {% endif %}
     </div>
 </div>
 {% endif %}

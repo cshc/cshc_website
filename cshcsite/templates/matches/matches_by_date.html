@@ -81,7 +81,7 @@ Currently just lists the values that will be needed by this template - no UI des
                         <p class="pull-right"><a href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
                 {% else %}
-                    {% if m.match.venue %}
+                    {% if m.match.venue and m.match.venue.address_known %}
                         <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
                         {% include 'core/_gmap_link.html' with venue=m.match.venue %}
                     {% endif %}

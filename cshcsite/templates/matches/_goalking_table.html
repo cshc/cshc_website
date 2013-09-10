@@ -4,15 +4,15 @@
     <thead>
         <tr><th>Rank</th>
         <th class="left-align">Name</th>
-        <th><abbr title="Mens 1sts">M1</abbr></th>
-        <th><abbr title="Mens 2nds">M2</abbr></th>
-        <th><abbr title="Mens 3rds">M3</abbr></th>
-        <th><abbr title="Mens 4ths">M4</abbr></th>
-        <th><abbr title="Mens 5ths">M5</abbr></th>
-        <th><abbr title="Ladies 1sts">L1</abbr></th>
-        <th><abbr title="Ladies 2nds">L2</abbr></th>
-        <th><abbr title="Mixed team">Mix</abbr></th>
-        <th><abbr title="Indoor team">Ind</abbr></th>
+        <th class="priority2"><abbr title="Mens 1sts">M1</abbr></th>
+        <th class="priority2"><abbr title="Mens 2nds">M2</abbr></th>
+        <th class="priority2"><abbr title="Mens 3rds">M3</abbr></th>
+        <th class="priority2"><abbr title="Mens 4ths">M4</abbr></th>
+        <th class="priority2"><abbr title="Mens 5ths">M5</abbr></th>
+        <th class="priority2"><abbr title="Ladies 1sts">L1</abbr></th>
+        <th class="priority2"><abbr title="Ladies 2nds">L2</abbr></th>
+        <th class="priority2"><abbr title="Mixed team">Mix</abbr></th>
+        <th class="priority2"><abbr title="Indoor team">Ind</abbr></th>
         <th><abbr title="Total goals scored">Total</abbr></th>
         <th><abbr title="Goals per game">GPG</abbr></th>
         </tr>
@@ -22,15 +22,15 @@
         <tr>
             <td><span class="label label-{{ gk.member.gender|lower }}">{{ gk.rank }}</span></td>
             <td class="left-align">{{ gk.member|urlise_model }}</td>
-            <td>{{ gk.m1_goals|default:"" }}</td>
-            <td>{{ gk.m2_goals|default:"" }}</td>
-            <td>{{ gk.m3_goals|default:"" }}</td>
-            <td>{{ gk.m4_goals|default:"" }}</td>
-            <td>{{ gk.m5_goals|default:"" }}</td>
-            <td>{{ gk.l1_goals|default:"" }}</td>
-            <td>{{ gk.l2_goals|default:"" }}</td>
-            <td>{{ gk.mixed_goals|default:"" }}</td>
-            <td>{{ gk.indoor_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.m1_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.m2_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.m3_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.m4_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.m5_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.l1_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.l2_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.mixed_goals|default:"" }}</td>
+            <td class="priority2">{{ gk.indoor_goals|default:"" }}</td>
             <td>{{ gk.total_goals }}</td>
             <td>{{ gk.goals_per_game|floatformat:1 }}</td>
     {% endfor %}

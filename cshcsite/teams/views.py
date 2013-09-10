@@ -11,12 +11,12 @@ from core.views import AjaxGeneral, saturdays_in_range
 from core.models import TeamGender, first_or_none, not_none_or_empty
 from core.views import kwargs_or_none
 from core.stats import MatchStats
-from competitions.models import Division, Season
+from competitions.models import Division, Season, DivisionResult
 from matches.models import Match, Appearance
 from awards.models import MatchAwardWinner, MatchAward
 from members.models import Member
 from .stats import SquadMember, update_clubstats_for_season
-from .league_scraper import get_east_leagues_nw_division, get_old_east_leagues_division, get_old_east_leagues_nw_division, get_east_leagues_cambs_division
+from .league_scraper import get_east_leagues_nw_division
 from .models import ClubTeam, ClubTeamSeasonParticipation, TeamCaptaincy, Southerner
 
 log = logging.getLogger(__name__)
@@ -109,10 +109,12 @@ class ClubTeamStatsView(AjaxGeneral):
         # The team is specified in the URL by its slug
         team_slug = kwargs['slug']
         team = ClubTeam.objects.get(slug=team_slug)
+        context['clubteam'] = team
 
         # The season is specified in the URL by its primary key
         season_id = int(kwargs['season_pk'])
         season = Season.objects.get(pk=season_id)
+        context['season'] = season
         is_current_season = Season.is_current_season(season_id)
 
         # Get all matches for this team and season
@@ -138,24 +140,15 @@ class ClubTeamStatsView(AjaxGeneral):
                 squad_lookup[award_winner.member_id].add_award(award_winner.award)
             match_lookup[award_winner.match_id].add_award_winner(award_winner)
 
-        # Scrape the league table if we've got a link to the league table
-        participation = first_or_none(ClubTeamSeasonParticipation.objects.select_related('team').filter(team__slug=team_slug, season_id=season_id, division_tables_url__isnull=False))
+        participation = first_or_none(ClubTeamSeasonParticipation.objects.select_related('team').filter(team__slug=team_slug, season_id=season_id))
 
-        if participation is not None and not_none_or_empty(participation.division_tables_url):
-                context['participation'] = participation
-                # TODO: Currently this is fairly 'hard-coded'. If a team moves out of these divisions, this code
-                # will need to be modified.
-                if participation.division.gender == TeamGender.Mens:
-                    if is_current_season:
-                        context['division'] = get_east_leagues_nw_division(participation.division_tables_url, participation.division.name)
-                    elif season.start < datetime(2003, 12, 01).date():
-                        context['division'] = get_old_east_leagues_nw_division(participation.division_tables_url, participation.division.name)
-                    else:
-                        context['division'] = get_old_east_leagues_division(participation.division_tables_url, participation.division.name)
-                elif participation.division.gender == TeamGender.Ladies:
-                    context['division'] = get_east_leagues_cambs_division(participation.division_tables_url)
-                else:
-                    log.warn("No league table to be scraped for team {}".format(participation.team.abbr_name()))
+        if participation is not None:
+            context['participation'] = participation
+            context['division'] = participation.division
+            # Attempt to retrieve the data from the database
+            context['div_data'] = DivisionResult.objects.league_table(season=season, division=participation.division)
+            if not context['div_data']:
+                log.warn("No league table available for team {} in {}".format(team, season))
         else:
             log.warn("No league table link for {} in season {}".format(team_slug, season_id))
 
@@ -171,12 +164,45 @@ class ClubTeamStatsView(AjaxGeneral):
         # Create a list of (date, list of matchstats) tuples
         match_tuple_list = sorted(matches_by_date.items())
 
-        context['team'] = team
         context['is_current_season'] = is_current_season
         context['match_list'] = match_tuple_list
         # TODO: Sort squad by position?
         context['squad_list'] = sorted(squad_lookup.values(), key=lambda playerstats: playerstats.member.last_name)
         context['fill_blanks'] = team.fill_blanks
+        return context
+
+
+class ScrapeLeagueTableView(AjaxGeneral):
+    """An Ajax-requested view for refreshing the league table data for a particular team"""
+    template_name = 'teams/_league_table.html'
+
+    def get_template_context(self, **kwargs):
+        context = {}
+
+        # The team is specified in the URL by its slug
+        team_slug = kwargs['slug']
+        team = ClubTeam.objects.get(slug=team_slug)
+        context['clubteam'] = team
+
+        # The season is specified in the URL by its primary key
+        season_id = int(kwargs['season_pk'])
+        season = Season.objects.get(pk=season_id)
+        context['season'] = season
+        is_current_season = Season.is_current_season(season_id)
+        context['is_current_season'] = is_current_season
+
+        participation = first_or_none(ClubTeamSeasonParticipation.objects.select_related('team').filter(team__slug=team_slug, season_id=season_id, division_tables_url__isnull=False))
+
+        if participation is not None:
+            context['participation'] = participation
+            context['division'] = participation.division
+            # TODO: Use a database transaction
+            # Delete any existing data for this league table
+            DivisionResult.objects.league_table(season=season, division=participation.division).delete()
+            try:
+                context['div_data'] = get_east_leagues_nw_division(participation.division_tables_url, participation.division, season)
+            except Exception as e:
+                print "Failed to parse league table: {}".format(e)
         return context
 
 ###############################################################################

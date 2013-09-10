@@ -1,6 +1,7 @@
 import logging
 from django.db import models
 from django.template.defaultfilters import slugify
+from core.models import not_none_or_empty
 
 log = logging.getLogger(__name__)
 
@@ -73,6 +74,10 @@ class Venue(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('venue_detail', [self.slug])
+
+    @property
+    def address_known(self):
+        return not_none_or_empty(self.addr_postcode)
 
     def full_address(self):
         """ Returns the full address with (not None) address items separated by commas."""

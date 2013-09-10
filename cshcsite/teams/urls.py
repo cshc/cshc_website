@@ -55,5 +55,6 @@ urlpatterns = patterns('',
     # AJAX urls
      # E.g. /teams/m1/stats/3/ajax/'
     url(r'^(?P<slug>[-\w]+)/stats/(?P<season_pk>\d+)/ajax/$', views.ClubTeamStatsView.as_view(), name='clubteam_stats_ajax'),
+    url(r'^(?P<slug>[-\w]+)/stats/(?P<season_pk>\d+)/ajax/scrape/$', views.ScrapeLeagueTableView.as_view(), name='refresh_league_table'),
 
 )

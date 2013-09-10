@@ -34,18 +34,24 @@ Currently just lists the values that will be needed by this template - no UI des
         <div class="well">
         <h4>Location</h4>
           <address><strong>
-            {% if venue.addr1 %}{{ venue.addr1 }}<br/>{% endif %}
-            {% if venue.addr2 %}{{ venue.addr2 }}<br/>{% endif %}
-            {% if venue.addr3 %}{{ venue.addr3 }}<br/>{% endif %}
-            {% if venue.addr_city %}{{ venue.addr_city }}<br/>{% endif %}
-            {% if venue.addr_postcode %}{{ venue.addr_postcode }}<br/><br/>{% endif %}</strong>
+            {% if venue.address_known %}
+              {% if venue.addr1 %}{{ venue.addr1 }}<br/>{% endif %}
+              {% if venue.addr2 %}{{ venue.addr2 }}<br/>{% endif %}
+              {% if venue.addr3 %}{{ venue.addr3 }}<br/>{% endif %}
+              {% if venue.addr_city %}{{ venue.addr_city }}<br/>{% endif %}
+              {% if venue.addr_postcode %}{{ venue.addr_postcode }}<br/><br/>{% endif %}</strong>
+            {% else %}
+              Unknown location<br/>
+            {% endif %}
             {% if venue.phone %}<i class="icon-phone"></i>{{ venue.phone }}<br/>{% endif %}
           </address>
         </div>
       </div>
       <div class="span8">
-        <div class="gmap3 map_large" id="map_canvas"></div>
-        {% include 'core/_gmap_link.html' %}
+        {% if venue.address_known %}
+          <div class="gmap3 map_large" id="map_canvas"></div>
+          {% include 'core/_gmap_link.html' %}
+        {% endif %}
       </div>
   </div>
 

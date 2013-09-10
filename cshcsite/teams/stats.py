@@ -1,7 +1,6 @@
 import logging
 from awards.models import MatchAward
 from matches.models import Match
-from competitions.models import Season
 from models import Southerner
 
 log = logging.getLogger(__name__)

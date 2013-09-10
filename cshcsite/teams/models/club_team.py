@@ -109,4 +109,7 @@ class ClubTeam(models.Model):
 
     def abbr_name(self):
         """Returns an abbreviated name, including the club (e.g. 'Cambridge South 1')"""
-        return "Cambridge South {}".format(ordinal_from_TeamOrdinal(self.ordinal))
+        if self.gender == TeamGender.Ladies:
+            return "Cambridge South Ladies {}".format(ordinal_from_TeamOrdinal(self.ordinal))
+        else:
+            return "Cambridge South {}".format(ordinal_from_TeamOrdinal(self.ordinal))

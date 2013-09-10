@@ -1,3 +1,4 @@
+import csv
 from django.contrib.sites.models import Site
 from templated_emails.utils import send_templated_email
 from core.models import CshcUser
@@ -24,3 +25,19 @@ def create_password(user, sim):
     if not sim:
         user.save()
     return password
+
+
+def import_csv_data(file_path, sim, cls):
+    results = []
+    with open(file_path, 'rb') as source_file:
+        reader = csv.reader(source_file)
+        first_row = True
+        for csv_row in reader:
+            # Ignore the first row (field names)
+            if first_row:
+                first_row = False
+                continue
+            res = cls(csv_row)
+            results.append(res)
+
+    return results

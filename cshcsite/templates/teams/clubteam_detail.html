@@ -118,9 +118,11 @@ Currently just lists the values that will be needed by this template - no UI des
 {{ block.super }}
 
 {% url 'clubteam_stats_ajax' clubteam.slug season.pk as clubteam_stats %}
+
 <script>
     $(function () {
         ajax_load('{{ clubteam_stats }}', 'clubteam-info');
     });
 </script>
+
 {% endblock body_js %}

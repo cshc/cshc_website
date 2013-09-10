@@ -11,12 +11,14 @@
                 {% if match.venue.addr_city %}{{ match.venue.addr_city }}<br/>{% endif %}
                 {% if match.venue.addr_postcode %}{{ match.venue.addr_postcode }}<br/><br/>{% endif %}</strong>
                 {% if match.venue.phone %}<i class="icon-phone"></i>{{ match.venue.phone }}<br/>{% endif %}
-                {% if match.venue.url %}<i class="icon-globe"></i>{{ match.venue.url|urlizetrunc:"50" }}{% endif %}
+                {% if match.venue.url %}<i class="icon-globe"></i>{{ match.venue.url|urlizetrunc:"40" }}{% endif %}
             </address>
         </div>
         <div class="span8">
-            <div class="gmap3 map_large" id="map_canvas"></div>
-            {% include 'core/_gmap_link.html' with venue=match.venue %}
+            {% if match.venue.address_known %}
+                <div class="gmap3 map_large" id="map_canvas"></div>
+                {% include 'core/_gmap_link.html' with venue=match.venue %}
+            {% endif %}
         </div>
     {% else %}
     <div class="span12">

@@ -1,5 +1,4 @@
 import os
-import csv
 import traceback
 from django.core.management.base import BaseCommand
 from django.conf import settings
@@ -14,6 +13,7 @@ from training.models import TrainingSession
 from venues.models import Venue
 from teams.models import TeamCaptaincy, ClubTeam, ClubTeamSeasonParticipation
 from members.models import Member
+from ._command_utils import import_csv_data
 
 IMPORT_DIR = 'import'
 
@@ -68,15 +68,25 @@ class TrainingSessionCsv:
 class VenueCsv:
 
     def __init__(self, row):
-        self.name = bytearray(row[0]).decode('utf-8')
-        self.phone = bytearray(row[1]).decode('utf-8')
-        self.addr1 = bytearray(row[2]).decode('utf-8')
-        self.addr2 = bytearray(row[3]).decode('utf-8')
-        self.addr3 = bytearray(row[4]).decode('utf-8')
-        self.city = bytearray(row[5]).decode('utf-8')
-        self.postcode = bytearray(row[6]).decode('utf-8')
-        self.notes = bytearray(row[7]).decode('utf-8')
+        self.existing_name = bytearray(row[0]).decode('utf-8')
+        self.full_name = bytearray(row[1]).decode('utf-8')
+        self.short_name = bytearray(row[2]).decode('utf-8')
+        self.url = bytearray(row[3]).decode('utf-8')
+        self.is_home = bytearray(row[4]).decode('utf-8') == 'Yes'
+        self.phone = bytearray(row[4]).decode('utf-8')
+        self.addr1 = bytearray(row[5]).decode('utf-8')
+        self.addr2 = bytearray(row[6]).decode('utf-8')
+        self.addr3 = bytearray(row[7]).decode('utf-8')
+        self.city = bytearray(row[8]).decode('utf-8')
+        self.postcode = bytearray(row[9]).decode('utf-8')
+        self.notes = bytearray(row[10]).decode('utf-8')
 
+
+class ClubCsv:
+
+    def __init__(self, row):
+        self.name = bytearray(row[0]).decode('utf-8')
+        self.website = bytearray(row[1]).decode('utf-8')
 
 
 class Command(BaseCommand):
@@ -108,12 +118,15 @@ class Command(BaseCommand):
             Command.import_training_sessions(filename, sim)
         elif filename == 'venues.csv':
             Command.import_venue_details(filename, sim)
+        elif filename == 'club_details.csv':
+            Command.import_club_details(filename, sim)
         else:
             print "ERROR: Unexpected filename: {}".format(filename)
 
     @staticmethod
     def import_team_captains(filename, sim):
-        captains = Command.import_data(filename, sim, TeamCaptainCsv)
+        file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
+        captains = import_csv_data(file_path, sim, TeamCaptainCsv)
 
         if not sim:
             # Start with a blank canvas
@@ -134,7 +147,8 @@ class Command(BaseCommand):
 
     @staticmethod
     def import_team_div_part(filename, sim):
-        div_parts = Command.import_data(filename, sim, DivPartCsv)
+        file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
+        div_parts = import_csv_data(file_path, sim, DivPartCsv)
 
         for div_part in div_parts:
             team = ClubTeam.objects.get(slug=div_part.team)
@@ -154,7 +168,8 @@ class Command(BaseCommand):
 
     @staticmethod
     def import_end_of_season_awards(filename, sim):
-        awards = Command.import_data(filename, sim, AwardsCsv)
+        file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
+        awards = import_csv_data(file_path, sim, AwardsCsv)
 
         for award in awards:
             try:
@@ -193,7 +208,8 @@ class Command(BaseCommand):
 
     @staticmethod
     def import_training_sessions(filename, sim):
-        sessions = Command.import_data(filename, sim, TrainingSessionCsv)
+        file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
+        sessions = import_csv_data(file_path, sim, TrainingSessionCsv)
 
         for session in sessions:
             venue = Venue.objects.get(short_name=session.venue)
@@ -209,39 +225,43 @@ class Command(BaseCommand):
 
     @staticmethod
     def import_venue_details(filename, sim):
-        venue_details = Command.import_data(filename, sim, VenueCsv)
+        file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
+        venue_details = import_csv_data(file_path, sim, VenueCsv)
 
         for details in venue_details:
             try:
-                venue = Venue.objects.get(name=details.name)
+                venue = Venue.objects.get(name=details.existing_name)
             except Venue.DoesNotExist:
-                print "ERROR: Could not find venue '{}'".format(details.name)
-                continue
-            else:
-                venue.phone = details.phone
-                venue.addr1 = details.addr1
-                venue.addr2 = details.addr2
-                venue.addr3 = details.addr3
-                venue.addr_city = details.city
-                venue.addr_postcode = details.postcode
-                venue.notes = details.notes
-                if not sim:
-                    venue.save()
-                print "Updated venue details for {}".format(venue.name)
+                print "WARNING: Could not find venue '{}'. Creating now".format(details.existing_name)
+                venue = Venue()
+            venue.name = details.full_name
+            venue.short_name = details.short_name
+            venue.url = details.url
+            venue.is_home = details.is_home
+            venue.phone = details.phone
+            venue.addr1 = details.addr1
+            venue.addr2 = details.addr2
+            venue.addr3 = details.addr3
+            venue.addr_city = details.city
+            venue.addr_postcode = details.postcode
+            venue.notes = details.notes
+            if not sim:
+                venue.save()
+            print "Updated venue details for {}".format(venue.name)
 
     @staticmethod
-    def import_data(filename, sim, cls):
+    def import_club_details(filename, sim):
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
-        results = []
-        with open(file_path, 'rb') as source_file:
-            reader = csv.reader(source_file)
-            first_row = True
-            for csv_row in reader:
-                # Ignore the first row (field names)
-                if first_row:
-                    first_row = False
-                    continue
-                res = cls(csv_row)
-                results.append(res)
+        club_details = import_csv_data(file_path, sim, ClubCsv)
 
-        return results
+        for details in club_details:
+            try:
+                club = Club.objects.get(name=details.name)
+            except Club.DoesNotExist:
+                print "WARNING: Could not find club '{}'. Creating now".format(details.name)
+                club = Club()
+            club.name = details.name
+            club.website = details.website
+            if not sim:
+                club.save()
+            print "Updated club details for {}".format(club.name)

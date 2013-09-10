@@ -49,6 +49,9 @@ class Member(models.Model):
     # Indicates whether this member is a current member of the club. Useful for filtering etc.
     is_current = models.BooleanField(default=True)
 
+    # Players shirt number
+    shirt_number = models.PositiveIntegerField(null=True, default=None)
+
     class Meta:
         app_label = 'members'
         ordering = ['first_name', 'last_name']

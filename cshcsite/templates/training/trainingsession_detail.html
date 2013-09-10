@@ -21,8 +21,10 @@
 
 <div class="row">
     <div class="span8">
+      {% if trainingsession.venue.address_known %}
         <div class="gmap3 map_large" id="map_canvas"></div>
-        {% include 'core/_gmap_link.html' with venue=match.venue %}
+        {% include 'core/_gmap_link.html' with venue=trainingsession.venue %}
+      {% endif %}
     </div>
     <div class="span4">
       <div class="well">
