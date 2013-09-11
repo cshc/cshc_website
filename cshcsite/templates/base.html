@@ -20,6 +20,9 @@
     <link href="{{ STATIC_URL }}clean_canvas/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}clean_canvas/css/bootstrap-overrides.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome-ie7.min.css">
+    <![endif]-->
 
     {# Theme - Clean Canvas #}
     <link href="{{ STATIC_URL }}clean_canvas/css/theme.css" rel="stylesheet" >
@@ -28,11 +31,6 @@
 
     <link type="text/css" href="{{ STATIC_URL }}css/feedback.css" rel="stylesheet"/>
     {% endblock head_css %}
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="{{ STATIC_URL }}js/html5shiv.js"></script>
-    <![endif]-->
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon.png" />
@@ -142,6 +140,11 @@
     {% comment %}
     Javascript - placed at the end of the document so the pages load faster
     {% endcomment %}
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="{{ STATIC_URL }}js/html5shiv.js"></script>
+    <![endif]-->
     <script src="{{ STATIC_URL }}js/jquery.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap-alert.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
