@@ -210,8 +210,8 @@ class Command(BaseCommand):
             if old_row.is_valid:
                 new_row = old_row.convert(new_tables, pre_req)
                 if new_row:
-                    existing_row = get_or_none(old_row.new_table_class, **old_row.existing_check(new_row))
                     try:
+                        existing_row = get_or_none(old_row.new_table_class, **old_row.existing_check(new_row))
                         if not existing_row:
                             new_row.save()
                             print "\tSaved new {0}: [{1}] -> {2}".format(new_table_name, old_row.pk, new_row)
