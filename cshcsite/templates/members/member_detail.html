@@ -21,7 +21,9 @@ Currently just lists the values that will be needed by this template - no UI des
 </ul>
 
 <div class="page-header">
-  <h1>{{ member }} {% if member.pref_position != 9 %}<small>{{ member.get_pref_position_display|capfirst }} </small>{% endif %}{% if member.is_current %}<span class="label label-success">Current</span>{% endif %}</h1>
+  <h1>{{ member }} {% if member.pref_position != 9 %}<small>{{ member.get_pref_position_display|capfirst }} </small>{% endif %}{% if member.is_current %}<span class="label label-success">Current</span>{% endif %}
+<span id="shirt-number" class="no-mobile pull-right {{ member.gender|lower }}" {% if member.shirt_number %}title="Shirt number: {{ member.shirt_number }}"{% endif %}>{{ member.shirt_number|default:"" }}</span>
+  </h1>
 </div>
 
 {% include 'members/_member_details.html' %}

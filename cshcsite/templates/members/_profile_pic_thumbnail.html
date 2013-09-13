@@ -8,9 +8,9 @@ Expected context:
 
 {% load thumbnail %}
 {% thumbnail member.profile_pic "50x50" crop="center" as im %}
-    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+    <img class="profile-pic" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 {% empty %}
-	<img src="{{ STATIC_URL }}media/profile_pics/default.jpg" width="50" height="50">
+	<img class="profile-pic" src="{{ STATIC_URL }}media/profile_pics/default.jpg" width="50" height="50">
 {% endthumbnail %}
 
 {# TEMP #}

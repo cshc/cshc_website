@@ -83,7 +83,6 @@ Currently just lists the values that will be needed by this template - no UI des
                 {% else %}
                     {% if m.match.venue and m.match.venue.address_known %}
                         <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
-                        {% include 'core/_gmap_link.html' with venue=m.match.venue %}
                     {% endif %}
                     <ul class="inline">
                         <li><i class="icon icon-time"></i>{{ m.match.time_display }}</li>

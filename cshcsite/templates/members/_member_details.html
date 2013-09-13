@@ -1,8 +1,11 @@
 {% url 'user_profile' as user_profile %}
 
 <div class="row">
-
     <div class="span8">
+        {% if squad %}
+            <h3><i class="icon-group"></i>Squad <span class="smaller muted">({{ squad.season }})</span>: <a class="smaller" href="{{ squad.team.get_absolute_url }}" title="Team details...">{{ squad.team.long_name }}</a></h3>
+        {% endif %}
+
         <div id="stats-wrapper">
         <h3><i class="icon-table icon-large"></i>Player Stats</h3>
             {% include 'core/_loading_placeholder.html' with placeholder_id="stats" placeholder_text="Loading member stats..." %}
