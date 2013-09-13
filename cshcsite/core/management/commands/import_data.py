@@ -119,18 +119,16 @@ class Command(BaseCommand):
 
         if all or filename == 'team_captains.csv':
             Command.import_team_captains(sim)
-        elif all or filename == 'team_div_part.csv':
+        if all or filename == 'team_div_part.csv':
             Command.import_team_div_part(sim)
-        elif all or filename == 'end_of_season_awards.csv':
+        if all or filename == 'end_of_season_awards.csv':
             Command.import_end_of_season_awards(sim)
-        elif all or filename == 'training.csv':
+        if all or filename == 'training.csv':
             Command.import_training_sessions(sim)
-        elif all or filename == 'venues.csv':
+        if all or filename == 'venues.csv':
             Command.import_venue_details(sim)
-        elif all or filename == 'club_details.csv':
+        if all or filename == 'club_details.csv':
             Command.import_club_details(sim)
-        else:
-            print "ERROR: Unexpected filename: {}".format(filename)
 
     @staticmethod
     def import_team_captains(sim):
