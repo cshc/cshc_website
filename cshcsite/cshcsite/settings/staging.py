@@ -3,7 +3,7 @@ from .base import *
 import dj_database_url
 
 
-MAINTENANCE_MODE = True
+MAINTENANCE_MODE = False
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
