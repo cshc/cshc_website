@@ -257,6 +257,8 @@ Responsive
 	.table th, .table td { padding: 6px 1px; }
 	.table th.priority2, .table td.priority2 {display: none;}
 	.table th.priority3, .table td.priority3 {display: none;}
+    .table-score tbody tr td.team-name {font-size: 150%;}
+    .table-score tbody tr td.team-score {font-size: 120%;}
 }
 
 /* Hide the top banner on smaller screens */
@@ -278,6 +280,7 @@ Responsive
     }
     .page-header {margin: 10px 0 10px;}
     .page-header h1{font-size: 28px;}
+    h3 {font-size: 18px;}
     .lead {font-size: 16px; line-height: 24px;}
     .breadcrumb {margin: 0 0 5px;}
     div#filter {padding: 0 10px 0;}

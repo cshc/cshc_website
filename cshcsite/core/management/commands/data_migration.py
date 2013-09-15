@@ -289,14 +289,15 @@ class Command(BaseCommand):
         new_divisions['Division 6NW(S)'], created = Division.objects.get_or_create(name='Division 6NW(S)', league=leagues['East League'], gender=TeamGender.Mens)
         new_divisions['Division 6NW'], created = Division.objects.get_or_create(name='Division 6NW', league=leagues['East League'], gender=TeamGender.Mens)
         new_divisions['Division 7NW'], created = Division.objects.get_or_create(name='Division 7NW', league=leagues['East League'], gender=TeamGender.Mens)
+        new_divisions['Division 8NW'], created = Division.objects.get_or_create(name='Division 8NW', league=leagues['East League'], gender=TeamGender.Mens)
 
         new_divisions['Division 3NW(S)'], created = Division.objects.get_or_create(name='Division 3NW(S)', league=leagues['East League'], gender=TeamGender.Ladies)
         new_divisions['Division 4NW(S)'], created = Division.objects.get_or_create(name='Division 4NW(S)', league=leagues['East League'], gender=TeamGender.Ladies)
 
         # Cambs League
         new_divisions['Premier Division'], created = Division.objects.get_or_create(name='Premier Division', league=leagues['Cambs League'], gender=TeamGender.Ladies)
-        new_divisions['1st Division'], created = Division.objects.get_or_create(name='1st Division', league=leagues['Cambs League'], gender=TeamGender.Ladies)
-        new_divisions['2nd Division'], created = Division.objects.get_or_create(name='2nd Division', league=leagues['Cambs League'], gender=TeamGender.Ladies)
+        new_divisions['Division 1'], created = Division.objects.get_or_create(name='Division 1', league=leagues['Cambs League'], gender=TeamGender.Ladies)
+        new_divisions['Division 2'], created = Division.objects.get_or_create(name='Division 2', league=leagues['Cambs League'], gender=TeamGender.Ladies)
 
         return new_divisions
 

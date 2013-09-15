@@ -8,3 +8,6 @@ django-discover-runner==0.3
 
 # Configurable set of panels that display various debug information about the current request/response.
 django-debug-toolbar==0.9.4
+
+# Used for remote execution and deployment of website to production site etc.
+fabric==1.7.0
