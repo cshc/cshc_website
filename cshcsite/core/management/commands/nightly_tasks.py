@@ -8,7 +8,7 @@ from teams.models import ClubTeamSeasonParticipation
 from teams import league_scraper
 
 # To run:
-# cron 0 2 * * * python /home/rgagarrett/new_site/repo/cshcsite/manage.py nightly_tasks
+# cron 0 2 * * * python /home/rgagarrett/new_site/repo/cshcsite/manage.py nightly_tasks >/dev/null
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
