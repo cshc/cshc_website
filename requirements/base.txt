@@ -74,3 +74,7 @@ django-s3-folder-storage==0.1
 # The official one does not support settings.AUTH_USER_MODEL
 #templated-emails==0.6.9
 -e git+https://github.com/cshc/templated-emails#egg=templated-emails
+
+# Database backup
+simples3==1.0
+django-dbbackup==1.80.1

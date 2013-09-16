@@ -237,6 +237,7 @@ THIRD_PARTY_APPS = (
     'maintenancemode',
     'storages',
     's3_folder_storage',
+    'dbbackup',
 )
 
 # Apps specific for this project go here.
@@ -516,3 +517,12 @@ COOKIE_CTRL_API_KEY = get_env_setting('COOKIE_CTRL_API_KEY')
 TEMPLATEDEMAILS_USE_PYNLINER = True
 #TEMPLATEDEMAILS_USE_CELERY = True
 ########## END templated-emails CONFIGURATION
+
+########## django-dbbackup CONFIGURATION
+# Ref: https://pypi.python.org/pypi/django-dbbackup
+DBBACKUP_STORAGE = 'dbbackup.storage.s3_storage'
+DBBACKUP_S3_BUCKET = get_env_setting('AWS_STORAGE_BUCKET_NAME')
+DBBACKUP_S3_ACCESS_KEY = get_env_setting('AWS_ACCESS_KEY_ID')
+DBBACKUP_S3_SECRET_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
+DBBACKUP_S3_DIRECTORY = 'django-dbbackups/'
+########## END django-dbbackup CONFIGURATION
