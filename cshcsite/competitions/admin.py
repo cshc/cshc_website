@@ -30,7 +30,7 @@ class DivisionInline(admin.TabularInline):
 
 class DivisionAdmin(admin.ModelAdmin):
     model = Division
-    list_display = ('league', 'name', 'gender')
+    list_display = ('__unicode__', 'league', 'name', 'gender')
     list_filter = ('league', 'gender')
     search_fields = ('league', 'name')
 

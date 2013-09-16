@@ -21,7 +21,7 @@
     <link href="{{ STATIC_URL }}clean_canvas/css/bootstrap-overrides.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
     <!--[if IE 7]>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome-ie7.min.css">
+    <link href="{{ STATIC_URL }}css/font-awesome-ie7.min.css" rel="stylesheet" >
     <![endif]-->
 
     {# Theme - Clean Canvas #}
@@ -44,6 +44,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ STATIC_URL }}ico/apple-touch-icon-152x152.png" />
 
     {% block head_js %}
+    <script src="{{ STATIC_URL }}js/css_browser_selector.js" type="text/javascript"></script>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];

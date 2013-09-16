@@ -38,6 +38,7 @@ Filter-able, sortable, paginated display of members.
                     <th>{% sortlink by "last_name" "-last_name" %}Last Name{% endsortlink %}</th>
                     <th>{% sortlink by "gender" "-gender" %}M/F{% endsortlink %}</th>
                     <th>{% sortlink by "pref_position" "-pref_position" %}Position{% endsortlink %}</th>
+                    <th>{% sortlink by "shirt_number" "-shirt_number" %}Shirt #{% endsortlink %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +50,7 @@ Filter-able, sortable, paginated display of members.
                     <td><a href="{{ member_url }}" title="Member details">{{ member.last_name }}</a></td>
                     <td><a href="{{ member_url }}" title="Member details">{{ member.get_gender_display }}</a></td>
                     <td><a href="{{ member_url }}" title="Member details">{{ member.get_pref_position_display }}</a></td>
+                    <td><a href="{{ member_url }}" title="Member details">{{ member.shirt_number|default:"" }}</a></td>
                 </tr>
             {% endwith %}
             {% endfor %}

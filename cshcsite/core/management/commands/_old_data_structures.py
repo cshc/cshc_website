@@ -476,7 +476,7 @@ class Old_Players(Old_Table_Entry):
             self.First_Name = 'Joyce'
             self.Surname = '???'
             self.Sex = 'Female'
-        elif not self.First_Name and self.Surname in ('Seigo', 'Clark', 'Milbourn', 'Matthews'):
+        elif not self.First_Name:
             self.warnings.append("'{}' has no first name. Setting to '???'.".format(self.Surname))
             self.First_Name = '???'
 

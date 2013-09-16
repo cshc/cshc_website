@@ -58,11 +58,8 @@ ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 .box .price span.annual{ font-style: italic; font-weight: 300; font-size: 15px; }
 .box img { box-shadow: 1px 1px 6px 0px #888; border-radius: 5px;}
 
-.box-dark {background-color: rgba(0, 0, 0, 0.7); color: white; }
-.box-dark a.inline {color: white; border-bottom: 1px white dotted; }
-.box-dark a.inline:hover {color: rgb(216, 221, 255); border-bottom: 1px rgb(216, 221, 255) dotted;}
-.box.box-dark h3{color: white;}
-.box-green {background-color: rgba(10, 122, 0, 0.7);}
+.smaller {font-size: 80%;}
+
 .side-box { padding: 10px; }
 
 ul.downloads { margin-top: 20px; }
@@ -77,6 +74,8 @@ p.required {color: #A2A2A2; font-size: 80%;}
 .profile-pic-small { width: 30px; height: auto; }
 
 .profile-pic-large { margin-left: auto; margin-right: auto; display: block; }
+
+img.profile-pic {width: 50px; height: 50px;}
 
 .h-center {margin-left: auto; margin-right: auto; display: block; text-align: center; }
 
@@ -97,9 +96,9 @@ Maps
 Gender-specific
 */
 
-span.female { background-color: rgb(153,204,255); /* Blue */ }
+/*span.female { background-color: rgb(153,204,255); }*/ /* Blue */
 
-span.male { background-color: rgb(153,255,153); /* Green */ }
+/*span.male { background-color: rgb(153,255,153); }*/ /* Green */
 
 .label-female { background-color: rgb(153,204,255); color: black; /* Blue */ }
 
@@ -211,7 +210,7 @@ Top Banner
     /*z-index: -9999;*/
     background-size: 100%;
     background:url('../img/backgrounds/astro1.png') no-repeat 0 0px;
-    background-color: rgba(34, 102, 28, 0.6);
+    background-color: rgba(34, 102, 28, 0.7);
     width:100%;
     -webkit-background-size: cover !important;
        -moz-background-size: cover !important;
@@ -223,7 +222,7 @@ Top Banner
 .banner-box {font-size: 80%; }
 .banner-box h3 {color: white;}
 .banner-box {background-color: rgba(34, 102, 28, 0.7); color: white; padding: 10px;}
-.banner-box .table-hover tbody tr:hover>td, .banner-box .table-hover tbody tr:hover>th {background-color: rgba(34, 102, 28, 0.9);}
+.banner-box .table-hover tbody tr:hover>td {background-color: rgba(34, 102, 28, 0.9);}
 .banner-box .table th, .banner-box .table td {border-top: 1px solid #8A8A8A;}
 .banner-box a {color: rgb(216, 221, 255);}
 .banner-box a:hover {color: rgb(177, 186, 252);}
@@ -258,6 +257,8 @@ Responsive
 	.table th, .table td { padding: 6px 1px; }
 	.table th.priority2, .table td.priority2 {display: none;}
 	.table th.priority3, .table td.priority3 {display: none;}
+    .table-score tbody tr td.team-name {font-size: 150%;}
+    .table-score tbody tr td.team-score {font-size: 120%;}
 }
 
 /* Hide the top banner on smaller screens */
@@ -279,12 +280,27 @@ Responsive
     }
     .page-header {margin: 10px 0 10px;}
     .page-header h1{font-size: 28px;}
+    h3 {font-size: 18px;}
     .lead {font-size: 16px; line-height: 24px;}
     .breadcrumb {margin: 0 0 5px;}
     div#filter {padding: 0 10px 0;}
     div#filter form {margin-bottom: 5px;}
     .gmap3 {margin-left: 10px; margin-right: 10px;}
 }
+
+/******************************************************************************
+Browser-specific
+Ref: http://rafael.adm.br/css_browser_selector/
+*/
+.ie7 #top-banner,
+.ie8 #top-banner,
+.ie7 .banner-box,
+.ie8 .banner-box
+{background-color: rgb(34, 102, 28);}
+
+.ie7 .banner-box .table-hover tbody tr:hover>td,
+.ie8 .banner-box .table-hover tbody tr:hover>td
+ {background-color: rgb(27, 83, 22);}
 
 /******************************************************************************
 Page-specific
@@ -334,7 +350,6 @@ Page-specific
 
 #match-detail .match-report p { font-size: 120%; }
 #match-detail .row.quick-links { margin-bottom: 10px;}
-
 #team-detail .row.quick-links { margin-left: 0px; }
 #team-detail #clubteam-info {margin-top: 20px;}
 
@@ -398,3 +413,15 @@ table.month .filled .dayNumber .popover {
 #venue-list #filter input, #venue-list #filter button { margin: 10px 10px 15px 0px; }
 
 #member-list #filter input, #member-list #filter button { margin: 10px 10px 15px 0px; }
+
+#member-detail #shirt-number
+{
+    background-repeat: no-repeat; background-size: contain; background-position: center;
+    width: 50px; height: 50px;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+#member-detail #shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt.png");}
+#member-detail #shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt.png");}

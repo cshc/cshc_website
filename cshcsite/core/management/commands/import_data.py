@@ -96,7 +96,13 @@ class Command(BaseCommand):
                     dest='simulate',
                     default=False,
                     help='Test run (doesn\'t actually save any imported data)'),
+        make_option('--all',
+                    action='store_true',
+                    dest='all',
+                    default=False,
+                    help='Import all data)'),
         )
+
     help = 'Import data from csv files'
 
     def handle(self, *args, **options):
@@ -106,25 +112,27 @@ class Command(BaseCommand):
             traceback.print_exc()
 
     def _handle(self, *args, **options):
-        filename = args[0]
         sim = options['simulate']
-        if filename == 'team_captains.csv':
-            Command.import_team_captains(filename, sim)
-        elif filename == 'team_div_part.csv':
-            Command.import_team_div_part(filename, sim)
-        elif filename == 'end_of_season_awards.csv':
-            Command.import_end_of_season_awards(filename, sim)
-        elif filename == 'training.csv':
-            Command.import_training_sessions(filename, sim)
-        elif filename == 'venues.csv':
-            Command.import_venue_details(filename, sim)
-        elif filename == 'club_details.csv':
-            Command.import_club_details(filename, sim)
-        else:
-            print "ERROR: Unexpected filename: {}".format(filename)
+        all = options['all']
+        if not all:
+            filename = args[0]
+
+        if all or filename == 'team_captains.csv':
+            Command.import_team_captains(sim)
+        if all or filename == 'team_div_part.csv':
+            Command.import_team_div_part(sim)
+        if all or filename == 'end_of_season_awards.csv':
+            Command.import_end_of_season_awards(sim)
+        if all or filename == 'training.csv':
+            Command.import_training_sessions(sim)
+        if all or filename == 'venues.csv':
+            Command.import_venue_details(sim)
+        if all or filename == 'club_details.csv':
+            Command.import_club_details(sim)
 
     @staticmethod
-    def import_team_captains(filename, sim):
+    def import_team_captains(sim):
+        filename = 'team_captains.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
         captains = import_csv_data(file_path, sim, TeamCaptainCsv)
 
@@ -146,7 +154,8 @@ class Command(BaseCommand):
                 print "Saved new team captainy: {}".format(captaincy)
 
     @staticmethod
-    def import_team_div_part(filename, sim):
+    def import_team_div_part(sim):
+        filename = 'team_div_part.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
         div_parts = import_csv_data(file_path, sim, DivPartCsv)
 
@@ -167,7 +176,8 @@ class Command(BaseCommand):
                 print "Saved new Division Participation info for {} in {}".format(team, season)
 
     @staticmethod
-    def import_end_of_season_awards(filename, sim):
+    def import_end_of_season_awards(sim):
+        filename = 'end_of_season_awards.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
         awards = import_csv_data(file_path, sim, AwardsCsv)
 
@@ -207,7 +217,8 @@ class Command(BaseCommand):
                 print "Added End of Season award winner: {}".format(award_winner)
 
     @staticmethod
-    def import_training_sessions(filename, sim):
+    def import_training_sessions(sim):
+        filename = 'training.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
         sessions = import_csv_data(file_path, sim, TrainingSessionCsv)
 
@@ -224,7 +235,8 @@ class Command(BaseCommand):
                 print "Skipped existing training session: {}".format(sess)
 
     @staticmethod
-    def import_venue_details(filename, sim):
+    def import_venue_details(sim):
+        filename = 'venues.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
         venue_details = import_csv_data(file_path, sim, VenueCsv)
 
@@ -250,7 +262,8 @@ class Command(BaseCommand):
             print "Updated venue details for {}".format(venue.name)
 
     @staticmethod
-    def import_club_details(filename, sim):
+    def import_club_details(sim):
+        filename = 'club_details.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
         club_details = import_csv_data(file_path, sim, ClubCsv)
 

@@ -10,9 +10,13 @@ from .member import Member
 log = logging.getLogger(__name__)
 
 
-def validate_squad(team):
-    if team.short_name.lower() in ('mixed', 'indoor', 'vets'):
-        raise ValidationError("Squad assignments must be to one of the Men's or Ladies teams")
+def validate_squad(team_id):
+    try:
+        t = ClubTeam.objects.get(pk=team_id)
+        if t.short_name.lower() in ('mixed', 'indoor', 'vets'):
+            raise ValidationError("Squad assignments must be to one of the Men's or Ladies teams")
+    except ClubTeam.DoesNotExist:
+        raise ValidationError("Team not found")
 
 
 class SquadMembershipQuerySet(QuerySet):

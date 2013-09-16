@@ -8,9 +8,10 @@ from django.contrib.auth import views as auth_views
 from templated_emails.utils import send_templated_email
 from braces.views import LoginRequiredMixin
 from core.views import AjaxGeneral
+from core.models import first_or_none
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
-from .models import Member
+from .models import Member, SquadMembership
 from .forms import ProfileEditForm
 from .util import get_recent_match_awards, get_recent_end_of_season_awards, get_recent_match_reports
 from .stats import MemberSeasonStat
@@ -88,6 +89,7 @@ class MemberDetailView(DetailView):
         context = super(MemberDetailView, self).get_context_data(**kwargs)
 
         member = context["member"]
+        context['squad'] = first_or_none(SquadMembership.objects.current().by_member(member))
 
         # Add recent match reports written by this member
         context['recent_match_reports'] = get_recent_match_reports(member)

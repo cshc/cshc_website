@@ -14,7 +14,7 @@ class Member(models.Model):
     User accounts will be associated with a member instance wherever possible.
     """
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
 
     # Members first name (required)
     first_name = models.CharField(max_length=100, default=None)
@@ -50,7 +50,7 @@ class Member(models.Model):
     is_current = models.BooleanField(default=True)
 
     # Players shirt number
-    shirt_number = models.PositiveIntegerField(null=True, default=None)
+    shirt_number = models.CharField(max_length=4, blank=True)
 
     class Meta:
         app_label = 'members'

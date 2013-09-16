@@ -7,7 +7,7 @@ import traceback
 from optparse import make_option
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from core.models import CshcUser
+from core.models import CshcUser, is_none_or_empty
 from members.models import Member
 
 USERS_DIR = "import"
@@ -16,6 +16,7 @@ USERS_FILE = "users.csv"
 EMAIL_COL = 0
 FIRST_NAME_COL = 3
 LAST_NAME_COL = 4
+SHIR_NUMBER_COL = 20
 
 
 class MemberDetails:
@@ -24,6 +25,9 @@ class MemberDetails:
         self.first_name = bytearray(row[FIRST_NAME_COL]).decode('utf-8')
         self.last_name = bytearray(row[LAST_NAME_COL]).decode('utf-8')
         self.email = bytearray(row[EMAIL_COL]).decode('utf-8')
+        self.shirt_number = bytearray(row[SHIR_NUMBER_COL]).decode('utf-8').lstrip('[').rstrip(']')
+        if is_none_or_empty(self.shirt_number):
+            self.shirt_number = None
 
     def __hash__(self):
         return hash(self.first_name) ^ hash(self.last_name)
@@ -110,7 +114,7 @@ class Command(BaseCommand):
                 player.is_current = False
                 player.save()
             else:
-                u = self.create_user(matching_details, options['simulate'])
+                u = self.create_user(matching_details, options['simulate'], player)
                 player.user = u
                 # Players with a user associated with them are deemed to be current
                 player.is_current = True
@@ -122,7 +126,7 @@ class Command(BaseCommand):
         print "DONE: Associated {} Users with Members".format(conversion_count)
 
 
-    def create_user(self, member_details, simulate):
+    def create_user(self, member_details, simulate, player):
         try:
             new_user = CshcUser.objects.get(email=member_details.email)
         except CshcUser.DoesNotExist:
@@ -135,6 +139,10 @@ class Command(BaseCommand):
                                     first_name=member_details.first_name,
                                     last_name=member_details.last_name)
         else:
-            print ("WARNING: User already exists with email '{}'".format(member_details.email))
-
+            print "WARNING: User already exists with email '{}'".format(member_details.email)
+        if not player.shirt_number and member_details.shirt_number:
+            player.shirt_number = member_details.shirt_number
+            if not simulate:
+                player.save()
+            print "{} shirt number = {}".format(player.full_name(), player.shirt_number)
         return new_user

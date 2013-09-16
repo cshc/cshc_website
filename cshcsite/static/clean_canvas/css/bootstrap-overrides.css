@@ -5,6 +5,12 @@
   included bootstrap file.
 */
 
+/* Fix Drop-Down Menu not working on mobile devices */
+.dropdown-backdrop {
+    position: static;
+}
+
+/* override 1200 grid to be like a 920 */
 @media (min-width: 1200px) {
   .row {
     margin-left: -20px;
