@@ -1,3 +1,3 @@
 MAILTO=website@cambridgesouthhockeyclub.co.uk
-0 2 * * * python /home/rgagarrett/new_site/repo/cshcsite/manage.py nightly_tasks >/dev/null
-0 3 * * * python /home/rgagarrett/new_site/repo/cshcsite/manage.py dbbackup --clean --compress >/dev/null
+0 2 * * * cd /home/rgagarrett/new_site/repo/cshcsite && python /home/rgagarrett/new_site/repo/cshcsite/manage.py nightly_tasks >/dev/null
+0 3 * * * cd /home/rgagarrett/new_site/repo/cshcsite && python /home/rgagarrett/new_site/repo/cshcsite/manage.py dbbackup --clean --compress >/dev/null
