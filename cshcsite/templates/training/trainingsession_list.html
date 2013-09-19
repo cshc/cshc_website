@@ -8,7 +8,7 @@
 {% block content %}
 
 {% url 'venue_detail' 'leys' as leys_url %}
-{% url 'venue_detail' 'uni' as uni_url %}
+{% url 'venue_detail' 'abbey' as abbey_url %}
 
 {% get_clubinfo 'SecretaryName' as sec_name %}
 
@@ -24,7 +24,7 @@
         </div>
 
         <p>Cambridge South runs professionally coached training sessions for men and ladies of all standards, every Monday evening during the season from September to March at
-        <a href="{{ leys_url }}">The Leys School</a>. Training for the 2013/14 season will start on <strong>9th September 2013</strong> - keep an eye on your emails for more updates.</p>
+        <a href="{{ leys_url }}">The Leys School</a>.</p>
     </div>
 
     <div class="span4">
@@ -40,20 +40,21 @@
 
     <div class="span8">
         <div class="section_header">
-            <h3>Summer Hockey</h3>
+            <h3>Pay &amp; Play</h3>
         </div>
-        <p>Cambridge South also offers informal weekly hockey on Thursday evenings from 8pm to 9pm at
-        <a href="{{ uni_url }}">Wilberforce Road</a> between April and August.</p>
-        <p>A typical session consists of a couple of 5 to 7 a-side games on half pitches, usually one mixed game and one men&#39;s game. The sessions are open to everyone, you don&#39;t have to be a club member to come along and new players are very welcome.</p>
+        <p>Cambridge South also offers informal weekly hockey on Tuesday evenings from 7:30pm to 8:30pm at
+        <a href="{{ abbey_url }}">Coldham's Common</a> during the season.</p>
+        <p>A typical session consists of a 5 to 7 a-side game on a half pitch. The sessions are open to everyone, you don&#39;t have to be a club member to come along and new players are very welcome.</p>
         <p>If you build up a thirst then there is usually a group of us going on for a drink or two afterwards at a nearby pub - a great way to get to know people in the club!</p>
-        <p>If you&#39;d like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to the session you wish to attend or else just turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for students and the unwaged. If you&#39;re new to the club, your first session is free!</p>
+        <p>If you&#39;d like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to the session you wish to attend or else just
+            turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for students and the unwaged. If you&#39;re new to the club, your first session is free!</p>
     </div>
 
     <div class="span4">
         <img alt="" class="img-polaroid" width="240" src="{{ STATIC_URL }}media/Web%20site%20images/Leys_Pitch_5.jpg" />
         <ul class="unstyled details">
-            <li><i class="icon-time"></i>Thursdays 8-9pm</li>
-            <li><i class="icon-globe"></i>Wilberforce Road</li>
+            <li><i class="icon-time"></i>Tuesdays 7:30-8:30pm</li>
+            <li><i class="icon-globe"></i>Coldham's Common <br/>(aka The Abbey)</li>
         </ul>
     </div>
 </div> <!-- class=row -->

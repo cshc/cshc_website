@@ -22,7 +22,8 @@ urlpatterns = patterns('',
 
     # Accounts. Ref: https://github.com/django/django/blob/master/django/contrib/auth/urls.py
     url(r'^register/$', RegisterUserView.as_view(), name='register'),
-    url(r'^login/$', views.login, kwargs={'SSL':True}, name='login'),
+    #url(r'^login/$', views.login, kwargs={'SSL':True}, name='login'),
+    url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
     url(r'^password-change/$', 'django.contrib.auth.views.password_change', name='password_change'),
     url(r'^password-change/done/$', 'django.contrib.auth.views.password_change_done', name='password_change_done'),

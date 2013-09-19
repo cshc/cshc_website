@@ -82,7 +82,9 @@
         <div class="box side-box">
             {% load disqus_tags %}
             <h3><i class="icon-comment"></i>Recent comments</h3>
-            {% cshc_disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 10 50 0 24 %}
+            <div id="comments-container" class="scrolling-container">
+                {% cshc_disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 20 50 0 24 %}
+            </div>
         </div>
     </div>
 </div>
@@ -92,6 +94,9 @@
 
 {% block body_js %}
 {{ block.super }}
+{% comment %}
+Commented out until we've moved the Cookie Control API Key to the main site
 {% include 'core/_cookie_ctrl_js.html' %}
+{% endcomment %}
 {% include 'core/_tweets_js.html' %}
 {% endblock body_js %}

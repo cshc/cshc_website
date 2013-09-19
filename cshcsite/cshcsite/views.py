@@ -79,7 +79,7 @@ class LoadTweetsView(AjaxGeneral):
     """An Ajax-requested view for fetching the latest CSHC tweets. Uses Twython."""
     template_name = 'core/_tweets.html'
 
-    NUM_TWEETS_TO_DISPLAY = 6
+    NUM_TWEETS_TO_DISPLAY = 20
 
     def get_template_context(self, **kwargs):
         context = {}
@@ -88,8 +88,8 @@ class LoadTweetsView(AjaxGeneral):
                           oauth_token=settings.TWITTER_OAUTH_TOKEN,
                           oauth_token_secret=settings.TWITTER_OAUTH_SECRET)
 
-        tweets = twitter.get_user_timeline(screen_name=settings.DEFAULT_TWITTER_USER)
-        context['tweets'] = [LoadTweetsView.html_for_tweet(t) for t in tweets[:LoadTweetsView.NUM_TWEETS_TO_DISPLAY]]
+        tweets = twitter.get_user_timeline(screen_name=settings.DEFAULT_TWITTER_USER, count=LoadTweetsView.NUM_TWEETS_TO_DISPLAY, exclude_replies=True)
+        context['tweets'] = [LoadTweetsView.html_for_tweet(t) for t in tweets]
         return context
 
     @staticmethod

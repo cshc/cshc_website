@@ -53,7 +53,7 @@ class Command(BaseCommand):
         root_folder = os.path.join(settings.SITE_ROOT, IMPORT_DIR, SUBDIR)
 
         files_to_import = [f for f in os.listdir(root_folder) if os.path.isfile(os.path.join(root_folder, f))]
-
+        errors = []
         for f in files_to_import:
             table_details = f.lstrip('Old League Tables - ').rstrip('.csv').split(',')
             league_name = table_details[0].strip()
@@ -62,23 +62,37 @@ class Command(BaseCommand):
             division_name = table_details[2].strip()
             season_slug = table_details[3].strip()
             league = League.objects.get(name=league_name)
-            div = Division.objects.get(league=league, name=division_name, gender=gender)
-            season = Season.objects.get(slug=season_slug)
+            try:
+                div = Division.objects.get(league=league, name=division_name, gender=gender)
+            except Division.DoesNotExist:
+                errors.append("ERROR: Could not find division: {} {} ({})".format(league, division_name, gender))
+                continue
+            try:
+                season = Season.objects.get(slug=season_slug)
+            except Season.DoesNotExist:
+                errors.append("ERROR: Could not find season {}".format(season_slug))
+                continue
             teams = import_csv_data(os.path.join(root_folder, f), sim, TeamCsv)
 
             pos = 0
             for team in teams:
                 pos += 1
                 team.position = pos
+                team_name = team.team
                 try:
-                    our_team = ClubTeam.objects.get(slug=team.team.lower())
+                    our_team = ClubTeam.objects.get(slug=team_name.lower())
                     opp_team = None
                 except ClubTeam.DoesNotExist:
                     try:
-                        opp_team = Team.objects.get(name=team.team)
+                        if gender == TeamGender.Ladies:
+                            words = team_name.split()
+                            if 'Ladies' not in words:
+                                words.insert(-1, 'Ladies')
+                            team_name = " ".join(words)
+                        opp_team = Team.objects.get(name=team_name)
                         our_team = None
                     except Team.DoesNotExist:
-                        print "ERROR: Could not find team '{}'".format(team.team)
+                        errors.append("ERROR: Could not find team '{}' ({} {} - {}, {})".format(team_name, league_name, division_name, gender, season))
                         continue
                 div_result, c = DivisionResult.objects.get_or_create(season=season, division=div, position=team.position,
                     defaults={'our_team':our_team, 'opp_team':opp_team})
@@ -94,3 +108,5 @@ class Command(BaseCommand):
                     div_result.save()
                 print "Saving division result: {}".format(div_result)
 
+        for error in errors:
+            print error

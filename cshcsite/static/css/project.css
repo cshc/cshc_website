@@ -34,6 +34,8 @@ i { margin-left: 0.5em; margin-right: 0.5em; }
 
 a.btt { display: block; text-align: right; }
 
+.btn {margin-bottom: 10px;}
+
 ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 
 .info-well {margin-top: 40px;}
@@ -79,6 +81,11 @@ img.profile-pic {width: 50px; height: 50px;}
 
 .h-center {margin-left: auto; margin-right: auto; display: block; text-align: center; }
 
+.scrolling-container { overflow: auto; margin-top: 20px; margin-bottom: 10px;}
+.scrolling-container::-webkit-scrollbar {
+    display: none;
+}
+
 /******************************************************************************
 Maps
 */
@@ -114,11 +121,12 @@ table tbody td.male { background-color: rgb(153,255,153); /* Green */ }
 
 
 /******************************************************************************
-Twitter
+Twitter/Comments
 */
 
 #twitter-stream li { padding-bottom: 5px; margin-bottom: 10px; border-bottom: 1px solid rgb(221, 221, 221); }
-
+#twitter-container {height: 400px;}
+#comments-container {max-height: 400px;}
 
 /******************************************************************************
 Tables
@@ -357,7 +365,7 @@ Page-specific
 
 #calendar iframe.calendar { height: 600px; width: 100%; }
 
-#latest-results a.subscribe { margin-left: auto; margin-right: auto; display: block; text-align: center; }
+#latest-results a.subscribe, #latest-results a.twitter, #next-fixtures a.calendar { margin-left: auto; margin-right: auto; display: block; text-align: center; }
 
 
 .pics-row img { display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; max-height: 500px; }

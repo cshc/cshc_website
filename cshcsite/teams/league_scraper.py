@@ -83,7 +83,8 @@ def set_team(team, name, division):
         else:
             if division.gender == TeamGender.Ladies:
                 words = name.split()
-                words.insert(-1, 'Ladies')
+                if 'Ladies' not in words:
+                    words.insert(-1, 'Ladies')
                 name = " ".join(words)
             team.opp_team = Team.objects.get(name=name)
             team.our_team = None

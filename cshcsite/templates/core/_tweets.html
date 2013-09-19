@@ -1,5 +1,7 @@
-<ul id="twitter" class="unstyled">
-    {% for tweet in tweets %}
-        <li>{{ tweet|safe }}</li>
-    {% endfor %}
-</ul>
+<div id="twitter-container" class="scrolling-container">
+    <ul id="twitter" class="unstyled">
+        {% for tweet in tweets %}
+            <li>{{ tweet|safe }}</li>
+        {% endfor %}
+    </ul>
+</div>

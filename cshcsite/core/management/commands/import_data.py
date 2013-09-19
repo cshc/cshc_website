@@ -73,13 +73,13 @@ class VenueCsv:
         self.short_name = bytearray(row[2]).decode('utf-8')
         self.url = bytearray(row[3]).decode('utf-8')
         self.is_home = bytearray(row[4]).decode('utf-8') == 'Yes'
-        self.phone = bytearray(row[4]).decode('utf-8')
-        self.addr1 = bytearray(row[5]).decode('utf-8')
-        self.addr2 = bytearray(row[6]).decode('utf-8')
-        self.addr3 = bytearray(row[7]).decode('utf-8')
-        self.city = bytearray(row[8]).decode('utf-8')
-        self.postcode = bytearray(row[9]).decode('utf-8')
-        self.notes = bytearray(row[10]).decode('utf-8')
+        self.phone = bytearray(row[5]).decode('utf-8')
+        self.addr1 = bytearray(row[6]).decode('utf-8')
+        self.addr2 = bytearray(row[7]).decode('utf-8')
+        self.addr3 = bytearray(row[8]).decode('utf-8')
+        self.city = bytearray(row[9]).decode('utf-8')
+        self.postcode = bytearray(row[10]).decode('utf-8')
+        self.notes = bytearray(row[11]).decode('utf-8')
 
 
 class ClubCsv:
@@ -242,10 +242,13 @@ class Command(BaseCommand):
 
         for details in venue_details:
             try:
-                venue = Venue.objects.get(name=details.existing_name)
+                venue = Venue.objects.get(name=details.full_name)
             except Venue.DoesNotExist:
-                print "WARNING: Could not find venue '{}'. Creating now".format(details.existing_name)
-                venue = Venue()
+                try:
+                    venue = Venue.objects.get(name=details.existing_name)
+                except Venue.DoesNotExist:
+                    print "WARNING: Could not find venue '{}'. Creating now".format(details.existing_name)
+                    venue = Venue()
             venue.name = details.full_name
             venue.short_name = details.short_name
             venue.url = details.url
