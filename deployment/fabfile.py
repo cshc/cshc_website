@@ -12,6 +12,7 @@
 
 from fabric.api import *
 import os
+import re
 
 def _get_env_setting(setting):
     """ Get the environment setting or return exception """
@@ -85,8 +86,9 @@ def upload_release():
 
 @task
 def set_maintenance_mode(on):
+    print "Value = {}".format(on)
     with cd(env.remote_root):
-        _add_or_replace_line('repo/cshcsite/cshcsite/settings/production.py', 'MAINTENANCE_MODE =', 'MAINTENANCE_MODE = {}'.format('True' if on else 'False'))
+        _add_or_replace_line('repo/cshcsite/cshcsite/settings/production.py', 'MAINTENANCE_MODE = ', on)
 
 @task
 def migrate_db():

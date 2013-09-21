@@ -192,7 +192,7 @@ MIDDLEWARE_CLASSES = (
     'django_mobile.middleware.SetFlavourMiddleware',
     'pagination.middleware.PaginationMiddleware',
     'maintenancemode.middleware.MaintenanceModeMiddleware',
-    'core.middleware.SSLRedirect',
+    #'core.middleware.SSLRedirect',
 )
 ########## END MIDDLEWARE CONFIGURATION
 

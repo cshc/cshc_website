@@ -1,11 +1,11 @@
 echo Migrating models
-manage.py migrate core
-manage.py migrate venues
-manage.py migrate competitions
-manage.py migrate teams
-manage.py migrate opposition
-manage.py migrate members
-manage.py migrate matches
-manage.py migrate awards
-manage.py migrate training
-manage.py migrate feedback
+python manage.py migrate core
+python manage.py migrate venues
+python manage.py migrate competitions
+python manage.py migrate teams
+python manage.py migrate opposition
+python manage.py migrate members
+python manage.py migrate matches
+python manage.py migrate awards
+python manage.py migrate training
+python manage.py migrate feedback

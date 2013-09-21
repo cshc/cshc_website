@@ -1,11 +1,11 @@
 echo Migrating models
-manage.py convert_to_south core
-manage.py convert_to_south venues
-manage.py convert_to_south competitions
-manage.py convert_to_south teams
-manage.py convert_to_south opposition
-manage.py convert_to_south members
-manage.py convert_to_south matches
-manage.py convert_to_south awards
-manage.py convert_to_south training
-manage.py convert_to_south feedback
+python manage.py convert_to_south core
+python manage.py convert_to_south venues
+python manage.py convert_to_south competitions
+python manage.py convert_to_south teams
+python manage.py convert_to_south opposition
+python manage.py convert_to_south members
+python manage.py convert_to_south matches
+python manage.py convert_to_south awards
+python manage.py convert_to_south training
+python manage.py convert_to_south feedback

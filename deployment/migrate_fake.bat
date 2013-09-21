@@ -1,11 +1,11 @@
 echo Migrating models
-manage.py migrate core --fake
-manage.py migrate venues --fake
-manage.py migrate competitions --fake
-manage.py migrate teams --fake
-manage.py migrate opposition --fake
-manage.py migrate members --fake
-manage.py migrate matches --fake
-manage.py migrate awards --fake
-manage.py migrate training --fake
-manage.py migrate feedback --fake
+python manage.py migrate core --fake
+python manage.py migrate venues --fake
+python manage.py migrate competitions --fake
+python manage.py migrate teams --fake
+python manage.py migrate opposition --fake
+python manage.py migrate members --fake
+python manage.py migrate matches --fake
+python manage.py migrate awards --fake
+python manage.py migrate training --fake
+python manage.py migrate feedback --fake
