@@ -4,6 +4,8 @@ from base import *
 
 ALLOWED_HOSTS = ['cambridgesouthhockeyclub.co.uk']
 
+MAINTENANCE_MODE = False
+
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

@@ -39,6 +39,13 @@ def initial_setup(version):
     set_maintenance_mode(False)
 
 @task
+def file_update(version):
+    tag_release(version)
+    archive_repo()
+    upload_release()
+    go_live()
+
+@task
 def update_release(version):
     tag_release(version)
     archive_repo()
