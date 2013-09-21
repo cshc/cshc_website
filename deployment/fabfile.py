@@ -36,17 +36,19 @@ def initial_setup(version):
     migrate_db()
     collectstatic()
     import_data()
+    set_maintenance_mode(False)
 
 @task
 def update_release(version):
     tag_release(version)
     archive_repo()
     upload_release()
+    go_live()
     set_maintenance_mode(True)
     syncdb()
     migrate_db()
     collectstatic()
-    import_data()
+    set_maintenance_mode(False)
 
 @task
 def syncdb():
@@ -70,7 +72,7 @@ def import_data():
 @task
 def tag_release(version):
     with lcd(".."):
-        local("git tag -a {0} -m 'Release {0}'".format(version))
+        local("git tag -a {0} -m '{0}'".format(version))
 
 @task
 def archive_repo():
@@ -82,7 +84,17 @@ def archive_repo():
 def upload_release():
     put(local_path='../{}'.format('repo_release.tar.bz2'), remote_path=env.remote_root)
     with cd(env.remote_root):
-        run('tar -jxf repo_release.tar.bz2')
+        run('mkdir repo_release')
+        run('tar -jxf repo_release.tar.bz2 -C ./repo_release')
+        run('rm repo_release.tar.bz2')
+    with lcd(".."):
+        local("rm repo_release.tar.bz2")
+
+@task
+def temp():
+    with cd(env.remote_root):
+        run('mkdir repo_release')
+        run('tar -jxf repo_release.tar.bz2 -C ./repo_release')
 
 @task
 def set_maintenance_mode(on):

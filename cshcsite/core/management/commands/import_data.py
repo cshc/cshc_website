@@ -125,10 +125,11 @@ class Command(BaseCommand):
             Command.import_end_of_season_awards(sim)
         if all or filename == 'training.csv':
             Command.import_training_sessions(sim)
-        if all or filename == 'venues.csv':
-            Command.import_venue_details(sim)
         if all or filename == 'club_details.csv':
             Command.import_club_details(sim)
+        if all or filename == 'venues.csv':
+            #Command.import_venue_details(sim)
+            print "SKIPPING VENUS (BUGGY)"
 
     @staticmethod
     def import_team_captains(sim):

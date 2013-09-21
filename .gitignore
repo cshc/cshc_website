@@ -7,3 +7,4 @@ themes/classic/views/
 *.sqlite
 .ropeproject/
 cshcsite/cshcsite/cshc.db
+repo_release.tar.bz2
