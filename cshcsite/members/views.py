@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import views as auth_views
+from django.contrib.sites.models import Site
+from django.conf import settings
 from templated_emails.utils import send_templated_email
 from braces.views import LoginRequiredMixin
 from core.views import AjaxGeneral
@@ -41,14 +43,6 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
-        if 'r' in self.request.GET:
-            try:
-                send_templated_email([self.request.user.email], 'emails/req_player_link', {'user': self.request.user })
-            except:
-                log.error("Failed to send player link request email for {}".format(self.request.user), exc_info=True)
-                messages.error(self.request, "Sorry - we were unable to handle your request. Please try again later.")
-            else:
-                messages.success(self.request, "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
         context['is_profile'] = True # Differentiates between this view and MemberDetailView
         try:
             context['member'] = Member.objects.get(user=self.request.user)
@@ -63,12 +57,23 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         return super(ProfileView, self).form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(
-            self.request,
-            "Failed to update profile. Errors: {}".format(form.errors)
-        )
-        return super(ProfileView, self).form_invalid(form)
+        log.debug("{}".format(form.cleaned_data))
 
+        # HACK: Make use of the invalid form for handling the 'Connect my account to a player' request
+        if self.request.POST.get('request_link') == '1':
+            try:
+                send_templated_email([settings.SERVER_EMAIL], 'emails/req_player_link', {'user': self.request.user, 'base_url': "http://" + Site.objects.all()[0].domain })
+            except:
+                log.error("Failed to send player link request email for {}".format(self.request.user), exc_info=True)
+                messages.error(self.request, "Sorry - we were unable to handle your request. Please try again later.")
+            else:
+                messages.success(self.request, "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
+        else:
+            messages.error(
+                self.request,
+                "Failed to update profile. Errors: {}".format(form.errors)
+            )
+        return super(ProfileView, self).form_invalid(form)
 
 class MemberListView(ListView):
     """View with a list of all members"""

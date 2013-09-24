@@ -392,7 +392,7 @@ class Match(models.Model):
         if self.alt_outcome is not None:
             return self.get_alt_outcome_display()
         if not self.final_scores_provided():
-            return ""
+            return "-"
         return "{}-{}".format(self.our_score, self.opp_score)
 
     def simple_venue_name(self):

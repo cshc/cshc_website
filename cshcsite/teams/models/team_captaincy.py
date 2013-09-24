@@ -3,6 +3,7 @@ from django.db import models
 from members.models import Member
 from club_team import ClubTeam
 from core.models import first_or_none
+from competitions.models import Season
 
 log = logging.getLogger(__name__)
 
@@ -19,6 +20,8 @@ class TeamCaptaincy(models.Model):
 
     start = models.DateField("Start of captaincy", help_text="The date this member took over as captain")
     """The date that the member started their captaincy"""
+
+    season = models.ForeignKey(Season, null=True)
 
     class Meta:
         app_label = 'teams'

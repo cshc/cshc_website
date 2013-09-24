@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} | Sign up{% endblock title %}
+
+{% block body_id %}registration{% endblock body_id %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Sign up</h1>
+</div>
+
+<p class="lead">Creating a Cambridge South Hockey Club account enables you to comment on match reports, view and edit your own player profile (once
+    we've linked your account to your player profile) and generally get a better experience from the site.</p>
+
+<form action="{% url 'registration_register' %}" method="post">{% csrf_token %}
+    {{ form.email.errors }}
+    <label for="id_email" class="control-label required"></label>
+    <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email*">
+
+    {{ form.first_name.errors }}
+    <label for="id_first_name" class="control-label required"></label>
+    <input id="id_first_name" maxlength="255" name="first_name" class="name" type="text" placeholder="First name*">
+
+    {{ form.last_name.errors }}
+    <label for="id_last_name" class="control-label required"></label>
+    <input id="id_last_name" maxlength="255" name="last_name" class="name" type="text" placeholder="Last name*">
+
+    {{ form.password1.errors }}
+    <label for="id_password1" class="control-label required"></label>
+    <input id="id_password1" name="password1" type="password" placeholder="Password*">
+
+    {{ form.password2.errors }}
+    <label for="id_password2" class="control-label required"></label>
+    <input id="id_password2" name="password2" type="password" placeholder="Password (again)*">
+    <br/>
+    <input class="btn btn-primary" type="submit" value="Register">
+    <p class="required">* required fields</p>
+</form>
+<p>Already have an account? <a href="{% url 'auth_login' %}">Sign in!</a></p>
+{% endblock content %}

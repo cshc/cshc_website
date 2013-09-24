@@ -43,7 +43,7 @@ class ClubTeamManager(models.Manager):
 
     def mixed(self):
         """Return the mixed team"""
-        return self.get_query_set().get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.T1)
+        return self.get_query_set().get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther)
 
     def indoor(self):
         """Return the indoor team"""

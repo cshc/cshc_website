@@ -208,7 +208,7 @@ class GoalKingMixin(object):
         """Returns a list of GoalKing items for the specified season"""
 
         # We convert the queryset to a list so we can add a 'rank' attribute to each item
-        goalking_list = list(GoalKing.objects.by_season(season).select_related('member__user'))
+        goalking_list = filter(lambda x: x.total_goals > 0, GoalKing.objects.by_season(season).select_related('member__user'))
 
         # Apply ranking
         if len(goalking_list) > 0:

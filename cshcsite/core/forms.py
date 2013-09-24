@@ -38,6 +38,12 @@ class UserCreationForm(forms.ModelForm):
                                 widget=forms.PasswordInput,
                                 help_text="Enter the same password as above, for verification.")
 
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
     class Meta:
         model = CshcUser
         fields = ('email', 'first_name', 'last_name')

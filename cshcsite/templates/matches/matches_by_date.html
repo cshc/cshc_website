@@ -56,21 +56,21 @@ Currently just lists the values that will be needed by this template - no UI des
                         {% if m.mom_winners %}
                             <li><i class="icon icon-star"></i>
                             {% for mom in m.mom_winners %}
-                                <a href="{{ mom.member.get_absolute_url }}" title="{{ mom.comment }}">{{ mom.member.last_name }}</a>{% if not forloop.last %}, {% endif %}
+                                <a href="{{ mom.member.get_absolute_url }}" title="{{ mom.comment }}">{{ mom.member.initial_and_surname }}</a>{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                             </li>
                         {% endif %}
                         {% if m.lom_winners %}
                             <li><i class="icon icon-lemon"></i>
                             {% for lom in m.lom_winners %}
-                                <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.last_name }}</a>{% if not forloop.last %}, {% endif %}
+                                <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.initial_and_surname }}</a>{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                             </li>
                         {% endif %}
                         {% if m.scoring_appearances %}
                             <li><strong>Scorers:</strong>
                             {% for scorer in m.scoring_appearances %}
-                                <a href="{{ scorer.member.get_absolute_url }}">{{ scorer.member.last_name }}</a>{% if scorer.goals > 1 %}({{ scorer.goals }}){% endif %}{% if not forloop.last %}, {% endif %}
+                                <a href="{{ scorer.member.get_absolute_url }}">{{ scorer.member.initial_and_surname }}</a>{% if scorer.goals > 1 %}({{ scorer.goals }}){% endif %}{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                             </li>
                         {% endif %}
@@ -78,7 +78,7 @@ Currently just lists the values that will be needed by this template - no UI des
                     <h4>{{ m.match.match_title_text }}</h4>
                     {{ m.match.report_body.excerpt|safe }}
                     {% if m.match.report_body.has_more %}
-                        <p class="pull-right"><a href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
+                        <p class="pull-right"><a class="btn btn-mini btn-success" href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
                 {% else %}
                     {% if m.match.venue and m.match.venue.address_known %}
@@ -91,7 +91,7 @@ Currently just lists the values that will be needed by this template - no UI des
                     </ul>
                     {{ m.match.pre_match_hype.excerpt|safe }}
                     {% if m.match.pre_match_hype.has_more %}
-                        <p class="pull-right"><a href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
+                        <p class="pull-right"><a class="btn btn-mini btn-success" href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
                 {% endif %}
                 <p><i class="icon-comment"></i><a href="{{ m.match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ m.match.pk }}">View Comments</a></p>

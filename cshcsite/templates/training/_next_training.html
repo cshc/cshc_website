@@ -3,11 +3,11 @@ This re-usable template displays the next training sessions.
 Context should have a 'trainingsession_list' list of TrainingSession objects.
 {% endcomment %}
 
-{% url 'trainingsession_ical_feed' as calendar %}
+{% url 'calendar' as calendar %}
 <div class="section_header">
     <span class="pull-right">
-        <a href="{{ calendar }}" title=".ics calendar of training sessions" target="_blank" class="btn btn-small btn-primary">
-            <i class="icon-calendar"></i>Calendar (.ics)
+        <a href="{{ calendar }}" title="Import match details into your own calendar" class="btn btn-small btn-primary">
+            <i class="icon-calendar"></i>Calendar
         </a>
     </span>
     <h3 id="next-training">Next Training</h3>

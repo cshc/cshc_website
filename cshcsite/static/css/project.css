@@ -218,7 +218,7 @@ Top Banner
     /*z-index: -9999;*/
     background-size: 100%;
     background:url('../img/backgrounds/astro1.png') no-repeat 0 0px;
-    background-color: rgba(34, 102, 28, 0.7);
+    background-color: rgba(34, 102, 28, 0.8);
     width:100%;
     -webkit-background-size: cover !important;
        -moz-background-size: cover !important;
@@ -229,7 +229,7 @@ Top Banner
 #top-banner .container {margin-top: 105px; margin-bottom:20px;}
 .banner-box {font-size: 80%; }
 .banner-box h3 {color: white;}
-.banner-box {background-color: rgba(34, 102, 28, 0.7); color: white; padding: 10px;}
+.banner-box {background-color: rgba(34, 102, 28, 0.8); color: white; padding: 10px;}
 .banner-box .table-hover tbody tr:hover>td {background-color: rgba(34, 102, 28, 0.9);}
 .banner-box .table th, .banner-box .table td {border-top: 1px solid #8A8A8A;}
 .banner-box a {color: rgb(216, 221, 255);}
@@ -329,9 +329,9 @@ Page-specific
 #our-teams .row.mens { margin-bottom:20px; }
 #our-teams .row.ladies { margin-bottom:20px; }
 #our-teams .team { padding: 0px; margin-bottom: 20px; }
-#our-teams .mens .team { background-color: rgb(215, 243, 236); }
-#our-teams .ladies .team { background-color: rgb(226, 231, 248); }
-#our-teams .other .team { background-color: rgb(245, 252, 197); }
+#our-teams .mens .team { background-color: rgb(153, 213, 182); }
+#our-teams .ladies .team { background-color: rgb(169, 171, 221); }
+#our-teams .other .team { background-color: rgb(234, 245, 156); }
 #our-teams .team-details { padding: 5px 10px 20px 10px; }
 #our-teams a.details { float: right; }
 #our-teams img.team-photo { min-height: 200px; }
@@ -358,6 +358,7 @@ Page-specific
 
 #match-detail .match-report p { font-size: 120%; }
 #match-detail .row.quick-links { margin-bottom: 10px;}
+#match-detail .media-body h5 {margin-top: 0px;}
 #team-detail .row.quick-links { margin-left: 0px; }
 #team-detail #clubteam-info {margin-top: 20px;}
 

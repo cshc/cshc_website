@@ -239,6 +239,7 @@ THIRD_PARTY_APPS = (
     'storages',
     's3_folder_storage',
     'dbbackup',
+    'registration',
 )
 
 # Apps specific for this project go here.
@@ -384,9 +385,9 @@ DEFAULT_FROM_EMAIL = 'website@cambridgesouthhockeyclub.co.uk'
 # See: https://docs.djangoproject.com/en/1.5/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = 'user_profile'
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#login-url
-LOGIN_URL = 'login'
+LOGIN_URL = 'auth_login'
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#logout-url
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'auth_logout'
 
 ########## END MISC CONFIGURATION
 
@@ -527,3 +528,8 @@ DBBACKUP_S3_ACCESS_KEY = get_env_setting('AWS_ACCESS_KEY_ID')
 DBBACKUP_S3_SECRET_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
 DBBACKUP_S3_DIRECTORY = 'django-dbbackups/'
 ########## END django-dbbackup CONFIGURATION
+
+########## django-registration CONFIGURATION
+# Ref: https://django-registration.readthedocs.org/en/latest/quickstart.html
+ACCOUNT_ACTIVATION_DAYS = 7
+########## END django-registration CONFIGURATION

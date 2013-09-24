@@ -169,7 +169,7 @@ class GoalKing(models.Model):
             gk_lookup[gk.member_id] = gk
 
         # We just want the member id, the match team, the number of goals scored (and own goals)
-        appearances = Appearance.objects.by_season(season).select_related('match__our_team').filter(match__ignore_for_goal_king=False, goals__gt=0).only('member', 'goals', 'own_goals', 'match__our_team')
+        appearances = Appearance.objects.by_season(season).select_related('match__our_team').filter(match__ignore_for_goal_king=False).only('member', 'goals', 'own_goals', 'match__our_team')
         log.debug("Retrieved {} appearance entries for {}".format(appearances.count(), season))
 
         for appearance in appearances:

@@ -78,3 +78,6 @@ django-s3-folder-storage==0.1
 # Database backup
 simples3==1.0
 django-dbbackup==1.80.1
+
+# Two-phase registration support (forked)
+django-registration==1.0

@@ -20,7 +20,7 @@
         {% endif %}
         {% if member.user == request.user and is_profile %}
         <div class="box side-box">
-            {% url 'password_change' as password_change %}
+            {% url 'auth_password_change' as password_change %}
             <div class="accordion" id="edit-profile-accordion">
                 <div class="accordion-group">
                     <div class="accordion-heading">

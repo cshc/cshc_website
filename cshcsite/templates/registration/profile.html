@@ -7,7 +7,7 @@
 {% block content %}
 
 {% url 'member_list' as member_list_url %}
-{% url 'password_change' as password_change %}
+{% url 'auth_password_change' as password_change %}
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
@@ -25,7 +25,10 @@
 <div class="well">
     <p class="lead">Your account is not currently linked to a player/club member. If you believe your account <em>should</em> be linked to a player/club member you can request it here:</p>
     {% url 'user_profile' as user_profile %}
-    <a class="btn btn-primary" href="{{ user_profile }}?r=1">Connect my account to a player</a>
+    <form id="feedback_form" method="post" action="{% url 'user_profile' %}">{% csrf_token %}
+        <input type="hidden" name="request_link" value="1">
+        <input class="btn btn-primary" type="submit" value="Connect my account to a player">
+    </form>
 </div>
 <ul class="nav nav-pills">
   <li><a href="{{ password_change }}">Change your password...</a></li>

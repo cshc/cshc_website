@@ -8,7 +8,7 @@ from django.conf import settings
 import django_mobile
 from core.views import AjaxGeneral, saturdays_in_range
 
-from core.models import TeamGender, first_or_none, not_none_or_empty
+from core.models import TeamGender, TeamOrdinal, first_or_none, not_none_or_empty
 from core.views import kwargs_or_none
 from core.stats import MatchStats
 from competitions.models import Division, Season, DivisionResult
@@ -33,9 +33,9 @@ class ClubTeamListView(TemplateView):
 
         all_teams = ClubTeam.objects.all()
 
-        mens_teams = list(all_teams.filter(gender=TeamGender.Mens))
+        mens_teams = list(all_teams.filter(gender=TeamGender.Mens).exclude(ordinal=TeamOrdinal.TVets))
         ladies_teams = list(all_teams.filter(gender=TeamGender.Ladies))
-        other_teams = list(all_teams.filter(gender=TeamGender.Mixed))
+        other_teams = [ClubTeam.objects.mixed(), ClubTeam.objects.indoor(), ClubTeam.objects.vets()]
 
         for team in mens_teams + ladies_teams + other_teams:
             try:

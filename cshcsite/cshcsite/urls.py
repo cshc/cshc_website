@@ -3,7 +3,8 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 from django.conf import settings
 from venues.views import HomeVenueListView
-from core.views import ContactSubmissionCreateView
+from core.views import ContactSubmissionCreateView, RegistrationView
+from members.views import ProfileView
 from . import views
 
 admin.autodiscover()
@@ -49,6 +50,11 @@ urlpatterns = patterns('',
     url(r'^training/', include('training.urls')),
 
     url(r'^feedback/', include('feedback.urls')),                  # Ref: https://github.com/SeanHayes/django-basic-feedback
+
+
+    url(r'^accounts/profile/$', ProfileView.as_view(), name='user_profile'),
+    url(r'^accounts/register/$', RegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/', include('registration.backends.default.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -251,7 +251,8 @@ class Command(BaseCommand):
                     print "WARNING: Could not find venue '{}'. Creating now".format(details.existing_name)
                     venue = Venue()
             venue.name = details.full_name
-            venue.short_name = details.short_name
+            # TEMP: ignore short_name
+            #venue.short_name = details.short_name
             venue.url = details.url
             venue.is_home = details.is_home
             venue.phone = details.phone

@@ -58,6 +58,11 @@ def update_release(version):
     set_maintenance_mode(False)
 
 @task
+def install_dependencies():
+    with cd(env.remote_root):
+        run('pip install --user -r repo/requirements/production.txt')
+
+@task
 def syncdb():
     with cd(env.remote_root + "repo/cshcsite"):
         run('python manage.py syncdb')

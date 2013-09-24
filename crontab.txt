@@ -1,2 +1,2 @@
 MAILTO=website@cambridgesouthhockeyclub.co.uk
-0 2 * * * python /home/rgagarrett/nightly_tasks.py  >/dev/null
+0 2 * * * python /home/rgagarrett/nightly_tasks.py

@@ -1,13 +1,21 @@
 import logging
+import hashlib
+import random
 from datetime import timedelta
-from django.views.generic import TemplateView, FormView, CreateView
+from django.views.generic import TemplateView, FormView
 from django.shortcuts import render_to_response
 from django.contrib import messages
 from django.template import RequestContext
 from django.contrib.sites.models import Site
+from django.conf import settings
 from django.utils.decorators import method_decorator
+from django.contrib.sites.models import RequestSite
+from django.contrib.auth import get_user_model
 from templated_emails.utils import send_templated_email
-from .models import ClubInfo, ContactSubmission, CshcUser
+from registration import signals as reg_signals
+from registration.models import RegistrationProfile
+from registration.views import RegistrationView as BaseRegistrationView
+from .models import ClubInfo, ContactSubmission
 from .forms import ContactSubmissionForm, UserCreationForm
 
 log = logging.getLogger(__name__)
@@ -147,11 +155,195 @@ class ContactSubmissionCreateView(FormView):
         return super(ContactSubmissionCreateView, self).form_valid(form)
 
 
-class RegisterUserView(CreateView):
 
-    model = CshcUser
+# Copied and modified from registration.backends.default.views
+class RegistrationView(BaseRegistrationView):
+    """
+    A registration backend which follows a simple workflow:
+
+    1. User signs up, inactive account is created.
+
+    2. Email is sent to user with activation link.
+
+    3. User clicks activation link, account is now active.
+
+    Using this backend requires that
+
+    * ``registration`` be listed in the ``INSTALLED_APPS`` setting
+      (since this backend makes use of models defined in this
+      application).
+
+    * The setting ``ACCOUNT_ACTIVATION_DAYS`` be supplied, specifying
+      (as an integer) the number of days from registration during
+      which a user may activate their account (after that period
+      expires, activation will be disallowed).
+
+    * The creation of the templates
+      ``registration/activation_email_subject.txt`` and
+      ``registration/activation_email.txt``, which will be used for
+      the activation email. See the notes for this backends
+      ``register`` method for details regarding these templates.
+
+    Additionally, registration can be temporarily closed by adding the
+    setting ``REGISTRATION_OPEN`` and setting it to
+    ``False``. Omitting this setting, or setting it to ``True``, will
+    be interpreted as meaning that registration is currently open and
+    permitted.
+
+    Internally, this is accomplished via storing an activation key in
+    an instance of ``registration.models.RegistrationProfile``. See
+    that model and its custom manager for full documentation of its
+    fields and supported operations.
+
+    """
+
     form_class = UserCreationForm
 
-    template_name = "registration/register_new_user.html"
-    # TODO: Redirect to a new view with a welcome message
-    success_url = '/'
+    def register(self, request, **cleaned_data):
+        """
+        Given an email address, first and last name and password, register a new
+        user account, which will initially be inactive.
+
+        Along with the new ``User`` object, a new
+        ``registration.models.RegistrationProfile`` will be created,
+        tied to that ``User``, containing the activation key which
+        will be used for this account.
+
+        An email will be sent to the supplied email address; this
+        email should contain an activation link. The email will be
+        rendered using two templates. See the documentation for
+        ``RegistrationProfile.send_activation_email()`` for
+        information about these templates and the contexts provided to
+        them.
+
+        After the ``User`` and ``RegistrationProfile`` are created and
+        the activation email is sent, the signal
+        ``registration.signals.user_registered`` will be sent, with
+        the new ``User`` as the keyword argument ``user`` and the
+        class of this backend as the sender.
+
+        """
+        email, first_name, last_name, password = cleaned_data['email'], cleaned_data['first_name'], cleaned_data['last_name'], cleaned_data['password1']
+        if Site._meta.installed:
+            site = Site.objects.get_current()
+        else:
+            site = RequestSite(request)
+        new_user = self.create_inactive_user(email, password, first_name, last_name, site)
+        reg_signals.user_registered.send(sender=self.__class__,
+                                     user=new_user,
+                                     request=request)
+        return new_user
+
+    def registration_allowed(self, request):
+        """
+        Indicate whether account registration is currently permitted,
+        based on the value of the setting ``REGISTRATION_OPEN``. This
+        is determined as follows:
+
+        * If ``REGISTRATION_OPEN`` is not specified in settings, or is
+          set to ``True``, registration is permitted.
+
+        * If ``REGISTRATION_OPEN`` is both specified and set to
+          ``False``, registration is not permitted.
+
+        """
+        return getattr(settings, 'REGISTRATION_OPEN', True)
+
+    def get_success_url(self, request, user):
+        """
+        Return the name of the URL to redirect to after successful
+        user registration.
+
+        """
+        return ('registration_complete', (), {})
+
+    # Copied + modified from registration.models.RegistrationManager
+    def create_profile(self, user):
+        """
+        Create a ``RegistrationProfile`` for a given
+        ``User``, and return the ``RegistrationProfile``.
+
+        The activation key for the ``RegistrationProfile`` will be a
+        SHA1 hash, generated from a combination of the ``User``'s
+        username and a random salt.
+
+        """
+        salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+        email = user.email
+        if isinstance(email, unicode):
+            email = email.encode('utf-8')
+        activation_key = hashlib.sha1(salt+email).hexdigest()
+        return RegistrationProfile.objects.create(user=user,
+                           activation_key=activation_key)
+
+    # Copied + modified from registration.models.RegistrationManager
+    def create_inactive_user(self, email, password, first_name, last_name,
+                             site, send_email=True):
+        """
+        Create a new, inactive ``User``, generate a
+        ``RegistrationProfile`` and email its activation key to the
+        ``User``, returning the new ``User``.
+
+        By default, an activation email will be sent to the new
+        user. To disable this, pass ``send_email=False``.
+
+        """
+        new_user = get_user_model().objects.create_user(email, password)
+        new_user.first_name = first_name
+        new_user.last_name = last_name
+        new_user.is_active = False
+        new_user.save()
+
+        registration_profile = self.create_profile(new_user)
+
+        if send_email:
+            self.send_activation_email(registration_profile, site)
+
+        return new_user
+
+    def send_activation_email(self, registration_profile, site):
+        """
+        Send an activation email to the user associated with this
+        ``RegistrationProfile``.
+
+        The activation email will make use of two templates:
+
+        ``emails/activation/short.txt``
+            This template will be used for the subject line of the
+            email. Because it is used as the subject line of an email,
+            this template's output **must** be only a single line of
+            text; output longer than one line will be forcibly joined
+            into only a single line.
+
+        ``emails/activation/email.txt`` / ``emails/activation/email.html``
+            This template will be used for the body of the email. Text and
+            HTML versions will be provided.
+
+        These templates will each receive the following context
+        variables:
+
+        ``activation_key``
+            The activation key for the new account.
+
+        ``expiration_days``
+            The number of days remaining during which the account may
+            be activated.
+
+        ``site``
+            An object representing the site on which the user
+            registered; depending on whether ``django.contrib.sites``
+            is installed, this may be an instance of either
+            ``django.contrib.sites.models.Site`` (if the sites
+            application is installed) or
+            ``django.contrib.sites.models.RequestSite`` (if
+            not). Consult the documentation for the Django sites
+            framework for details regarding these objects' interfaces.
+
+        """
+        context = {'activation_key': registration_profile.activation_key,
+                   'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
+                   'site': site,
+                   'user': registration_profile.user,
+                   'base_url': "http://" + Site.objects.all()[0].domain}
+
+        send_templated_email([registration_profile.user.email], 'emails/activation', context)

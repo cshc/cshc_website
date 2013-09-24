@@ -6,7 +6,14 @@ Context should have a 'latest_results' list of Match objects.
 {% if latest_results %}
 <table class="table table-condensed table-hover">
     <thead>
-        <tr><th class="priority3"></th><th>Team</th><th>Opposition</th><th>Score</th><th>Date</th><th>Report</th></tr>
+        <tr>
+            <th class="priority3"></th>
+            <th>Team</th>
+            <th>Opposition</th>
+            <th class="center-align">Score</th>
+            <th>Date</th>
+            <th class="center-align">Report</th>
+        </tr>
     </thead>
     <tbody>
     {% for m in latest_results %}
@@ -17,10 +24,10 @@ Context should have a 'latest_results' list of Match objects.
 
             <td><a href="{{ m.our_team.get_absolute_url }}">{{ m.our_team|capfirst }}</a></td>
             <td><a href="{{ m.opp_team.club.get_absolute_url }}">{{ m.opp_team.name }}</a></td>
-            <td>{{ m.score_display }}</td>
+            <td class="center-align">{{ m.score_display }}</td>
             <td class="no-break"><a title="Matches on {{ m.date|date:"jS M" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a></td>
-            <td><a href="{{ m.get_absolute_url }}">
-            {% if m.final_scores_provided %}<i class="icon-file-alt"></i>{% else %}Fixture{% endif %}
+            <td class="center-align"><a href="{{ m.get_absolute_url }}">
+            {% if m.final_scores_provided %}<i class="icon-file"></i>{% else %}<i class="icon-file-alt">{% endif %}
             </a></td>
         </tr>
     {% endfor %}
