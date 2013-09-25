@@ -34,10 +34,10 @@ class Command(BaseCommand):
 
         # For each user
         for u in users:
+            password = create_password(u, sim)
             u.is_active = False
             if not sim:
                 u.save()
-            password = create_password(u, sim)
             reg_profile = create_profile(u, sim)
             # Email the user with their new password
             send_welcome_email_to_user(reg_profile, password, sim)

@@ -33,7 +33,7 @@ Context should have a 'next_fixtures' list of Match objects.
                 <td><a class="no-break" title="Matches on {{ m.date|date:"jS M" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a><br/>{{ m.time_display }}</td>
                 {% else %}
                 <td class="no-break"><a title="Matches on {{ m.date|date:"jS M" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a></td>
-                <td class="no-break">{{ m.time_display }}</td>
+                <td class="no-break">{% if m.alt_outcome %}OFF{% else %}{{ m.time_display }}{% endif %}</td>
                 {% endif %}
                 <td><a href="{{ m.get_absolute_url }}" title="Fixture details">Fixture</a></td>
                 </tr>

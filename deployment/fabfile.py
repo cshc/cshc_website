@@ -35,6 +35,7 @@ def initial_setup(version):
     install_dependencies()
     syncdb()
     migrate_db()
+    create_superuser()
     collectstatic()
     import_data()
     set_maintenance_mode(False)
@@ -68,6 +69,11 @@ def install_dependencies():
 def syncdb():
     with cd(env.remote_root + "repo/cshcsite"):
         run('python manage.py syncdb')
+
+@task
+def create_superuser():
+    with cd(env.remote_root + "repo/cshcsite"):
+        run('python manage.py create_cshc_superuser')
 
 @task
 def collectstatic():
