@@ -267,6 +267,8 @@ Responsive
 	.table th.priority3, .table td.priority3 {display: none;}
     .table-score tbody tr td.team-name {font-size: 150%;}
     .table-score tbody tr td.team-score {font-size: 120%;}
+    .banner-box .table-condensed th, .banner-box .table-condensed td {padding: 6px 1px;}
+
 }
 
 /* Hide the top banner on smaller screens */
@@ -315,9 +317,13 @@ Page-specific
 */
 
 #home #join-us { margin-bottom: 20px;}
-#home #join-us img {margin: 10px; width: 40%; }
-#home #join-us .btn { margin: 10px; }
+#home #join-us #get-in-touch { margin-left: auto; margin-right: auto; display: block; margin-top: 20px; width: 150px;}
 #home #crest { width: 70%; max-width: 200px; }
+#home #twitter-feed, #home #comments { max-height: 650px; margin-bottom: 20px; background-color: rgb(223, 243, 228)}
+#home img.dsq-widget-avatar {margin-right: 10px; margin-bottom: 5px;}
+#home #comments .scrolling-container { margin-top: 5px;}
+#home #twitter-widget-1 {width: 100%; max-height: 600px;}
+#home #training-summary {margin-bottom: 20px;}
 
 #contact-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
 #contact-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }

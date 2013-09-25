@@ -32,6 +32,7 @@ def initial_setup(version):
     archive_repo()
     upload_release()
     go_live()
+    install_dependencies()
     syncdb()
     migrate_db()
     collectstatic()
@@ -52,6 +53,7 @@ def update_release(version):
     upload_release()
     go_live()
     set_maintenance_mode(True)
+    install_dependencies()
     syncdb()
     migrate_db()
     collectstatic()
@@ -84,6 +86,9 @@ def import_data():
 @task
 def tag_release(version):
     with lcd(".."):
+        local("echo {0} > version.txt".format(version))
+        local("git add version.txt")
+        local("git commit -m '{0}'".format(version))
         local("git tag -a {0} -m '{0}'".format(version))
 
 @task
@@ -110,9 +115,8 @@ def temp():
 
 @task
 def set_maintenance_mode(on):
-    print "Value = {}".format(on)
     with cd(env.remote_root):
-        _add_or_replace_line('repo/cshcsite/cshcsite/settings/production.py', 'MAINTENANCE_MODE = ', on)
+        _add_or_replace_line('repo/cshcsite/cshcsite/settings/production.py', 'MAINTENANCE_MODE = ', str(on))
 
 @task
 def migrate_db():

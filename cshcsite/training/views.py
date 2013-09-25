@@ -12,7 +12,7 @@ class UpcomingTrainingSessionsView(ListView):
     model = TrainingSession
 
     # Only select the next four training sessions
-    queryset = TrainingSession.objects.upcoming().select_related('venue')[:4]
+    queryset = TrainingSession.objects.upcoming().select_related('venue')[:5]
 
     @staticmethod
     def add_upcoming_training_to_context(context):

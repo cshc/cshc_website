@@ -9,6 +9,7 @@
 
 {% url 'venue_detail' 'leys' as leys_url %}
 {% url 'venue_detail' 'abbey' as abbey_url %}
+{% url 'calendar' as calendar %}
 
 {% get_clubinfo 'SecretaryName' as sec_name %}
 
@@ -60,8 +61,15 @@
 </div> <!-- class=row -->
 <hr/>
 <div class="row">
-    <div class="span6">
+    <div class="span7">
         {% include 'training/_next_training.html' %}
+    </div>
+    <div class="span5">
+        <div class="well">
+          <h3>Make it easy for yourself!</h3>
+          <p class="lead">All Cambridge South training sessions are available as a <strong>.ics calendar feed</strong> that you can link into your own calendar client (Outlook, iPhone etc).</p>
+          <a class="calendar" href="{{ calendar }}#feeds"><button class="btn btn-large btn-primary"><i class="icon-calendar"></i>Plug me in!</button></a>
+        </div>
     </div>
 </div>
 
