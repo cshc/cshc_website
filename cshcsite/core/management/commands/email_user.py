@@ -40,6 +40,9 @@ class Command(BaseCommand):
             email = options['welcome_email']
             user = CshcUser.objects.get(email=email)
             password = create_password(user, sim)
+            user.is_active = False
+            if not sim:
+                user.save()
             reg_profile = create_profile(user, sim)
             # Email the user with their new password
             send_welcome_email_to_user(reg_profile, password, sim)

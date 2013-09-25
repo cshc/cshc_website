@@ -14,6 +14,7 @@ USERS_DIR = "import"
 USERS_FILE = "users.csv"
 
 EMAIL_COL = 0
+EMIAL_OPT_COL = 1
 FIRST_NAME_COL = 3
 LAST_NAME_COL = 4
 SHIR_NUMBER_COL = 20
@@ -22,6 +23,7 @@ SHIR_NUMBER_COL = 20
 class MemberDetails:
 
     def __init__(self, row):
+        self.receive_emails = True if bytearray(row[EMIAL_OPT_COL]).decode('utf-8') == 'Receive all e-mails' else False
         self.first_name = bytearray(row[FIRST_NAME_COL]).decode('utf-8')
         self.last_name = bytearray(row[LAST_NAME_COL]).decode('utf-8')
         self.email = bytearray(row[EMAIL_COL]).decode('utf-8')
@@ -89,7 +91,9 @@ class Command(BaseCommand):
                 if first_row:
                     first_row = False
                     continue
-                members.append(MemberDetails(csv_row))
+                m = MemberDetails(csv_row)
+                if m.receive_emails:
+                    members.append(m)
 
         print "============================"
         print "Read {} member details from CSV file".format(len(members))
