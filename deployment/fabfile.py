@@ -122,6 +122,8 @@ def set_maintenance_mode(on):
 def migrate_db():
     with cd(env.remote_root + 'repo/cshcsite/'):
         run('chmod 744 ../deployment/migrate.sh')
+        # Make sure we've got linux line endings
+        run('fromdos ../deployment/migrate.sh')
         run('../deployment/migrate.sh')
 
 @task
