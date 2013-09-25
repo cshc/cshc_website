@@ -1,22 +1,25 @@
-{% url 'login' as login %}
-{% url 'password_reset' as password_reset %}
+{% url 'auth_login' as login %}
+{% url 'auth_password_reset' as password_reset %}
 
 Hello {{ first_name }},
 
 This is probably the moment you've been waiting for your whole life. And its finally here!
 
-A user account has been created for you on the Cambridge South Hockey Club website, {{  base_url }}. You can login using
-the following credentials:
+A user account has been created for you on the Cambridge South Hockey Club website, {{  base_url }}. The first thing you'll need to do is activate your account by clicking on the link below:
+
+{{  base_url }}{% url 'registration_activate' activation_key=activation_key %}
+
+Once you have activated your account, you can sign in using the following credentials:
 
 Email address: {{ email }}
 Password:      {{ password }}
 
-You should probably sign in</a> soon and then reset your password to something you will remember.
+You should probably sign in soon and then reset your password to something you will remember.
 
 Login: {{  base_url }}{{ login }}
 Password reset: {{  base_url }}{{ password_reset }}
 
-Now go check out the site! Comment on match reports, subscribe to the RSS feeds and the team's calendars, and much much more :-). If you have any questions, feel free to just reply to this email.
+Now go check out the site! Comment on match reports, subscribe to the RSS feeds and the team's calendars, and much much more :-). If you have any questions, feel free to email us at website@cambridgesouthhockeyclub.co.uk.
 
 Thanks,
 Cambridge South Hockey Club

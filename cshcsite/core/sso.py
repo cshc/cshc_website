@@ -5,6 +5,7 @@ import json
 import time
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 
 
@@ -43,17 +44,20 @@ def get_disqus_sso(user):
         // This adds the custom login/logout functionality
         this.sso = {
               name:   "CSHC",
-              button:  "/static/media/disqus-sso-login-button.gif",
+              button:  "%(static_url)smedia/disqus-sso-login-button.gif",
               //icon:     "http://%(domain)s/favicon.png",
-              url:        "http://%(domain)s/members/login/",
+              url:        "http://%(domain)s%(login_url)s",
               logout:  "http://%(domain)s/members/logout/",
-              width:   "143",
-              height:  "32"
+              width:   "360",
+              height:  "480"
         };
     };
     </script>""" % dict(
         pub_key=settings.DISQUS_PUBLIC_KEY,
-        domain=Site.objects.get_current().domain))
+        static_url=settings.STATIC_URL,
+        domain=Site.objects.get_current().domain,
+        login_url=reverse('auth_login')))
 
+    print "".join(output)
     return "".join(output)
 

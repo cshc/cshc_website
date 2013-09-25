@@ -67,10 +67,16 @@
 <div class="row">
     <div class="span7">
         <div id="join-us">
-            <h3>Join Cambridge South!</h3>
+            <div class="row">
+                <div class="span4">
+                    <h3>Join Cambridge South!</h3>
+                </div>
+                <div class="span3">
+                    <a href="{{ contact_us }}" class="btn btn-large btn-success">Get in touch...</a>
+                </div>
+            </div>
             <img class="img-polaroid" src="{{ STATIC_URL }}media/Rolling/M2vsEly2.jpg"/>
             <img class="img-polaroid" src="{{ STATIC_URL }}media/Rolling/L2vsHunts1.jpg"/>
-            <a href="{{ contact_us }}" class="btn btn-large btn-success">Get in touch...</a>
         </div>
         {% include 'training/_next_training.html' %}
     </div>

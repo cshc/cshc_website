@@ -5,8 +5,12 @@
 
 <p>This is probably the moment you've been waiting for your whole life. And its finally here!</p>
 
-<p>A user account has been created for you on the <a href="{{  base_url }}">Cambridge South Hockey Club website</a>. You can login using
-the following credentials:</p>
+<p>A user account has been created for you on the <a href="{{  base_url }}">Cambridge South Hockey Club website</a>. The first
+    thing you'll need to do is activate your account by clicking on the link below:</p>
+
+<p><a href="{{  base_url }}{% url 'registration_activate' activation_key=activation_key %}"><strong>Activate my account</strong></a></p>
+
+<p>Once you have activated your account, you can sign in using the following credentials:</p>
 
 <p>Email address: <strong>{{ email }}</strong><br/>
 Password: <strong>{{ password }}</strong></p>
@@ -15,7 +19,7 @@ Password: <strong>{{ password }}</strong></p>
     your password</a> to something you will remember.</p>
 
 <p>Now go check out the site! Comment on match reports, subscribe to the RSS feeds and the team's calendars, and much much more :-).
-    If you have any questions, feel free to just reply to this email.</p>
+    If you have any questions, feel free to <a href="mailto:website@cambridgesouthhockeyclub.co.uk">email us</a>.</p>
 <p>Thanks,</p>
 <p>Cambridge South Hockey Club</p>
 

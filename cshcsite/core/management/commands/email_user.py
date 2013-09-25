@@ -4,7 +4,8 @@ import traceback
 from django.core.management.base import BaseCommand
 from optparse import make_option
 from core.models import CshcUser
-from _command_utils import email_user, create_password
+from _command_utils import send_welcome_email_to_user, create_password
+from core.reg_utils import create_profile
 
 
 class Command(BaseCommand):
@@ -39,8 +40,9 @@ class Command(BaseCommand):
             email = options['welcome_email']
             user = CshcUser.objects.get(email=email)
             password = create_password(user, sim)
+            reg_profile = create_profile(user, sim)
             # Email the user with their new password
-            email_user(user, password, sim)
+            send_welcome_email_to_user(reg_profile, password, sim)
 
 
 

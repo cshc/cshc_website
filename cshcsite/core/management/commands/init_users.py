@@ -4,7 +4,8 @@ import traceback
 from django.core.management.base import BaseCommand
 from optparse import make_option
 from core.models import CshcUser
-from _command_utils import email_user, create_password
+from _command_utils import send_welcome_email_to_user, create_password
+from core.reg_utils import create_profile
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -34,8 +35,9 @@ class Command(BaseCommand):
         # For each user
         for u in users:
             password = create_password(u, sim)
+            reg_profile = create_profile(u, sim)
             # Email the user with their new password
-            email_user(u, password, sim)
+            send_welcome_email_to_user(reg_profile, password, sim)
 
 
 

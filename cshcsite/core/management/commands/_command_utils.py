@@ -3,17 +3,18 @@ from django.contrib.sites.models import Site
 from templated_emails.utils import send_templated_email
 from core.models import CshcUser
 
-def email_user(user, password, sim):
+def send_welcome_email_to_user(reg_profile, password, sim):
     context = {
-        'first_name': user.first_name,
-        'last_name': user.last_name,
-        'email': user.email,
+        'activation_key': reg_profile.activation_key,
+        'first_name': reg_profile.user.first_name,
+        'last_name': reg_profile.user.last_name,
+        'email': reg_profile.user.email,
         'password': password,
         'base_url': "http://" + Site.objects.all()[0].domain
     }
-    print 'Emailing {}:'.format(user.get_full_name())
+    print 'Emailing {}'.format(reg_profile.user.get_full_name())
     if not sim:
-        send_templated_email([user.email], 'emails/account_created', context)
+        send_templated_email([reg_profile.user.email], 'emails/account_created', context)
 
 
 def create_password(user, sim):

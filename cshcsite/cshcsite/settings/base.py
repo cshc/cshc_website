@@ -473,7 +473,8 @@ SORTER_ALLOWED_CRITERIA = {
 
 ########## django-disqus CONFIGURATION
 
-DISQUS_API_KEY = 'cV5DeRXeXa1NZVvTc00HESt5HNHQEVN5TiQTbqcwEWsOVoawhysgopJ1OfLUcYqH'
+#DISQUS_API_KEY = 'cV5DeRXeXa1NZVvTc00HESt5HNHQEVN5TiQTbqcwEWsOVoawhysgopJ1OfLUcYqH'
+DISQUS_API_KEY = 'k5gco5q9gAoR6PmhuODFNOe8If9TgSKkfxHp4owzKMUkLs5rRo2yOjantf17yQiZ'
 
 
 # Ref: http://disqus.com/api/applications/
