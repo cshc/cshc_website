@@ -2,7 +2,7 @@
 from base import *
 
 
-ALLOWED_HOSTS = ['cambridgesouthhockeyclub.co.uk']
+ALLOWED_HOSTS = ['cambridgesouthhockeyclub.co.uk', 'm.cambridgesouthhockeyclub.co.uk']
 
 MAINTENANCE_MODE = False
 

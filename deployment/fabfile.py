@@ -138,6 +138,7 @@ def go_live():
         run('rm -fr repo_old')
         run('mv repo repo_old')
         run('mv repo_release repo')
+        run('touch ~/www.m.cambridgesouthhockeyclub.co.uk_html/django.fcgi')
 
 def _add_or_replace_line(file, pattern, value):
     # Prevent expansion of env vars....

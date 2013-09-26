@@ -287,7 +287,7 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
         'file': {
-            'level': 'DEBUG',
+            'level': 'WARN',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': join(SITE_ROOT, 'django.log'),
             'maxBytes': '16777216', # 16megabytes
