@@ -43,7 +43,7 @@ class ClubTeamSeasonParticipation(models.Model):
 
     # Division ################################################################
 
-    division = models.ForeignKey(Division, null=True)
+    division = models.ForeignKey(Division, null=True, blank=True)
     """The division in which the team participated in, if any."""
 
     team_photo = models.ImageField(upload_to='uploads/team_photos', null=True, blank=True)

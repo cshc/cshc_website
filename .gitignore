@@ -8,3 +8,4 @@ themes/classic/views/
 .ropeproject/
 cshcsite/cshcsite/cshc.db
 repo_release.tar.bz2
+cshcsite/*.log

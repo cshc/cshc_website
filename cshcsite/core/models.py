@@ -188,9 +188,6 @@ class CshcUser(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.first_name.strip()
 
-    def get_absolute_url(self):
-        return reverse('user_profile', args=[urlquote(self.username)])
-
     def email_user(self, subject, message, from_email=None):
         """
         Sends an email to this User.
