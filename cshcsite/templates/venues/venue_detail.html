@@ -61,8 +61,7 @@ Currently just lists the values that will be needed by this template - no UI des
 {% endif %}
 
 
-{% url 'admin:venues_venue_change' venue.id as admin_url %}
-{% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit venue' %}
+{% instance_admin_links venue %}
 
 {% endblock content %}
 

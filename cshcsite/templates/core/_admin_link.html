@@ -2,20 +2,21 @@
 Link to be put on the front-end that points to the admin back-end that corresponds
 to the content being displayed.
 
+Requires 'app_label' and 'model' variables
+
 Requires at least one of:
    'edit_url' - the admin url for editing an item
    'add_url' - the admin url for adding an item
    'list_url' - the admin url for displaying the list of items
 {% endcomment %}
 
-{% if user.is_superuser %}
+{% if user.is_staff and display_admin_links %}
 
 <div class="admin-links">
   <div class="btn-group">
-    <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-edit"></i><span class="caret"></span>
-    </a>
+    <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#" title="Admin actions"><i class="icon-edit"></i><span class="caret"></span></a>
     <ul class="dropdown-menu">
-      {% if edit_url %}<li><a href="{{ edit_url }}" target="_blank">{% if edit_label %}{{ edit_label }}{% else %}Edit{% endif %}</a></li>{% endif %}
+      {% if change_url %}<li><a href="{{ change_url }}" target="_blank">{% if change_label %}{{ change_label }}{% else %}Edit{% endif %}</a></li>{% endif %}
       {% if add_url %}<li><a href="{{ add_url }}" target="_blank">{% if add_label %}{{ add_label }}{% else %}Add{% endif %}</a></li>{% endif %}
       {% if list_url %}<li><a href="{{ list_url }}" target="_blank">{% if list_label %}{{ list_label }}{% else %}List{% endif %}</a></li>{% endif %}
     </ul>

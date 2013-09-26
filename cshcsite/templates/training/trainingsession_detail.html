@@ -37,8 +37,7 @@
 
 
 
-{% url 'admin:training_trainingsession_change' trainingsession.id as admin_url %}
-{% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit training session details' %}
+{% instance_admin_links trainingsession %}
 
 {% endblock %}
 

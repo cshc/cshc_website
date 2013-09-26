@@ -57,8 +57,6 @@ Currently just lists the values that will be needed by this template - no UI des
             <p>{{ clubteam.blurb|safe }}</p>
         {% endif %}
 
-        {% url 'admin:teams_teamcaptaincy_add' as admin_url_add_captaincy %}
-
         <table class="table table-clean table-hcondensed">
         <tbody>
             <tr><td class="dt">Captain:</td>
@@ -66,7 +64,7 @@ Currently just lists the values that will be needed by this template - no UI des
                 <td><strong>{{ captain|urlise_model }}</strong></td>
             {% else %}
                 <td><strong>(Unknown)</strong></td>
-                <td>{% include 'core/_admin_link.html' with add_url=admin_url_add_captaincy add_label='Add captain' %}</td>
+                <td>{% model_admin_links 'teams' 'teamcaptaincy' changelist=False %}</td>
             {% endif %}
             </tr>
             <tr><td class="dt">Vice-captain:</td>
@@ -74,7 +72,7 @@ Currently just lists the values that will be needed by this template - no UI des
                 <td><strong>{{ vice_captain|urlise_model }}</strong></td>
             {% else %}
                 <td><strong>(Unknown)</strong></td>
-                <td>{% include 'core/_admin_link.html' with add_url=admin_url_add_captaincy add_label='Add vice captain' %}</td>
+                <td>{% model_admin_links 'teams' 'teamcaptaincy' changelist=False %}</td>
             {% endif %}
             </tr>
         </tbody>
@@ -92,12 +90,9 @@ Currently just lists the values that will be needed by this template - no UI des
             {% endif %}
 
             {% if participation %}
-                {% url 'admin:teams_clubteamseasonparticipation_change' participation.id as admin_url_edit_part %}
-                {% include 'core/_admin_link.html' with edit_url=admin_url_edit_part edit_label='Edit season participation' %}
+                {% instance_admin_links participation %}
             {% else %}
-                {% url 'admin:teams_clubteamseasonparticipation_add' as admin_url_add_part %}
-                {% url 'admin:teams_clubteamseasonparticipation_changelist' as admin_url_list_part %}
-	            {% include 'core/_admin_link.html' with add_url=admin_url_add_part list_url=admin_url_list_part add_label='Add season participation' list_label='List season participation' %}
+                {% model_admin_links 'teams' 'clubteamseasonparticipation' %}
             {% endif %}
         </div>
     </div>
@@ -109,8 +104,7 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% include 'core/_loading_placeholder.html' with placeholder_id="clubteam-info" placeholder_text="Loading team stats..." %}
 
-{% url 'admin:teams_clubteam_change' clubteam.id as admin_url %}
-{% include 'core/_admin_link.html' with edit_url=admin_url edit_label='Edit team' %}
+{% instance_admin_links clubteam %}
 
 {% endblock %}
 

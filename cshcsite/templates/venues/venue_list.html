@@ -73,8 +73,6 @@ Filter-able, sortable, paginated display of venues.
 
 {% paginate %}
 
-{% url 'admin:venues_venue_add' as admin_url_add %}
-{% url 'admin:venues_venue_changelist' as admin_url_list %}
-{% include 'core/_admin_link.html' with add_url=admin_url_add list_url=admin_url_list add_label='Add venue' list_label='List venues' %}
+{% model_admin_links 'venues' 'venue' %}
 
 {% endblock %}

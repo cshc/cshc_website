@@ -4,9 +4,12 @@ from itertools import groupby
 from calendar import HTMLCalendar
 from django import template
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
+from django.template.loader import render_to_string
+from django.core import urlresolvers
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from core.models import ClubInfo
 
 register = template.Library()
@@ -240,7 +243,7 @@ class EventCalendar(HTMLCalendar):
             if day in self.events:
                 cssclass += ' filled'
                 dt = self.events[day][0].date
-                matches_by_date_link = reverse('matches_by_date', args=[dt.strftime("%d-%b-%y")])
+                matches_by_date_link = urlresolvers.reverse('matches_by_date', args=[dt.strftime("%d-%b-%y")])
                 popover_title = '<a href=\'{}\'>Matches on {}</a>'.format(matches_by_date_link, dt.strftime("%d-%b"))
                 popover_content = ['<ul>']
                 for event in self.events[day]:
@@ -318,3 +321,68 @@ def cshc_disqus_recent_comments(context, shortname='', num_items=5, excerpt_leng
     }
 
 register.inclusion_tag('disqus/recent_comments.html', takes_context=True)(cshc_disqus_recent_comments)
+
+
+############################################################################################
+# ADMIN INTERACE SUPPORT
+
+@register.inclusion_tag('core/_admin_link.html', takes_context=True)
+def instance_admin_links(context, model, change=True, add=False, changelist=False):
+    """
+    """
+    content_type = ContentType.objects.get_for_model(model)
+    return AdminLinksCreator(content_type.app_label, content_type.name, content_type.model, model.pk, change, add, changelist).render(context)
+
+
+@register.inclusion_tag('core/_admin_link.html', takes_context=True)
+def model_admin_links(context, app_label, model_name, add=True, changelist=True):
+    """
+    """
+    print "Got here: 0"
+    content_type = ContentType.objects.get(app_label=app_label, model=model_name)
+    return AdminLinksCreator(content_type.app_label, content_type.name, content_type.model, None, False, add, changelist).render(context)
+
+
+class AdminLinksCreator(object):
+
+    def __init__(self, app_label, friendly_name, model_name, instance_id=None, change=False, add=False, changelist=False):
+        self.app_label = app_label
+        self.friendly_name = friendly_name
+        self.model_name = model_name
+        self.instance_id = instance_id
+        self.change = change
+        self.add = add
+        self.changelist = changelist
+        print "1"
+
+    def render(self, context):
+        user = context['user']
+        should_display = False
+        print "2"
+        if self.change and self.has_perm(user, 'change_'):
+            context['change_url'] = self.get_admin_change_url()
+            context['change_label'] = "Edit " + self.friendly_name
+            should_display = True
+        if self.add and self.has_perm(user, 'add_'):
+            context['add_url'] = self.get_admin_add_url()
+            context['add_label'] = "Add " + self.friendly_name
+            should_display = True
+        if self.changelist and self.has_perm(user):
+            context['list_url'] = self.get_admin_list_url()
+            context['list_label'] = self.friendly_name.capitalize() + " list"
+            should_display = True
+        print "3"
+        context['display_admin_links'] = should_display
+        return context
+
+    def get_admin_change_url(self):
+        return urlresolvers.reverse("admin:%s_%s_change" % (self.app_label, self.model_name), args=(self.instance_id,))
+
+    def get_admin_add_url(self):
+        return urlresolvers.reverse("admin:%s_%s_add" % (self.app_label, self.model_name))
+
+    def get_admin_list_url(self):
+        return urlresolvers.reverse("admin:%s_%s_changelist" % (self.app_label, self.model_name))
+
+    def has_perm(self, user, prefix=''):
+        return user.has_perm('{}.{}{}'.format(self.app_label, prefix, self.model_name))
