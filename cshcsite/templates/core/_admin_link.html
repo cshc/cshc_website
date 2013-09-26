@@ -10,7 +10,8 @@ Requires at least one of:
    'list_url' - the admin url for displaying the list of items
 {% endcomment %}
 
-{% if user.is_staff and display_admin_links %}
+{% if user.is_staff %}
+{% if display_admin_links %}
 
 <div class="admin-links">
   <div class="btn-group">
@@ -23,4 +24,5 @@ Requires at least one of:
   </div>
 </div>
 
+{% endif %}
 {% endif %}

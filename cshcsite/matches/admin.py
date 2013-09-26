@@ -23,7 +23,7 @@ class MatchAwardWinnerInline(admin.TabularInline):
 
     model = MatchAwardWinner
     form = MatchAwardWinnerInlineForm
-    extra = 0
+    extra = 2
     verbose_name_plural = 'Award winners'
 
 
@@ -45,7 +45,7 @@ class AppearanceInline(admin.TabularInline):
     """Inline for appearances - allows quick editing of appearances in a match"""
     model = Appearance
     form = AppearanceInlineForm
-    extra = 0
+    extra = 11
     verbose_name_plural = 'Appearances'
 
 
@@ -59,7 +59,7 @@ class MatchAdmin(admin.ModelAdmin):
         ('Teams', {'fields': ['our_team', 'opp_team']}),
         ('Fixture details', {'fields': ['venue', 'home_away', 'fixture_type', 'date', 'time']}),
         ('Result', {'fields': ['alt_outcome', 'our_score', 'opp_score', 'our_ht_score', 'opp_ht_score', 'opp_own_goals']}),
-        ('Advanced', {'fields': ['ignore_for_goal_king', 'ignore_for_southerners', 'override_kit_clash', 'gpg_pro_rata']}),
+        ('Advanced', {'classes': ('collapse',), 'fields': ['ignore_for_goal_king', 'ignore_for_southerners', 'override_kit_clash', 'gpg_pro_rata']}),
         ('Pre-match hype', {
             'classes': ('full-width',),
             'fields': ['pre_match_hype']}),
@@ -70,7 +70,7 @@ class MatchAdmin(admin.ModelAdmin):
             'classes': ('full-width',),
             'fields': ['report_body']}),
     ]
-    list_display = ('date', 'our_team', 'opp_team', 'venue')
+    list_display = ('__unicode__', 'date', 'our_team', 'opp_team', 'venue')
     search_fields = ('our_team', 'opp_team', 'venue')
     list_filter = ('our_team', 'opp_team', 'venue', 'fixture_type', 'home_away')
 

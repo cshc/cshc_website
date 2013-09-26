@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load core_tags %}
 
 {% comment %}
 Formatted display of all clubs.
@@ -32,7 +33,7 @@ matches played and then drill into Match Reports.</p>
 <button id="refresh-btn" class="btn btn-primary" type="button" title="Refresh Club stats (this might take a while)" ><i id="refresh-icon" class="icon icon-refresh"></i><span id="refresh-text">Refresh</span></button>
 {% endif %}
 
-{# {% model_admin_links 'opposition' 'club' %} #}
+{% model_admin_links 'opposition' 'club' %}
 
 {% endblock %}
 

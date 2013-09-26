@@ -19,7 +19,7 @@ class SquadMembershipAdmin(admin.ModelAdmin):
     model = SquadMembership
     search_fields = ('member',)
     list_filter = ('member', 'team', 'season')
-    list_display = ('member', 'team', 'season')
+    list_display = ('__unicode__', 'member', 'team', 'season')
 
 
 # Register all members models with the admin interface

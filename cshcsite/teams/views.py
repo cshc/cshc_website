@@ -39,7 +39,7 @@ class ClubTeamListView(TemplateView):
 
         for team in mens_teams + ladies_teams + other_teams:
             try:
-                team.photo = ClubTeamSeasonParticipation.objects.current().by_team(team)[0].team_photo.url
+                team.photo = ClubTeamSeasonParticipation.objects.by_team(team).order_by('-season__start')[0].team_photo.url
             except:
                 log.warn("Could not get team photo for {}".format(team))
                 team.photo = settings.STATIC_URL + 'media/team_photos/placeholder_small.jpg'  # TODO: Team photo placeholder

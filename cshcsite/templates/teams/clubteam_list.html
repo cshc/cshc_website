@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load core_tags %}
 
 {% comment %}
 Formatted display of all teams.
@@ -45,6 +46,6 @@ Currently just lists the values that will be needed by this template - no UI des
     </div>
 {% endfor %}
 
-{# {% model_admin_links 'teams' 'clubteam' add=False %} #}
+{% model_admin_links 'teams' 'clubteam' add=False %}
 
 {% endblock %}

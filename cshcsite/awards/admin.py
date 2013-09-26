@@ -4,13 +4,13 @@ from .models import MatchAward, EndOfSeasonAward, MatchAwardWinner, EndOfSeasonA
 
 class MatchAwardWinnerAdmin(admin.ModelAdmin):
     model = MatchAwardWinner
-    list_display = ('member', 'awardee', 'award', 'match')
+    list_display = ('__unicode__', 'member', 'awardee', 'award', 'match')
     list_filter = ('award',)
 
 
 class EndOfSeasonAwardWinnerAdmin(admin.ModelAdmin):
     model = EndOfSeasonAwardWinner
-    list_display = ('member', 'awardee', 'award', 'season')
+    list_display = ('__unicode__', 'member', 'awardee', 'award', 'season')
     list_filter = ('award', 'season')
 
 
