@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                     <tr><td>Win</td><td>3</td><td>+1 if goal difference > 2</td></tr>
-                    <tr><td>Draw</td><td>1</td><td>+1 if goal difference > 2</td></tr>
+                    <tr><td>Draw</td><td>1</td><td></td></tr>
                     <tr><td>Loss</td><td>0</td><td>-1 if goal difference > 2</td></tr>
                 </tbody>
             </table>
@@ -47,7 +47,7 @@
 {% include 'teams/_southerners_league_table.html' %}
 </div>
 
-{% if user.is_staff and is_current_season or user.is_superuser %}
+{% if user.is_staff %}
 <button id="refresh-btn" class="btn btn-primary" type="button" title="Refresh Southerners League stats for {{ season }} (this might take a while)" ><i id="refresh-icon" class="icon icon-refresh"></i><span id="refresh-text">Refresh</span></button>
 {% endif %}
 

@@ -21,7 +21,7 @@ class TeamCaptaincy(models.Model):
     start = models.DateField("Start of captaincy", help_text="The date this member took over as captain")
     """The date that the member started their captaincy"""
 
-    season = models.ForeignKey(Season, null=True)
+    season = models.ForeignKey(Season, null=True, blank=True)
 
     class Meta:
         app_label = 'teams'
