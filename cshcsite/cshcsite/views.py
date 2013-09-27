@@ -52,15 +52,15 @@ class CalendarView(TemplateView):
             messages.warning(self.request, "No Google Calendars imported yet for the production site")
             # TODO: Set google calendar urls for production site feeds
         else:
-            context['l1_gcal'] = 'rcmrog43u5r5k57h3j1oucu3r006fg33@import.calendar.google.com'
-            context['l2_gcal'] = '7tk5noich08ids16311j27ojjb98oujk@import.calendar.google.com'
-            context['m1_gcal'] = '573u7geq99bulhg68uncj25vea94k4dp@import.calendar.google.com'
-            context['m2_gcal'] = 'qce47d4uu444p9lrig3n8delpchqqltn@import.calendar.google.com'
-            context['m3_gcal'] = 'mt13h74th0fltsaruoac08758l4ii9ma@import.calendar.google.com'
-            context['m4_gcal'] = 'gbder73n5i8n4bo3ptfa0q9pehuptrjn@import.calendar.google.com'
-            context['m5_gcal'] = 'e8tm3j8v87r3u937ld5nverep725mvv8@import.calendar.google.com'
+            context['l1_gcal'] = '3r9qabjcbhh6jmfksbd3rdhldq41ss2s@import.calendar.google.com'
+            context['l2_gcal'] = '2vkrhsi8la89bbc88gbvka8o0phmgdq1@import.calendar.google.com'
+            context['m1_gcal'] = 'qf04nd137chqcb4sfj14iv9rqeeo8r12@import.calendar.google.com'
+            context['m2_gcal'] = '8bfneiki1pl0v2dgm7dok7oeai5p545n@import.calendar.google.com'
+            context['m3_gcal'] = '5ldru6voa2bfli0dt7q1afmopdts1e82@import.calendar.google.com'
+            context['m4_gcal'] = '0mbj8h3g1tja0mau6vsr42lsuapjb2j3@import.calendar.google.com'
+            context['m5_gcal'] = 'c5kcqb9nvg4249e4l2oi62f5r73cbch6@import.calendar.google.com'
             context['all_gcal'] = 'i7ngcunrs8icf3btp6llk1eav1bvuqol@import.calendar.google.com'
-            context['training_gcal'] = '518kso0el5ciomvkf2fhmtuadgg09e31@import.calendar.google.com'
+            context['training_gcal'] = '55b76kp09vmmck17985jt8qce08e9jee@import.calendar.google.com'
         return context
 
 
