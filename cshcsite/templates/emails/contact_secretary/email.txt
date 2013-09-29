@@ -1,5 +1,5 @@
 From: {{ name }}
-Email address: {{ email }}
+Email address: {{ sender_email }}
 Phone: {{ phone }}
 Add to mailing list? {{ join_mail_list|yesno }}
 

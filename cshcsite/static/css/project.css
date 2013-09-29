@@ -93,7 +93,7 @@ Maps
 
 .well .map_large { height: 400px; }
 
-.map_small { height: 220px; margin: 0 -10px 0 0; }
+.map_small { height: 220px; }
 
 .gmap3 { border: 1px solid #C0C0C0; }
 
@@ -265,10 +265,10 @@ Responsive
 	.table th, .table td { padding: 6px 1px; }
 	.table th.priority2, .table td.priority2 {display: none;}
 	.table th.priority3, .table td.priority3 {display: none;}
-    .table-score tbody tr td.team-name {font-size: 150%;}
-    .table-score tbody tr td.team-score {font-size: 120%;}
+    .table-score tbody tr td.team-name, #matches-by-date .table-score tbody tr td.team-name {font-size: 100%;}
+    .table-score tbody tr td.team-score, #matches-by-date .table-score tbody tr td.team-score {font-size: 100%;}
     .banner-box .table-condensed th, .banner-box .table-condensed td {padding: 6px 1px;}
-
+    .pager li a {font-size: 10px; line-height: 14px;}
 }
 
 /* Hide the top banner on smaller screens */
@@ -288,9 +288,13 @@ Responsive
     .no-mobile {
         display: none;
     }
-    .page-header {margin: 10px 0 10px;}
-    .page-header h1{font-size: 28px;}
+    .navbar.navbar-static-top {margin-bottom: 10px;}
+    .page-header {margin: 0;}
+    .page-header h1{font-size: 24px;}
+    h1 small {font-size: 16px}
+    h2 {font-size: 20px;}
     h3 {font-size: 18px;}
+    h4 {font-size: 14px;}
     .lead {font-size: 16px; line-height: 24px;}
     .breadcrumb {margin: 0 0 5px;}
     div#filter {padding: 0 10px 0;}
@@ -351,8 +355,8 @@ Page-specific
 #matches-by-date a.match-link:hover td.team-name { background-color: rgb(54, 134, 54); color: lightgray; }
 #matches-by-date a.match-link:hover td.team-score { background-color: rgb(94, 168, 94); color: white; }
 #matches-by-date .match-score a.match-link:hover { background-color: rgb(54, 134, 54); }
-#matches-by-date .map_small { width: 370px; height: 160px; }
-#matches-by-date .match-content { padding-right: 10px; }
+#matches-by-date .map_small { height: 160px; }
+#matches-by-date .match-content.past-match { padding-right: 10px; }
 
 #kit tr.local td { font-style: italic; }
 #kit td.kit-pic { text-align: center; width: 160px;}

@@ -112,10 +112,11 @@ class ContactSubmissionCreateView(FormView):
 
     def email_to_secretary(self, form):
         email = form.cleaned_data['email']
+        log.debug("Email = {}".format(email))
         context = {
             'name': "{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
             'phone': form.cleaned_data['phone'],
-            'email': email,
+            'sender_email': email,
             'join_mail_list': form.cleaned_data['mailing_list'],
             'message': form.cleaned_data['message'],
         }

@@ -21,8 +21,8 @@ class ClubListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ClubListView, self).get_context_data(**kwargs)
 
-        club_stats = ClubStats.objects.totals()
-        context['clubstats_list'] = club_stats
+        all_club_stats = ClubStats.objects.totals()
+        context['clubstats_list'] = filter(lambda x: x.total_played > 0, all_club_stats)
         return context
 
 
@@ -35,8 +35,8 @@ class ClubStatsUpdateView(AjaxGeneral):
         Updates the Opposition Club stats and then returns the context data
         for the template, containing just a 'clubstats_list' item
         """
-
-        return { 'clubstats_list': stats.update_all_club_stats() }
+        all_club_stats = stats.update_all_club_stats()
+        return { 'clubstats_list':  filter(lambda x: x.total_played > 0, all_club_stats)}
 
 class ClubDetailView(TemplateView):
     """View for a particular opposition club"""

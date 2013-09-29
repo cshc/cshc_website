@@ -49,9 +49,9 @@ Currently just lists the values that will be needed by this template - no UI des
     </div>
 
     <div class="row match-detail">
-        <div class="span12">
-            <div class="match-content">
-                {% if m.match.is_in_past %}
+        {% if m.match.is_in_past %}
+            <div class="span12">
+                <div class="match-content past-match">
                     <ul class="inline">
                         {% if m.mom_winners %}
                             <li><i class="icon icon-star"></i>
@@ -80,10 +80,13 @@ Currently just lists the values that will be needed by this template - no UI des
                     {% if m.match.report_body.has_more %}
                         <p class="pull-right"><a class="btn btn-mini btn-success" href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
-                {% else %}
-                    {% if m.match.venue and m.match.venue.address_known %}
-                        <div class="gmap3 map_small pull-right" id="map_canvas{{ forloop.counter0 }}"></div>
-                    {% endif %}
+                    <p><i class="icon-comment"></i><a href="{{ m.match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ m.match.pk }}">View Comments</a></p>
+                    {% disqus_num_replies %}
+                </div>
+            </div>
+        {% else %}
+            <div class="span7">
+                <div class="match-content future-match">
                     <ul class="inline">
                         <li><i class="icon icon-time"></i>{{ m.match.time_display }}</li>
                         <li><i class="icon icon-map-marker"></i>{% if m.match.venue %}{{ m.match.venue|urlise_model }}{% else %}TBD{% endif %}</li>
@@ -93,11 +96,16 @@ Currently just lists the values that will be needed by this template - no UI des
                     {% if m.match.pre_match_hype.has_more %}
                         <p class="pull-right"><a class="btn btn-mini btn-success" href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
                     {% endif %}
-                {% endif %}
-                <p><i class="icon-comment"></i><a href="{{ m.match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ m.match.pk }}">View Comments</a></p>
-                {% disqus_num_replies %}
+                    <p><i class="icon-comment"></i><a href="{{ m.match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ m.match.pk }}">View Comments</a></p>
+                    {% disqus_num_replies %}
+                </div>
             </div>
-        </div>
+            <div class="span5">
+                {% if m.match.venue and m.match.venue.address_known %}
+                    <div class="gmap3 map_small" id="map_canvas{{ forloop.counter0 }}"></div>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 
 {% empty %}
