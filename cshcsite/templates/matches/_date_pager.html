@@ -7,13 +7,13 @@ Expects 'next_date' and 'prev_date' context times (dates)
     {% if prev_date %}
         {% url 'matches_by_date' prev_date|date:"d-M-y" as prev_date_url %}
         <li class="previous{% if not prev_date %} disabled{% endif %}">
-            <a href="{% if prev_date %}{{ prev_date_url }}{% else %}#{% endif %}" {% if prev_date %}title="Matches on {{ prev_date|date:"jS F Y" }}"{% endif %}>&larr; {{ prev_date|date:"jS F Y" }}</a>
+            <a href="{% if prev_date %}{{ prev_date_url }}{% else %}#{% endif %}" {% if prev_date %}title="Matches on {{ prev_date|date:"jS F Y" }}"{% endif %}>&larr; {{ prev_date|date:"jS N Y" }}</a>
         </li>
     {% endif %}
     {% if next_date %}
         {% url 'matches_by_date' next_date|date:"d-M-y" as next_date_url %}
         <li class="next{% if not next_date %} disabled{% endif %}">
-            <a href="{% if next_date %}{{ next_date_url }}{% else %}#{% endif %}" {% if next_date %}title="Matches on {{ next_date|date:"jS F Y" }}"{% endif %}>{{ next_date|date:"jS F Y" }} &rarr;</a>
+            <a href="{% if next_date %}{{ next_date_url }}{% else %}#{% endif %}" {% if next_date %}title="Matches on {{ next_date|date:"jS F Y" }}"{% endif %}>{{ next_date|date:"jS N Y" }} &rarr;</a>
         </li>
     {% endif %}
 </ul>

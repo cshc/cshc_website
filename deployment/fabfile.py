@@ -45,7 +45,10 @@ def file_update(version):
     tag_release(version)
     archive_repo()
     upload_release()
+    set_maintenance_mode(True)
     go_live()
+    collectstatic()
+    set_maintenance_mode(False)
 
 @task
 def update_release(version):
@@ -123,6 +126,7 @@ def temp():
 def set_maintenance_mode(on):
     with cd(env.remote_root):
         _add_or_replace_line('repo/cshcsite/cshcsite/settings/production.py', 'MAINTENANCE_MODE = ', str(on))
+        run('touch ~/www.m.cambridgesouthhockeyclub.co.uk_html/django.fcgi')
 
 @task
 def migrate_db():
