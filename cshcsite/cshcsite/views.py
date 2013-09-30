@@ -48,19 +48,15 @@ class CalendarView(TemplateView):
     def get_context_data(self, **kwargs):
         # Tip: Login to google calendar cshc.club@gmail.com (password in 'Account Details' Google Doc) to get these addresses
         context = super(CalendarView, self).get_context_data(**kwargs)
-        if is_prod_site():
-            messages.warning(self.request, "No Google Calendars imported yet for the production site")
-            # TODO: Set google calendar urls for production site feeds
-        else:
-            context['l1_gcal'] = '3r9qabjcbhh6jmfksbd3rdhldq41ss2s@import.calendar.google.com'
-            context['l2_gcal'] = '2vkrhsi8la89bbc88gbvka8o0phmgdq1@import.calendar.google.com'
-            context['m1_gcal'] = 'qf04nd137chqcb4sfj14iv9rqeeo8r12@import.calendar.google.com'
-            context['m2_gcal'] = '8bfneiki1pl0v2dgm7dok7oeai5p545n@import.calendar.google.com'
-            context['m3_gcal'] = '5ldru6voa2bfli0dt7q1afmopdts1e82@import.calendar.google.com'
-            context['m4_gcal'] = '0mbj8h3g1tja0mau6vsr42lsuapjb2j3@import.calendar.google.com'
-            context['m5_gcal'] = 'c5kcqb9nvg4249e4l2oi62f5r73cbch6@import.calendar.google.com'
-            context['all_gcal'] = 'i7ngcunrs8icf3btp6llk1eav1bvuqol@import.calendar.google.com'
-            context['training_gcal'] = '55b76kp09vmmck17985jt8qce08e9jee@import.calendar.google.com'
+        context['l1_gcal'] = '3r9qabjcbhh6jmfksbd3rdhldq41ss2s@import.calendar.google.com'
+        context['l2_gcal'] = '2vkrhsi8la89bbc88gbvka8o0phmgdq1@import.calendar.google.com'
+        context['m1_gcal'] = 'qf04nd137chqcb4sfj14iv9rqeeo8r12@import.calendar.google.com'
+        context['m2_gcal'] = '8bfneiki1pl0v2dgm7dok7oeai5p545n@import.calendar.google.com'
+        context['m3_gcal'] = '5ldru6voa2bfli0dt7q1afmopdts1e82@import.calendar.google.com'
+        context['m4_gcal'] = '0mbj8h3g1tja0mau6vsr42lsuapjb2j3@import.calendar.google.com'
+        context['m5_gcal'] = 'c5kcqb9nvg4249e4l2oi62f5r73cbch6@import.calendar.google.com'
+        context['all_gcal'] = 'i7ngcunrs8icf3btp6llk1eav1bvuqol@import.calendar.google.com'
+        context['training_gcal'] = '55b76kp09vmmck17985jt8qce08e9jee@import.calendar.google.com'
         return context
 
 
