@@ -273,7 +273,7 @@ class Match(models.Model):
 
     def has_report(self):
         """Returns True if this match has a match report"""
-        return self.report_body != None
+        return self.report_body and not_none_or_empty(self.report_body.content)
 
     def datetime(self):
         """

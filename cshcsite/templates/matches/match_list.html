@@ -112,7 +112,7 @@ Filter-able, sortable, paginated display of matches.
                     <td>{{ match.score_display }}</td>
                     <td><a href="{{ match.opp_team.club.get_absolute_url }}">{{ match.opp_team.name }}</a></td>
                     <td class="priority2">{% if match.venue %}<a href="{{ match.venue.get_absolute_url }}" title="{{ match.venue.name }}">{{ match.simple_venue_name }}</a>{% elif match.is_in_past %}???{% else %}<abbr title="Venue not known">TBD</abbr>{% endif %}</a></td>
-                    <td><a href="{{ match.get_absolute_url }}" title="Match details"><i class="icon-file-alt"></i></a></td>
+                    <td>{% include 'core/_match_link.html' %}</td>
                 </tr>
             {% endfor %}
         </table>
