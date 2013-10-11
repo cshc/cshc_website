@@ -89,7 +89,7 @@ Currently just lists the values that will be needed by this template - no UI des
     <span class='st_email_large' displayText='Email' st_title='{{ match.match_title_text }}' st_summary='{% if match.report_body %}{{ match.report_body|truncatewords:100 }}{% else %}{{ match }}{% endif %}'></span>
 
     {% set_disqus_developer 1 %}
-    {% set_disqus_title match.match_title_text %}
+    {% set_disqus_title match.fixture_title %}
     {% disqus_show_comments %}
     {% disqus_config request.user %}
 </div>
@@ -100,7 +100,7 @@ Currently just lists the values that will be needed by this template - no UI des
         <h4>Other matches on {{ match.date|date:"jS M" }}</h4>
         <ul>
             {% for m in same_date_matches %}
-                <li><a href="{{ m.get_absolute_url }}">{{ m.match_title_text }}</a></li>
+                <li><a href="{{ m.get_absolute_url }}">{{ m.fixture_title }}</a></li>
             {% endfor %}
         </ul>
     </div>
