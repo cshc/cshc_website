@@ -1,7 +1,7 @@
-<p>From: <strong>{{ name }}</strong></p>
-<p>Email address: <strong>{{ sender_email }}</strong></p>
+<p>Message from <strong>{{ name }}</strong>:</p>
+<p><strong>{{ message }}</strong></p>
+<p>Email address: <strong><a href="mailto:{{ sender_email }}">{{ sender_email }}</a></strong></p>
 <p>Phone: <strong>{{ phone }}</strong></p>
-<p>Add to mailing list? <strong>{{ join_mail_list|yesno }}</strong></p>
-
-<p>Message:</p>
-<p>{{ message }}</p>
+{% if join_mail_list %}
+<p>Note: {{ name }} would like to be added to the CSHC mailing list.</p>
+{% endif %}
