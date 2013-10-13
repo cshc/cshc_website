@@ -56,7 +56,7 @@ class DivisionResult(models.Model):
         super(DivisionResult, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return "{} - {} ({})".format(self.team_name, self.division, self.season)
+        return unicode("{} - {} ({})".format(self.team_name, self.division, self.season))
 
 
     @property

@@ -19,6 +19,7 @@
 {% url 'clubteam_ical_feed' 'm5' as m5_cal %}
 {% url 'clubteam_ical_feed' 'l1' as l1_cal %}
 {% url 'clubteam_ical_feed' 'l2' as l2_cal %}
+{% url 'clubteam_ical_feed' 'l3' as l3_cal %}
 {% url 'trainingsession_ical_feed' as training_cal %}
 
 <ul class="breadcrumb">
@@ -93,6 +94,10 @@ ctz=Europe%2FLondon" style="border-right-width: 0px; border-top-width: 0px; bord
     <tr>
         <td>Ladies' 2nd XI fixtures</td>
         <td><a href="{{ l2_cal }}" title="Ladies' 2nd XI fixture calendar">http://{{ request.get_host }}{{ l2_cal }}</a></td>
+    </tr>
+    <tr>
+        <td>Ladies' 3rd XI fixtures</td>
+        <td><a href="{{ l3_cal }}" title="Ladies' 3rd XI fixture calendar">http://{{ request.get_host }}{{ l3_cal }}</a></td>
     </tr>
     <tr>
         <td>Training</td>

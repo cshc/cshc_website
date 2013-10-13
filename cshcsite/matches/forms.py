@@ -1,6 +1,6 @@
 from django import forms
-from tinymce.widgets import TinyMCE
 from .models import Match
+from suit_redactor.widgets import RedactorWidget
 
 
 class MatchForm(forms.ModelForm):
@@ -11,6 +11,6 @@ class MatchForm(forms.ModelForm):
     class Meta:
         model = Match
         widgets = {
-            'pre_match_hype': TinyMCE(attrs={'rows': 5}, mce_attrs={'width':'100%', 'plugin_preview_pageurl': '/tinymce/preview/pre_match_hype/'}),
-            'report_body': TinyMCE(attrs={'rows': 30}, mce_attrs={'width':'100%', 'plugin_preview_pageurl': '/tinymce/preview/match_report/'}),
+            'pre_match_hype': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 150}),
+            'report_body': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 400})
         }

@@ -1,16 +1,16 @@
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from tinymce.widgets import TinyMCE
+from suit_redactor.widgets import RedactorWidget
 from .models import ContactSubmission, CshcUser
 
 
 class FlatPageForm(forms.ModelForm):
-    """Form for the FlatPage model - uses a TinyMCE widget"""
+    """Form for the FlatPage model - uses a Redactor widget"""
     class Meta:
         model = FlatPage
         widgets = {
-            'content': TinyMCE(attrs={'rows': 50}, mce_attrs={'width': '100%', 'plugin_preview_pageurl': '/tinymce/preview/flatpages/'}),
+            'content': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 400}),
         }
 
 

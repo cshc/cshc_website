@@ -40,13 +40,13 @@ class Southerner(models.Model):
     result_points = models.PositiveSmallIntegerField("Result points", default=0)
     bonus_points = models.SmallIntegerField("Bonus points", default=0)
 
-    # These are attributes (db fields) rather than just methods so that we can take advantage of 
+    # These are attributes (db fields) rather than just methods so that we can take advantage of
     # SQL ordering - we typically want to order Southerners entries by average points per game.
     avg_points_per_game = models.FloatField("Average points per game", editable=False)
 
     class Meta:
         app_label = 'teams'
-        unique_together = ('team', 'season')  
+        unique_together = ('team', 'season')
         ordering = ['season', 'avg_points_per_game']
 
 
@@ -56,10 +56,10 @@ class Southerner(models.Model):
         # Calculate non-editable, derived fields
         self.avg_points_per_game = (float)(self.total_points()) / (float)(self.played())
 
-        super(Southerner, self).save(*args, **kwargs) 
+        super(Southerner, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return "{} - {}".format(self.team, self.season)
+        return unicode("{} - {}".format(self.team, self.season))
 
     def played(self):
         """Returns the total number of games played by this team in this season"""

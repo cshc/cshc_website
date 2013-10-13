@@ -29,7 +29,7 @@ class TeamCsv(object):
         self.position = None
 
     def __unicode__(self):
-        return "".format(self.__dict__)
+        return unicode("{}".format(self.__dict__))
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (

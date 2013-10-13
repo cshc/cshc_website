@@ -61,5 +61,5 @@ class SquadMembership(models.Model):
         unique_together = ('member', 'team', 'season')
 
     def __unicode__(self):
-        return "{} - {} ({})".format(self.member, self.team, self.season)
+        return unicode("{} - {} ({})".format(self.member, self.team, self.season))
 

@@ -226,7 +226,6 @@ THIRD_PARTY_APPS = (
     'south',
     # Mobile support:
     'django_mobile',
-    'tinymce',
     #'easy_thumbnails',
     'sorl.thumbnail',
     'pagination',
@@ -237,6 +236,7 @@ THIRD_PARTY_APPS = (
     's3_folder_storage',
     'dbbackup',
     'registration',
+    'suit_redactor',
 )
 
 # Apps specific for this project go here.
@@ -423,18 +423,6 @@ SUIT_CONFIG = {
 }
 ########## END DJANGO SUIT CONFIGURATION
 
-########## TINYMCE CONFIGURATION
-# See: http://django-tinymce.readthedocs.org/en/latest/
-
-TINYMCE_DEFAULT_CONFIG = {
-    'plugins': 'table,spellchecker,paste,searchreplace,preview',
-    'theme': 'advanced',
-    'theme_advanced_buttons3_add': 'preview',
-    'plugin_preview_width': '900',
-    'plugin_preview_height': '800',
-    'content_css':'/static/css/project_preview.css',
-}
-########## END TINYMCE CONFIGURATION
 
 ########## SORL-THUMBNAIL CONFIGURATION
 # See: http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html

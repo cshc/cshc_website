@@ -1,5 +1,6 @@
-{% if flavour = 'mobile' %}
-  {% if venue.full_address %}
+{% if venue.full_address %}
+  {% if flavour = 'mobile' %}
     <a class="gmap-link btn btn-large btn-primary"><i class="icon-external-link"></i>View larger map</a>
   {% endif %}
+  <a class="gmap-dir-link btn btn-large btn-primary"><i class="icon-external-link"></i>Directions</a>
 {% endif %}

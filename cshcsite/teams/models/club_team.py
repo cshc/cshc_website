@@ -41,6 +41,10 @@ class ClubTeamManager(models.Manager):
         """Returns the Ladies 2nds team"""
         return self.get_query_set().get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T2)
 
+    def l3(self):
+        """Returns the Ladies 3rds team"""
+        return self.get_query_set().get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T3)
+
     def mixed(self):
         """Return the mixed team"""
         return self.get_query_set().get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther)
@@ -101,7 +105,7 @@ class ClubTeam(models.Model):
         super(ClubTeam, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return self.short_name
+        return unicode(self.short_name)
 
     @models.permalink
     def get_absolute_url(self):

@@ -97,7 +97,7 @@ Maps
 
 .gmap3 { border: 1px solid #C0C0C0; }
 
-.gmap-link { position: relative; display: block; margin: 10px 0px 10px;}
+.gmap-link, .gmap-dir-link { position: relative; display: block; margin: 10px 0px 10px;}
 
 /******************************************************************************
 Gender-specific
@@ -299,7 +299,7 @@ Responsive
     .breadcrumb {margin: 0 0 5px;}
     div#filter {padding: 0 10px 0;}
     div#filter form {margin-bottom: 5px;}
-    .gmap3 {margin-left: 10px; margin-right: 10px;}
+    .gmap3, .gmap-link, .gmap-dir-link {margin-left: 10px; margin-right: 10px;}
 }
 
 /******************************************************************************

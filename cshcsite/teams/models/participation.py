@@ -84,7 +84,7 @@ class ClubTeamSeasonParticipation(models.Model):
         unique_together = ('team', 'season')
 
     def __unicode__(self):
-        return "{} - {}".format(self.team, self.season)
+        return unicode("{} - {}".format(self.team, self.season))
 
     def save(self, *args, **kwargs):
         # Sanity checks

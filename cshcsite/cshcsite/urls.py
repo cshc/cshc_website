@@ -60,11 +60,6 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    # TinyMCE
-    url(r'^tinymce/', include('tinymce.urls')),                                                         # Used for editor previews etc
-
-    # Ajax views
-    url(r'^load-tweets/$', views.LoadTweetsView.as_view(), name='load_tweets_url'),
 )
 
 # Static pages - use the flatpage app

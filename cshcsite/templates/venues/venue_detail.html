@@ -22,36 +22,39 @@ Currently just lists the values that will be needed by this template - no UI des
 <div class="page-header">
   <h1>{{ venue.name }}{% if venue.is_home %} <span class="align-right"><small><i class="icon-home"></i> Home Ground</small></span>{% endif %}</h1>
 </div>
-
-{% if venue.notes %}
-<p class="lead">{{ venue.notes|safe }}</p>
-{% endif %}
-{% if venue.distance %}
-<p>{{ venue.name }} is {{ venue.distance }} miles from Cambridge.</p>
-{% endif %}
-{% if venue.url %}<p><i class="icon-globe"></i><a href="{{ venue.url }}" title="More details..." target="_blank">More details...</a></p>{% endif %}
-  <div class="row">
+<div class="row">
       <div class="span4">
-        <div class="well">
-        <h4>Location</h4>
-          <address><strong>
-            {% if venue.address_known %}
-              {% if venue.addr1 %}{{ venue.addr1 }}<br/>{% endif %}
-              {% if venue.addr2 %}{{ venue.addr2 }}<br/>{% endif %}
-              {% if venue.addr3 %}{{ venue.addr3 }}<br/>{% endif %}
-              {% if venue.addr_city %}{{ venue.addr_city }}<br/>{% endif %}
-              {% if venue.addr_postcode %}{{ venue.addr_postcode }}<br/><br/>{% endif %}</strong>
-            {% else %}
-              Unknown location<br/>
-            {% endif %}
-            {% if venue.phone %}<i class="icon-phone"></i>{{ venue.phone }}<br/>{% endif %}
-          </address>
-        </div>
+        {% if venue.notes %}
+          <p class="lead">{{ venue.notes|safe }}</p>
+        {% endif %}
+        {% if venue.distance %}
+          <p>{{ venue.name }} is {{ venue.distance }} miles from Cambridge.</p>
+        {% endif %}
+        {% if venue.url %}
+          <p><i class="icon-globe"></i><a href="{{ venue.url }}" title="More details..." target="_blank">More details...</a></p>
+        {% endif %}
+        <hr/>
+        <h3>Location</h3>
+        <address><strong>
+          {% if venue.address_known %}
+            {% if venue.addr1 %}{{ venue.addr1 }}<br/>{% endif %}
+            {% if venue.addr2 %}{{ venue.addr2 }}<br/>{% endif %}
+            {% if venue.addr3 %}{{ venue.addr3 }}<br/>{% endif %}
+            {% if venue.addr_city %}{{ venue.addr_city }}<br/>{% endif %}
+            {% if venue.addr_postcode %}{{ venue.addr_postcode }}<br/><br/>{% endif %}</strong>
+          {% else %}
+            Unknown location<br/>
+          {% endif %}
+          {% if venue.phone %}<i class="icon-phone"></i>{{ venue.phone }}<br/>{% endif %}
+        </address>
+        {% if venue.address_known %}
+          {% include 'core/_gmap_link.html' %}
+        {% endif %}
+
       </div>
       <div class="span8">
         {% if venue.address_known %}
           <div class="gmap3 map_large" id="map_canvas"></div>
-          {% include 'core/_gmap_link.html' %}
         {% endif %}
       </div>
   </div>

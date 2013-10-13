@@ -122,6 +122,7 @@ class SeasonTeamStat(object):
         self._appearances['m5'] = 0
         self._appearances['l1'] = 0
         self._appearances['l2'] = 0
+        self._appearances['l3'] = 0
         self._appearances['mixed'] = 0
         self._appearances['indoor'] = 0
         self._appearances['vets'] = 0
@@ -153,6 +154,10 @@ class SeasonTeamStat(object):
     def l2_appearances(self):
         """Returns the total number of appearances for the Ladies 2nds"""
         return self._appearances['l2']
+
+    def l3_appearances(self):
+        """Returns the total number of appearances for the Ladies 3rds"""
+        return self._appearances['l3']
 
     def mix_appearances(self):
         """Returns the total number of appearances for the Mixed team"""

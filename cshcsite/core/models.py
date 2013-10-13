@@ -87,7 +87,7 @@ class ClubInfo(models.Model):
         ordering = ['key']
 
     def __unicode__(self):
-        return "{}: {}".format(self.key, self.value)
+        return unicode("{}: {}".format(self.key, self.value))
 
 
 class ContactSubmission(models.Model):
@@ -112,7 +112,7 @@ class ContactSubmission(models.Model):
         ordering = ['submitted']
 
     def __unicode__(self):
-        return "{} ({})".format(self.full_name(), self.submitted)
+        return unicode("{} ({})".format(self.full_name(), self.submitted))
 
     def full_name(self):
         """Full name of the person making the enquiry"""
@@ -180,7 +180,7 @@ class CshcUser(AbstractBaseUser, PermissionsMixin):
         ordering = ['first_name', 'last_name']
 
     def __unicode__(self):
-        return self.email
+        return unicode(self.email)
 
     def get_full_name(self):
         return "{} {}".format(self.first_name, self.last_name).strip()

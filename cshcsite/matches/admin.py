@@ -72,7 +72,7 @@ class MatchAdmin(admin.ModelAdmin):
     ]
     list_display = ('__unicode__', 'date', 'our_team', 'opp_team', 'venue')
     search_fields = ('our_team', 'opp_team', 'venue')
-    list_filter = ('our_team', 'opp_team', 'venue', 'fixture_type', 'home_away')
+    list_filter = ('our_team', 'opp_team', 'venue', 'fixture_type', 'home_away', 'season')
 
 
 class AppearanceAdmin(admin.ModelAdmin):

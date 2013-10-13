@@ -33,7 +33,7 @@ class Season(models.Model):
         get_latest_by = "start"
 
     def __unicode__(self):
-        return self.slug
+        return unicode(self.slug)
     __unicode__.short_description = 'Season'
 
     def save(self, *args, **kwargs):

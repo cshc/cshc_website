@@ -6,8 +6,8 @@ from .forms import FlatPageForm, UserChangeForm, UserCreationForm
 from .models import ClubInfo, ContactSubmission, CshcUser
 
 
-class TinyMCEFlatPageAdmin(FlatPageAdmin):
-    """Override for the FlatPage admin interface - uses a TinyMCE widget"""
+class RedactorFlatPageAdmin(FlatPageAdmin):
+    """Override for the FlatPage admin interface - uses a Redactor widget"""
 
     form = FlatPageForm
     fieldsets = [
@@ -61,6 +61,6 @@ class CshcUserAdmin(UserAdmin):
 # Re-register the FlatPage admin interface
 admin.site.register(CshcUser, CshcUserAdmin)
 admin.site.unregister(FlatPage)
-admin.site.register(FlatPage, TinyMCEFlatPageAdmin)
+admin.site.register(FlatPage, RedactorFlatPageAdmin)
 admin.site.register(ClubInfo, ClubInfoAdmin)
 admin.site.register(ContactSubmission)

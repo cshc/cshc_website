@@ -162,7 +162,7 @@ class Match(models.Model):
         ordering = ['date']
 
     def __unicode__(self):
-        return "{} vs {} ({}, {})".format(self.our_team, self.opp_team, self.fixture_type, self.date)
+        return unicode("{} vs {} ({}, {})".format(self.our_team, self.opp_team, self.fixture_type, self.date))
 
     @models.permalink
     def get_absolute_url(self):

@@ -39,7 +39,7 @@ class Club(models.Model):
         super(Club, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
     @models.permalink
     def get_absolute_url(self):

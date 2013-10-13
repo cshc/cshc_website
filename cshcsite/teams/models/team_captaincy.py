@@ -29,7 +29,7 @@ class TeamCaptaincy(models.Model):
         ordering = ['-start']
 
     def __unicode__(self):
-        return "{} {}: {}".format(self.team, self.role(), self.member)
+        return unicode("{} {}: {}".format(self.team, self.role(), self.member))
 
     def role(self):
         """Returns a string representation of the player's role - either 'captain' or 'vice-captain'"""

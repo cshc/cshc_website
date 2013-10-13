@@ -64,7 +64,7 @@ class Venue(models.Model):
         ordering = ['name']
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
     def save(self, *args, **kwargs):
         # Auto-populate the slug field

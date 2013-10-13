@@ -52,7 +52,7 @@ class Team(models.Model):
         super(Team, self).save(*args, **kwargs)
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
     @models.permalink
     def get_absolute_url(self):

@@ -24,15 +24,21 @@
     var venue_link_fallback = "http://maps.google.com/?q={{ venue.full_address }}"
 
     var venue_link_prefix = 'http://maps.google.com/?q='
+    var directions_link_prefix = 'http://maps.google.com/?saddr=Cambridge,UK&daddr='
+
     if ( isMobile.iOS()) {
         venue_link_prefix = 'http://maps.apple.com/?q='
+        directions_link_prefix = 'http://maps.apple.com/?saddr=Cambridge,UK&daddr='
     }
     else if ( isMobile.Android()) {
         venue_link_prefix = 'geo:0,0?q='
+        directions_link_prefix = 'geo:0,0?saddr=Cambridge,UK&daddr='
     }
 
     var map_link = $(".gmap-link")
     map_link.attr('href',  venue_link_prefix + '{{ venue.full_address }}')
+    var directions_link = $(".gmap-dir-link")
+    directions_link.attr('href',  directions_link_prefix + '{{ venue.full_address }}')
     //map_link.click = applink(venue_link_fallback)
     //map_link.attr('onclick', 'applink(venue_link_fallback)')
 

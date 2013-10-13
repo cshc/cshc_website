@@ -57,7 +57,7 @@ class Member(models.Model):
         ordering = ['first_name', 'last_name']
 
     def __unicode__(self):
-        return self.full_name()
+        return unicode(self.full_name())
 
     @models.permalink
     def get_absolute_url(self):

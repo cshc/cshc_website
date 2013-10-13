@@ -50,4 +50,4 @@ class Appearance(models.Model):
         ordering = ['match', 'member']
 
     def __unicode__(self):
-        return "{} - {}".format(self.member, self.match)
+        return unicode("{} - {}".format(self.member, self.match))

@@ -246,9 +246,10 @@ class Command(BaseCommand):
         new_teams['M5'], created = ClubTeam.objects.get_or_create(short_name='M5', long_name="Men's 5th XI", gender=TeamGender.Mens, ordinal=TeamOrdinal.T5, position=5)
         new_teams['L1'], created = ClubTeam.objects.get_or_create(short_name='L1', long_name="Ladies' 1st XI", gender=TeamGender.Ladies, ordinal=TeamOrdinal.T1, position=6)
         new_teams['L2'], created = ClubTeam.objects.get_or_create(short_name='L2', long_name="Ladies' 2nd XI", gender=TeamGender.Ladies, ordinal=TeamOrdinal.T2, position=7)
-        new_teams['Mixed'], created = ClubTeam.objects.get_or_create(short_name='Mixed', long_name="Mixed XI", gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther, position=8)
-        new_teams['Indoor'], created = ClubTeam.objects.get_or_create(short_name='Indoor', long_name="Indoor Team", gender=TeamGender.Mixed, ordinal=TeamOrdinal.TIndoor, position=9)
-        new_teams['Vets'], created = ClubTeam.objects.get_or_create(short_name='Vets', long_name="Vets XI", gender=TeamGender.Mens, ordinal=TeamOrdinal.TVets, position=10)
+        new_teams['L3'], created = ClubTeam.objects.get_or_create(short_name='L3', long_name="Ladies' 3rd XI", gender=TeamGender.Ladies, ordinal=TeamOrdinal.T3, position=8)
+        new_teams['Mixed'], created = ClubTeam.objects.get_or_create(short_name='Mixed', long_name="Mixed XI", gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther, position=9)
+        new_teams['Indoor'], created = ClubTeam.objects.get_or_create(short_name='Indoor', long_name="Indoor Team", gender=TeamGender.Mixed, ordinal=TeamOrdinal.TIndoor, position=10)
+        new_teams['Vets'], created = ClubTeam.objects.get_or_create(short_name='Vets', long_name="Vets XI", gender=TeamGender.Mens, ordinal=TeamOrdinal.TVets, position=11)
 
         return new_teams
 

@@ -33,10 +33,10 @@ django-ical==1.2
 beautifulsoup4==4.2
 
 # Modern theme for Django admin interface
-django-suit==0.1.9
+django-suit==0.2.5
 
 # WYSIWYG editor integration
-django-tinymce==1.5.1
+django-suit-redactor==0.0.2
 
 # Support for (cached) thumbnails
 sorl-thumbnail==11.12

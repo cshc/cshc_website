@@ -8,7 +8,7 @@ from competitions.models import Season
 
 log = logging.getLogger(__name__)
 
- 
+
 
 
 class Award(models.Model):
@@ -23,7 +23,7 @@ class Award(models.Model):
         ordering = ['name']
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
 
 class MatchAwardQuerySet(models.Manager):
@@ -46,7 +46,7 @@ class MatchAward(Award):
     # Constants - these awards should always exist
     MOM = "Man of the Match"
     LOM = "Lemon of the Match"
-    
+
 
 
 class EndOfSeasonAward(Award):

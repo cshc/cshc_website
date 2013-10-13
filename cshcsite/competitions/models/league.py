@@ -18,5 +18,5 @@ class League(models.Model):
         ordering = ['name']
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
