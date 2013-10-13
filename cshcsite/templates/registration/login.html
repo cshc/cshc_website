@@ -11,7 +11,7 @@
     <h1>Sign in</h1>
 </div>
 
-<form action="{% url 'auth_login' %}" method="post">{% csrf_token %}
+<form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
     <label class="checkbox"><input name="remember_me" type="checkbox">Remember me</label>
     <input type="submit" value="Sign in" />

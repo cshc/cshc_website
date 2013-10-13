@@ -28,7 +28,7 @@ class MatchQuerySet(QuerySet):
 
     def reports(self):
         """Returns only results with match reports"""
-        return self.results().filter(report_body__isnull=False)
+        return self.results().exclude(report_body__isnull=True).exclude(report_body='')
 
     def this_season(self):
         """Returns only this season's matches"""
@@ -273,7 +273,7 @@ class Match(models.Model):
 
     def has_report(self):
         """Returns True if this match has a match report"""
-        return self.report_body != None
+        return self.report_body and not_none_or_empty(self.report_body.content)
 
     def datetime(self):
         """
@@ -310,32 +310,32 @@ class Match(models.Model):
         Gets an appropriate match title regardless of the status of the match.
         Examples include:
             "Men's 1sts thrash St Neots"
-            "Cambridge South Men's 1sts vs St Neots Men's 1sts"
-            "Cambridge South Men's 1sts vs St Neots Men's 1sts - POSTPONED"
-            "Cambridge South Men's 1sts vs St Neots Men's 1sts - CANCELLED"
-            "Cambridge South Men's 1sts 3-0 St Neots Men's 1sts (WALK-OVER)"
-            "Cambridge South Men's 1sts 5-1 St Neots Men's 1sts"
+            "M1 vs St Neots Men's 1sts"
+            "M1 vs St Neots Men's 1sts - POSTPONED"
+            "M1 vs St Neots Men's 1sts - CANCELLED"
+            "M1 3-0 St Neots Men's 1sts (WALK-OVER)"
+            "M1 5-1 St Neots Men's 1sts"
         """
-        if(self.report_title != ""):
+        if not_none_or_empty(self.report_title):
             return self.report_title
-
-        elif(self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Walkover):
-            return "{} {}-{} {} (WALK-OVER)".format(self.our_team, self.our_score, self.opp_score, self.opp_team)
-
-        elif(self.alt_outcome is not None):
-            return "{} vs {} - {}".format(self.our_team, self.opp_team, self.get_alt_outcome_display())
-
         else:
             return self.fixture_title()
 
     def fixture_title(self):
         """
         Returns the title of this fixture in one of the following formats:
-            Fixtures:- "Cambridge South Men's 1sts vs St Neots Men's 1sts"
-            Results:-  "Cambridge South Men's 1sts 3-0 St Neots Men's 1sts"
+            Fixtures:- "M1 vs St Neots Men's 1sts"
+            Results:-  "M1 3-0 St Neots Men's 1sts"
         """
-        if(not self.final_scores_provided()):
+        if self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Walkover:
+            return "{} {}-{} {} (WALK-OVER)".format(self.our_team, self.our_score, self.opp_score, self.opp_team)
+
+        elif self.alt_outcome is not None:
+            return "{} vs {} - {}".format(self.our_team, self.opp_team, self.get_alt_outcome_display())
+
+        elif not self.final_scores_provided():
             return "{} vs {}".format(self.our_team, self.opp_team)
+
         else:
             return "{} {}-{} {}".format(self.our_team, self.our_score, self.opp_score, self.opp_team)
 

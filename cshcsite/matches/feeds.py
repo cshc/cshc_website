@@ -28,7 +28,7 @@ class RssMatchReportsFeed(Feed):
     Note: Default feed_type is RSS 2
     """
 
-    _item_count = 10
+    _item_count = 7*4   # Approx four weeks for 7 teams
     feed_type = ImageRssFeedGenerator
     title = "Cambridge South Hockey Club Match Reports"
     link = "http://" + Site.objects.all()[0].domain
@@ -43,8 +43,7 @@ class RssMatchReportsFeed(Feed):
        return reverse('match_report_rss_feed')
 
     def items(self):
-        """ Returns the latest 10 match reports."""
-        # TODO: Decide on number of reports to return
+        """ Returns the latest match reports."""
         return Match.objects.reports().reverse()[:RssMatchReportsFeed._item_count]
 
     def item_link(self, item):

@@ -48,7 +48,7 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
                     <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.initial_and_surname }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
                 </td>
-                <td><a href="{{ m.match.get_absolute_url }}" title="Match details">{% if m.match.final_scores_provided %}<i class="icon-file"></i>{% else %}<i class="icon-file-alt">{% endif %}</a></td>
+                <td>{% include 'core/_match_link.html' with match=m.match %}</td>
             </tr>
             {% empty %}
                 {% if fill_blanks %}

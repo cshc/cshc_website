@@ -78,9 +78,6 @@ DATABASES = {
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-AUTH_USER_MODEL
 AUTH_USER_MODEL = 'core.CshcUser'
 
-# Redirect to home page after a login
-LOGIN_REDIRECT_URL = '/'
-
 ########## END AUTHENTICATION CONFIGURATION
 
 ########## GENERAL CONFIGURATION

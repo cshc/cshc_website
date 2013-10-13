@@ -46,7 +46,7 @@ Context should have a 'match_list' list of Match objects.
                     <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.initial_and_surname }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
                 </td>
-                <td><a href="{{ m.match.get_absolute_url }}" title="Match details"><i class="icon-file-alt"></i></a></td>
+                <td>{% include 'core/_match_link.html' with match=m.match %}</td>
             </tr>
         {% endfor %}
         </tbody>

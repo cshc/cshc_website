@@ -125,7 +125,7 @@ class ContactSubmissionCreateView(FormView):
             recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
         except ClubInfo.DoesNotExist:
                 recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
-        send_templated_email([recipient_email], 'emails/contact_secretary', context)
+        send_templated_email([recipient_email], 'emails/contact_secretary', context, from_email=email)
 
     def email_to_enquirer(self, form):
         context = {

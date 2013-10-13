@@ -1,7 +1,10 @@
-From: {{ name }}
+Message from {{ name }}:
+
+{{ message }}
+
 Email address: {{ sender_email }}
 Phone: {{ phone }}
-Add to mailing list? {{ join_mail_list|yesno }}
 
-Message:
-{{ message }}
+{% if join_mail_list %}
+Note: {{ name }} would like to be added to the CSHC mailing list.
+{% endif %}

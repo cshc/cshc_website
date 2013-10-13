@@ -58,6 +58,5 @@ def get_disqus_sso(user):
         domain=Site.objects.get_current().domain,
         login_url=reverse('auth_login')))
 
-    print "".join(output)
     return "".join(output)
 
