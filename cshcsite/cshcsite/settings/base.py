@@ -482,20 +482,20 @@ MAINTENANCE_IGNORE_URLS = (
 
 ########## django-storages CONFIGURATION
 # Ref: http://blog.doismellburning.co.uk/2012/07/14/using-amazon-s3-to-host-your-django-static-files/
+
 if not DEBUG:
     AWS_QUERYSTRING_AUTH = False
     AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
-    DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
+    DEFAULT_FILE_STORAGE = 'cshcsite.views.FixedDefaultStorage'
     DEFAULT_S3_PATH = "media"
-    STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
+    STATICFILES_STORAGE = 'cshcsite.views.FixedStaticStorage'
     STATIC_S3_PATH = "static"
     MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
     MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
     STATIC_ROOT = "/%s/" % STATIC_S3_PATH
     STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
-    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 ########## END django-storages CONFIGURATION
 
 # Ref: http://www.civicuk.com/cookie-law/index
