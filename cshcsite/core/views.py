@@ -114,11 +114,11 @@ class ContactSubmissionCreateView(FormView):
         email = form.cleaned_data['email']
         log.debug("Email = {}".format(email))
         context = {
-            'name': "{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
+            'name': u"{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
             'phone': form.cleaned_data['phone'],
             'sender_email': email,
             'join_mail_list': form.cleaned_data['mailing_list'],
-            'message': form.cleaned_data['message'],
+            'message': unicode(form.cleaned_data['message']),
         }
 
         try:
@@ -129,8 +129,8 @@ class ContactSubmissionCreateView(FormView):
 
     def email_to_enquirer(self, form):
         context = {
-            'first_name': form.cleaned_data['first_name'],
-            'message': form.cleaned_data['message'],
+            'first_name': unicode(form.cleaned_data['first_name']),
+            'message': unicode(form.cleaned_data['message']),
         }
         try:
             context['secretary_name'] = ClubInfo.objects.get(key='SecretaryName').value

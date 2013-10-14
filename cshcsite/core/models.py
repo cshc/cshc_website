@@ -116,7 +116,7 @@ class ContactSubmission(models.Model):
 
     def full_name(self):
         """Full name of the person making the enquiry"""
-        return "{} {}".format(self.first_name, self.last_name)
+        return u"{} {}".format(self.first_name, self.last_name)
 
 
 class CshcUserManager(BaseUserManager):
@@ -183,10 +183,10 @@ class CshcUser(AbstractBaseUser, PermissionsMixin):
         return unicode(self.email)
 
     def get_full_name(self):
-        return "{} {}".format(self.first_name, self.last_name).strip()
+        return u"{} {}".format(self.first_name, self.last_name).strip()
 
     def get_short_name(self):
-        return self.first_name.strip()
+        return unicode(self.first_name.strip())
 
     def email_user(self, subject, message, from_email=None):
         """
