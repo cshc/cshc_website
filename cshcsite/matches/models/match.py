@@ -20,11 +20,11 @@ class MatchQuerySet(QuerySet):
 
     def fixtures(self):
         """Returns only matches in the future, ordered by date"""
-        return self.filter(date__gte=datetime.now().date()).order_by('date')
+        return self.filter(date__gte=datetime.now().date()).order_by('date', 'time')
 
     def results(self):
         """Returns only matches in the past, ordered by date"""
-        return self.filter(date__lt=datetime.now().date()).order_by('date')
+        return self.filter(date__lt=datetime.now().date()).order_by('date', 'time')
 
     def reports(self):
         """Returns only results with match reports"""
@@ -283,6 +283,9 @@ class Match(models.Model):
         if(self.time != None):
             return datetime.combine(self.date, self.time)
         return datetime.combine(self.date, time())
+
+    def is_off(self):
+        return self.alt_outcome in (Match.ALTERNATIVE_OUTCOME.Postponed, Match.ALTERNATIVE_OUTCOME.Cancelled)
 
     def is_in_past(self):
         """ Returns True if the match date/datetime is in the past."""
