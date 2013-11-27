@@ -33,4 +33,4 @@ def get_recent_match_reports(member, count=3):
         - returns (no more than) the specified number of matches (default = 3)
         - result is ordered by most recent first
     """
-    return Match.objects.by_report_author(member).order_by('-date')[:count]
+    return Match.objects.by_report_author(member).order_by('-date', '-time')[:count]

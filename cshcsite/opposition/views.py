@@ -51,7 +51,7 @@ class ClubDetailView(TemplateView):
         club_stats = list(ClubStats.objects.select_related('club', 'team').order_by('team__position').filter(club=club))
 
         # Get all matches against this club
-        matches = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(opp_team__club=club).order_by('date')
+        matches = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(opp_team__club=club).order_by('date', 'time')
 
         # Get all appearances against this club
         appearances = Appearance.objects.select_related('member__user').filter(match__opp_team__club=club)

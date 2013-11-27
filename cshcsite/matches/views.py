@@ -24,7 +24,7 @@ class MatchListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(MatchListView, self).get_context_data(**kwargs)
         match_qs = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season')
-        match_qs = match_qs.prefetch_related('players').defer('report_body', 'pre_match_hype').order_by('-date')
+        match_qs = match_qs.prefetch_related('players').defer('report_body', 'pre_match_hype').order_by('-date', '-time')
         context['filter'] = MatchFilter(self.request.GET, queryset=match_qs)
         return context
 
@@ -43,7 +43,7 @@ class MatchesBySeasonView(TemplateView):
         else:
             season = Season.current()
 
-        match_list = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(season=season).defer('report_body', 'pre_match_hype').order_by('date')
+        match_list = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(season=season).defer('report_body', 'pre_match_hype').order_by('date', 'time')
 
         m1 = filter(lambda m: m.date.year == season.start.year, match_list)
         m2 = filter(lambda m: m.date.year == season.end.year, match_list)
@@ -93,8 +93,8 @@ class MatchesByDateView(TemplateView):
         match_list = sorted(match_lookup.values(), key=lambda m: m.match.our_team.position)
 
         # Get previous and next dates
-        prev_match = first_or_none(Match.objects.only('date').filter(date__lt=dt.date()).order_by('-date'))
-        next_match = first_or_none(Match.objects.only('date').filter(date__gt=dt.date()).order_by('date'))
+        prev_match = first_or_none(Match.objects.only('date').filter(date__lt=dt.date()).order_by('-date', '-time'))
+        next_match = first_or_none(Match.objects.only('date').filter(date__gt=dt.date()).order_by('date', 'time'))
         context['prev_date'] = prev_match.date if prev_match else None
         context['next_date'] = next_match.date if next_match else None
 
@@ -127,7 +127,7 @@ class LatestResultsView(TemplateView):
             try:
                 now = timezone.now()
                 min_date = now - timedelta(days=365)
-                result = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team_id=team.pk, date__gt=min_date.date(), date__lt=now.date()).order_by('-date')[0]
+                result = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team_id=team.pk, date__gt=min_date.date(), date__lt=now.date()).order_by('-date', '-time')[0]
                 latest_results.append(result)
             except IndexError:
                 pass    # Don't worry if there's no latest result for that team
@@ -188,7 +188,7 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         same_date_matches = Match.objects.filter(date=match.date).exclude(pk=match.pk)
         award_winners = match.award_winners.select_related('award', 'member__user').all()
         appearances = match.appearances.select_related('member__user').all().order_by('member__pref_position')
-        prev_match = first_or_none(Match.objects.select_related('our_team', 'opp_team__club').order_by('-date').filter(our_team=match.our_team, date__lt=match.date))
+        prev_match = first_or_none(Match.objects.select_related('our_team', 'opp_team__club').order_by('-date', '-time').filter(our_team=match.our_team, date__lt=match.date))
         next_match = first_or_none(Match.objects.select_related('our_team', 'opp_team__club').filter(our_team=match.our_team, date__gt=match.date))
 
         context["same_date_matches"] = same_date_matches

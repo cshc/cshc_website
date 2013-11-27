@@ -118,7 +118,7 @@ class ClubTeamStatsView(AjaxGeneral):
         is_current_season = Season.is_current_season(season_id)
 
         # Get all matches for this team and season
-        matches = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team__slug=team_slug, season_id=season_id).order_by('date')
+        matches = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team__slug=team_slug, season_id=season_id).order_by('date', 'time')
 
         # Get all appearances for this team and season
         appearances = Appearance.objects.select_related('member__user', 'match__season').filter(match__season_id=season_id, match__our_team__slug=team_slug)
