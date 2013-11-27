@@ -13,7 +13,7 @@
         <tr>
             <td class="priority3">{% include 'matches/_fixture_icon.html' with match=m %}</td>
             <td class="no-break"><a title="Matches on {{ m.date|date:"jS M" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a></td>
-            <td>{% if m.match.time %}{{ m.match.time|time:"H:i" }}{% else %}<abbr title="Time not known">TBD</abbr>{% endif %}</td>
+            <td>{{ m.time_display }}</td>
             <td><a href="{{ m.our_team.get_absolute_url }}" title="Team details">{{ m.our_team.short_name }}</a></td>
             <td><a href="{{ m.opp_team.club.get_absolute_url }}" title="Club details">{{ m.opp_team.name }}</a></td>
             <td><a href="{{ m.get_absolute_url }}" title="Match details"><i class="icon-circle-arrow-right"></i></a></td>
