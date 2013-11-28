@@ -53,7 +53,7 @@ Currently just lists the values that will be needed by this template - no UI des
         <td class="team-score score-divider">-</td>
         <td class="team-score">{{ match.opp_score }}</td>
         {% elif match.is_off %}
-        <td class="team-score">{{ match.get_alt_outcome_display }}</td>
+        <td class="team-score alt-score">{{ match.get_alt_outcome_display }}</td>
         {% else %}
         <td class="team-score">vs</td>
         {% endif %}
