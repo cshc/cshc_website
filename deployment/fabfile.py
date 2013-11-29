@@ -45,8 +45,8 @@ def file_update(version):
     tag_release(version)
     archive_repo()
     upload_release()
-    set_maintenance_mode(True)
     go_live()
+    set_maintenance_mode(True)
     collectstatic()
     set_maintenance_mode(False)
 
