@@ -103,6 +103,7 @@ class Command(BaseCommand):
                 div_result.goals_for = team.gf
                 div_result.goals_against = team.ga
                 div_result.goal_difference = team.gd
+                div_result.points = team.pts
                 div_result.notes = team.notes
                 if not sim:
                     div_result.save()
