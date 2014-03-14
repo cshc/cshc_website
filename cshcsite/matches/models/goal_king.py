@@ -183,7 +183,6 @@ class GoalKing(models.Model):
             if not gk_lookup.has_key(appearance.member_id):
                 log.debug("Adding new Goal King entry for member {}".format(appearance.member_id))
                 gk_lookup[appearance.member_id] = GoalKing(member=appearance.member, season=season)
-            log.debug("Adding appearance {} to Goal King stats".format(appearance.pk))
             gk_lookup[appearance.member_id].add_appearance(appearance)
 
         # Save the updated entries back to the database
