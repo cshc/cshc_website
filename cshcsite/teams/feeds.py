@@ -35,7 +35,7 @@ class ClubTeamMatchICalFeed(MatchICalFeed):
 
     def items(self, obj):
         """Gets all the matches that make up the calendar entries"""
-        return Match.objects.this_season().select_related('our_team', 'opp_team__club', 'venue').filter(our_team=obj).order_by('date')
+        return Match.objects.this_season().select_related('our_team', 'opp_team__club', 'venue').filter(our_team=obj).order_by('date', 'time')
 
 
 class RssClubTeamMatchReportsFeed(Feed):

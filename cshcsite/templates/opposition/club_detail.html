@@ -129,6 +129,6 @@ Currently just lists the values that will be needed by this template - no UI des
 {% block body_js %}
     {{ block.super }}
     {% if club.default_venue %}
-        {% include "venues/_venue_map_js.html" with venue=club.default_venue %}
+        {% include "venues/_venue_map_js.html" with venue_address=club.default_venue.full_address %}
     {% endif %}
 {% endblock body_js %}

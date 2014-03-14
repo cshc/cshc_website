@@ -140,7 +140,7 @@ class ContactSubmissionCreateView(FormView):
             context['secretary_email'] = 'secretary@cambridgesouthhockeyclub.co.uk'
 
         recipient_email = form.cleaned_data['email']
-        send_templated_email([recipient_email], 'emails/contact_sender', context)
+        send_templated_email([recipient_email], 'emails/contact_sender', context, from_email=context['secretary_email'])
 
     def form_valid(self, form):
         try:

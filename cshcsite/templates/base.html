@@ -65,8 +65,10 @@
   <body class="{% block body_class %}pull_top{% endblock body_class %}" id="{% block body_id %}page{% endblock body_id %}">
     <div id="page-top"></div>
 
+    {% comment %}
     {% load feedback_widget %}
     {% feedback_widget %}
+    {% endcomment %}
 
     {% block menu %}
     <div class="{% block navbar_class %}navbar navbar-inverse navbar-static-top{% endblock navbar_class %}">

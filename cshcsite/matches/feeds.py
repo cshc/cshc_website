@@ -99,7 +99,7 @@ class MatchICalFeed(ICalFeed):
 
     def items(self):
         """Gets all the matches that make up the calendar entries"""
-        return Match.objects.this_season().select_related('our_team', 'opp_team__club', 'venue').order_by('date')
+        return Match.objects.this_season().select_related('our_team', 'opp_team__club', 'venue').order_by('date', 'time')
 
     def item_description(self, item):
         """Returns the item description - the actual match report"""

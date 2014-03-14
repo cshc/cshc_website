@@ -45,8 +45,8 @@ def file_update(version):
     tag_release(version)
     archive_repo()
     upload_release()
-    set_maintenance_mode(True)
     go_live()
+    set_maintenance_mode(True)
     collectstatic()
     set_maintenance_mode(False)
 
@@ -126,7 +126,7 @@ def temp():
 def set_maintenance_mode(on):
     with cd(env.remote_root):
         _add_or_replace_line('repo/cshcsite/cshcsite/settings/production.py', 'MAINTENANCE_MODE = ', str(on))
-        run('touch ~/www.m.cambridgesouthhockeyclub.co.uk_html/django.fcgi')
+        run('touch ~/www.cambridgesouthhockeyclub.co.uk_html/django.fcgi')
 
 @task
 def migrate_db():
@@ -142,7 +142,7 @@ def go_live():
         run('rm -fr repo_old')
         run('mv repo repo_old')
         run('mv repo_release repo')
-        run('touch ~/www.m.cambridgesouthhockeyclub.co.uk_html/django.fcgi')
+        run('touch ~/www.cambridgesouthhockeyclub.co.uk_html/django.fcgi')
 
 def _add_or_replace_line(file, pattern, value):
     # Prevent expansion of env vars....

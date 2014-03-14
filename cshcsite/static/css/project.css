@@ -173,6 +173,7 @@ Match Details
 .table-score tbody tr td.team-name a:hover { color: white; }
 
 .table-score tbody tr td.team-score { background-color: rgb(60, 141, 60); color: white; font-size: 400%; }
+.table-score tbody tr td.team-score.alt-score { font-size: 200%; }
 
 .table-score tbody tr td.score-divider { padding-left: 0px; padding-right: 0px; }
 
@@ -266,7 +267,10 @@ Responsive
 	.table th.priority2, .table td.priority2 {display: none;}
 	.table th.priority3, .table td.priority3 {display: none;}
     .table-score tbody tr td.team-name, #matches-by-date .table-score tbody tr td.team-name {font-size: 100%;}
-    .table-score tbody tr td.team-score, #matches-by-date .table-score tbody tr td.team-score {font-size: 100%;}
+    .table-score tbody tr td.team-score,
+    #matches-by-date .table-score tbody tr td.team-score,
+    .table-score tbody tr td.team-score.alt-score,
+    #matches-by-date .table-score tbody tr td.team-score.alt-score {font-size: 100%;}
     .banner-box .table-condensed th, .banner-box .table-condensed td {padding: 6px 1px;}
     .pager li a {font-size: 10px; line-height: 14px;}
 }
@@ -442,5 +446,5 @@ table.month .filled .dayNumber .popover {
     text-align: center;
     font-weight: bold;
 }
-#member-detail #shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt.png");}
-#member-detail #shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt.png");}
+#member-detail #shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt%20back.png");}
+#member-detail #shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt%20back.png");}
