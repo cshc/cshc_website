@@ -28,6 +28,6 @@ class MatchFilter(django_filters.FilterSet):
         seasons = list(Season.objects.order_by('start'))
         earliest_season = seasons[0]
         latest_season = seasons[-1]
-        self.filters['date'].widget = extras.SelectDateWidget(years=range(earliest_season.start.year, latest_season.end.year))
+        self.filters['date'].widget = extras.SelectDateWidget(years=range(earliest_season.start.year, latest_season.end.year + 1))
         self.filters['home_away'].extra.update({ 'choices': CHOICES_FOR_HOME_AWAY })
         self.filters['fixture_type'].extra.update({ 'choices': CHOICES_FOR_FIXTURE_TYPE })
