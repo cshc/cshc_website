@@ -64,7 +64,7 @@ urlpatterns = patterns('',
 
 # Static pages - use the flatpage app
 urlpatterns += patterns('django.contrib.flatpages.views',
-
+    (r'^(?P<url>.*/)$', 'flatpage'),
 )
 
 
