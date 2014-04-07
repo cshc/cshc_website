@@ -4,11 +4,7 @@
 # USE WITH CAUTION!!!
 # ===================
 #
-# This script does the following:
-#    1. Updates the version.txt file based on the major/minor command line
-#       argument and commits it to the Git repository.
-#    2. Tags the current Git revision with the version number from version.txt
-#    3.
+# These scripts handle the deployment and upgrade of the CSHC site.
 
 from fabric.api import *
 import os
