@@ -117,3 +117,6 @@ class ClubTeam(models.Model):
             return "Cambridge South Ladies {}".format(ordinal_from_TeamOrdinal(self.ordinal))
         else:
             return "Cambridge South {}".format(ordinal_from_TeamOrdinal(self.ordinal))
+
+    def genderless_abbr_name(self):
+        return self.abbr_name().replace(" Ladies", "").replace(" Mens", "")

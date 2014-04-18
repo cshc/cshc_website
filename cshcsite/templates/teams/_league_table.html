@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             {% for t in div_data %}
-            <tr {% if t.team_name = clubteam.abbr_name %}class="success"{% endif %} >
+            <tr {% if t.team_name = clubteam.genderless_abbr_name %}class="success"{% endif %} >
                 <td><a href="{% if t.our_team %}{{ t.our_team.get_absolute_url }}{% else %}{{ t.opp_team.club.get_absolute_url }}{% endif %}">{{ t.team_name|capfirst }}</a></td>
                 <td>{{ t.played }}</td>
                 <td>{{ t.won }}</td>

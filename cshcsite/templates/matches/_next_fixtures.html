@@ -27,7 +27,7 @@ Context should have a 'next_fixtures' list of Match objects.
                     {% include 'matches/_fixture_icon.html' with match=m %}
                 </td>
                 <td><a href="{{ m.our_team.get_absolute_url }}" title="Team page">{{ m.our_team|capfirst }}</a></td>
-                <td><a href="{{ m.opp_team.club.get_absolute_url }}" title="Opposition details">{{ m.opp_team.name }}</a>{% if m.kit_clash %}<i class="icon-user" title="Away kit"></i>{% endif %}</td>
+                <td><a href="{{ m.opp_team.club.get_absolute_url }}" title="Opposition details">{{ m.opp_team.genderless_name }}</a>{% if m.kit_clash %}<i class="icon-user" title="Away kit"></i>{% endif %}</td>
                 <td>{% if m.venue %}<a href="{{ m.venue.get_absolute_url }}" title="{{ m.venue.name }}">{{ m.simple_venue_name }}</a>{% else %}TBD{% endif %}</td>
                 {% if flavour = 'mobile' %}
                 <td><a class="no-break" title="Matches on {{ m.date|date:"jS M" }}" href="{% url 'matches_by_date' m.date|date:"d-M-y"%}">{{ m.date|date:"jS M" }}</a><br/>{{ m.time_display }}</td>

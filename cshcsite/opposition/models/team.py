@@ -57,3 +57,6 @@ class Team(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('opposition_team_detail', [self.slug])
+
+    def genderless_name(self):
+        return self.name.replace(" Ladies", "").replace(" Mens", "")

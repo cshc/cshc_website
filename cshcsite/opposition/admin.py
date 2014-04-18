@@ -34,7 +34,7 @@ class TeamAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     search_fields = ('name',)
     list_filter = ('club', 'gender')
-    list_display = ('name', 'club', 'gender')
+    list_display = ('name', 'short_name', 'club', 'gender')
 
 # Register all opposition models with the admin interface
 admin.site.register(Club, ClubAdmin)

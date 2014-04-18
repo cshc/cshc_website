@@ -61,7 +61,7 @@ class DivisionResult(models.Model):
 
     @property
     def team_name(self):
-        return "{}".format(self.opp_team if self.opp_team else self.our_team.abbr_name())
+        return "{}".format(self.opp_team.genderless_name() if self.opp_team else self.our_team.genderless_abbr_name())
 
     @property
     def team(self):
