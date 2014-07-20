@@ -5,6 +5,8 @@
 # ===================
 #
 # These scripts handle the deployment and upgrade of the CSHC site.
+# Example usage: 'fab update_release v1.2.0'
+# (run from the deployment directory on the command line)
 
 from fabric.api import *
 import os
