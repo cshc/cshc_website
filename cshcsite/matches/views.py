@@ -110,14 +110,15 @@ class LatestResultsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(LatestResultsView, self).get_context_data(**kwargs)
-        LatestResultsView.add_latest_results_to_context(context)
+        LatestResultsView.add_latest_results_to_context(context, self.request.user)
         return context
 
     @staticmethod
-    def add_latest_results_to_context(context):
+    def add_latest_results_to_context(context, user):
         """
         Helper method to add latest results to a context dictionary.
         context = the view context (a dictionary)
+        user = the request user (may be anonymous if not logged in)
         Returns: the context dictionary, with a 'latest_results' entry containing a list of results
 
         The latest_results list contains a maximum of one result per team.
@@ -134,6 +135,13 @@ class LatestResultsView(TemplateView):
 
         context['latest_results'] = latest_results
 
+        if hasattr(user, 'member') and user.member is not None:
+            my_latest_result = Appearance.latest_match(user.member)
+            if my_latest_result is not None:
+                for result in latest_results:
+                    result.is_mine = result.id == my_latest_result.match.id
+            context['my_latest_result'] = my_latest_result
+
 
 class NextFixturesView(TemplateView):
     """View for the next match fixtures (one per team)"""
@@ -142,11 +150,11 @@ class NextFixturesView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(NextFixturesView, self).get_context_data(**kwargs)
-        NextFixturesView.add_next_fixtures_to_context(context)
+        NextFixturesView.add_next_fixtures_to_context(context, self.request.user)
         return context
 
     @staticmethod
-    def add_next_fixtures_to_context(context):
+    def add_next_fixtures_to_context(context, user):
         """
         Helper method to add next fixtures to a context dictionary.
         context = the view context (a dictionary)
@@ -163,6 +171,13 @@ class NextFixturesView(TemplateView):
                 pass    # Don't worry if there's no next fixture for that team
 
         context['next_fixtures'] = next_fixtures
+
+        if hasattr(user, 'member') and user.member is not None:
+            my_next_fixture = Appearance.probable_next_match(user.member)
+            if my_next_fixture is not None:
+                for fixture in next_fixtures:
+                    fixture.is_mine = fixture.id == my_next_fixture.match.id
+            context['my_next_fixture'] = my_next_fixture
 
 
 class MatchDetailView(SelectRelatedMixin, DetailView):

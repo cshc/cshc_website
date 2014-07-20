@@ -44,10 +44,11 @@ Currently just lists the values that will be needed by this template - no UI des
     <div class="span6">
         {% if participation and participation.division %}
                 <p class="lead">{{ participation.division }}
-                {% if participation.division_result %}
-                    <strong>- {{ participation.get_division_result_display }}</strong>
-                {% elif participation.final_pos %}
+                {% if participation.final_pos %}
                     <strong>- finished {{ participation.final_pos|ordinal }}</strong>
+                {% endif %}
+                {% if participation.division_result %}
+                    <strong> ({{ participation.get_division_result_display }})</strong>
                 {% endif %}
                 </p>
         {% endif %}

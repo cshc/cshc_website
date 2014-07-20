@@ -12,10 +12,11 @@ Static page with info about the club committee.
 {% block content %}
 
 {% url 'about_minutes' as minutes_url %}
+{% url 'about_committee' as base_committee_url %}
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
-  <li class="active">Fees</li>
+  <li class="active">Committee</li>
 </ul>
 
 <div class="page-header">
@@ -26,10 +27,9 @@ Static page with info about the club committee.
 season the Men&#39;s and Ladies&#39; clubs were seperate entities&nbsp;but since then the two have merged and a single Committee
 now administers the club, with sub-committees for men&#39;s and ladies&#39; playing matters. The Committee is appointed at the
 Annual General Meeting and appointments run for a single season.</p>
-<blockquote>You can see the Club Constitution <a href="{{ STATIC_URL }}media/Documents/CSHC_Constitution.pdf">here</a>.</blockquote>
+<blockquote>You can see the Club Constitution <a href="{{ STATIC_URL }}media/Documents/CSHC_Constitution_June_2014.pdf">here</a>.</blockquote>
 <blockquote>Minutes of all club meetings can be found <a href="{{ minutes_url }}">here</a>.</blockquote>
 
-<h3>Club Committee</h3>
 
 <div class="row committee">
     <div class="media span12">
@@ -49,234 +49,62 @@ Annual General Meeting and appointments run for a single season.</p>
     </div>
 </div>
 <hr/>
+<h3>Club Committee <small>{{ season }}</small><div class="pull-right">{% include 'core/_season_selector.html' with url_prefix=base_committee_url %}</div></h3>
+<div class="section_header">
+    <h3>General Committee</h3>
+</div>
 <div class="row committee">
 
+{% for member in general_committee %}
+    <a href="{{ member.member.get_absolute_url }}">
     <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
+        <div class="pull-left media-object">
+            {% include 'members/_profile_pic_thumbnail.html' with member=member.member %}
+        </div>
         <div class="media-body">
-            <h4 class="media-heading">John Greaves</h4>
-            <p>Chairman</p>
+            <h4 class="media-heading">{{ member.member }}</h4>
+            <p>{{ member.position.name }}</p>
         </div>
     </div>
+    </a>
+{% endfor %}
 
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Neil Sneade</h4>
-            <p>Hon. Secretary</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">George Wych</h4>
-            <p>Hon. Treasurer</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Ellie Raffan</h4>
-            <p>Club Liaison Officer</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">TBC</h4>
-            <p>Fixture Secretary</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Neil Sneade</h4>
-            <p>Mens League Liason Officer</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Diane Eichelsheim</h4>
-            <p>Ladies League Liason Officer</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Rob Barton</h4>
-            <p>Mens Umpire Liaison Officer</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Serin Dabb</h4>
-            <p>Ladies Umpire Liaison Officer</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Jack Chalk</h4>
-            <p>Training Co-ordinator</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Graham McCulloch</h4>
-            <p>Website Officer</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Chris Pearson</h4>
-            <p>Mens Social Secretary</p>
-        </div>
-    </div>
-
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Liz Dunsby</h4>
-            <p>Ladies Social Secretary</p>
-        </div>
-    </div>
 </div>
 <hr/>
-<div class="row captains">
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Mark Williams</h4>
-            <p>Mens 1st XI Captain</p>
-        </div>
-    </div>
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">TBC</h4>
-            <p>Mens 1st XI Vice-Captain</p>
-        </div>
-    </div>
+<div class="section_header">
+    <h3>Men's Captains</h3>
 </div>
-<div class="row captains">
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Ron Oren</h4>
-            <p>Mens 2nd XI Captain</p>
+<div class="row">
+{% for team in mens_captains %}
+    <div class="span6">
+        <div class="team-title">
+            <h3>{{ team.name }}</h3>
+        </div>
+        <div class="team-box">
+            {% include 'core/_committee_member.html' with role=team.captain role_name="Captain" %}
+            {% include 'core/_committee_member.html' with role=team.vice_captain role_name="Vice-Captain" %}
         </div>
     </div>
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Nick Venner</h4>
-            <p>Mens 2nd XI Vice-Captain</p>
-        </div>
-    </div>
+{% endfor %}
 </div>
-<div class="row captains">
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Ali Edge</h4>
-            <p>Mens 3rd XI Captain</p>
-        </div>
-    </div>
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">John Benedikz</h4>
-            <p>Mens 3rd XI Vice-Captain</p>
-        </div>
-    </div>
-</div>
-<div class="row captains">
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Joe Whittaker</h4>
-            <p>Mens 4th XI Captain</p>
-        </div>
-    </div>
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Boris Lossy</h4>
-            <p>Mens 4th XI Vice-Captain</p>
-        </div>
-    </div>
-</div>
-<div class="row captains">
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Simon Frampton</h4>
-            <p>Mens 5th XI Captain</p>
-        </div>
-    </div>
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">TBC</h4>
-            <p>Mens 5th XI Vice-Captain</p>
-        </div>
-    </div>
-</div>
+
 <hr/>
-<div class="row captains">
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Kylie Beasley</h4>
-            <p>Ladies 1st XI Captain</p>
-        </div>
-    </div>
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Louise Tonkin</h4>
-            <p>Ladies 1st XI Vice-Captain</p>
-        </div>
-    </div>
+<div class="section_header">
+    <h3>Ladies Captains</h3>
 </div>
-<div class="row captains">
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Cath Anthony</h4>
-            <p>Ladies 2nd XI Captain</p>
+<div class="row">
+{% for team in ladies_captains %}
+    <div class="span6">
+        <div class="team-title">
+            <h3>{{ team.name }}</h3>
+        </div>
+        <div class="team-box">
+            {% include 'core/_committee_member.html' with role=team.captain role_name="Captain" %}
+            {% include 'core/_committee_member.html' with role=team.vice_captain role_name="Vice-Captain" %}
         </div>
     </div>
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Louise Gutteridge</h4>
-            <p>Ladies 2nd XI Vice-Captain</p>
-        </div>
-    </div>
+{% endfor %}
 </div>
-<hr/>
-<div class="row captains">
-    <div class="media span4">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
-        <div class="media-body">
-            <h4 class="media-heading">Nick Venner/Alice Hug</h4>
-            <p>Mixed Co-Captains</p>
-        </div>
-    </div>
-</div>
+{% model_admin_links 'members' 'committeemembership' %}
+
 {% endblock content %}

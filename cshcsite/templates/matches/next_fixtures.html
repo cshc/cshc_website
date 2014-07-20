@@ -14,9 +14,9 @@ Formatted display of the next fixture for each team.
 {% url 'calendar' as calendar %}
 
 <ul class="breadcrumb">
-  <li><a href="/">Home</a> <span class="divider">/</span></li>
-  <li><a href="{{ match_list_url }}">Matches</a> <span class="divider">/</span></li>
-  <li class="active">Next Fixtures</li>
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    <li><a href="{{ match_list_url }}">Matches</a> <span class="divider">/</span></li>
+    <li class="active">Next Fixtures</li>
 </ul>
 
 <div class="page-header">
@@ -25,6 +25,11 @@ Formatted display of the next fixture for each team.
 
 <div class="row">
     <div class="span7">
+        {% if my_next_fixture %}
+
+        {% endif %}
+        <div class="user">
+        </div>
         {% include "matches/_next_fixtures.html" %}
     </div>
 

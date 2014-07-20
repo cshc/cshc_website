@@ -1,0 +1,70 @@
+{% comment %}
+This template encapsulates the top home page banner section.
+The top banner style can be modified by the value of the 'HomePageBanner'
+ClubInfo database item. Currently the supported values are:
+    - 'default': displays latest results and next fixtures
+    - 'summer': displays an advert for Summer Hockey
+{% endcomment %}
+
+{% url 'match_report_rss_feed' as matches_rss %}
+{% url 'calendar' as calendar %}
+
+{% url 'venue_detail' 'wilberforce-road' as uni_url %}
+
+
+<div id="top-banner" class="{{ banner_style }}">
+    <div class="container">
+        <div class="row">
+            {% if banner_style == 'summer' %}
+                <div class="span6">
+                    <div class="banner-box sick">
+                        <img align="left" class="main left" src="{{ STATIC_URL }}media/Web%20site%20images/sick.png"/>
+                        <h3>Sick of the summer...?</h3>
+                        <ul>
+                            <li>Queezy from too many BBQ burgers and glasses of Pimms?</li>
+                            <li>England's World Cup performance made you want to puke?</li>
+                            <li>Inverse Seasonal Affective Disorder?</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="banner-box cure">
+                        <img align="right" class="main right" src="{{ STATIC_URL }}media/Web%20site%20images/feel_good.png"/>
+                        <p class="lead">Then we prescribe a healthy dose of...</p>
+                        <h3 class="title">Summer Hockey!</h3>
+                        <h4>Instructions:</h4>
+                        <ul>
+                            <li>To be taken once a week on <strong>Tuesdays</strong> from <strong>8-9pm</strong></li>
+                            <li>Always follow treatment with an hour in the pub</li>
+                            <li>Visit your Summer Hockey treatment centre at <strong><a href="{{ uni_url }}">Wilberforce Road</a></strong></li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="span6">
+                    <div class="banner-box">
+                        <span class="pull-right">
+                            <a href="{{ matches_rss }}" title="Subscribe to Cambridge South match reports" target="_blank" class="btn btn-small btn-warning">
+                                <i class="icon-rss"></i>Subscribe
+                            </a>
+                        </span>
+                        <h3 id="latest-results">Latest Results</h3>
+                        {% include "matches/_latest_results.html" %}
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="banner-box">
+                        <span class="pull-right">
+                            <a href="{{ calendar }}" title="Import match details into your own calendar" class="btn btn-small btn-primary">
+                                <i class="icon-calendar"></i>Calendar
+                            </a>
+                        </span>
+                        <h3 id="next-fixtures">Next Fixtures</h3>
+                        {% include "matches/_next_fixtures.html" %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -160,6 +160,29 @@ Tables
   height: 100%;
 }
 
+#latest-results .fixture-table tbody tr.my-fixture,
+#next-fixtures .fixture-table tbody tr.my-fixture {
+    background-color: rgb(214, 241, 214);
+}
+
+#latest-results .table-hover.fixture-table tbody tr.my-fixture:hover>td,
+#latest-results .table-hover.fixture-table tbody tr.my-fixture:hover>th,
+#next-fixtures .table-hover.fixture-table tbody tr.my-fixture:hover>td,
+#next-fixtures .table-hover.fixture-table tbody tr.my-fixture:hover>th {
+    background-color: rgb(199, 231, 199);
+}
+
+
+#home .fixture-table tbody tr.my-fixture {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+#home .table-hover.fixture-table tbody tr.my-fixture:hover>td,
+#home .table-hover.fixture-table tbody tr.my-fixture:hover>th {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+
 /******************************************************************************
 Match Details
 */
@@ -239,6 +262,7 @@ Top Banner
 .banner-box .table {margin-bottom: 5px;}
 .banner-box .table-condensed th, .banner-box .table-condensed td {padding: 1px 5px;}
 
+
 /******************************************************************************
 Login form
 */
@@ -304,6 +328,7 @@ Responsive
     div#filter {padding: 0 10px 0;}
     div#filter form {margin-bottom: 5px;}
     .gmap3, .gmap-link, .gmap-dir-link {margin-left: 10px; margin-right: 10px;}
+
 }
 
 /******************************************************************************
@@ -369,6 +394,10 @@ Page-specific
 #committee .media-object { width: 50px; height: 50px; }
 #committee .media-body p { font-size: 120%; color: rgb(141, 139, 139); font-weight: bold; }
 #committee .media { margin-top: 15px; }
+#committee .team-box { padding: 0px 10px 10px 10px; background-color: rgb(229, 240, 228);}
+#committee .team-box .media {margin-top: 0; padding-top: 15px;}
+#committee .team-title {margin-top: 10px; padding: 0 10px 0 10px; background-color: rgb(165, 219, 165); }
+#committee .team-title h3 { margin: 0px; font-size: 150%; text-align: center;  }
 
 #match-detail .match-report p { font-size: 120%; }
 #match-detail .row.quick-links { margin-bottom: 10px;}
@@ -448,3 +477,39 @@ table.month .filled .dayNumber .popover {
 }
 #member-detail #shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt%20back.png");}
 #member-detail #shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt%20back.png");}
+
+
+/**************************************************************/
+/* Summer hockey banner */
+#top-banner.summer {background:url('../img/backgrounds/blue_sky_1.jpg') no-repeat 0 0px;}
+.summer .row {background-color: rgba(36, 121, 192, 0.64); }
+.summer .banner-box {background-color: rgba(36, 121, 192, 0); padding: 20px; }
+.summer h3 { font-size: 300%; color: rgb(255, 255, 121); margin-bottom: 30px; line-height: 100%;    }
+.summer .banner-box { font-size: 120%; }
+.summer .cure h3.title { font-size: 200%; color: rgb(255, 255, 121); line-height: 100%; text-align: center;}
+.summer .cure .lead { text-align: center;}
+.summer img.left { margin-right: 10px; }
+.summer img.main
+{
+    width: 120px;
+    height: 120px;
+}
+.summer img.left { margin-right: 10px; }
+.summer img.right { margin-left: 10px; }
+
+ .ie7 #top-banner.summer,
+}
+}
+}
+}
+.ie8 #top-banner.summer,
+.ie7 .summer .banner-box,
+.ie8 .summer .banner-box
+{background-color: rgb(36, 121, 192);}
+
+/* Hide the top banner on smaller screens */
+@media only screen and (max-width: 767px) {
+    #top-banner.summer    { background:url('../img/backgrounds/blue_sky_2.jpg') no-repeat 0 0px;}
+}
+
+/**************************************************************/

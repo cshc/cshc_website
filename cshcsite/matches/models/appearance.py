@@ -4,6 +4,8 @@ from django.db.models.query import QuerySet
 from model_utils.managers import PassThroughManager
 from members.models import Member
 from match import Match
+from core.stats import MatchStats
+from awards.models import MatchAwardWinner
 
 log = logging.getLogger(__name__)
 
@@ -51,3 +53,56 @@ class Appearance(models.Model):
 
     def __unicode__(self):
         return unicode("{} - {}".format(self.member, self.match))
+
+    @classmethod
+    def latest_match(cls, member):
+        """ Returns the latest match the specified member played in, or
+            None if they haven't played before.
+        """
+        try:
+            last_app = Appearance.objects.by_member(member).select_related(
+                'match__our_team', 'match__opp_team', 'match__venue', 'match__season', 'match__division__league', 'match__cup'
+                ).latest('match__date')
+        except Appearance.DoesNotExist:
+            return None
+
+        return cls.get_stats(last_app.match)
+
+    @classmethod
+    def probable_next_match(cls, member):
+        """ Returns the likely next match that the specified member might play in, or
+            None if they haven't played for the club before or the team they last played
+            for have no upcoming fixtures.
+
+            Note: its only 'probable' because we pick the match by finding the next
+            match for the team that this member last played for.
+        """
+        try:
+            last_app = Appearance.objects.by_member(member).select_related('match').latest('match__date')
+        except Appearance.DoesNotExist:
+            return None
+        team_id = last_app.match.our_team_id
+        try:
+            next_match = Match.objects.fixtures().filter(our_team_id=team_id).select_related(
+                'our_team', 'opp_team', 'venue', 'season', 'division__league', 'cup'
+                ).order_by('date', 'time')[0]
+        except (Match.DoesNotExist, IndexError):
+            return None
+
+        return cls.get_stats(next_match)
+
+    @classmethod
+    def get_stats(cls, match):
+        match_stats = MatchStats(match)
+        # Get all appearances for this match
+        apps = Appearance.objects.filter(match=match).select_related('member__user')
+        for app in apps:
+            match_stats.add_appearance(app)
+
+        # Get all award winners for this match
+        award_winners = MatchAwardWinner.objects.select_related('member__user', 'award').filter(match=match)
+
+        for award_winner in award_winners:
+            match_stats.add_award_winner(award_winner)
+
+        return match_stats

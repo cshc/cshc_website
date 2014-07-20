@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Member, SquadMembership
+from .models import Member, SquadMembership, CommitteeMembership, CommitteePosition
 
 
 class SquadMembershipInline(admin.TabularInline):
@@ -22,6 +22,22 @@ class SquadMembershipAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'member', 'team', 'season')
 
 
+class CommitteePositionAdmin(admin.ModelAdmin):
+    model = CommitteePosition
+    search_fields = ('name',)
+    list_filter = ('name', 'gender')
+    list_display = ('__unicode__', 'name', 'gender')
+
+
+class CommitteeMembershipAdmin(admin.ModelAdmin):
+    model = CommitteeMembership
+    search_fields = ('member',)
+    list_filter = ('member', 'position', 'season')
+    list_display = ('__unicode__', 'member', 'position', 'season')
+
+
 # Register all members models with the admin interface
 admin.site.register(Member, MemberAdmin)
 admin.site.register(SquadMembership, SquadMembershipAdmin)
+admin.site.register(CommitteeMembership, CommitteeMembershipAdmin)
+admin.site.register(CommitteePosition, CommitteePositionAdmin)

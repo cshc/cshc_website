@@ -4,7 +4,7 @@ Context should have a 'next_fixtures' list of Match objects.
 {% endcomment %}
 
 {% if next_fixtures %}
-    <table class="table table-condensed table-hover">
+    <table class="table table-condensed table-hover fixture-table">
         <thead>
             <tr>
                 <th class="priority3"></th>
@@ -22,7 +22,7 @@ Context should have a 'next_fixtures' list of Match objects.
         </thead>
         <tbody>
         {% for m in next_fixtures %}
-            <tr>
+            <tr {% if m.is_mine %}class="my-fixture" data-toggle='tooltip' title data-original-title="This is probably my next match"{% endif %}>
                 <td class="priority3">
                     {% include 'matches/_fixture_icon.html' with match=m %}
                 </td>

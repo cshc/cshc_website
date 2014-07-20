@@ -26,7 +26,18 @@ urlpatterns = patterns('',
     url(r'^about/social/$',           TemplateView.as_view(template_name='core/social.html'), name='about_social'),
     url(r'^about/kit/$',              TemplateView.as_view(template_name='core/kit.html'), name='about_kit'),
     url(r'^about/fees/$',             TemplateView.as_view(template_name='core/fees.html'), name='about_fees'),
-    url(r'^about/committee/$',        views.CommitteeView.as_view(), name='about_committee'),
+    # E.g. '/about/committee/'
+    url(r'^about/committee/$',
+        views.CommitteeSeasonView.as_view(),
+        name="about_committee"
+    ),
+
+    # E.g. '/about/committee/2011-2012/'
+    url(r'^about/committee/(?P<season_slug>[-\w]+)/$',
+        views.CommitteeSeasonView.as_view(),
+        name="about_committee_season"
+    ),
+
 
     url(r'^stats/$',                  TemplateView.as_view(template_name='core/stats.html'), name='stats'),
 

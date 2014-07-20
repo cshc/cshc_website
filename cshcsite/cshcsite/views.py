@@ -1,9 +1,12 @@
 import logging
 from django.views.generic import TemplateView
 from django.conf import settings
-from core.models import ClubInfo
+from core.views import kwargs_or_none
+from core.models import ClubInfo, TeamGender
+from competitions.models import Season
 from matches.views import LatestResultsView, NextFixturesView
 from training.views import UpcomingTrainingSessionsView
+from members.models import CommitteeMembership
 
 log = logging.getLogger(__name__)
 
@@ -16,15 +19,27 @@ class HomeView(TemplateView):
         context = super(HomeView, self).get_context_data(**kwargs)
 
         # Latest Results
-        LatestResultsView.add_latest_results_to_context(context)
+        LatestResultsView.add_latest_results_to_context(context, self.request.user)
 
         # Next Fixtures
-        NextFixturesView.add_next_fixtures_to_context(context)
+        NextFixturesView.add_next_fixtures_to_context(context, self.request.user)
 
         # Upcoming Training
         UpcomingTrainingSessionsView.add_upcoming_training_to_context(context)
 
         context['cookie_ctrl_api_key'] = settings.COOKIE_CTRL_API_KEY
+
+        # The top banner style can be modified by the value of the 'HomePageBanner'
+        # ClubInfo database item. Currently the supported values are:
+        #    - 'default': displays latest results and next fixtures
+        #    - 'summer': displays an advert for Summer Hockey
+        try:
+            banner_style = ClubInfo.objects.get(key='HomePageBanner').value
+        except ClubInfo.DoesNotExist:
+            banner_style = "default"
+
+        context['banner_style'] = banner_style
+
         return context
 
 
@@ -58,14 +73,71 @@ class CalendarView(TemplateView):
         return context
 
 
-class CommitteeView(TemplateView):
-    """The main home page of the Cambridge South Hockey Club website"""
+
+class CommitteeSeasonView(TemplateView):
+    """View for displaying the Club Committee members for a particular season"""
     template_name = 'core/committee.html'
 
     def get_context_data(self, **kwargs):
-        context = super(CommitteeView, self).get_context_data(**kwargs)
+        """
+        Gets the context data for the view.
 
-        context['clubinfo'] = ClubInfo.objects.all()
+        """
+        context = super(CommitteeSeasonView, self).get_context_data(**kwargs)
+
+        # If we're viewing this season's committee we may not have a season_slug keyword arg.
+        season_slug = kwargs_or_none('season_slug', **kwargs)
+        if season_slug is not None:
+            season = Season.objects.get(slug=season_slug)
+        else:
+            season = Season.current()
+
+        all_members = CommitteeMembership.objects.select_related('position', 'member', 'season').by_season(season)
+
+        context['general_committee'] = [m for m in all_members if m.position.gender == TeamGender.Mixed]
+        ladies_committee = [m for m in all_members if m.position.gender == TeamGender.Ladies]
+        mens_committee = [m for m in all_members if m.position.gender == TeamGender.Mens]
+
+        context['ladies_captains'] = [{
+            'name': "Ladies 1st team",
+            'captain': next((m for m in ladies_committee if m.position.name == 'Ladies 1st team captain'), None),
+            'vice_captain': next((m for m in ladies_committee if m.position.name == 'Ladies 1st team vice-captain'), None)
+        },{
+            'name': "Ladies 2nd team",
+            'captain': next((m for m in ladies_committee if m.position.name == 'Ladies 2nd team captain'), None),
+            'vice_captain': next((m for m in ladies_committee if m.position.name == 'Ladies 2nd team vice-captain'), None)
+        },{
+            'name': "Ladies 3rd team",
+            'captain': next((m for m in ladies_committee if m.position.name == 'Ladies 3rd team captain'), None),
+            'vice_captain': next((m for m in ladies_committee if m.position.name == 'Ladies 3rd team vice-captain'), None)
+        }]
+
+
+        context['mens_captains'] = [{
+            'name': "Mens 1st team",
+            'captain': next((m for m in mens_committee if m.position.name == 'Mens 1st team captain'), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 1st team vice-captain'), None)
+        },{
+            'name': "Mens 2nd team",
+            'captain': next((m for m in mens_committee if m.position.name == 'Mens 2nd team captain'), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 2nd team vice-captain'), None)
+        },{
+            'name': "Mens 3rd team",
+            'captain': next((m for m in mens_committee if m.position.name == 'Mens 3rd team captain'), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 3rd team vice-captain'), None)
+        },{
+            'name': "Mens 4th team",
+            'captain': next((m for m in mens_committee if m.position.name == 'Mens 4th team captain'), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 4th team vice-captain'), None)
+        },{
+            'name': "Mens 5th team",
+            'captain': next((m for m in mens_committee if m.position.name == 'Mens 5th team captain'), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 5th team vice-captain'), None)
+        }]
+
+        context['season'] = season
+        context['is_current_season'] = season == Season.current()
+        context['season_list'] = Season.objects.all().order_by("-start")
         return context
 
 

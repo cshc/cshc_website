@@ -79,7 +79,7 @@ $(function(){
     });
 
 
-
+    $('tr.my-fixture').tooltip()
     // $('.po').popover()
     // $('.tt').tooltip()
 });
