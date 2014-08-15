@@ -84,4 +84,18 @@
 </div>
 {% endif %}
 
+
+{% if committee_positions %}
+<div class="span4">
+    <h3><i class="icon-group icon-large"></i>Committee Positions</h3>
+    <table class="table table-condensed">
+        <tbody>
+            {% for membership in committee_positions %}
+                <tr><td>{{ membership.season }}</td><td>{{ membership.position.name }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
 </div>

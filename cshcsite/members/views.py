@@ -15,7 +15,7 @@ from matches.models import Appearance
 from awards.models import MatchAwardWinner
 from .models import Member, SquadMembership
 from .forms import ProfileEditForm
-from .util import get_recent_match_awards, get_recent_end_of_season_awards, get_recent_match_reports
+from .util import get_recent_match_awards, get_recent_end_of_season_awards, get_recent_match_reports, get_committee_positions
 from .stats import MemberSeasonStat
 from .filters import MemberFilter
 
@@ -104,6 +104,9 @@ class MemberDetailView(DetailView):
 
         # Add recent End Of Season awards won by this member
         context['recent_end_of_season_awards'] = get_recent_end_of_season_awards(member)
+
+        # Add any committee positions held by this member
+        context['committee_positions'] = get_committee_positions(member)
 
         return context
 

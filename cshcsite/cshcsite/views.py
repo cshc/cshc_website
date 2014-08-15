@@ -100,39 +100,39 @@ class CommitteeSeasonView(TemplateView):
 
         context['ladies_captains'] = [{
             'name': "Ladies 1st team",
-            'captain': next((m for m in ladies_committee if m.position.name == 'Ladies 1st team captain'), None),
-            'vice_captain': next((m for m in ladies_committee if m.position.name == 'Ladies 1st team vice-captain'), None)
+            'captain': next((m for m in ladies_committee if m.position.name == "Ladies' 1st XI Captain"), None),
+            'vice_captain': next((m for m in ladies_committee if m.position.name == "Ladies' 1st XI Vice-Captain"), None)
         },{
             'name': "Ladies 2nd team",
-            'captain': next((m for m in ladies_committee if m.position.name == 'Ladies 2nd team captain'), None),
-            'vice_captain': next((m for m in ladies_committee if m.position.name == 'Ladies 2nd team vice-captain'), None)
+            'captain': next((m for m in ladies_committee if m.position.name == "Ladies' 2nd XI Captain"), None),
+            'vice_captain': next((m for m in ladies_committee if m.position.name == "Ladies' 2nd XI Vice-Captain"), None)
         },{
             'name': "Ladies 3rd team",
-            'captain': next((m for m in ladies_committee if m.position.name == 'Ladies 3rd team captain'), None),
-            'vice_captain': next((m for m in ladies_committee if m.position.name == 'Ladies 3rd team vice-captain'), None)
+            'captain': next((m for m in ladies_committee if m.position.name == "Ladies' 3rd XI Captain"), None),
+            'vice_captain': next((m for m in ladies_committee if m.position.name == "Ladies' 3rd XI Vice-Captain"), None)
         }]
 
 
         context['mens_captains'] = [{
             'name': "Mens 1st team",
-            'captain': next((m for m in mens_committee if m.position.name == 'Mens 1st team captain'), None),
-            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 1st team vice-captain'), None)
+            'captain': next((m for m in mens_committee if m.position.name == "Men's 1st XI Captain"), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == "Men's 1st XI Vice-Captain"), None)
         },{
             'name': "Mens 2nd team",
-            'captain': next((m for m in mens_committee if m.position.name == 'Mens 2nd team captain'), None),
-            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 2nd team vice-captain'), None)
+            'captain': next((m for m in mens_committee if m.position.name == "Men's 2nd XI Captain"), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == "Men's 2nd XI Vice-Captain"), None)
         },{
             'name': "Mens 3rd team",
-            'captain': next((m for m in mens_committee if m.position.name == 'Mens 3rd team captain'), None),
-            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 3rd team vice-captain'), None)
+            'captain': next((m for m in mens_committee if m.position.name == "Men's 3rd XI Captain"), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == "Men's 3rd XI Vice-Captain"), None)
         },{
             'name': "Mens 4th team",
-            'captain': next((m for m in mens_committee if m.position.name == 'Mens 4th team captain'), None),
-            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 4th team vice-captain'), None)
+            'captain': next((m for m in mens_committee if m.position.name == "Men's 4th XI Captain"), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == "Men's 4th XI Vice-Captain"), None)
         },{
             'name': "Mens 5th team",
-            'captain': next((m for m in mens_committee if m.position.name == 'Mens 5th team captain'), None),
-            'vice_captain': next((m for m in mens_committee if m.position.name == 'Mens 5th team vice-captain'), None)
+            'captain': next((m for m in mens_committee if m.position.name == "Men's 5th XI Captain"), None),
+            'vice_captain': next((m for m in mens_committee if m.position.name == "Men's 5th XI Vice-Captain"), None)
         }]
 
         context['season'] = season
