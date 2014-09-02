@@ -15,6 +15,12 @@ Currently just lists the values that will be needed by this template - no UI des
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "a00305df-8936-42fa-94f6-0b4d2380413f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+{% comment %}
+See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-15.html
+{% endcomment %}
+<meta name="csrf-token" content="{{csrf_token}}">
+
 {% endblock extra_head %}
 
 {% block body_id %}match-detail{% endblock body_id %}
@@ -69,6 +75,27 @@ Currently just lists the values that will be needed by this template - no UI des
 {% include 'matches/_fixture_detail.html' %}
 {% endif %}
 
+{% if comments %}
+<div id="commentary" class="row">
+    <hr/>
+    <h3>Live Match Updates</h3>
+    <div class="span12">
+
+    </div>
+    <div class="span12 match_comments">
+        {% for comment in comments %}
+            <div class="media match_comment">
+                <i class="icon-thumbs-up icon-2x pull-left media-object"></i>
+                <div class="media-body">
+                    <p>{{ comment.comment }}</p>
+                </div>
+            </div>
+            <hr/>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
 <ul class="pager">
   <li class="previous{% if not prev_match %} disabled{% endif %}">
     <a href="{% if prev_match %}{{ prev_match.get_absolute_url }}{% else %}#{% endif %}" {% if prev_match %}title="{{ prev_match.fixture_title }}"{% endif %}>&larr; Previous match</a>
@@ -113,6 +140,10 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% block body_js %}
     {{ block.super }}
+    <script src="{{ STATIC_URL }}js/handlebars-v1.3.0.js"></script>
+    <script src="{{ STATIC_URL }}js/underscore-min.js"></script>
+    <script src="{{ STATIC_URL }}js/backbone-min.js"></script>
+    <script src="{{ STATIC_URL }}js/commentary.js"></script>
 
     {% if not match.is_in_past %}
         {% include "venues/_venue_map_js.html" with venue_address=match.venue.full_address %}

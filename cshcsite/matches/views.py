@@ -1,22 +1,31 @@
 import logging
-import operator
+import time
+import calendar
+import ast
+import json
 from datetime import datetime, date, timedelta
 from itertools import groupby
-from django.views.generic import DetailView, ListView, TemplateView
+from django.core import serializers
+from django.views.generic import DetailView, ListView, TemplateView, View
 from django.utils import timezone
+from django.shortcuts import render_to_response
+from django.http import HttpResponse
+from django.template import RequestContext
 from django.db.models import Q
 from django.db import IntegrityError
 from exceptions import IndexError
+from rest_framework import viewsets, mixins, generics
 from braces.views import SelectRelatedMixin
 from core.models import first_or_none
 from core.stats import MatchStats
-from core.views import kwargs_or_none, AjaxGeneral
+from core.views import kwargs_or_none, AjaxGeneral, ajax_request
 from competitions.models import Season
 from awards.models import MatchAward, MatchAwardWinner
 from teams.models import ClubTeam
 from members.models import Member
-from .models import Match, GoalKing, Appearance
+from .models import Match, GoalKing, Appearance, MatchComment
 from .filters import MatchFilter
+from .serializers import MatchCommentSerializer
 
 log = logging.getLogger(__name__)
 
@@ -199,6 +208,7 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
             - appearances:          a list of appearances in this match
             - prev_match:           the previous match this team played
             - next_match:           the next match this team played/is due to play
+            - comments:             a list of match commentary comments
         """
         context = super(MatchDetailView, self).get_context_data(**kwargs)
 
@@ -210,12 +220,15 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         prev_match = first_or_none(Match.objects.select_related('our_team', 'opp_team__club').order_by('-date', '-time').filter(our_team=match.our_team, date__lt=match.date))
         next_match = first_or_none(Match.objects.select_related('our_team', 'opp_team__club').filter(our_team=match.our_team, date__gt=match.date))
 
+        comments = MatchComment.objects.by_match(match.id)
+
         context["same_date_matches"] = same_date_matches
         context["mom_winners"] = filter(lambda x: x.award.name == MatchAward.MOM, award_winners)
         context["lom_winners"] = filter(lambda x: x.award.name == MatchAward.LOM, award_winners)
         context["appearances"] = appearances
         context["prev_match"] = prev_match
         context["next_match"] = next_match
+        context["comments"] = comments
 
         return context
 
@@ -422,3 +435,88 @@ class NaughtyPlayer(object):
             self.yellow_cards.append(appearance)
         elif appearance.green_card:
             self.green_cards.append(appearance)
+
+
+
+
+class LatestMatchCommentsView(View):
+
+    def get(self, args, **kwargs):
+        if not self.request.is_ajax():
+            return render_to_response('error/ajax_required.html', {},
+                                      context_instance=RequestContext(self.request))
+        match_id = kwargs['match_id']
+        last_update = float(kwargs_or_none('last_update', **kwargs))
+        if last_update:
+            dt_last_update = datetime.utcfromtimestamp(time.mktime(time.gmtime(last_update)))
+            new_comments = MatchComment.objects.since(match_id, dt_last_update)
+        else:
+            new_comments = MatchComment.objects.by_match(match_id)
+
+        if new_comments.exists():
+            updated = datetime.utcnow()
+        else:
+            updated = None
+
+        result = {
+            "last_update": calendar.timegm(updated.timetuple()),
+            "comments": ast.literal_eval(serializers.serialize('json', new_comments))
+        }
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+
+class MatchCommentList(mixins.ListModelMixin,
+                       mixins.CreateModelMixin,
+                       generics.GenericAPIView):
+    """
+    List all match comments for a particular match, only returning comments
+    that have been modified after the specified date/time.
+    """
+
+    def get_queryset(self):
+        match_id = self.kwargs['match_id']
+        last_update = kwargs_or_none('last_update', **self.kwargs)
+        if last_update:
+            dt_last_update = datetime.utcfromtimestamp(time.mktime(time.gmtime(float(last_update))))
+            return MatchComment.objects.since(match_id, dt_last_update)
+        else:
+            return MatchComment.objects.by_match(match_id)
+
+
+    serializer_class = MatchCommentSerializer
+
+    def get(self, request, format=None, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, format=None, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class MatchCommentDetail(mixins.RetrieveModelMixin,
+                         mixins.UpdateModelMixin,
+                         mixins.DestroyModelMixin,
+                         generics.GenericAPIView):
+    """
+    Get/update/delete a particular match comment.
+    """
+
+    queryset = MatchComment.objects.all()
+    serializer_class = MatchCommentSerializer
+
+    def get(self, request, format=None, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, format=None, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, format=None, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class MatchCommentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows match comments to be viewed or edited.
+    """
+    queryset = MatchComment.objects.all()
+    serializer_class = MatchCommentSerializer

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.forms import ModelForm, widgets
 from suit.widgets import NumberInput, AutosizedTextarea
 from awards.models import MatchAwardWinner
-from .models import Match, Appearance
+from .models import Match, Appearance, MatchComment
 from .forms import MatchForm
 
 
@@ -82,8 +82,19 @@ class AppearanceAdmin(admin.ModelAdmin):
     list_filter = ('green_card', 'yellow_card', 'red_card')
 
 
+
+class MatchCommentAdmin(admin.ModelAdmin):
+
+    model = MatchComment
+    search_fields = ('author',)
+    list_filter = ('author',)
+    list_display = ('__unicode__', 'author', 'comment')
+
+
+
 # Register matches models with the admin system
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Appearance, AppearanceAdmin)
 # NOTE: We do not register the GoalKing model - this is derived from other models
 # and should never be edited via the admin interface
+admin.site.register(MatchComment, MatchCommentAdmin)

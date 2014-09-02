@@ -38,7 +38,7 @@ path.append(DJANGO_ROOT)
 
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = False
+DEBUG = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
@@ -229,6 +229,7 @@ THIRD_PARTY_APPS = (
     'mptt',
     'zinnia',
     'redactor',
+    'rest_framework',
 )
 
 # Apps specific for this project go here.
@@ -524,3 +525,11 @@ REDACTOR_JS = [
     'http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
     STATIC_URL + 'redactor/redactor.js',
 ]
+
+########## djangorestframework CONFIGURATION
+# Ref: http://www.django-rest-framework.org/tutorial/quickstart#settings
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGINATE_BY': 10
+}
+########## END djangorestframework CONFIGURATION

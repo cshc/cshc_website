@@ -1,4 +1,5 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
+from rest_framework.urlpatterns import format_suffix_patterns
 from competitions.models import Season
 from . import views, feeds
 
@@ -8,6 +9,22 @@ urlpatterns = patterns('',
     url(r'^$',
         views.MatchListView.as_view(),
         name="match_list"
+    ),
+
+    # REST API for match comments
+    url(r'^(?P<match_id>\d+)/comments/(?P<last_update>\d+)/$',
+        views.MatchCommentList.as_view(),
+        name="latest_match_comments"
+    ),
+
+    url(r'^(?P<match_id>\d+)/comments/$',
+        views.MatchCommentList.as_view(),
+        name="latest_match_comments_default"
+    ),
+
+    url(r'^comments/(?P<pk>\d+)/$',
+        views.MatchCommentDetail.as_view(),
+        name="match_comment_detail"
     ),
 
     # E.g. '/matches/23/'
@@ -104,3 +121,5 @@ urlpatterns = patterns('',
         name="match_ical_feed"
     ),
 )
+
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'html'])
