@@ -9,10 +9,12 @@
 
 {% url 'venue_detail' 'the-leys' as leys_url %}
 {% url 'venue_detail' 'abbey' as abbey_url %}
+{% url 'venue_detail' 'long-road' as long_road_url %}
 {% url 'venue_detail' 'wilberforce-road' as uni_url %}
 {% url 'calendar' as calendar %}
 
 {% get_clubinfo 'SecretaryName' as sec_name %}
+{% get_clubinfo 'InSeason' as in_season %}
 
 <div class="page-header">
     <h1>Training</h1>
@@ -25,15 +27,26 @@
             <h3>Squad Training</h3>
         </div>
 
-        <p>Cambridge South runs professionally coached training sessions for men and ladies of all standards, every Monday evening during the season from September to March at
-        <a href="{{ leys_url }}">The Leys School</a>.</p>
+        <p>Cambridge South runs professionally coached training sessions for men and women of all standards throughout the season from 16th September to the end of March at
+        <a href="{{ long_road_url }}">Long Road Sixth Form College</a>. All training sessions are free to attend, for club members and newcomers, with no booking required.</p>
+        <h4>Ladies Squads</h4>
+        <p>The ladies teams train on Tuesday nights from 7:30pm to 9pm.</p>
+        <h4>Mens Squads</h4>
+        <p>The mens teams train on Thursday nights from 7:30pm to 9pm.</p>
+        <div class="alert alert-info">
+            <strong>Note</strong> Both men’s and ladies’ training sessions are split into higher and lower team sections, to ensure level-appropriate training for all players.
+        </div>
+        <h4>Beginners Training and Back to Hockey</h4>
+        <p>For newcomers to hockey or those wanting to refresh their skills, we have a separately-coached session on Tuesday nights from 7.30-9pm.</p>
     </div>
 
     <div class="span4">
         <img alt="" class="img-polaroid" width="240" src="{{ STATIC_URL }}media/Web%20site%20images/Leys_Pitch_4.jpg" />
         <ul class="unstyled details">
-            <li><i class="icon-time"></i>Mondays 7-9pm</li>
-            <li><i class="icon-globe"></i>The Leys School</li>
+            <li><i class="icon-time"></i><abbr title="Ladies Squads"><i class="icon-female"></i></abbr>Tuesdays 7:30-9pm</li>
+            <li><i class="icon-time"></i><abbr title="Mens Squads"><i class="icon-male"></i></abbr>Thursdays 7:30-9pm</li>
+            <li><i class="icon-time"></i><abbr title="Beginners Training and Back to Hockey"><i class="icon-signal"></i></abbr>Tuesdays 7:30-9pm</li>
+            <li><i class="icon-globe"></i>Long Road</li>
         </ul>
     </div>
 </div>
@@ -41,22 +54,41 @@
 <div class="row">
 
     <div class="span8">
-        <div class="section_header">
-            <h3>Summer Hockey</h3>
-        </div>
-        <p>Cambridge South also offers informal weekly hockey on Thursday evenings from 8:00pm to 9:00pm at
-        <a href="{{ uni_url }}">Wilberforce Road</a> during the summer months.</p>
-        <p>A typical session consists of a couple of 5 to 7 a-side games, each on a half pitch. The sessions are open to everyone, you don&#39;t have to be a club member to come along and new players are very welcome.</p>
-        <p>If you build up a thirst then there is usually a group of us going on for a drink or two afterwards at a nearby pub - a great way to get to know people in the club!</p>
-        <p>If you&#39;d like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to the session you wish to attend or else just
-            turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for students and the unwaged. If you&#39;re new to the club, your first session is free!</p>
+        {% if in_season == 'out' %}
+            <div class="section_header">
+                <h3>Summer Hockey</h3>
+            </div>
+            <p>Cambridge South also offers informal weekly hockey on Thursday evenings from 8:00pm to 9:00pm at
+            <a href="{{ uni_url }}">Wilberforce Road</a> during the summer months.</p>
+            <p>A typical session consists of a couple of 5 to 7 a-side games, each on a half pitch. The sessions are open to everyone, you don&#39;t have to be a club member to come along and new players are very welcome.</p>
+            <p>If you build up a thirst then there is usually a group of us going on for a drink or two afterwards at a nearby pub - a great way to get to know people in the club!</p>
+            <p>If you&#39;d like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to the session you wish to attend or else just
+                turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for students and the unwaged. If you&#39;re new to the club, your first session is free!</p>
+
+        {% else %}
+            <div class="section_header">
+                <h3>Pay &amp; Play</h3>
+            </div>
+            <p>Cambridge South also offers informal weekly hockey on Wednesday evenings from 7:30pm to 8:30pm at
+            <a href="{{ long_road_url }}">Long Road Sixth Form College</a> during the season.</p>
+            <p>A typical session consists of a 5 to 7 a-side game on a half pitch. The sessions are open to everyone, you don&#39;t have to be a club member to come along and new players are very welcome.</p>
+            <p>If you build up a thirst then there is usually a group of us going on for a drink or two afterwards at a nearby pub - a great way to get to know people in the club!</p>
+            <p>If you&#39;d like to play, either contact {% clubinfo_email 'SecretaryEmail' sec_name %} any time during the week prior to the session you wish to attend or else just
+                turn up at the pitch and introduce yourself. The cost is &pound;4 or &pound;2 for students and the unwaged. If you&#39;re new to the club, your first session is free!</p>
+
+        {% endif %}
     </div>
 
     <div class="span4">
         <img alt="" class="img-polaroid" width="240" src="{{ STATIC_URL }}media/Web%20site%20images/Leys_Pitch_5.jpg" />
         <ul class="unstyled details">
-            <li><i class="icon-time"></i>Thursdays 8:00-9:00pm</li>
-            <li><i class="icon-globe"></i>Wilberforce Road <br/>(the Uni's pitch)</li>
+            {% if in_season == 'out' %}
+                <li><i class="icon-time"></i>Thursdays 8:00-9:00pm</li>
+                <li><i class="icon-globe"></i>Wilberforce Road <br/>(the Uni's pitch)</li>
+            {% else %}
+                <li><i class="icon-time"></i>Wednesdays 7:30-8:30pm</li>
+                <li><i class="icon-globe"></i>Long Road</li>
+            {% endif %}
         </ul>
     </div>
 </div> <!-- class=row -->
