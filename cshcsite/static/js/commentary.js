@@ -7,11 +7,28 @@ $(function(){
 
     var Comment = Backbone.Model.extend({
 
+        // Default attributes for the comment item.
+        defaults: function() {
+          return {
+            author: null,
+            match: null,
+            comment_type: 0,
+            comment: "",
+            photo_url: "",
+            state: "Pending",
+            timestamp: null,
+            last_modified: null
+          };
+        },
+
     });
 
     var CommentList = Backbone.Collection.extend({
 
         model: Comment,
+
+        // Comments are sorted by descending timestamp order.
+        comparator: 'timestamp'
     });
 
     var Comments = new CommentList;
