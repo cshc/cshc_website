@@ -69,6 +69,6 @@ class Member(models.Model):
         """
         return u"{} {}".format(self.first_name, self.last_name)
 
-    def initial_and_surname(self):
-        return u"{} {}".format(self.first_name[0], self.last_name)
+    def first_name_and_initial(self):
+        return u"{} {}".format(self.first_name, self.last_name[0])
 

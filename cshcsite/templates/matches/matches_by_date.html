@@ -58,21 +58,21 @@ Currently just lists the values that will be needed by this template - no UI des
                         {% if m.mom_winners %}
                             <li><i class="icon icon-star"></i>
                             {% for mom in m.mom_winners %}
-                                <a href="{{ mom.member.get_absolute_url }}" title="{{ mom.comment }}">{{ mom.member.initial_and_surname }}</a>{% if not forloop.last %}, {% endif %}
+                                <a href="{{ mom.member.get_absolute_url }}" title="{{ mom.comment }}">{{ mom.member.first_name_and_initial }}</a>{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                             </li>
                         {% endif %}
                         {% if m.lom_winners %}
                             <li><i class="icon icon-lemon"></i>
                             {% for lom in m.lom_winners %}
-                                <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.initial_and_surname }}</a>{% if not forloop.last %}, {% endif %}
+                                <a href="{{ lom.member.get_absolute_url }}" title="{{ lom.comment }}">{{ lom.member.first_name_and_initial }}</a>{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                             </li>
                         {% endif %}
                         {% if m.scoring_appearances %}
                             <li><strong>Scorers:</strong>
                             {% for scorer in m.scoring_appearances %}
-                                <a href="{{ scorer.member.get_absolute_url }}">{{ scorer.member.initial_and_surname }}</a>{% if scorer.goals > 1 %}({{ scorer.goals }}){% endif %}{% if not forloop.last %}, {% endif %}
+                                <a href="{{ scorer.member.get_absolute_url }}">{{ scorer.member.first_name_and_initial }}</a>{% if scorer.goals > 1 %}({{ scorer.goals }}){% endif %}{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                             </li>
                         {% endif %}
