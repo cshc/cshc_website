@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     ),
 
     # REST API for match comments
-    url(r'^(?P<match_id>\d+)/comments/(?P<last_update>\d+)/$',
+    url(r'^(?P<match_id>\d+)/comments/since/(?P<last_update>\d+)/$',
         views.MatchCommentList.as_view(),
         name="latest_match_comments"
     ),
@@ -22,7 +22,7 @@ urlpatterns = patterns('',
         name="latest_match_comments_default"
     ),
 
-    url(r'^comments/(?P<pk>\d+)/$',
+    url(r'^(?P<match_id>\d+)/comments/(?P<pk>\d+)/$',
         views.MatchCommentDetail.as_view(),
         name="match_comment_detail"
     ),

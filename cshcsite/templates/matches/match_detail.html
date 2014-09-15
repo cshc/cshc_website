@@ -75,26 +75,14 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 {% include 'matches/_fixture_detail.html' %}
 {% endif %}
 
-{% if comments %}
-<div id="commentary" class="row">
+<div id="match-comments" class="row">
     <hr/>
     <h3>Live Match Updates</h3>
     <div class="span12">
-
-    </div>
-    <div class="span12 match_comments">
-        {% for comment in comments %}
-            <div class="media match_comment">
-                <i class="icon-thumbs-up icon-2x pull-left media-object"></i>
-                <div class="media-body">
-                    <p>{{ comment.comment }}</p>
-                </div>
-            </div>
-            <hr/>
-        {% endfor %}
+        <div id="match-comment-stats"></div>
+        <ul id="match-comment-list"></ul>
     </div>
 </div>
-{% endif %}
 
 <ul class="pager">
   <li class="previous{% if not prev_match %} disabled{% endif %}">
@@ -143,9 +131,30 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
     <script src="{{ STATIC_URL }}js/handlebars-v1.3.0.js"></script>
     <script src="{{ STATIC_URL }}js/underscore-min.js"></script>
     <script src="{{ STATIC_URL }}js/backbone-min.js"></script>
+    <script type="text/javascript">
+        var match_id = {{ match.id }};
+    </script>
     <script src="{{ STATIC_URL }}js/commentary.js"></script>
 
     {% if not match.is_in_past %}
         {% include "venues/_venue_map_js.html" with venue_address=match.venue.full_address %}
     {% endif %}
+
+    {% comment %}
+    Handlebars templates for Match Comments
+    {% endcomment %}
+
+    <script type="text/x-handlebars-template" id="comment-list-template">
+        <p>Last fetch: {{ last_fetch }}</p>
+    </script>
+
+    <script type="text/x-handlebars-template" id="comment-template">
+        <div class="media match_comment">
+            <i class="icon-thumbs-up icon-2x pull-left media-object"></i>
+            <div class="media-body">
+                <p>{{ comment }}</p>
+            </div>
+        </div>
+    </script>
+
 {% endblock body_js %}

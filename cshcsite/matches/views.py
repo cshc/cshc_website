@@ -478,11 +478,14 @@ class MatchCommentList(mixins.ListModelMixin,
         match_id = self.kwargs['match_id']
         last_update = kwargs_or_none('last_update', **self.kwargs)
         if last_update:
-            dt_last_update = datetime.utcfromtimestamp(time.mktime(time.gmtime(float(last_update))))
+            # Last update is in milliseconds since the epoch
+            dt_last_update = datetime.utcfromtimestamp(last_update/1000)
+            print "Last comment update: " + dt_last_update
             return MatchComment.objects.since(match_id, dt_last_update)
         else:
-            return MatchComment.objects.by_match(match_id)
-
+            comments = MatchComment.objects.by_match(match_id)
+            print "Fetched {} comments".format(comments.count())
+            return comments
 
     serializer_class = MatchCommentSerializer
 
