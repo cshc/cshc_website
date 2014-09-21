@@ -19,7 +19,7 @@ class ClubTeamAdmin(admin.ModelAdmin):
 
 
 class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):
-    search_fields = ('team', 'season', 'division')
+    search_fields = ('team__name', 'division__name')
     list_filter = ('team', 'season')
     list_display = ('__unicode__', 'team', 'season', 'division', 'division_tables_url', 'final_pos', 'division_result')
 

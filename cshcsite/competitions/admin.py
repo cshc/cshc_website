@@ -32,7 +32,7 @@ class DivisionAdmin(admin.ModelAdmin):
     model = Division
     list_display = ('__unicode__', 'league', 'name', 'gender')
     list_filter = ('league', 'gender')
-    search_fields = ('league', 'name')
+    search_fields = ('league__name', 'name')
 
 
 class LeagueAdmin(admin.ModelAdmin):

@@ -71,14 +71,14 @@ class MatchAdmin(admin.ModelAdmin):
             'fields': ['report_body']}),
     ]
     list_display = ('__unicode__', 'date', 'our_team', 'opp_team', 'venue')
-    search_fields = ('our_team', 'opp_team', 'venue')
+    search_fields = ('our_team__name', 'opp_team__name', 'venue__name')
     list_filter = ('our_team', 'opp_team', 'venue', 'fixture_type', 'home_away', 'season')
 
 
 class AppearanceAdmin(admin.ModelAdmin):
 
     model = Appearance
-    search_fields = ('member',)
+    search_fields = ('member__first_name', 'member__last_name')
     list_filter = ('green_card', 'yellow_card', 'red_card')
 
 
