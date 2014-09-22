@@ -1,14 +1,14 @@
 # Core Django framework
-Django==1.5
+Django==1.6
 
 # Support for using database URLs in settings
-dj-database-url==0.2.1
+dj-database-url==0.3.0
 
 # Python Imaging Library fork
-Pillow==2.1
+Pillow==2.5.3
 
 # Database migration
-South==0.8.2
+South==1.0
 
 # Useful tools for models
 django-model-utils==1.4
