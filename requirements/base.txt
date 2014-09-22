@@ -11,29 +11,29 @@ Pillow==2.5.3
 South==1.0
 
 # Useful tools for models
-django-model-utils==1.4
+django-model-utils==2.2
 
 # Support for mobile website detection etc
-django_mobile==0.3
+django_mobile==0.4
 
 # Generic reusable mixins for DJango
-django-braces==1.0.0
+django-braces==1.4.0
 
 # (used by django-ical) Extensions to the standard Python datetime module
-python-dateutil==2.1
+python-dateutil==2.2
 
 # (django-ical) iCalendar parser/generator
 pytz>=2013b
-icalendar==3.5
+icalendar==3.8
 
 # iCal feeds based on Django's syndication framework
 django-ical==1.2
 
 # Website scraper
-beautifulsoup4==4.2
+beautifulsoup4==4.3
 
 # Modern theme for Django admin interface
-django-suit==0.2.5
+django-suit==0.2
 
 # WYSIWYG editor integration
 django-suit-redactor==0.0.2
@@ -42,10 +42,10 @@ django-suit-redactor==0.0.2
 sorl-thumbnail==11.12
 
 # Twitter API v1.1 support
-twython==3.0
+twython==3.1
 
 # Filtering support for list views
-django-filter==0.6
+django-filter==0.7
 
 # Pagination template tags
 django-pagination==1.0.7
@@ -60,15 +60,15 @@ django-disqus==0.4
 django-maintenancemode==0.10
 
 # Static file serving
-dj-static==0.0.5
+dj-static==0.0.6
 
 # Feedback form
 django-basic-feedback==1.0
 
 # Storage (e.g. Amazon S3)
-boto==2.10.0
+boto==2.32
 django-storages
-django-s3-folder-storage==0.1
+django-s3-folder-storage==0.2
 
 # Html and Text based emails
 # The official one does not support settings.AUTH_USER_MODEL
@@ -77,7 +77,7 @@ django-s3-folder-storage==0.1
 
 # Database backup
 simples3==1.0
-django-dbbackup==1.80.1
+django-dbbackup==2.0.3
 
 # Two-phase registration support (forked)
 django-registration==1.0
