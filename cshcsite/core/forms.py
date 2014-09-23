@@ -1,9 +1,30 @@
 from django import forms
 from django.contrib.flatpages.models import FlatPage
+from django.db.models import ManyToManyRel
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from suit_redactor.widgets import RedactorWidget
 from .models import ContactSubmission, CshcUser
+from zinnia.models import Entry, Category
+from zinnia.admin.forms import EntryAdminForm
 
+
+# Override the provided form and add support for WYSIWYG entry.
+# Also removed reference to unused field 'sites'
+class ZinniaEntryAdminForm(EntryAdminForm):
+    def __init__(self, *args, **kwargs):
+        forms.ModelForm.__init__(self, *args, **kwargs)
+        rel = ManyToManyRel(Category, 'id')
+        self.fields['categories'].widget = RelatedFieldWidgetWrapper(
+            self.fields['categories'].widget, rel, self.admin_site)
+
+    class Meta:
+        model = Entry
+        fields = forms.ALL_FIELDS
+        widgets = {
+            'content': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 400}),
+            'excerpt': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 200})
+        }
 
 class FlatPageForm(forms.ModelForm):
     """Form for the FlatPage model - uses a Redactor widget"""

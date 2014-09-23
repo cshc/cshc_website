@@ -209,9 +209,11 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # Useful template tags:
     'django.contrib.humanize',
+
+    # Used by Zinnia blog app
+    'django_comments',
 
     # Admin panel and documentation:
     'suit', # http://django-suit.readthedocs.org/en/develop/#installation (must come before django.contrib.admin)
@@ -237,6 +239,9 @@ THIRD_PARTY_APPS = (
     'dbbackup',
     'registration',
     'suit_redactor',
+    'tagging',
+    'mptt',
+    'zinnia',
 )
 
 # Apps specific for this project go here.
@@ -521,3 +526,10 @@ DBBACKUP_S3_DIRECTORY = 'django-dbbackups/'
 # Ref: https://django-registration.readthedocs.org/en/latest/quickstart.html
 ACCOUNT_ACTIVATION_DAYS = 7
 ########## END django-registration CONFIGURATION
+
+########## django-blog-zinnia CONFIGURATION
+# Ref: http://django-blog-zinnia.readthedocs.org/en/v0.14.1/ref/settings.html
+# disable comments, pingbacks and trackbacks completely (we'll use disqus)
+ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0
+ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0
+ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0

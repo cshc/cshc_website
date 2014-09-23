@@ -1,10 +1,12 @@
 {% extends "base.html" %}
-{% load core_tags %}
+{% load core_tags zinnia_tags i18n staticfiles %}
 
-{% block head_css %}
+{% block link %}
 {{ block.super }}
 <link href="{{ STATIC_URL }}clean_canvas/css/lib/animate.css" media="screen, projection" rel="stylesheet" >
-{% endblock head_css %}
+<link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "css/zinnia/screen.css" %}" />
+<link rel="stylesheet" type="text/css" media="print" href="{% static "css/zinnia/print.css" %}" />
+{% endblock link %}
 
 {% block title %}{{ block.super }} | Home{% endblock %}
 
@@ -62,6 +64,10 @@
 </div>
 <hr/>
 
+<div id="widget-recents" class="widget zinnia">
+  {% get_featured_entries template="zinnia/tags/entries_slider.html" %}
+</div>
+
 <div id="social-feeds" class="row">
     <div class="span6">
         <div id="twitter-feed" class="box side-box">
@@ -91,4 +97,19 @@ Commented out until we've moved the Cookie Control API Key to the main site
 {% endcomment %}
 <script src="http://twitter.com/javascripts/blogger.js" type="text/javascript"></script>
 <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+<script type="text/javascript" src="{% static "zinnia/js/jquery.flexslider.js" %}"></script>
+<script type="text/javascript">
+  jQuery(window).load(function() {
+    jQuery(".slider").flexslider({
+           controlsContainer: ".slider",
+           animation: "fade",
+           slideshow: true,
+           directionNav: true,
+           controlNav: true,
+           pauseOnHover: true,
+           slideshowSpeed: 7000,
+           animationDuration: 600
+    });
+  });
+</script>
 {% endblock body_js %}

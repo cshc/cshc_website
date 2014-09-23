@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load zinnia_tags i18n staticfiles %}
+
+{% block meta-keywords %}{% get_tags as entry_tags %}{{ entry_tags|join:", "}}{% endblock meta-keywords %}
+
+{% block meta %}
+    <meta name="generator" content="Zinnia {{ ZINNIA_VERSION }}" />
+{% endblock meta %}
+
+{% block link %}
+    {{ block.super }}
+    <link rel="index" href="{% url 'zinnia:entry_archive_index' %}" />
+    <link rel="author" type="text/plain" href="{% url 'zinnia:humans' %}" />
+    <link rel="EditURI" type="application/rsd+xml" href="{% url 'zinnia:rsd' %}" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="{% url 'zinnia:wlwmanifest' %}" />
+    <link rel="search" type="application/opensearchdescription+xml" title="CSHC blog" href="{% url 'zinnia:opensearch' %}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of latest entries" %}" href="{% url 'zinnia:entry_latest_feed' %}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of latest discussions" %}" href="{% url 'zinnia:discussion_latest_feed' %}" />
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "css/zinnia/screen.css" %}" />
+    <link rel="stylesheet" type="text/css" media="print" href="{% static "css/zinnia/print.css" %}" />
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "css/zinnia/ie.css" %}" />
+    <![endif]-->
+    {% get_archives_entries "zinnia/tags/entries_archives_link.html" %}
+{% endblock link %}
+
+{% block content %}
+{% block breadcrumbs %}
+  {% zinnia_breadcrumbs %}
+{% endblock breadcrumbs %}
+
+<div class="zinnia right-sidebar">
+{% block slider %}{% endblock slider %}
+
+<div id="content" class="hfeed">
+{% block blog-content %}
+<div class="links">
+    <h2>{% trans "Useful links" %}</h2>
+    <ul>
+      <li>
+        <a href="{% url 'zinnia:entry_archive_index' %}" title="{% trans "Weblog index" %}">
+          {% trans "Weblog index" %}
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'zinnia:sitemap' %}" title="{% trans "Sitemap" %}">
+          {% trans "Sitemap" %}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="search">
+    <h2>{% trans "Search" %}</h2>
+    {% include "zinnia/tags/search_form.html" %}
+  </div>
+{% endblock blog-content %}
+</div>
+
+<div id="sidebar" class="box">
+{% block sidebar %}
+<div id="blog-search" class="search">
+    {% include "zinnia/tags/search_form.html" %}
+</div>
+<div id="widget-categories" class="widget">
+  <h3>
+    <a href="{% url 'zinnia:category_list' %}">{% trans "Categories" %}</a>
+  </h3>
+  {% get_categories %}
+</div>
+<div id="widget-authors" class="widget">
+  <h3>
+    <a href="{% url 'zinnia:author_list' %}">{% trans "Authors" %}</a>
+  </h3>
+  {% get_authors %}
+</div>
+<div id="widget-calendar" class="widget">
+  <h3>{% trans "Calendar" %}</h3>
+  {% get_calendar_entries %}
+</div>
+<div id="widget-tags" class="widget">
+  <h3>
+    <a href="{% url 'zinnia:tag_list' %}">{% trans "Tags" %}</a>
+  </h3>
+  {% get_tag_cloud %}
+</div>
+<div id="widget-recents" class="widget">
+  <h3>{% trans "Recent entries" %}</h3>
+  {% get_recent_entries %}
+</div>
+<div id="widget-archives" class="widget">
+  <h3>{% trans "Archives" %}</h3>
+  {% get_archives_entries_tree %}
+</div>
+{% if user.is_authenticated %}
+<div id="widget-tools" class="widget">
+  {% if perms.zinnia %}
+  <h3>{% trans "Tools" %}</h3>
+  <ul>
+    <li>
+      <a href="{% url 'admin:app_list' 'zinnia' %}" title="{% trans "Dashboard" %}">
+        {% trans "Dashboard" %}
+      </a>
+    </li>
+    {% if perms.zinnia.add_entry %}
+    <li>
+      <a href="{% url 'admin:zinnia_entry_add' %}" title="{% trans "Post an entry" %}">
+        {% trans "Post an entry" %}
+      </a>
+    </li>
+    {% endif %}
+    {% block admin-tools %}
+    {% endblock admin-tools %}
+    <li>
+      <a href="{% url 'admin:logout' %}" title="{% trans "Log out" %}">
+        {% trans "Log out" %}
+      </a>
+    </li>
+  </ul>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock sidebar %}
+</div>
+</div>
+{% endblock content %}
+
+{% block body_js %}
+{{ block.super }}
+<script type="text/javascript" src="{% static "zinnia/js/jquery.flexslider.js" %}"></script>
+<script type="text/javascript">
+  jQuery(window).load(function() {
+    jQuery(".slider").flexslider({
+           controlsContainer: ".slider",
+           animation: "fade",
+           slideshow: true,
+           directionNav: true,
+           controlNav: true,
+           pauseOnHover: true,
+           slideshowSpeed: 7000,
+           animationDuration: 600
+    });
+  });
+</script>
+{% endblock body_js %}

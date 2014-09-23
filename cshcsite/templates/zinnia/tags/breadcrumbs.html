@@ -1,0 +1,12 @@
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    {% for crumb in breadcrumbs %}
+    <li>
+        {% if crumb.url %}
+            <a href="{{ crumb.url }}" title="{{ crumb.name }}">{{ crumb.name }}</a><span class="divider">/</span>
+        {% else %}
+            {{ crumb.name }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>

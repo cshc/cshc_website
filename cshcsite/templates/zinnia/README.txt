@@ -1,0 +1,1 @@
+These templates were copied from the Zinnia app (v0.14.2). Some of them were then edited to suit the CSHC website requirements. If the Zinnia app is upgraded, these templates may need to be manually merged with the upgraded app's templates.

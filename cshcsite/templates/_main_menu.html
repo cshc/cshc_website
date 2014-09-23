@@ -15,6 +15,8 @@
 {% url 'calendar' as calendar %}
 {% url 'members_offers' as members_offers %}
 
+{% url 'zinnia:entry_archive_index' as blog %}
+
 {% url 'clubteam_list' as team_list %}
 {% url 'clubteam_detail' 'm1' as team_m1 %}
 {% url 'clubteam_detail' 'm2' as team_m2 %}
@@ -90,6 +92,7 @@
         <li><a href="{{ about_us }}" class="{% active about_us %}">About Us</a></li>
         <li><a href="{{ pitch_directions }}" class="{% active pitch_directions %}">Pitch Directions</a></li>
         <li><a href="{{ training }}" class="{% active training %}">Training</a></li>
+        <li><a href="{{ blog }}" class="{% active blog %}">News</a></li>
         <li><a href="{{ social }}" class="{% active social %}">Social</a></li>
         <li><a href="{{ kit }}" class="{% active kit %}">Kit</a></li>
         <li><a href="{{ fees }}" class="{% active fees %}">Fees</a></li>
