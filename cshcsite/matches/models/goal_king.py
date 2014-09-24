@@ -19,6 +19,10 @@ class GoalKingManager(models.Manager):
         """Filters the GoalKing entries by the specified season - and orders them in descending total number of goals"""
         return self.get_query_set().filter(season=season).order_by('-total_goals')
 
+    def accidental_tourist(self, season):
+        """Filters the GoalKing entries by the specified season - and orders them in descending total number of miles travelled"""
+        return self.get_query_set().filter(season=season).order_by('-total_miles')
+
 
 class GoalKing(models.Model):
     """
@@ -35,6 +39,9 @@ class GoalKing(models.Model):
 
     # The total number of games the member played in the season
     games_played = models.PositiveSmallIntegerField("Number of games played", default=0)
+
+    # The total number of miles travelled to matches by this member in this season
+    total_miles = models.PositiveIntegerField(default=0)
 
     # Goal tallies for each team
     m1_goals = models.PositiveSmallIntegerField("Goals for Mens 1sts", default=0)
@@ -82,6 +89,11 @@ class GoalKing(models.Model):
 
         super(GoalKing, self).save(*args, **kwargs)
 
+    def miles_per_game(self):
+        """ Returns the average number of miles travelled to a game.
+        """
+        return float(self.total_miles) / float(self.games_played)
+
     def goals_per_game(self):
         """Returns the number of goals scored per game"""
         if self.games_played == 0:
@@ -93,8 +105,9 @@ class GoalKing(models.Model):
         return self.member.gender
 
     def reset(self):
-        """ Resets all goal tallies to zero """
-        self.games_played = 0;
+        """ Resets all tallies to zero """
+        self.total_miles = 0
+        self.games_played = 0
         self.m1_goals = 0
         self.m2_goals = 0
         self.m3_goals = 0
@@ -119,6 +132,13 @@ class GoalKing(models.Model):
     def add_appearance(self, appearance):
         """Adds the details of an appearance to the GoalKing stat"""
         self.games_played += 1
+
+        # Add the 'return distance' to the venue to the total miles travelled
+        if appearance.match.venue.distance is not None:
+            self.total_miles += appearance.match.venue.distance * 2
+        else:
+            log.warn("{} has no distance specified".format(appearance.match.venue))
+
         if appearance.goals == 0 and appearance.own_goals == 0:
             return
 
@@ -163,7 +183,9 @@ class GoalKing(models.Model):
 
     @staticmethod
     def update_for_season(season):
-        """Updates the GoalKing entries for the specified season based on the Appearances in that season"""
+        """ Updates the GoalKing entries for the specified season based on the
+            Appearances in that season.
+        """
         log.info("Updating Goal King stats for {}".format(season))
         gk_entries = GoalKing.objects.by_season(season).select_related('member__user')
         log.debug("Retrieved {} goal king entries".format(gk_entries.count()))
@@ -176,7 +198,7 @@ class GoalKing(models.Model):
             gk_lookup[gk.member_id] = gk
 
         # We just want the member id, the match team, the number of goals scored (and own goals)
-        appearances = Appearance.objects.by_season(season).select_related('match__our_team').filter(match__ignore_for_goal_king=False).only('member', 'goals', 'own_goals', 'match__our_team')
+        appearances = Appearance.objects.by_season(season).select_related('match__our_team', 'match__venue').filter(match__ignore_for_goal_king=False).only('member', 'goals', 'own_goals', 'match__our_team', 'match__venue')
         log.debug("Retrieved {} appearance entries for {}".format(appearances.count(), season))
 
         for appearance in appearances:

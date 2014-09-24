@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% comment %}
+Formatted display of the Accidental Tourist table for a particular season.
+- Used by accidental_tourist and accidental_tourist_season
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Accidental Tourist{% endblock %}
+
+{% block body_id %}accidental-tourist{% endblock body_id %}
+
+{% block content %}
+{% url 'accidental_tourist' as base_accidental_tourist_url %}
+{% url 'stats' as stats_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ stats_url }}">Stats</a> <span class="divider">/</span></li>
+  <li class="active">Accidental Tourist</li>
+</ul>
+
+<div class="page-header">
+  <h1>Accidental Tourist <small>{{ season }}</small><div class="pull-right">{% include 'core/_season_selector.html' with url_prefix=base_accidental_tourist_url %}</div></h1>
+</div>
+
+<p class="lead">This table shows the total miles and miles-per-game travelled by each player during the season.</p>
+
+<p class="lead">Ranking for ladies is in <span class='label label-female'>blue</span> and men in <span class='label label-male'>green</span>. 'MPG' is the average number of miles travelled (there and back) per game played.</p>
+
+<div id="accidental-tourist-table">
+{% include 'matches/_accidental_tourist_table.html' %}
+</div>
+{% if user.is_staff %}
+<button id="refresh-btn" class="btn btn-primary" type="button" title="Refresh Accidental Tourist stats for {{ season }} (this might take a while)" ><i id="refresh-icon" class="icon icon-refresh"></i><span id="refresh-text">Refresh</span></button>
+{% endif %}
+
+{% endblock %}
+
+{% block body_js %}
+{{ block.super }}
+
+{% url 'accidental_tourist_season_update' season.slug as refresh_accidental_tourist %}
+<script>
+{% if user.is_staff %}
+    $("#refresh-btn").click( function() {
+        $("#refresh-icon").addClass('icon-spin');
+        $("#refresh-text").text('Refreshing...');
+        $('#refresh-btn').attr("disabled", true);
+        $.ajax({
+            url: '{{ refresh_accidental_tourist }}', cache: false, success: function (result) {
+                $("#accidental-tourist-table").html(result);
+                $("#refresh-icon").removeClass('icon-spin');
+                $("#refresh-text").text('Refresh');
+                $('#refresh-btn').attr("disabled", false);
+            }
+        });
+    });
+{% endif %}
+</script>
+{% endblock body_js %}

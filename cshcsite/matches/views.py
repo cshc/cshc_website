@@ -285,3 +285,81 @@ class GoalKingSeasonUpdateView(GoalKingMixin, AjaxGeneral):
         GoalKing.update_for_season(season)
 
         return {'goalking_list': self.get_goalking_list(season)}
+
+
+
+
+
+class AccidentalTouristMixin(object):
+    """Provides useful methods for AccidentalTourist related views"""
+
+    def get_goalking_list(self, season):
+        """Returns a list of GoalKing items for the specified season"""
+
+        # We convert the queryset to a list so we can add a 'rank' attribute to each item
+        goalking_list = list(GoalKing.objects.accidental_tourist(season))
+
+        # Apply ranking
+        if len(goalking_list) > 0:
+            rank = 1
+            previous = goalking_list[0]
+            previous.rank = 1
+            for i, entry in enumerate(goalking_list[1:]):
+                if entry.total_miles != previous.total_miles:
+                    rank = i + 2
+                    entry.rank = str(rank)
+                else:
+                    entry.rank = "%s=" % rank
+                    previous.rank = entry.rank
+                previous = entry
+
+        return goalking_list
+
+
+class AccidentalTouristSeasonView(AccidentalTouristMixin, TemplateView):
+    """ View for displaying the Accidental Tourist (total miles travelled)
+        stats for a particular season
+    """
+    template_name = 'matches/accidental_tourist.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Gets the context data for the view.
+
+        In addition to the 'goalking_list' item, the following are also added to the context:
+            - season:               the season these stats applies to
+            - season_list:          a list of all seasons
+        """
+        context = super(AccidentalTouristSeasonView, self).get_context_data(**kwargs)
+
+        # If we're viewing this season's stats we may not have a season_slug keyword arg.
+        season_slug = kwargs_or_none('season_slug', **kwargs)
+        if season_slug is not None:
+            season = Season.objects.get(slug=season_slug)
+        else:
+            season = Season.current()
+
+        context['goalking_list'] = self.get_goalking_list(season)
+
+        context['season'] = season
+        context['season_list'] = Season.objects.all().order_by("-start")
+        return context
+
+
+class AccidentalTouristSeasonUpdateView(AccidentalTouristMixin, AjaxGeneral):
+    """ View for updating and then displaying Accidental Tourist stats for a
+        particular season
+    """
+    template_name = 'matches/_accidental_tourist_table.html'
+
+    def get_template_context(self, **kwargs):
+        """
+        Updates the AccidentalTourist stats for the specified season and then returns
+        the context data for the template, containing just a 'goalking_list' item
+        """
+        # The season_slug keyword arg should always be supplied to this view
+        season_slug = kwargs['season_slug']
+        season = Season.objects.get(slug=season_slug)
+        GoalKing.update_for_season(season)
+
+        return {'goalking_list': self.get_goalking_list(season)}

@@ -65,6 +65,24 @@ urlpatterns = patterns('',
         name="goal_king_season_update"
     ),
 
+    # E.g. '/matches/accidental-tourist/'
+    url(r'^accidental-tourist/$',
+        views.AccidentalTouristSeasonView.as_view(),
+        name="accidental_tourist"
+    ),
+
+    # E.g. '/matches/accidental-tourist/2011-2012/'
+    url(r'^accidental-tourist/(?P<season_slug>[-\w]+)/$',
+        views.AccidentalTouristSeasonView.as_view(),
+        name="accidental_tourist_season"
+    ),
+
+    # E.g. '/matches/accidental-tourist/2011-2012/ajax/'
+    url(r'^accidental-tourist/(?P<season_slug>[-\w]+)/ajax/$',
+        views.AccidentalTouristSeasonUpdateView.as_view(),
+        name="accidental_tourist_season_update"
+    ),
+
     # Feeds
     url(r'^feed/rss/$',                          # RSS feed of match reports
         feeds.RssMatchReportsFeed(),

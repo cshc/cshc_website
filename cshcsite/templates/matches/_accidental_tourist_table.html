@@ -1,0 +1,22 @@
+{% load core_tags %}
+
+<table class="table table-condensed table-hover table-center-align">
+    <thead>
+        <tr><th>Rank</th>
+        <th class="left-align">Name</th>
+        <th class="priority2"><abbr title="Total games played">Played</abbr></th>
+        <th><abbr title="Total miles travelled">Miles</abbr></th>
+        <th><abbr title="Miles per game">MPG</abbr></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for gk in goalking_list %}
+        <tr>
+            <td><span class="label label-{{ gk.member.gender|lower }}">{{ gk.rank }}</span></td>
+            <td class="left-align">{{ gk.member|urlise_model }}</td>
+            <td class="priority2">{{ gk.games_played|default:"" }}</td>
+            <td>{{ gk.total_miles }}</td>
+            <td>{{ gk.miles_per_game|floatformat:1 }}</td>
+    {% endfor %}
+    </tbody>
+</table>
