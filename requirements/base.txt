@@ -39,7 +39,7 @@ django-suit==0.2
 django-suit-redactor==0.0.2
 
 # Support for (cached) thumbnails
-sorl-thumbnail==11.12
+sorl-thumbnail==11.12.1b
 
 # Twitter API v1.1 support
 twython==3.1
