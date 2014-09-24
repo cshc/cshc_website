@@ -15,7 +15,7 @@ from competitions.models import Division, Season, DivisionResult
 from matches.models import Match, Appearance
 from awards.models import MatchAwardWinner, MatchAward
 from members.models import Member
-from .stats import SquadMember, update_clubstats_for_season
+from .stats import SquadMember, update_clubstats_for_season, update_participation_stats
 from .league_scraper import get_east_leagues_nw_division
 from .models import ClubTeam, ClubTeamSeasonParticipation, TeamCaptaincy, Southerner
 
@@ -279,3 +279,23 @@ class SouthernersSeasonUpdateView(SouthernersMixin, AjaxGeneral):
         update_clubstats_for_season(season)
 
         return {'team_list': self.get_southerners_list(season)}
+
+
+
+class ParticipationUpdateView(AjaxGeneral):
+    """ View for updating and then displaying Club Team stats for a
+        particular season
+    """
+    template_name = 'teams/_participation_stats.html'
+
+    def get_template_context(self, **kwargs):
+        """
+        Updates the Club Team stats for the specified season and then returns
+        the context data for the template, containing just a 'participation' item
+        """
+        # The season_slug keyword arg should always be supplied to this view
+        participation_id = kwargs['participation_id']
+        participation = ClubTeamSeasonParticipation.objects.get(pk=participation_id)
+        update_participation_stats(participation)
+
+        return {'participation': participation}

@@ -92,6 +92,8 @@ class GoalKing(models.Model):
     def miles_per_game(self):
         """ Returns the average number of miles travelled to a game.
         """
+        if self.games_played == 0:
+            return 0.0
         return float(self.total_miles) / float(self.games_played)
 
     def goals_per_game(self):

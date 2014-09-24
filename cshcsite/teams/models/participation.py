@@ -75,8 +75,30 @@ class ClubTeamSeasonParticipation(models.Model):
     blurb = models.TextField(blank=True)
     """Some optional comments about the team this season."""
 
-    objects = PassThroughManager.for_queryset_class(ClubTeamSeasonParticipationQuerySet)()
+    # Statistics (updated with a script on a regular basis for the current season)
 
+    friendly_played = models.PositiveSmallIntegerField("Friendly games played", default=0)
+    friendly_won = models.PositiveSmallIntegerField("Friendly games won", default=0)
+    friendly_drawn = models.PositiveSmallIntegerField("Friendly games drawn", default=0)
+    friendly_lost = models.PositiveSmallIntegerField("Friendly games lost", default=0)
+    friendly_goals_for = models.PositiveSmallIntegerField("Friendly goals for", default=0)
+    friendly_goals_against = models.PositiveSmallIntegerField("Friendly goals against", default=0)
+
+    cup_played = models.PositiveSmallIntegerField("Cup games played", default=0)
+    cup_won = models.PositiveSmallIntegerField("Cup games won", default=0)
+    cup_drawn = models.PositiveSmallIntegerField("Cup games drawn", default=0)
+    cup_lost = models.PositiveSmallIntegerField("Cup games lost", default=0)
+    cup_goals_for = models.PositiveSmallIntegerField("Cup goals for", default=0)
+    cup_goals_against = models.PositiveSmallIntegerField("Cup goals against", default=0)
+
+    league_played = models.PositiveSmallIntegerField("League games played", default=0)
+    league_won = models.PositiveSmallIntegerField("League games won", default=0)
+    league_drawn = models.PositiveSmallIntegerField("League games drawn", default=0)
+    league_lost = models.PositiveSmallIntegerField("League games lost", default=0)
+    league_goals_for = models.PositiveSmallIntegerField("League goals for", default=0)
+    league_goals_against = models.PositiveSmallIntegerField("League goals against", default=0)
+
+    objects = PassThroughManager.for_queryset_class(ClubTeamSeasonParticipationQuerySet)()
 
     class Meta:
         app_label = 'teams'
@@ -107,3 +129,90 @@ class ClubTeamSeasonParticipation(models.Model):
 
         super(ClubTeamSeasonParticipation, self).save(*args, **kwargs)
 
+    def total_played(self):
+        return self.friendly_played + self.cup_played + self.league_played
+
+    def total_won(self):
+        return self.friendly_won + self.cup_won + self.league_won
+
+    def total_drawn(self):
+        return self.friendly_drawn + self.cup_drawn + self.league_drawn
+
+    def total_lost(self):
+        return self.friendly_lost + self.cup_lost + self.league_lost
+
+    def total_goals_for(self):
+        return self.friendly_goals_for + self.cup_goals_for + self.league_goals_for
+
+    def total_goals_against(self):
+        return self.friendly_goals_against + self.cup_goals_against + self.league_goals_against
+
+    def friendly_goals_per_game(self):
+        if self.friendly_played == 0:
+            return 0.0
+
+        return float(self.friendly_goals_for) / float(self.friendly_played)
+
+    def cup_goals_per_game(self):
+        if self.cup_played == 0:
+            return 0.0
+
+        return float(self.cup_goals_for) / float(self.cup_played)
+
+    def league_goals_per_game(self):
+        if self.league_played == 0:
+            return 0.0
+
+        return float(self.league_goals_for) / float(self.league_played)
+
+    def total_goals_per_game(self):
+        if self.total_played() == 0:
+            return 0.0
+
+        return float(self.total_goals_for()) / float(self.total_played())
+
+    def total_points(self):
+        return (Match.POINTS_FOR_WIN * self.total_won()) + (Match.POINTS_FOR_DRAW * self.total_drawn()) + (Match.POINTS_FOR_LOSS * self.total_lost())
+
+    def avg_goals_for(self):
+        """Returns the average number of goals scored per game in matches played by this team in this season"""
+        if self.total_played() == 0:
+            return 0.0
+
+        return float(self.total_goals_for()) / float(self.total_played())
+
+    def avg_goals_against(self):
+        """Returns the average number of goals scored per game by the opposition in matches played by this team in this season"""
+        if self.total_played() == 0:
+            return 0.0
+
+        return float(self.total_goals_against()) / float(self.total_played())
+
+    def avg_points(self):
+        """Returns the average number of points per game in matches played by this team in this season"""
+        if self.total_played() == 0:
+            return 0.0
+
+        return float(self.total_points()) / float(self.total_played())
+
+
+    def reset(self):
+        """ Resets all tallies to zero """
+        self.friendly_played = 0
+        self.friendly_won = 0
+        self.friendly_drawn = 0
+        self.friendly_lost = 0
+        self.friendly_goals_for = 0
+        self.friendly_goals_against = 0
+        self.cup_played = 0
+        self.cup_won = 0
+        self.cup_drawn = 0
+        self.cup_lost = 0
+        self.cup_goals_for = 0
+        self.cup_goals_against = 0
+        self.league_played = 0
+        self.league_won = 0
+        self.league_drawn = 0
+        self.league_lost = 0
+        self.league_goals_for = 0
+        self.league_goals_against = 0

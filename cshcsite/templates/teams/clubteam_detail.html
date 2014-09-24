@@ -58,7 +58,7 @@ Currently just lists the values that will be needed by this template - no UI des
             <p>{{ clubteam.blurb|safe }}</p>
         {% endif %}
 
-        <table class="table table-clean table-hcondensed">
+        <table id="captains-table" class="table table-clean table-hcondensed">
         <tbody>
             <tr><td class="dt">Captain:</td>
             {% if captain %}
@@ -96,6 +96,12 @@ Currently just lists the values that will be needed by this template - no UI des
                 {% model_admin_links 'teams' 'clubteamseasonparticipation' %}
             {% endif %}
         </div>
+        <div id="participation-stats-table">
+            {% include "teams/_participation_stats.html" %}
+        </div>
+        {% if user.is_staff %}
+            <button id="refresh-btn" class="btn btn-primary" type="button" title="Refresh Team stats for {{ participation.season }}" ><i id="refresh-icon" class="icon icon-refresh"></i><span id="refresh-text">Refresh</span></button>
+        {% endif %}
     </div>
     <div class="span6">
         <img src="{% if participation.team_photo %}{{ participation.team_photo.url }}{% else %}{{ STATIC_URL }}media/team_photos/placeholder.jpg{% endif %}" class="img-rounded pull-right team-photo"></img>
@@ -113,11 +119,28 @@ Currently just lists the values that will be needed by this template - no UI des
 {{ block.super }}
 
 {% url 'clubteam_stats_ajax' clubteam.slug season.pk as clubteam_stats %}
+{% url 'participation_update' participation.pk as refresh_participation_stats %}
 
 <script>
     $(function () {
         ajax_load('{{ clubteam_stats }}', 'clubteam-info');
     });
+    {% if user.is_staff %}
+    $("#refresh-btn").click( function() {
+        $("#refresh-icon").addClass('icon-spin');
+        $("#refresh-text").text('Refreshing...');
+        $('#refresh-btn').attr("disabled", true);
+        $.ajax({
+            url: '{{ refresh_participation_stats }}', cache: false, success: function (result) {
+                $("#participation-stats-table").html(result);
+                $("#refresh-icon").removeClass('icon-spin');
+                $("#refresh-text").text('Refresh');
+                $('#refresh-btn').attr("disabled", false);
+            }
+        });
+    });
+    {% endif %}
+
 </script>
 
 {% endblock body_js %}

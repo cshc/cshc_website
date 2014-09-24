@@ -52,6 +52,12 @@ urlpatterns = patterns('',
         name="clubteam_match_rss_feed"
     ),
 
+    # E.g. '/teams/participation/23/ajax/'
+    url(r'^participation/(?P<participation_id>\d+)/ajax/$',
+        views.ParticipationUpdateView.as_view(),
+        name="participation_update"
+    ),
+
     # AJAX urls
      # E.g. /teams/m1/stats/3/ajax/'
     url(r'^(?P<slug>[-\w]+)/stats/(?P<season_pk>\d+)/ajax/$', views.ClubTeamStatsView.as_view(), name='clubteam_stats_ajax'),

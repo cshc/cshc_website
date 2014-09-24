@@ -402,6 +402,7 @@ Page-specific
 #match-detail .match-report p { font-size: 120%; }
 #match-detail .row.quick-links { margin-bottom: 10px;}
 #match-detail .media-body h5 {margin-top: 0px;}
+#team-detail #captains-table {margin-bottom: 5px; }
 #team-detail .row.quick-links { margin-left: 0px; }
 #team-detail #clubteam-info {margin-top: 20px;}
 

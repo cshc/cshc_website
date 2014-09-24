@@ -1,0 +1,56 @@
+<table class="table table-striped table-hover table-condensed table-center-align table-middle-align">
+    <thead>
+        <tr>
+            <th></th>
+            <th><abbr title="Played">P</abbr></th>
+            <th><abbr title="Won">W</abbr></th>
+            <th><abbr title="Drawn">D</abbr></th>
+            <th><abbr title="Lost">L</abbr></th>
+            <th><abbr title="Goals for">GF</abbr></th>
+            <th><abbr title="Goals against">GA</abbr></th>
+            <th><abbr title="Goals per game">GPG</abbr></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="left-align">Friendly</td>
+            <td>{{ participation.friendly_played }}</td>
+            <td>{{ participation.friendly_won }}</td>
+            <td>{{ participation.friendly_drawn }}</td>
+            <td>{{ participation.friendly_lost }}</td>
+            <td>{{ participation.friendly_goals_for }}</td>
+            <td>{{ participation.friendly_goals_against }}</td>
+            <td>{{ participation.friendly_goals_per_game|floatformat:1 }}</td>
+        </tr>
+        <tr>
+            <td class="left-align">Cup</td>
+            <td>{{ participation.cup_played }}</td>
+            <td>{{ participation.cup_won }}</td>
+            <td>{{ participation.cup_drawn }}</td>
+            <td>{{ participation.cup_lost }}</td>
+            <td>{{ participation.cup_goals_for }}</td>
+            <td>{{ participation.cup_goals_against }}</td>
+            <td>{{ participation.cup_goals_per_game|floatformat:1 }}</td>
+        </tr>
+        <tr>
+            <td class="left-align">League</td>
+            <td>{{ participation.league_played }}</td>
+            <td>{{ participation.league_won }}</td>
+            <td>{{ participation.league_drawn }}</td>
+            <td>{{ participation.league_lost }}</td>
+            <td>{{ participation.league_goals_for }}</td>
+            <td>{{ participation.league_goals_against }}</td>
+            <td>{{ participation.league_goals_per_game|floatformat:1 }}</td>
+        </tr>
+        <tr class="info total">
+            <td class="left-align">Total</td>
+            <td>{{ participation.total_played }}</td>
+            <td>{{ participation.total_won }}</td>
+            <td>{{ participation.total_drawn }}</td>
+            <td>{{ participation.total_lost }}</td>
+            <td>{{ participation.total_goals_for }}</td>
+            <td>{{ participation.total_goals_against }}</td>
+            <td>{{ participation.total_goals_per_game|floatformat:1 }}</td>
+        </tr>
+    </tbody>
+</table>

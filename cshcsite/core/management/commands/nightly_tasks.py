@@ -6,6 +6,7 @@ from teams.stats import update_clubstats_for_season
 from opposition.stats import update_all_club_stats
 from teams.models import ClubTeamSeasonParticipation
 from teams import league_scraper
+from teams.stats import update_participation_stats_for_season
 
 # To run:
 # cron 0 2 * * * python /home/rgagarrett/new_site/repo/cshcsite/manage.py nightly_tasks >/dev/null
@@ -32,6 +33,12 @@ class Command(BaseCommand):
             update_all_club_stats()
         except Exception as e:
             errors.add("Failed to update Opposition Club Stats: {}".format(e))
+
+        try:
+            # Update ClubTeamSeasonParticipation stats
+            update_participation_stats_for_season(season)
+        except Exception as e:
+            errors.add("Failed to update Club Team Season Participation Stats: {}".format(e))
 
         # Scrape league tables
         participations = ClubTeamSeasonParticipation.objects.current().select_related('team', 'division')
