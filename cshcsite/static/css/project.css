@@ -438,6 +438,7 @@ table.awards td { border: none; }
 #directions div.box img { box-shadow: 1px 1px 6px 0px #888; border-radius: 5px; margin-bottom: 10px; max-width: 274px;}
 
 #southerners div.box {padding: 10px;}
+#fees div.box {padding: 10px;}
 
 table.month { margin-bottom: 20px;}
 table.month tbody tr { padding-bottom: 1px; }
