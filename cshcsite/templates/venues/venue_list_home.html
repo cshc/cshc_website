@@ -1,23 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}{{ block.super }} | Pitch directions{% endblock %}
+{% block title %}{{ block.super }} | Directions{% endblock %}
 
-{% block body_id %}pitch-directions{% endblock body_id %}
+{% block body_id %}directions{% endblock body_id %}
 
 {% block content %}
 
+{% url 'venue_detail' 'cantabs' as cantabs_url %}
 {% url 'venue_list' as venues_url %}
 
 <div class="page-header">
-    <h1>Pitch Directions</h1>
+    <h1>Directions</h1>
 </div>
 
 <div class="row">
 	<div class="span8">
 		<div class="section_header">
-			<h3>Home Pitches</h3>
+			<h3>Home Venues</h3>
 		</div>
-		<p>If you have the pleasure of playing against us we use one of a number of pitches around Cambridge. Click on the links below for a map.</p>
+		<p>If you have the pleasure of playing against us we play our home matches at a brand new pitch in south Cambridge with the club house directly opposite. Click on the links below for a map.</p>
 
 		<ul>
 		{% for v in venue_list %}
@@ -40,15 +41,9 @@
 		<div class="box">
 			<h3><i class="icon-food"></i>Match Teas</h3>
 			<hr/>
-			<img src="{{ STATIC_URL }}media/Web%20site%20images/red_bull.jpg">
-			<h4>The Red Bull</h4>
-			<p>For most of our matches, post-match teas are hosted at <strong>The Red Bull </strong>pub on
-			<a href="http://goo.gl/maps/z0igv" target="_blank">Barton Road, Cambridge, CB3 9JZ</a>.</p>
-			<hr/>
-			<img src="{{ STATIC_URL }}media/Web%20site%20images/burleigh_arms.jpg">
-			<h4>The Burleigh Arms</h4>
-			<p>If you play us at Coldham&#39;s Common (aka The Abbey) astro, post-match teas are at <strong>The Burleigh Arms </strong>pub on
-			<a href="https://www.google.co.uk/maps/preview#!q=The+Burleigh+Arms%2C+Newmarket+Road%2C+Cambridge&data=!4m11!1m10!2i18!4m8!1m3!1d744!2d0.1550911!3d52.2091237!3m2!1i1680!2i935!4f13.1" target="_blank">Newmarket Road, Cambridge, CB5 8EG</a>.</p>
+			<img src="{{ STATIC_URL }}media/Web%20site%20images/cantabs.jpg">
+			<h4>Cantabs RUFC Club House</h4>
+			<p>Our post-match teas are held at <a href="{{ cantabs_url }}">Cantabs RUFC club house</a> on Sedley Taylor Road.</p>
 		</div>
 	</div>
 </div>

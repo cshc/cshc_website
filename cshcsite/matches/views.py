@@ -11,6 +11,7 @@ from core.views import kwargs_or_none, AjaxGeneral
 from competitions.models import Season
 from awards.models import MatchAward, MatchAwardWinner
 from teams.models import ClubTeam
+from members.models import Member
 from .models import Match, GoalKing, Appearance
 from .filters import MatchFilter
 
@@ -226,21 +227,27 @@ class GoalKingMixin(object):
         goalking_list = filter(lambda x: x.total_goals > 0, GoalKing.objects.by_season(season).select_related('member__user'))
 
         # Apply ranking
+
         if len(goalking_list) > 0:
-            rank = 1
-            previous = goalking_list[0]
-            previous.rank = 1
-            for i, entry in enumerate(goalking_list[1:]):
-                if entry.total_goals != previous.total_goals:
-                    rank = i + 2
-                    entry.rank = str(rank)
-                else:
-                    entry.rank = "%s=" % rank
-                    previous.rank = entry.rank
-                previous = entry
+            m_list = filter(lambda x: x.member.gender == Member.GENDER.Male, goalking_list)
+            l_list = filter(lambda x: x.member.gender == Member.GENDER.Female, goalking_list)
+            self.apply_ranking(m_list)
+            self.apply_ranking(l_list)
 
         return goalking_list
 
+    def apply_ranking(self, goalking_list):
+        rank = 1
+        previous = goalking_list[0]
+        previous.rank = 1
+        for i, entry in enumerate(goalking_list[1:]):
+            if entry.total_goals != previous.total_goals:
+                rank = i + 2
+                entry.rank = str(rank)
+            else:
+                entry.rank = "%s=" % rank
+                previous.rank = entry.rank
+            previous = entry
 
 class GoalKingSeasonView(GoalKingMixin, TemplateView):
     """View for displaying the Goal King stats for a particular season"""
@@ -287,9 +294,6 @@ class GoalKingSeasonUpdateView(GoalKingMixin, AjaxGeneral):
         return {'goalking_list': self.get_goalking_list(season)}
 
 
-
-
-
 class AccidentalTouristMixin(object):
     """Provides useful methods for AccidentalTourist related views"""
 
@@ -301,19 +305,26 @@ class AccidentalTouristMixin(object):
 
         # Apply ranking
         if len(goalking_list) > 0:
-            rank = 1
-            previous = goalking_list[0]
-            previous.rank = 1
-            for i, entry in enumerate(goalking_list[1:]):
-                if entry.total_miles != previous.total_miles:
-                    rank = i + 2
-                    entry.rank = str(rank)
-                else:
-                    entry.rank = "%s=" % rank
-                    previous.rank = entry.rank
-                previous = entry
+            m_list = filter(lambda x: x.member.gender == Member.GENDER.Male, goalking_list)
+            l_list = filter(lambda x: x.member.gender == Member.GENDER.Female, goalking_list)
+            self.apply_ranking(m_list)
+            self.apply_ranking(l_list)
 
         return goalking_list
+
+
+    def apply_ranking(self, goalking_list):
+        rank = 1
+        previous = goalking_list[0]
+        previous.rank = 1
+        for i, entry in enumerate(goalking_list[1:]):
+            if entry.total_miles != previous.total_miles:
+                rank = i + 2
+                entry.rank = str(rank)
+            else:
+                entry.rank = "%s=" % rank
+                previous.rank = entry.rank
+            previous = entry
 
 
 class AccidentalTouristSeasonView(AccidentalTouristMixin, TemplateView):

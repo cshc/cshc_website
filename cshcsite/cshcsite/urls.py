@@ -22,10 +22,10 @@ urlpatterns = patterns('',
     url(r'^commission/$',             TemplateView.as_view(template_name='core/commission.html'),  name='commission'),
     url(r'^offers/$',                 TemplateView.as_view(template_name='core/offers.html'),  name='members_offers'),
 
-    url(r'^about/pitch-directions/$', HomeVenueListView.as_view(), name='pitch_directions'),            # Pitch directions - basically a list of home venues
+    url(r'^about/directions/$',       HomeVenueListView.as_view(), name='directions'),            # Directions - basically a list of home venues
     url(r'^about/social/$',           TemplateView.as_view(template_name='core/social.html'), name='about_social'),
     url(r'^about/kit/$',              TemplateView.as_view(template_name='core/kit.html'), name='about_kit'),
-    url(r'^about/fees/$',             TemplateView.as_view(template_name='core/fees.html'), name='about_fees'),
+    url(r'^about/fees/$',             views.FeesView.as_view(), name='about_fees'),
     # E.g. '/about/committee/'
     url(r'^about/committee/$',
         views.CommitteeSeasonView.as_view(),

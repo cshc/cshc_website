@@ -434,8 +434,8 @@ table.awards td { border: none; }
 
 #stats #stats-img {margin-left: 20px; }
 
-#pitch-directions div.box {padding: 10px;}
-#pitch-directions div.box img { box-shadow: 1px 1px 6px 0px #888; border-radius: 5px; margin-bottom: 10px; max-width: 274px;}
+#directions div.box {padding: 10px;}
+#directions div.box img { box-shadow: 1px 1px 6px 0px #888; border-radius: 5px; margin-bottom: 10px; max-width: 274px;}
 
 #southerners div.box {padding: 10px;}
 

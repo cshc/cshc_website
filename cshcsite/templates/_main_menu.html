@@ -6,7 +6,7 @@
 {% url 'auth_logout' as logout %}
 
 {% url 'about_us' as about_us %}
-{% url 'pitch_directions' as pitch_directions %}
+{% url 'directions' as directions %}
 {% url 'upcoming_trainingsession_list' as training %}
 {% url 'about_fees' as fees %}
 {% url 'about_kit' as kit %}
@@ -89,7 +89,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Club <b class="caret"></b></a>
     <ul class="dropdown-menu">
         <li><a href="{{ about_us }}" class="{% active about_us %}">About Us</a></li>
-        <li><a href="{{ pitch_directions }}" class="{% active pitch_directions %}">Pitch Directions</a></li>
+        <li><a href="{{ directions }}" class="{% active directions %}">Directions</a></li>
         <li><a href="{{ training }}" class="{% active training %}">Training</a></li>
         <li><a href="{{ social }}" class="{% active social %}">Social</a></li>
         <li><a href="{{ kit }}" class="{% active kit %}">Kit</a></li>

@@ -13,9 +13,15 @@ class VenueManager(models.Manager):
         """Returns only home venues"""
         return super(VenueManager, self).get_query_set().filter(is_home=True)
 
+    def away_venues(self):
+        """ Returns only away venues """
+        return super(VenueManager, self).get_query_set().filter(is_home=False)
 
 class Venue(models.Model):
     """Represents a match venue"""
+
+    # Currently we pay 15p per mile towards petrol for away matches
+    PENCE_PER_MILE = 15
 
     name = models.CharField("Venue Name", max_length=255, default=None, unique=True)
     """The name of the venue"""
@@ -85,3 +91,19 @@ class Venue(models.Model):
         if not addr.strip():
             return 'Address unknown'
         return addr
+
+    def round_trip_distance(self):
+        if self.distance is None:
+            return None
+        return self.distance * 2
+
+    def round_trip_cost(self):
+        if self.distance is None:
+            return None
+        total_pence = Venue.PENCE_PER_MILE * self.round(self.round_trip_distance(), 5)
+        rounded_pence = self.round(total_pence, 50)
+        return float(rounded_pence) / float(100)
+
+    def round(self, x, base=5):
+        return int(base * round(float(x)/base))
+

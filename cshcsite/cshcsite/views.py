@@ -7,6 +7,7 @@ from competitions.models import Season
 from matches.views import LatestResultsView, NextFixturesView
 from training.views import UpcomingTrainingSessionsView
 from members.models import CommitteeMembership
+from venues.models import Venue
 
 log = logging.getLogger(__name__)
 
@@ -140,6 +141,22 @@ class CommitteeSeasonView(TemplateView):
         context['season_list'] = Season.objects.all().order_by("-start")
         return context
 
+
+class FeesView(TemplateView):
+    """ View for displaying information about fees. Includes travel re-imbursement for away venues.
+    """
+    template_name='core/fees.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Gets the context data for the view.
+
+        """
+        context = super(FeesView, self).get_context_data(**kwargs)
+
+        venues = Venue.objects.away_venues().only('name', 'distance')
+        context['venues'] = venues
+        return context
 
 
 # Fix for S3 path being incorrect:
