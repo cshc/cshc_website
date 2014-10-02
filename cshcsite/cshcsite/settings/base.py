@@ -321,10 +321,6 @@ LOGGING = {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
          },
-        'mobile': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-         },
         'opposition': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
