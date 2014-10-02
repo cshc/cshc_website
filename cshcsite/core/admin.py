@@ -3,8 +3,9 @@ from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
-from .forms import FlatPageForm, UserChangeForm, UserCreationForm, ZinniaEntryAdminForm
+from .forms import FlatPageForm, UserChangeForm, UserCreationForm
 from .models import ClubInfo, ContactSubmission, CshcUser
+from .blog import ZinniaEntryAdminForm
 from zinnia.models.entry import Entry
 from zinnia.admin.entry import EntryAdmin
 
