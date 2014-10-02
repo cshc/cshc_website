@@ -24,6 +24,21 @@ env.user = _get_env_setting('MYTHIC_BEASTS_SSH_USER')
 env.password = _get_env_setting('MYTHIC_BEASTS_SSH_PASSWORD')
 env.remote_root = '~/new_site/'
 
+@task staging_release():
+    local('heroku login')
+    local('git push heroku master')
+    local('heroku restart')
+    # local("heroku run --app cshcsite 'python cshcsite/manage.py syncdb'")
+    # local("heroku run --app cshcsite 'chmod 744 deployment/migrate.sh'")
+    # # Make sure we've got linux line endings
+    # local("heroku run --app cshcsite 'fromdos deployment/migrate.sh'")
+    # local("heroku run --app cshcsite 'deployment/migrate.sh'")
+    # local("heroku run --app cshcsite 'python cshcsite/manage.py create_cshc_superuser'")
+    # local("heroku run --app cshcsite 'python cshcsite/manage.py data_migration'")
+    # local("heroku run --app cshcsite 'python cshcsite/manage.py create_users'")
+    # local("heroku run --app cshcsite 'python cshcsite/manage.py import_data --all'")
+    # local("heroku run --app cshcsite 'python cshcsite/manage.py import_league_tables'")
+
 @task
 def initial_setup(version):
     tag_release(version)

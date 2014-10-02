@@ -1,19 +1,20 @@
-{% load core_tags %}
+{% load core_tags staticfiles %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
     <title>{% block title %}Cambridge South Hockey Club{% endblock title %}</title>
+
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{% block meta_desc %}Friendly and sociable Cambridge based hockey club for all ages and abilities.
     5 men''s teams, 2 ladies teams, a mixed team and an indoor team mean there is something for everyone.{% endblock meta_desc %}">
     <meta name="keywords" content="{% block meta_keywords %}Hockey, sport, men, ladies, cambridge, mixed, indoor, umpiring, training{% endblock meta_keywords %}">
     <meta name="author" content="{% block meta_author %}Graham McCulloch{% endblock meta_author %}">
+    {% block meta %}{% endblock meta %}
 
+    {% block link %}
     <link rel="Shortcut Icon" type="image/x-icon" href="{{ STATIC_URL }}ico/favicon.ico?v=2" />
-
-    {% block head_css %}
 
     {# Bootstrap #}
     <link href="{{ STATIC_URL }}clean_canvas/css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +31,6 @@
     <link href="{{ STATIC_URL }}css/project.css?v=1_0_7" rel="stylesheet">
 
     <link type="text/css" href="{{ STATIC_URL }}css/feedback.css" rel="stylesheet"/>
-    {% endblock head_css %}
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon.png" />
@@ -42,6 +42,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ STATIC_URL }}ico/apple-touch-icon-120x120.png" />
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144x144.png" />
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ STATIC_URL }}ico/apple-touch-icon-152x152.png" />
+    {% endblock link %}
 
     {% block head_js %}
     <script src="{{ STATIC_URL }}js/css_browser_selector.js" type="text/javascript"></script>
@@ -100,6 +101,9 @@
     {% endblock messages %}
 
     {% block content %}
+    {% block breadcrumbs %}
+    {% endblock breadcrumbs %}
+
 
     {% endblock content %}
 

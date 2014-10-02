@@ -2,9 +2,33 @@ from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import ugettext_lazy as _
 from .forms import FlatPageForm, UserChangeForm, UserCreationForm
 from .models import ClubInfo, ContactSubmission, CshcUser
+from .blog import ZinniaEntryAdminForm
+from zinnia.models.entry import Entry
+from zinnia.admin.entry import EntryAdmin
 
+# Override the provided admin interface for blog entries - simplify it a bit
+# and add support (via a custom form) for WYSIWYG entry
+class ZinniaEntryAdmin(EntryAdmin):
+    form = ZinniaEntryAdminForm
+
+    fieldsets = (
+        (_('Content'), {
+            'fields': (('title', 'status'), 'content', 'image')}),
+        (_('Publication'), {
+            'fields': (('start_publication', 'end_publication'),
+                       'creation_date'),
+            'classes': ('collapse', 'collapse-closed')}),
+        (_('Templates'), {
+            'fields': ('content_template', 'detail_template'),
+            'classes': ('collapse', 'collapse-closed')}),
+        (None, {'fields': ('featured', 'comment_enabled', 'excerpt', 'authors', 'related', 'categories', 'tags', 'slug')}))
+
+
+admin.site.unregister(Entry)
+admin.site.register(Entry, ZinniaEntryAdmin)
 
 class RedactorFlatPageAdmin(FlatPageAdmin):
     """Override for the FlatPage admin interface - uses a Redactor widget"""

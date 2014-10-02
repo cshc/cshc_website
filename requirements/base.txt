@@ -81,3 +81,8 @@ django-dbbackup==2.0.3
 
 # Two-phase registration support (forked)
 django-registration==1.0
+
+# Zinnia blog & dependencies
+django-mptt==0.6.1
+django-tagging==0.3.2
+django-blog-zinnia==0.14.2

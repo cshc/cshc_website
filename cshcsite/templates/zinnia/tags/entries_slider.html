@@ -1,0 +1,24 @@
+{% load i18n staticfiles %}
+{% if entries %}
+<div class="slider-container">
+  <div class="slider">
+    <ul class="slides">
+      {% for entry in entries %}
+      <li class="slide slide-{{ forloop.counter }}">
+        <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}">
+          <img src="{% if entry.image %}{{ entry.image.url }}{% endif %}" alt="{{ entry.title }}" />
+        </a>
+        <div class="slide-content">
+          <h2>
+            <a href="{{ entry.get_absolute_url }}" rel="bookmark"
+               title="{{ entry.title }}">{{ entry.title }}</a>
+          </h2>
+          {{ entry.excerpt|safe|linebreaks|truncatewords_html:30 }}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endif %}

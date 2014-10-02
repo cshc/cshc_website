@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from suit_redactor.widgets import RedactorWidget
 from .models import ContactSubmission, CshcUser
 

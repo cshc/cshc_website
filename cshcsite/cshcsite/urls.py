@@ -17,6 +17,11 @@ urlpatterns = patterns('',
     url(r'^$', views.HomeView.as_view(), name='homepage'),                                              # The main landing page
     url(r'^about/$', views.AboutUsView.as_view(), name='about_us'),                                     # About Us
 
+    # Zinnia blog
+    # Ref: http://docs.django-blog-zinnia.com/
+    url(r'^blog/', include('zinnia.urls', namespace="zinnia")),
+    url(r'^comments/', include('django_comments.urls')),
+
     url(r'^calendar/$',               views.CalendarView.as_view(),  name='calendar'),
     url(r'^contact/$',                ContactSubmissionCreateView.as_view(),  name='contact_us'),
     url(r'^commission/$',             TemplateView.as_view(template_name='core/commission.html'),  name='commission'),

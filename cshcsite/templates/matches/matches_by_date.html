@@ -80,7 +80,7 @@ Currently just lists the values that will be needed by this template - no UI des
                     <h4>{{ m.match.match_title_text }}</h4>
                     {{ m.match.report_body.excerpt|safe }}
                     {% if m.match.report_body.has_more %}
-                        <p class="pull-right"><a class="btn btn-mini btn-success" href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
+                        <p class="pull-right"><a class="btn btn-mini btn-success" href="{{ m.match.get_absolute_url }}" title="Match details">Continue reading...</a></p>
                     {% endif %}
                     <p><i class="icon-comment"></i><a href="{{ m.match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ m.match.pk }}">View Comments</a></p>
                     {% disqus_num_replies %}
@@ -96,7 +96,7 @@ Currently just lists the values that will be needed by this template - no UI des
                     </ul>
                     {{ m.match.pre_match_hype.excerpt|safe }}
                     {% if m.match.pre_match_hype.has_more %}
-                        <p class="pull-right"><a class="btn btn-mini btn-success" href="{{ m.match.get_absolute_url }}" title="Match details">Read more...</a></p>
+                        <p class="pull-right"><a class="btn btn-mini btn-success" href="{{ m.match.get_absolute_url }}" title="Match details">Continue reading...</a></p>
                     {% endif %}
                     <p><i class="icon-comment"></i><a href="{{ m.match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ m.match.pk }}">View Comments</a></p>
                     {% disqus_num_replies %}
