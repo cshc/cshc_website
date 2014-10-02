@@ -17,7 +17,7 @@ class CommitteePosition(models.Model):
     name = models.CharField(max_length=100, default=None)
 
     gender = models.CharField("Mens/Ladies/Mixed", max_length=6, choices=TeamGender)
-    
+
     index = models.PositiveSmallIntegerField("Index", help_text="Used for visual ordering of the committee", default=0)
 
     class Meta:
@@ -46,18 +46,18 @@ class CommitteeMembershipQuerySet(QuerySet):
 
     def by_season(self, season):
         """Returns only committee membership for the specified season"""
-        return self.filter(season=season)
+        return self.filter(season=season).order_by('position__index')
 
     def current(self):
         """ Returns only current committee membership, if any."""
-        return self.filter(season=Season.current())
+        return self.filter(season=Season.current()).order_by('position__index')
 
 
 class CommitteeMembership(models.Model):
-    """ This model represents membership of the club committee. A member 
+    """ This model represents membership of the club committee. A member
         may hold zero or more committee positions in a particular season.
 
-        The actual positions may vary from season to season but are captured 
+        The actual positions may vary from season to season but are captured
         in the CommitteePosition model. If a new position is created, a new
         CommitteePosition entry should be added for it.
     """
@@ -68,7 +68,7 @@ class CommitteeMembership(models.Model):
     season = models.ForeignKey('competitions.Season')
 
     # The committee position
-    position = models.ForeignKey('CommitteePosition') 
+    position = models.ForeignKey('CommitteePosition')
 
     objects = PassThroughManager.for_queryset_class(CommitteeMembershipQuerySet)()
 
