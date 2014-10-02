@@ -5,9 +5,9 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 from .forms import FlatPageForm, UserChangeForm, UserCreationForm
 from .models import ClubInfo, ContactSubmission, CshcUser
-from .blog import ZinniaEntryAdminForm
-from zinnia.models.entry import Entry
-from zinnia.admin.entry import EntryAdmin
+from .blog import ZinniaEntryAdminForm, ZinniaCategoryAdminForm
+from zinnia.models import Entry, Category
+from zinnia.admin import EntryAdmin, CategoryAdmin
 
 # Override the provided admin interface for blog entries - simplify it a bit
 # and add support (via a custom form) for WYSIWYG entry
@@ -26,9 +26,13 @@ class ZinniaEntryAdmin(EntryAdmin):
             'classes': ('collapse', 'collapse-closed')}),
         (None, {'fields': ('featured', 'comment_enabled', 'excerpt', 'authors', 'related', 'categories', 'tags', 'slug')}))
 
+class ZinniaCategoryAdmin(CategoryAdmin):
+    form = ZinniaCategoryAdminForm
 
 admin.site.unregister(Entry)
 admin.site.register(Entry, ZinniaEntryAdmin)
+admin.site.unregister(Category)
+admin.site.register(Category, ZinniaCategoryAdmin)
 
 class RedactorFlatPageAdmin(FlatPageAdmin):
     """Override for the FlatPage admin interface - uses a Redactor widget"""
