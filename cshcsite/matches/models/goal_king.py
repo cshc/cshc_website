@@ -82,12 +82,10 @@ class GoalKing(models.Model):
     def __unicode__(self):
         return unicode("{} - {}".format(self.member, self.season))
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         # Calculate non-editable, derived fields
         self.total_goals = self.m1_goals + self.m2_goals + self.m3_goals + self.m4_goals + self.m5_goals + self.l1_goals + self.l2_goals + self.l3_goals + self.mixed_goals + self.indoor_goals
         self.total_own_goals = self.m1_own_goals + self.m2_own_goals + self.m3_own_goals + self.m4_own_goals + self.m5_own_goals + self.l1_own_goals + self.l2_own_goals + self.l3_own_goals + self.mixed_own_goals + self.indoor_own_goals
-
-        super(GoalKing, self).save(*args, **kwargs)
 
     def miles_per_game(self):
         """ Returns the average number of miles travelled to a game.

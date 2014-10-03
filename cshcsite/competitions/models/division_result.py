@@ -1,5 +1,6 @@
 import logging
-from django.db import models, IntegrityError
+from django.db import models
+from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
 from model_utils.managers import PassThroughManager
 
@@ -40,20 +41,18 @@ class DivisionResult(models.Model):
         unique_together = ('season', 'division', 'position')
         ordering = ('season', 'division', 'position')
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         # our_team xor opp_team
         if self.our_team and self.opp_team:
-            raise IntegrityError("You cannot specify both our team and an opposition team ({})".format(self))
+            raise ValidationError("You cannot specify both our team and an opposition team ({})".format(self))
         if not self.our_team and not self.opp_team:
-            raise IntegrityError("You cannot specify neither our team nor an opposition team ({})".format(self))
+            raise ValidationError("You cannot specify neither our team nor an opposition team ({})".format(self))
 
         if (self.won + self.drawn + self.lost) != self.played:
-            raise IntegrityError("Won + Drawn + Lost not equal to Played ({})".format(self))
+            raise ValidationError("Won + Drawn + Lost not equal to Played ({})".format(self))
 
         if (self.goals_for - self.goals_against) != self.goal_difference:
-            raise IntegrityError("Goals For - Goals Against not equal to Goal Difference ({})".format(self))
-
-        super(DivisionResult, self).save(*args, **kwargs)
+            raise ValidationError("Goals For - Goals Against not equal to Goal Difference ({})".format(self))
 
     def __unicode__(self):
         return unicode("{} - {} ({})".format(self.team_name, self.division, self.season))

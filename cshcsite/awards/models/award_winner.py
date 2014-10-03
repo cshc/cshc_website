@@ -1,5 +1,6 @@
 import logging
-from django.db import models, IntegrityError
+from django.db import models
+from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
 from model_utils.managers import PassThroughManager
 from matches.models import Match
@@ -57,15 +58,13 @@ class AwardWinner(models.Model):
         app_label = 'awards'
         abstract = True
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         if (self.member == None and
             (self.awardee == None or self.awardee == "")):
-            raise IntegrityError("You must specify either a member or an awardee (if the awardee is not a member)")
+            raise ValidationError("You must specify either a member or an awardee (if the awardee is not a member)")
         elif (self.member != None and
             (self.awardee != None and self.awardee != "")):
-            raise IntegrityError("You cannot specify both a member and an awardee")
-
-        super(AwardWinner, self).save(*args, **kwargs)
+            raise ValidationError("You cannot specify both a member and an awardee")
 
     def awardee_name(self):
         """ Returns either the awardee or the member's full name"""

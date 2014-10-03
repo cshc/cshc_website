@@ -1,5 +1,6 @@
 import logging
-from django.db import models, IntegrityError
+from django.db import models
+from django.core.exceptions import ValidationError
 from datetime import datetime
 
 log = logging.getLogger(__name__)
@@ -36,21 +37,19 @@ class Season(models.Model):
         return unicode(self.slug)
     __unicode__.short_description = 'Season'
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         # Make sure the start is before the end!
         if (self.start is not None and self.end is not None and self.start >= self.end):
-            raise IntegrityError("The start of the season must be before the end of the season")
+            raise ValidationError("The start of the season must be before the end of the season")
 
         # Prevent any overlapping seasons
         if Season.objects.exclude(pk=self.pk).filter(start__lte=self.start, end__gte=self.start).exists():
-            raise IntegrityError("The starting date of this season overlaps with another season")
+            raise ValidationError("The starting date of this season overlaps with another season")
         elif Season.objects.exclude(pk=self.pk).filter(start__lte=self.end, end__gte=self.end).exists():
-            raise IntegrityError("The end date of this season overlaps with another season")
+            raise ValidationError("The end date of this season overlaps with another season")
 
         # Automatically set the slug field
         self.slug = "{}-{}".format(self.start.year, self.end.year)
-
-        super(Season, self).save(*args, **kwargs)
 
     @staticmethod
     def current():

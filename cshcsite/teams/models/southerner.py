@@ -1,5 +1,5 @@
 import logging
-from django.db import models, IntegrityError
+from django.db import models
 from teams.models import ClubTeam
 from competitions.models import Season
 
@@ -52,11 +52,9 @@ class Southerner(models.Model):
 
     objects = SouthernerManager()
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         # Calculate non-editable, derived fields
         self.avg_points_per_game = (float)(self.total_points()) / (float)(self.played())
-
-        super(Southerner, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return unicode("{} - {}".format(self.team, self.season))

@@ -1,5 +1,6 @@
 import logging
 from django.db import models, IntegrityError
+from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
 from django.utils import timezone
 from datetime import datetime, time
@@ -168,54 +169,52 @@ class Match(models.Model):
     def get_absolute_url(self):
         return ('match_detail', [self.pk])
 
-    def save(self, *args, **kwargs):
-        """ Validate the match details and then save """
-
+    def clean(self):
         # If its a walkover, check the score is a valid walkover score
         if self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Walkover and not Match.is_walkover_score(self.our_score, self.opp_score):
-            raise IntegrityError("A walk-over score must be 3-0, 5-0, 0-3 or 0-5. Score = {}-{}".format(self.our_score, self.opp_score))
+            raise ValidationError("A walk-over score must be 3-0, 5-0, 0-3 or 0-5. Score = {}-{}".format(self.our_score, self.opp_score))
 
         # If its cancelled or postponed or BYE, check the scores are not entered
         if((self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Cancelled or
             self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Postponed or
             self.alt_outcome == Match.ALTERNATIVE_OUTCOME.BYE) and
             (self.our_score != None or self.opp_score != None or self.our_ht_score != None or self.opp_ht_score != None)):
-            raise IntegrityError("A cancelled or postponed match should not have scores")
+            raise ValidationError("A cancelled or postponed match should not have scores")
 
         if self.alt_outcome == None:
             # You can't specify one score without the other
             if((self.our_score != None and self.opp_score == None) or
                (self.our_score == None and self.opp_score != None)):
-                raise IntegrityError("Both scores must be provided")
+                raise ValidationError("Both scores must be provided")
 
             # ...same goes for half time scores
             if((self.our_ht_score != None and self.opp_ht_score == None) or
                (self.our_ht_score == None and self.opp_ht_score != None)):
-                raise IntegrityError("Both half-time scores must be provided")
+                raise ValidationError("Both half-time scores must be provided")
 
             # The opposition can't score more own goals than our total score
             if(self.our_score != None and
                self.opp_own_goals > self.our_score):
-                raise IntegrityError("Too many opposition own goals")
+                raise ValidationError("Too many opposition own goals")
 
             # Half-time scores must be <= the final scores
             if(self.all_scores_provided()):
                 if(self.our_ht_score > self.our_score or
                    self.opp_ht_score > self.opp_score):
-                    raise IntegrityError("Half-time scores cannot be greater than final scores")
+                    raise ValidationError("Half-time scores cannot be greater than final scores")
 
         # Automatically set the season based on the date
         try:
             self.season = Season.objects.by_date(self.date)
         except Season.DoesNotExist:
-            raise IntegrityError("This date appears to be outside of any recognised season.")
+            raise ValidationError("This date appears to be outside of any recognised season.")
 
         if self.fixture_type == Match.FIXTURE_TYPE.League:
             # Automatically set the division based on the team and season
             try:
                 self.division = ClubTeamSeasonParticipation.objects.get(team=self.our_team, season=self.season).division
             except Division.DoesNotExist:
-                raise IntegrityError("{} is not participating in a division in the season {}".format(self.our_team, self.season))
+                raise ValidationError("{} is not participating in a division in the season {}".format(self.our_team, self.season))
         else:
             self.division = None    # Clear the division field
 
@@ -224,10 +223,12 @@ class Match(models.Model):
             try:
                 self.cup = ClubTeamSeasonParticipation.objects.get(team=self.our_team, season=self.season).cup
             except Cup.DoesNotExist:
-                raise IntegrityError("{} is not participating in a cup in the season {}".format(self.our_team, self.season))
+                raise ValidationError("{} is not participating in a cup in the season {}".format(self.our_team, self.season))
         else:
             self.cup = None    # Clear the cup field
 
+    def save(self, *args, **kwargs):
+        """ Set a few automatic fields and then save """
         # Automatically add a split in the match report and pre-match-hype
         self.report_body = splitify(self.report_body.content)
         self.pre_match_hype = splitify(self.pre_match_hype.content)

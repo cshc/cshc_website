@@ -72,10 +72,9 @@ class Venue(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         # Auto-populate the slug field
         self.slug = slugify(self.short_name)
-        super(Venue, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):

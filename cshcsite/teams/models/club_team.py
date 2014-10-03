@@ -100,9 +100,8 @@ class ClubTeam(models.Model):
         app_label = 'teams'
         ordering = ['position']
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         self.slug = slugify(self.short_name)
-        super(ClubTeam, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return unicode(self.short_name)

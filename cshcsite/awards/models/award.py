@@ -9,8 +9,6 @@ from competitions.models import Season
 log = logging.getLogger(__name__)
 
 
-
-
 class Award(models.Model):
     """ Abstract base class for all types of award """
 

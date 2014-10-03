@@ -47,9 +47,8 @@ class Team(models.Model):
         app_label = 'opposition'
         ordering = ['club', 'name']
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         self.slug = slugify(self.name)
-        super(Team, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return unicode(self.name)

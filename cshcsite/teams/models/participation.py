@@ -1,7 +1,7 @@
 import logging
 from django.db import models
 from django.db.models.query import QuerySet
-from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 from model_utils import Choices
 from model_utils.managers import PassThroughManager
 from core.models import not_none_or_empty
@@ -108,26 +108,24 @@ class ClubTeamSeasonParticipation(models.Model):
     def __unicode__(self):
         return unicode("{} - {}".format(self.team, self.season))
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         # Sanity checks
         if not self.division and not_none_or_empty(self.division_result):
-            raise IntegrityError("Division result cannot be set if no division is selected.")
+            raise ValidationError("Division result cannot be set if no division is selected.")
 
         if not self.division and self.final_pos is not None:
-            raise IntegrityError("Final position cannot be set if no division is selected.")
+            raise ValidationError("Final position cannot be set if no division is selected.")
 
         if not self.cup and not_none_or_empty(self.cup_result):
-            raise IntegrityError("Cup result cannot be set if no cup is selected.")
+            raise ValidationError("Cup result cannot be set if no cup is selected.")
 
         # Make sure the division gender matches the team gender!
         if self.division is not None and (self.team.gender != self.division.gender):
-            raise IntegrityError("{} is a {} team but {} is a {} division", self.team, self.team.get_gender_display(), self.division, self.division.get_gender_display());
+            raise ValidationError("{} is a {} team but {} is a {} division", self.team, self.team.get_gender_display(), self.division, self.division.get_gender_display());
 
         # Make sure the cup gender matches the team gender!
         if self.cup is not None and (self.team.gender != self.cup.gender):
-            raise IntegrityError("{} is a {} team but {} is a {} cup", self.team, self.team.get_gender_display(), self.cup, self.cup.get_gender_display());
-
-        super(ClubTeamSeasonParticipation, self).save(*args, **kwargs)
+            raise ValidationError("{} is a {} team but {} is a {} cup", self.team, self.team.get_gender_display(), self.cup, self.cup.get_gender_display());
 
     def total_played(self):
         return self.friendly_played + self.cup_played + self.league_played
