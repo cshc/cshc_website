@@ -194,7 +194,7 @@ Static page with info about fees.
                 {% for venue in venues %}
                 <tr>
                     <td><a href="{{ venue.get_absolute_url }}" title="Venue details">{{ venue.name }}</a></td>
-                    <td class="center-align">{{ venue.round_trip_distance }}</td>
+                    <td class="center-align">{{ venue.approx_round_trip_distance }}</td>
                     <td class="center-align">£{{ venue.round_trip_cost|floatformat:2 }}</td>
                 </tr>
                 {% endfor %}

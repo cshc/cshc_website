@@ -96,10 +96,15 @@ class Venue(models.Model):
             return None
         return self.distance * 2
 
+    def approx_round_trip_distance(self):
+        if self.distance is None:
+            return None
+        return self.round(self.round_trip_distance(), 5)
+
     def round_trip_cost(self):
         if self.distance is None:
             return None
-        total_pence = Venue.PENCE_PER_MILE * self.round(self.round_trip_distance(), 5)
+        total_pence = Venue.PENCE_PER_MILE * self.approx_round_trip_distance()
         rounded_pence = self.round(total_pence, 50)
         return float(rounded_pence) / float(100)
 
