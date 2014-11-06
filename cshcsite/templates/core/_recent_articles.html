@@ -1,0 +1,28 @@
+<ul class="media-list">
+{% for entry in entries %}
+    <li class="media">
+        <a class="pull-left" title="{{ entry.title }}" href="{{ entry.get_absolute_url }}">
+            {% load thumbnail %}
+            {% if entry.image %}            
+                {% thumbnail entry.image "150x100" crop="center" as im %}
+                    <img class="article-pic" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                {% endthumbnail %}
+            {% else %}
+                {% with 'http://'|add:request.get_host|add:'/static/media/placeholder.png' as path %}
+                {% thumbnail path "150x100" crop="center" as im %}
+                    <img class="article-pic" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                {% endthumbnail %}
+                {% endwith %}
+            {% endif %}
+        </a>
+        <div class="media-body">
+            <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}">
+                <h4 class="media-heading">{{ entry.title }}</h4>
+            </a>
+            <p>{{ entry.excerpt|safe|linebreaks|truncatewords_html:30 }}</p>
+        </div>
+    </li>
+    {% empty %}
+    <p class="lead">No articles yet.</p>
+{% endfor %}
+</ul>

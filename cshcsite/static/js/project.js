@@ -35,6 +35,15 @@ function applink(fail){
     };
 }
 
+function scrollToTop(element, parent){
+    var topOffset = 0;
+    if ($('.navbar-inner.sticky').length) {
+        console.debug("Sticky!")
+        topOffset += $('#top-nav').height();
+    }
+     $(parent).animate({ scrollTop: $(element).offset().top - $(parent).offset().top - topOffset }, { duration: 'slow', easing: 'swing'});
+}
+
 function ajax_load(url, tag_id) {
     if (url != "") {
         $.ajax({

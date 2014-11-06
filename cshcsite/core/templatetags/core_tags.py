@@ -8,11 +8,26 @@ from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
 from django.core import urlresolvers
 from django.contrib.contenttypes.models import ContentType
+from zinnia.models.entry import Entry
 from core.models import ClubInfo
 
 register = template.Library()
 
 log = logging.getLogger(__name__)
+
+
+
+# Override of Zinnia's get_recent_entries tag. 
+# Here we include the context as we need to pass the request object
+# to the template so we can make use of the base url etc.
+@register.inclusion_tag('zinnia/tags/dummy.html', takes_context=True)
+def cshc_get_recent_entries(context, number=5, template='zinnia/tags/entries_recent.html'):
+    """
+    Return the most recent entries.
+    """
+    return {'request': context['request'],
+            'template': template,
+            'entries': Entry.published.all()[:number]}
 
 
 @register.filter()

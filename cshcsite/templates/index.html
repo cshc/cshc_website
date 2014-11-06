@@ -21,11 +21,25 @@
 {% block content %}
 
 {% url 'contact_us' as contact_us %}
+{% url 'zinnia:entry_archive_index' as blog %}
 
 <div class="page-header">
     <h1>Welcome to Cambridge South Hockey Club</h1>
 </div>
-<div class="row">
+{% comment %}
+The outer/inner div combination lets us centre-justify the nav pills
+{% endcomment %}
+<div class="outer">
+    <div class="inner">
+        <ul class="nav nav-pills jump-list">
+            <li><a title="Jump to Next Training" onclick='scrollToTop("#training-summary", "body");'>Next Training</a></li>
+            <li><a title="Jump to Recent Comments" onclick='scrollToTop("#comments", "body");'>Recent Comments</a></li>
+            <li><a title="Jump to Latest Articles" onclick='scrollToTop("#articles", "body");'>Latest News</a></li>
+            <li><a title="Jump to Tweets" onclick='scrollToTop("#twitter-feed", "body");'>Tweets</a></li>
+        </ul>
+    </div>
+</div>
+<div id="intro-blurb" class="row">
     <div class="span9">
         <p class="lead">We are a friendly, lively, Cambridge-based club who run five Men's and three Ladies' teams as well as a Mixed side.</p>
         <p class="lead">We offer something for everyone; whether you are experienced or new to the sport you will be very welcome at the club.</p>
@@ -34,57 +48,45 @@
         <img alt="CSHC Crest" src="{{ STATIC_URL }}media/crest.png" id="crest" />
     </div>
 </div>
-<hr/>
-<h3>Play hockey with Cambridge South!</h3>
-<p>We are always happy to welcome new people wanting to play hockey. If you're interested in playing - or just have a few questions - do contact us.</p>
-<div id="join-us" class="row">
-    <div class="span6">
-        <img class="img-polaroid" src="{{ STATIC_URL }}media/Rolling/M2vsEly2.jpg"/>
-    </div>
-    <div class="span6">
-        <img class="img-polaroid" src="{{ STATIC_URL }}media/Rolling/L2vsHunts1.jpg"/>
-    </div>
-    <div class="span12">
-        <a href="{{ contact_us }}" id="get-in-touch" class="btn btn-large btn-success">Get in touch...</a>
-    </div>
-</div>
-<hr/>
 
-<div id="training-summary" class="row">
-    <div class="span6">
-        {% include 'training/_next_training.html' %}
-    </div>
-    <div class="span6">
-        <div class="well">
-          <h3>Make it easy for yourself!</h3>
-          <p class="lead">All Cambridge South matches and training sessions are available as <strong>.ics calendar feeds</strong> that you can link into your own calendar client (Outlook, iPhone etc).</p>
-          <a class="calendar" href="{% url 'calendar' %}#feeds"><button class="btn btn-large btn-primary"><i class="icon-calendar"></i>Plug me in!</button></a>
-        </div>
-    </div>
-</div>
-<hr/>
 
 <div id="widget-recents" class="widget zinnia">
   {% get_featured_entries template="zinnia/tags/entries_slider.html" %}
 </div>
 
-<div id="social-feeds" class="row">
-    <div class="span6">
+<div class="row">
+    <div class="span7">
+        <div id="training-summary">
+            <h3><i class="icon-calendar"></i>Next training
+                <span class="pull-right">
+                    <a href="{{ calendar }}" title="Import training details into your own calendar" class="btn btn-small btn-primary">
+                        <i class="icon-calendar"></i>Calendar
+                    </a>
+                </span>
+            </h3>
+            {% include 'training/_next_training.html' %}
+        </div>
+        <hr/>
+        <div id="comments">
+            <h3><i class="icon-comment"></i>Recent comments</h3>
+            {% cshc_disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 8 100 0 80 %}
+        </div>
+        <hr/>
+        <div id="articles">
+            <h3><i class="icon-file-text"></i>Latest News</h3>
+            {% cshc_get_recent_entries 3 "core/_recent_articles.html" %}
+            <a class="details" href="{{ blog }}" title="More from the blog"><button class="btn btn-small btn-success">More from the blog...</button></a>
+        </div>
+    </div>
+    <div class="span5">
         <div id="twitter-feed" class="box side-box">
-            <h3><i class="icon-twitter"></i>Twitterings... <span class="pull-right"><a class='twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a></span></h3>
+            <h3><i class="icon-twitter"></i>Twitterings...</h3>
+            <a class='twitter-follow-button' data-show-count='true' href='https://twitter.com/CambSouthHC'>Follow us on Twitter</a>
             <a class='twitter-timeline' data-chrome='nofooter noheader noborders noscrollbar transparent' data-screen-id='cambsouthhc' data-widget-id='352741775741444096' href='https://twitter.com/twitterapi'>Tweets by @cambsouthhc</a>
         </div>
     </div>
-    <div class="span6">
-        <div id="comments" class="box side-box">
-            {% load disqus_tags %}
-            <h3><i class="icon-comment"></i>Recent match report comments</h3>
-            <div id="comments-container" class="scrolling-container">
-                {% cshc_disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 20 50 0 24 %}
-            </div>
-        </div>
-    </div>
 </div>
+<hr/>
 
 {% endblock %}
 
