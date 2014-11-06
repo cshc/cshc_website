@@ -19,7 +19,7 @@ class ZinniaEntryAdmin(EntryAdmin):
             'fields': (('title', 'status'), 'content', 'image')}),
         (_('Publication'), {
             'fields': (('start_publication', 'end_publication'),
-                       'creation_date'),
+                       'creation_date', 'sites'),
             'classes': ('collapse', 'collapse-closed')}),
         (_('Templates'), {
             'fields': ('content_template', 'detail_template'),

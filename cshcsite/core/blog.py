@@ -1,5 +1,6 @@
 from django import forms
 from django.db.models import ManyToManyRel
+from django.contrib.sites.models import Site
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from suit_redactor.widgets import RedactorWidget
 from zinnia.models import Entry, Category
@@ -12,6 +13,7 @@ class ZinniaEntryAdminForm(EntryAdminForm):
     def __init__(self, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
         rel = ManyToManyRel(Category, 'id')
+        self.fields['sites'].initial = [Site.objects.get_current()]
         self.fields['categories'].widget = RelatedFieldWidgetWrapper(
             self.fields['categories'].widget, rel, self.admin_site)
 
