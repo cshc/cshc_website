@@ -367,7 +367,7 @@ $(document).ready(function () {
     c();
     $(window).resize(function () {
         $("#pagination").css({
-            left: ($(window).width() - $("#pagination li").length * 14) / 2
+            left: ($('#feature-row').width() - $("#pagination li").length * 14) / 2
         });
         center = $(window).width() / 2;
         d()

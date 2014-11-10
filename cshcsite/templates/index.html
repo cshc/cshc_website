@@ -42,21 +42,23 @@ The outer/inner div combination lets us centre-justify the nav pills
 </div>
 <div id="intro-blurb" class="row">
     <div class="span9">
-        <p class="lead">We are a friendly, lively, Cambridge-based club who run five Men's and three Ladies' teams as well as a Mixed side.</p>
+        <p class="lead">We are a friendly, lively, Cambridge-based club who run four Men's and three Ladies' teams as well as a Mixed side.</p>
         <p class="lead">We offer something for everyone; whether you are experienced or new to the sport you will be very welcome at the club.</p>
     </div>
     <div class="span3 no-mobile">
         <img alt="CSHC Crest" src="{{ STATIC_URL }}media/crest.png" id="crest" />
     </div>
 </div>
-
+<hr/>
+{% comment %}
+<! NOT USED YET -->
 <div id="feature-row" class="row"><div class="span12">
 <section id="feature_slider" class="">
-    <!-- 
+    <!--
         Each slide is composed by <img> and .info
         - .info's position is customized with css in index.css
         - each <img> parallax effect is declared by the following params inside its class:
-        
+
         example: class="asset left-472 sp600 t120 z3"
         left-472 means left: -472px from the center
         sp600 is speed transition
@@ -71,7 +73,7 @@ The outer/inner div combination lets us centre-justify the nav pills
         <div class="info"><div class="inner-box">
             <h2>Looking for the most social hockey club in town?</h2>
             <p>Stay for match teas then grab a drink from the bar and watch the other South teams playing.</p>
-            <p>In fact, why not just hang out all afternoon!</p> 
+            <p>In fact, why not just hang out all afternoon!</p>
             <p>And then there's the legendary nights outs...</p>
             <div class="h-center">
                 <a href="{{ contact_us }}">GET IN TOUCH</a>
@@ -84,7 +86,7 @@ The outer/inner div combination lets us centre-justify the nav pills
             <h2>Looking to improve your hockey skills?</h2>
             <ul class="icons-ul">
                 <li><i class="icon-li icon-check"></i>Free coached training</li>
-                <li><i class="icon-li icon-check"></i>Men's and ladies</li> 
+                <li><i class="icon-li icon-check"></i>Men's and ladies</li>
                 <li><i class="icon-li icon-check"></i>All levels from beginners upwards</li>
                 <li><i class="icon-li icon-check"></i>Dedicated goalkeeper training</li>
             </ul>
@@ -106,10 +108,10 @@ The outer/inner div combination lets us centre-justify the nav pills
                 <a href="{{ contact_us }}">GET IN TOUCH</a>
             </div>
         </div></div>
-    </article>     
+    </article>
 </section>
 </div></div>
-
+{% endcomment %}
 
 <div class="row">
     <div class="span7">
@@ -158,7 +160,7 @@ Commented out until we've moved the Cookie Control API Key to the main site
 {% include 'core/_cookie_ctrl_js.html' %}
 {% endcomment %}
 <script src="http://twitter.com/javascripts/blogger.js" type="text/javascript"></script>
-<script type="text/javascript" src="{% static "clean_canvas/js/index-slider.js" %}"></script>   
+<script type="text/javascript" src="{% static "clean_canvas/js/index-slider.js" %}"></script>
 <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
 <script type="text/javascript" src="{% static "zinnia/js/jquery.flexslider.js" %}"></script>
 <script type="text/javascript">

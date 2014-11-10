@@ -372,7 +372,7 @@ Page-specific
 #home #intro-blurb { margin-bottom: 20px;}
 #home #twitter-feed { margin-top: 20px; }
 #home #comments { margin-bottom: 20px; }
-#home #twitter-widget-1 {width: 100%; height: 800; }
+#home #twitter-widget-1 {width: 100%; height: 800px; }
 #home #comments, #home #articles { overflow: hidden;}
 #home #articles a.details { float: right; display: block;}
 
@@ -539,7 +539,7 @@ table.month .filled .dayNumber .popover {
 /* http://inspectelement.com/tutorials/create-the-illusion-of-stacked-elements-with-css3-pseudo-elements/ */
 
 .stack { position: relative; z-index: 10; }
- 
+
 /* Image styles */
 .stack img { max-width: 100%; height: auto; vertical-align: bottom; border: 10px solid #fff; border-radius: 3px;
     -webkit-box-sizing: border-box;
@@ -549,7 +549,7 @@ table.month .filled .dayNumber .popover {
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
- 
+
 /* Stacks creted by the use of generated content */
 .stack:before, .stack:after { content: ""; border-radius: 3px; width: 100%; height: 100%; position: absolute; border: 10px solid #fff; left: 0;
     -webkit-box-sizing: border-box;
@@ -569,7 +569,7 @@ table.month .filled .dayNumber .popover {
     -webkit-transform: rotate(4deg);
     -moz-transform: rotate(4deg);
     transform: rotate(4deg);
-}   
+}
 .stack.twisted:after {
     -webkit-transform: rotate(-4deg);
     -moz-transform: rotate(-4deg);

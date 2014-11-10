@@ -212,6 +212,10 @@ DJANGO_APPS = (
     # Useful template tags:
     'django.contrib.humanize',
 
+    # Even though we don't use it, the Zinnia admin
+    # template requires this app
+    'django_comments',
+
     # Admin panel and documentation:
     'suit', # http://django-suit.readthedocs.org/en/develop/#installation (must come before django.contrib.admin)
     'django.contrib.admin',
