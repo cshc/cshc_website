@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Club Dinner 2014{% endblock %}
+
+{% block body_id %}dinner2014{% endblock body_id %}
+
+{% block content %}
+
+{% url 'about_social' as social %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ social }}">Social</a> <span class="divider">/</span></li>
+  <li class="active">2014 Club Dinner &amp; Awards</li>
+</ul>
+
+<div class="page-header">
+    <h1>Club Dinner &amp; Awards <small>2014</small><div class="pull-right">{% include 'core/social/_season_selector.html' with url_prefix='/archive/social/dinner' season='2014' %}</div></h1>
+</div>
+
+<p>A beautiful evening in the riverside setting of Cambridge's Doubletree Hilton Hotel. Once again, much food was eaten, many drinks were consumed, eloquent speeches were given, numerous awards were presented and the evening all ended in a bit of a blur at The Fez Club...</p>
+<div class="row pics-row">
+    <div class="span6">
+        <img alt="" src="{{ STATIC_URL }}media/Social/dinner14_01.jpg" title="The gentlemen" />
+    </div>
+    <div class="span6">
+        <img alt="" src="{{ STATIC_URL }}media/Social/dinner14_02.jpg" title="The ladies" />
+    </div>
+</div>
+<h3>2014 Club Award Winners</h3>
+<p>Those recognised this year for their contribution and achievements over the season were:</p>
+<table class="table awards">
+<tbody>
+    <tr>
+        <td style="text-align: center;" width="50%">
+            <u><b>CLUBMAN OF THE YEAR</b></u></td>
+        <td style="text-align: center;" width="50%">
+            <u><b>CLUB LADY&nbsp;OF THE YEAR</b></u></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Jack Chalk</td>
+        <td style="text-align: center;">
+            Cath Anthony</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            &nbsp;</td>
+        <td style="text-align: center;">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 1sts Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 1sts Player of the Season</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Paresh Parsot</td>
+        <td style="text-align: center;">
+            Kimberley Cooil</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 1sts Outstanding Endeavour Award</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 1sts Best Newcomer</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Chris Pearson</td>
+        <td style="text-align: center;">
+            Elaine Penniket</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 2nds Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 2nds Player of the Season</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Tom Anns</td>
+        <td style="text-align: center;">
+            Emma South</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 2nds Most Improved Player</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 2nds Most Improved Player</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Oliver Lamming</td>
+        <td style="text-align: center;">
+            Daniella Kilsby-Steele</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 3rds Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 3rds Player of the Season</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Alisdair Edge</td>
+        <td style="text-align: center;">
+            Saskia Molekamp</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 3rds Best Newcomer</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 3rds Best Newcomer</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Simon Cooper</td>
+        <td style="text-align: center;">
+            Pippa Saunders</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 4ths Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b>Umpires' Award</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Tom Rosselli</td>
+        <td style="text-align: center;">
+            Neil Sneade</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 4ths Most Improved Player</b></td>
+        <td style="text-align: center;">
+            <b></b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Nathan Monck</td>
+        <td style="text-align: center;">
+            </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 5ths Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b></b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            James Matthews</td>
+        <td style="text-align: center;">
+            </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 5ths Best Newcomer</b></td>
+        <td style="text-align: center;">
+            <b></b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Rob Wood</td>
+        <td style="text-align: center;">
+            </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            &nbsp;</td>
+        <td style="text-align: center;">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <span style="font-size: medium;"><b>Leading Goalscorers</b></span></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men</b></td>
+        <td style="text-align: center;">
+            <b>Ladies</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            1st: Graham McCulloch (22 goals, 1.0 GPG)</td>
+        <td style="text-align: center;">
+            1st: Alice Hug (29 goals, 1.4 GPG)</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            2nd: John Greaves (16 goals, 0.6 GPG)</td>
+        <td style="text-align: center;">
+            2nd: Jess Robins (15 goals, 1.1 GPG)</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            3rd: Rob Barton (15 goals, 0.6 GPG)</td>
+        <td style="text-align: center;">
+            3rd: Elaine Penniket (15 goals, 1.0 GPG)</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;"></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <span style="font-size: medium;"><b>Special Awards</b></span></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Accidental Tourist Award (for those whose second home is Lincolnshire) - Kylie Beasley and Jan Brynjolffssen</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Reluctant Traveller Award (for those who never venture north of the A14) - Julie Sadler and Ian Glover</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Parental Advisory Award (for verbal abuse of his team captain) - Dave Spence</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Pratfall Award (for excessive falling down) - Georgie Hurford</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Captain Calamity Award (for tactical hari-kiri) - Boris Lossy</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Cheeky Striker Award (for unorthodox use of the posterior in attacking play) - Kendra Seed</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Cool Head Award (for improvisational goalkeeping) - Rob Wood</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Prancing Pony Award (for equine-inspired goal celebrations) - Kimberley Cooil</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Creative Journalism Award (for the funniest diary entry since Adrian Mole) - Jack Chalk</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The M*A*S*H Award (for excellence in field medicine) - Diane Eichelsheim</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <span style="font-size: medium;"><b>The Mick Beasley Perpetual Shield for Extracurricular Activities</b></span></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <p><b>Chris Pearson</b></p>
+            <p>Well and truly stitched up by Jack’s <a href="/matches/1318/">legendary match report</a> detailing the meticulous pre-match preparation of this 1st XI stalwart.</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <span style="font-size: medium;"><b>Outstanding Service to Cambridge South</b></span></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <p><b>John Benedikz</b></p>
+            <p>17 years service to Cambridge South, man and boy, outfield and in goal, as a player for every men’s XI, team captain, club treasurer and general all round good egg. He thinks he’s moving to Newmarket but we know he’ll be back.</p>
+        </td>
+    </tr>
+</tbody>
+</table>
+
+{% endblock content %}

@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Club Dinner 2013{% endblock %}
+
+{% block body_id %}dinner2013{% endblock body_id %}
+
+{% block content %}
+
+{% url 'about_social' as social %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ social }}">Social</a> <span class="divider">/</span></li>
+  <li class="active">2013 Club Dinner &amp; Awards</li>
+</ul>
+
+<div class="page-header">
+    <h1>Club Dinner &amp; Awards <small>2013</small><div class="pull-right">{% include 'core/social/_season_selector.html' with url_prefix='/archive/social/dinner' season='2013' %}</div></h1>
+</div>
+
+<p>We returned for a third year to the Great Hall of Clare College and their excellent basement bar for the post-dinner party, again organised by Social Secs Cath and Neil. Well done to all the deserving prize winners after another great season.</p>
+<div class="row pics-row">
+    <div class="span6">
+        <img alt="" src="{{ STATIC_URL }}media/Social/dinner13_01.jpg" title="The gentlemen" />
+    </div>
+    <div class="span6">
+        <img alt="" src="{{ STATIC_URL }}media/Social/dinner13_02.jpg" title="The ladies" />
+    </div>
+</div>
+<h3>2013 Club Award Winners</h3>
+<p>Those recognised this year for their contribution and achievements over the season were:</p>
+<table class="table awards">
+<tbody>
+    <tr>
+        <td style="text-align: center;" width="50%">
+            <u><b>CLUBMAN OF THE YEAR</b></u></td>
+        <td style="text-align: center;" width="50%">
+            <u><b>CLUB LADY&nbsp;OF THE YEAR</b></u></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Graham McCulloch</td>
+        <td style="text-align: center;">
+            Ellie Raffan</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            &nbsp;</td>
+        <td style="text-align: center;">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 1sts Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 1sts Player of the Season</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Graham McCulloch</td>
+        <td style="text-align: center;">
+            Georgina Hurford</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 1sts All Round Spectacular Effort</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 1sts Best and Fairest</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Finn Johnson</td>
+        <td style="text-align: center;">
+            Rebecca Baker</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 2nds Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 2nds Player of the Season</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Dominic Nelson</td>
+        <td style="text-align: center;">
+            Louise Gutteridge</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 2nds Most Improved Player</b></td>
+        <td style="text-align: center;">
+            <b>Ladies&#39; 2nds Best Newcomer</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Oliver Culley</td>
+        <td style="text-align: center;">
+            Ania Rygielska</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 3rds Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b>Umpires Award</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Matt Kern</td>
+        <td style="text-align: center;">
+            Jan Brynjolffssen</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 3rds Best Newcomer</b></td>
+        <td style="text-align: center;">
+            <b></b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            James Tanner</td>
+        <td style="text-align: center;">
+            </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 4ths Player of the Season</b></td>
+        <td style="text-align: center;">
+            <b></b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Ian Marshman</td>
+        <td style="text-align: center;">
+            </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men&#39;s 4ths Best Newcomer</b></td>
+        <td style="text-align: center;">
+            <b></b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            Rasmus Petersen</td>
+        <td style="text-align: center;">
+            </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            &nbsp;</td>
+        <td style="text-align: center;">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <span style="font-size: medium;"><b>Leading Goalscorers</b></span></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <b>Men</b></td>
+        <td style="text-align: center;">
+            <b>Ladies</b></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            1st: Rob Barton (43 goals, 2.0 GPG)</td>
+        <td style="text-align: center;">
+            1st: Alice Hug (22 goals, 1.2 GPG)</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            2nd: Graham McCulloch (31 goals, 1.3 GPG)</td>
+        <td style="text-align: center;">
+            2nd: Rebecca Baker (7 goals, 0.5 GPG)</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            3rd: Tom South (14 goals, 0.7 GPG)</td>
+        <td style="text-align: center;">
+            3rd: Kendra Seed (5 goals, 0.6 GPG)</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;"></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <span style="font-size: medium;"><b>Special Awards</b></span></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Accidental Tourist Award (for those whose second home is Lincolnshire) - Louise Tonkin and Neil Sneade</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Reluctant Traveller Award (for those who never venture north of the A14) - Emma South and Tim Clapp</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The George Best Award (for being drunk in charge of a hockey team) - Serin Dabb</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The One Woman Team Award (for excellence in every position) - Naomi Penfold</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Heroic Endeavour Award (for captaincy in the face of all the odds) - Leonie O’Donnell</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Absent Without Leave Award (for missing the first 7 matches of the season) - Mark Williams</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Lemon Fresh Award (for providing the zestiest smelling away shirts) - Colin Troll</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The “I Have a Dream” Award (for motivational speaking) - Rick Erlebach</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Pre-Match Preparation Award (for consumption of pasta breakfasts and secret sandwiches) - Ron Oren</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            The Tom South Award (for tardiness) - Tom South</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            &nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <span style="font-size: medium;"><b>The Mick Beasley Perpetual Shield for Extracurricular Activities</b></span></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <p><b>Alice Hug</b></p>
+            <p>For being a Lambrini-necking, Lola Lo-inhabiting, Gangnam Style-dancing, take-no-prisoners verbal hand grenade-chucking, party animal.</p>
+        </td>
+    </tr>
+</tbody>
+</table>
+
+{% endblock content %}

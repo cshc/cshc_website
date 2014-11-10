@@ -42,6 +42,8 @@
 
 {% url 'about_minutes' as minutes_url %}
 {% url 'chairmans_notes' as chairmans_notes %}
+{% url 'dinner2014' as dinner2014 %}
+{% url 'dinner2013' as dinner2013 %}
 {% url 'dinner2012' as dinner2012 %}
 {% url 'dinner2011' as dinner2011 %}
 {% url 'dinner2010' as dinner2010 %}
@@ -122,6 +124,8 @@
         <li><a href="{{ chairmans_notes }}" class="{% active chairmans_notes %}">Chairman's notes</a></li>
         <li class="divider"></li>
         <li class="nav-header">Social</li>
+        <li><a href="{{ dinner2014 }}" class="{% active dinner2014 %}">Club Dinner 2014</a></li>
+        <li><a href="{{ dinner2013 }}" class="{% active dinner2013 %}">Club Dinner 2013</a></li>
         <li><a href="{{ dinner2012 }}" class="{% active dinner2012 %}">Club Dinner 2012</a></li>
         <li><a href="{{ dinner2011 }}" class="{% active dinner2011 %}">Club Dinner 2011</a></li>
         <li><a href="{{ dinner2010 }}" class="{% active dinner2010 %}">Club Dinner 2010</a></li>

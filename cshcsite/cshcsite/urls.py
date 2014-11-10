@@ -47,6 +47,8 @@ urlpatterns = patterns('',
 
     url(r'^archive/minutes/$',         TemplateView.as_view(template_name='core/meeting_minutes.html'), name='about_minutes'),
     url(r'^archive/chairmans-notes/$', TemplateView.as_view(template_name='core/chairmans_notes.html'), name='chairmans_notes'),
+    url(r'^archive/social/dinner2014/$', TemplateView.as_view(template_name='core/social/dinner2014.html'), name='dinner2014'),
+    url(r'^archive/social/dinner2013/$', TemplateView.as_view(template_name='core/social/dinner2013.html'), name='dinner2013'),
     url(r'^archive/social/dinner2012/$', TemplateView.as_view(template_name='core/social/dinner2012.html'), name='dinner2012'),
     url(r'^archive/social/dinner2011/$', TemplateView.as_view(template_name='core/social/dinner2011.html'), name='dinner2011'),
     url(r'^archive/social/dinner2010/$', TemplateView.as_view(template_name='core/social/dinner2010.html'), name='dinner2010'),
