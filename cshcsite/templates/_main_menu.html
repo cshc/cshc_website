@@ -34,6 +34,7 @@
 {% url 'southerners_league' as southerners %}
 {% url 'opposition_club_list' as rivals %}
 {% url 'accidental_tourist' as accidental_tourist %}
+{% url 'playing_record' as playing_record %}
 
 {% url 'latest_results' as latest_results_url %}
 {% url 'next_fixtures' as next_fixtures_url %}
@@ -113,6 +114,7 @@
             <li><a href="{{ southerners }}" class="{% active southerners %}">Southerners League</a></li>
             <li><a href="{{ rivals }}" class="{% active rivals %}">Rivals</a></li>
             <li><a href="{{ accidental_tourist }}" class="{% active accidental_tourist %}">Accidental Tourist</a></li>
+            <li><a href="{{ playing_record }}" class="{% active playing_record %}">Playing Records</a></li>
         </ul>
     </li>
 

@@ -1,0 +1,46 @@
+{% load humanize %}
+
+{% for team, seasons in participation.items %}
+<h3 id="{{ team.short_name }}">{{ team.long_name }}</h3>
+<div class="record-table">
+<table class="table table-condensed table-hover table-center-align">
+    <thead>
+        <tr>
+            <th>Season</th>
+            {% if flavour = 'mobile' %}
+            <th><abbr title="Played">P</abbr></th>
+            <th><abbr title="Won">W</abbr></th>
+            <th><abbr title="Drawn">D</abbr></th>
+            <th><abbr title="Lost">L</abbr></th>
+            {% else %}
+            <th>Played</th>
+            <th>Won</th>
+            <th>Drawn</th>
+            <th>Lost</th>
+            {% endif %}
+            <th class="priority2"><abbr title="Goals for">GF</abbr></th>
+            <th class="priority2"><abbr title="Goals against">GA</abbr></th>
+            <th class="priority2"><abbr title="Goals per game">GPG</abbr></th>
+            <th>League Pos</th>
+            <th class="priority4">Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for part in seasons %}
+            <tr>
+                <td><a href="/teams/{{ team.slug }}/{{ part.season.slug }}/">{{ part.season }}</a></td>
+                <td>{{ part.total_played }}</td>
+                <td>{{ part.total_won }}</td>
+                <td>{{ part.total_drawn }}</td>
+                <td>{{ part.total_lost }}</td>
+                <td class="priority2">{{ part.total_goals_for }}</td>
+                <td class="priority2">{{ part.total_goals_against }}</td>
+                <td class="priority2">{{ part.total_goals_per_game|floatformat:1 }}</td>
+                <td>{% if part.final_pos %}{{ part.final_pos|ordinal }}{% endif %}</td>
+                <td class="priority4">{% if part.division_result %}{{ part.get_division_result_display }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endfor %}

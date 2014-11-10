@@ -1,5 +1,6 @@
 import logging
 from collections import defaultdict
+from itertools import groupby
 from datetime import datetime
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import get_object_or_404
@@ -15,7 +16,7 @@ from competitions.models import Division, Season, DivisionResult
 from matches.models import Match, Appearance
 from awards.models import MatchAwardWinner, MatchAward
 from members.models import Member
-from .stats import SquadMember, update_clubstats_for_season, update_participation_stats
+from .stats import SquadMember, update_clubstats_for_season, update_participation_stats, update_participation_stats_for_season
 from .league_scraper import get_east_leagues_nw_division
 from .models import ClubTeam, ClubTeamSeasonParticipation, TeamCaptaincy, Southerner
 
@@ -299,3 +300,67 @@ class ParticipationUpdateView(AjaxGeneral):
         update_participation_stats(participation)
 
         return {'participation': participation}
+
+
+###############################################################################
+# PLAYING RECORD
+
+
+class PlayingRecordMixin(object):
+    """Provides useful methods for Playing Record views"""
+
+    def get_all_playing_records(self):
+        """Returns a dictionary of Playing Records, keyed by team """
+
+        # Get all participation entries
+        participation = ClubTeamSeasonParticipation.objects.all().select_related('team', 'season').order_by('team', '-season')
+
+        grouped_by_team = groupby(participation, lambda x: x.team)
+        parts = {}
+        for team, seasons in grouped_by_team:
+            print team.long_name
+            parts[team] = []
+            for s in seasons:
+                print "\t{}".format(s.season)
+                parts[team].append(s)
+
+        return parts
+
+
+class PlayingRecordView(PlayingRecordMixin, TemplateView):
+    """View of the playing record stats for each team in the club"""
+
+    template_name = 'teams/playing_record.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PlayingRecordView, self).get_context_data(**kwargs)
+
+        # Get all participation entries
+        participation = ClubTeamSeasonParticipation.objects.all().select_related('team', 'season').order_by('team', '-season')
+
+        grouped_by_team = groupby(participation, lambda x: x.team)
+        parts = {}
+        for team, seasons in grouped_by_team:
+            print team.long_name
+            parts[team] = []
+            for s in seasons:
+                print "\t{}".format(s.season)
+                parts[team].append(s)
+
+        context['participation'] = self.get_all_playing_records()
+        return context
+
+
+class PlayingRecordUpdateView(PlayingRecordMixin, AjaxGeneral):
+    """View for updating and then displaying Playing Record stats for all teams """
+    template_name = 'teams/_playing_record_table.html'
+
+    def get_template_context(self, **kwargs):
+        """
+        Updates the Playing Record stats for all teams and all seasons and then returns
+        the context data for the template.
+        """
+        for season in Season.objects.all():
+            update_participation_stats_for_season(season)
+
+        return {'participation': self.get_southerners_list(season)}

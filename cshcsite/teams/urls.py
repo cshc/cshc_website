@@ -10,6 +10,18 @@ urlpatterns = patterns('',
         name="clubteam_list"
     ),
 
+    # E.g. '/teams/playing-record/'
+    url(r'^playing-record/$',
+        views.PlayingRecordView.as_view(),
+        name="playing_record"
+    ),
+
+    # E.g. '/teams/playing-record/ajax/'
+    url(r'^playing-record/ajax/$',
+        views.PlayingRecordUpdateView.as_view(),
+        name="playing_record_update"
+    ),
+
     # E.g. '/teams/southerners/'
     url(r'^southerners/$',
         views.SouthernersSeasonView.as_view(),

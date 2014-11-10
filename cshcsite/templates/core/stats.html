@@ -14,6 +14,7 @@ Static landing page for stats - mainly a redirect from the old site.
 {% url 'goal_king' as goal_king %}
 {% url 'southerners_league' as southerners %}
 {% url 'accidental_tourist' as accidental_tourist %}
+{% url 'playing_record' as playing_record %}
 {% url 'clubteam_list' as team_list %}
 {% url 'member_list' as member_list %}
 {% url 'opposition_club_list' as opp_list %}
@@ -46,6 +47,7 @@ South teams</a> and on all the <a href="{{ opp_list }}">opposition clubs</a> we'
     <li><a class="btn" href="{{ goal_king }}">Goal King</a></li>
     <li><a class="btn" href="{{ southerners }}">Southerners League</a></li>
     <li><a class="btn" href="{{ accidental_tourist }}">Accidental Tourist</a></li>
+    <li><a class="btn" href="{{ playing_record }}">Team Playing Records</a></li>
 </ul>
 
 {% endblock %}
