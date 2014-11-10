@@ -239,7 +239,7 @@ $(document).ready(function () {
         });
         $("#pagination li:first").addClass("active");
         $("#pagination").css({
-            left: ($(window).width() - $("#pagination li").length * 14) / 2
+            left: ($('#feature-row').width() - $("#pagination li").length * 14) / 2
         });
         var h = 0;
 
