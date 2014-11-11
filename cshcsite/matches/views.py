@@ -304,16 +304,17 @@ class AccidentalTouristMixin(object):
         goalking_list = list(GoalKing.objects.accidental_tourist(season))
 
         # Apply ranking
-        if len(goalking_list) > 0:
-            m_list = filter(lambda x: x.member.gender == Member.GENDER.Male, goalking_list)
-            l_list = filter(lambda x: x.member.gender == Member.GENDER.Female, goalking_list)
-            self.apply_ranking(m_list)
-            self.apply_ranking(l_list)
+        m_list = filter(lambda x: x.member.gender == Member.GENDER.Male, goalking_list)
+        l_list = filter(lambda x: x.member.gender == Member.GENDER.Female, goalking_list)
+        self.apply_ranking(m_list)
+        self.apply_ranking(l_list)
 
         return goalking_list
 
 
     def apply_ranking(self, goalking_list):
+        if len(goalking_list) == 0:
+            return
         rank = 1
         previous = goalking_list[0]
         previous.rank = 1
