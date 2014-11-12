@@ -1,9 +1,17 @@
 -r base.txt
 
 # Support for PostgreSQL
+# Ref: http://initd.org/psycopg/
 psycopg2==2.5.4
 
-
+# Python WSGI HTTP Server
+# Ref: http://gunicorn.org/
 gunicorn==19.1.1
+
+# Serve static or templated content via WSGI or stand-alone.
+# Ref: https://pypi.python.org/pypi/static/1.1.1
 static==1.0.2
+
+# Validation support for WSGI
+# Ref: https://pypi.python.org/pypi/wsgiref
 wsgiref==0.1.2

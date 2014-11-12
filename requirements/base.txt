@@ -88,24 +88,33 @@ django-maintenancemode==0.10
 # Ref: https://github.com/kennethreitz/dj-static
 dj-static==0.0.6
 
-# Storage (e.g. Amazon S3)
+# Static file serving/storage (e.g. Amazon S3)
+# Ref: http://docs.pythonboto.org/en/latest/
 boto==2.32
+# Ref: https://django-storages.readthedocs.org/en/latest/
 django-storages
+# Ref: https://github.com/jamstooks/django-s3-folder-storage
 django-s3-folder-storage==0.2
 
 # Html and Text based emails
-# The official one does not support settings.AUTH_USER_MODEL
+# The official one does not support settings.AUTH_USER_MODEL so I've
+# forked it and done a fix myself.
 #templated-emails==0.6.9
 -e git+https://github.com/cshc/templated-emails#egg=templated-emails
 
 # Database backup
+# (dependency of django-dbbackup) Interface to Amazon S3
+# Ref: https://github.com/lericson/simples3
 simples3==1.0
+# Ref: http://django-dbbackup.readthedocs.org/en/latest/
 django-dbbackup==2.0.3
 
 # Two-phase registration support (forked)
+# Ref: https://django-registration.readthedocs.org/en/latest/
 django-registration==1.0
 
 # Zinnia blog & dependencies
+# Ref: http://django-blog-zinnia.com/
 django-mptt==0.6.1
 django-tagging==0.3.2
 django-blog-zinnia==0.14.2
