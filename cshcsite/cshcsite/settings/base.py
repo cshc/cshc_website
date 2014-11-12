@@ -256,7 +256,6 @@ LOCAL_APPS = (
     'matches',
     'awards',
     'training',
-    'feedback',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

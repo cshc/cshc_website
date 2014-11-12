@@ -8,4 +8,3 @@ python manage.py schemamigration members --initial
 python manage.py schemamigration matches --initial
 python manage.py schemamigration awards --initial
 python manage.py schemamigration training --initial
-python manage.py schemamigration feedback --initial

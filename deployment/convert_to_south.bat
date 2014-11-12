@@ -8,4 +8,3 @@ python manage.py convert_to_south members
 python manage.py convert_to_south matches
 python manage.py convert_to_south awards
 python manage.py convert_to_south training
-python manage.py convert_to_south feedback

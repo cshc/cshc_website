@@ -66,9 +66,6 @@ urlpatterns = patterns('',
     url(r'^venues/', include('venues.urls')),
     url(r'^training/', include('training.urls')),
 
-    url(r'^feedback/', include('feedback.urls')),                  # Ref: https://github.com/SeanHayes/django-basic-feedback
-
-
     url(r'^accounts/profile/$', ProfileView.as_view(), name='user_profile'),
     url(r'^accounts/register/$', RegistrationView.as_view(), name='registration_register'),
     url(r'^accounts/', include('registration.backends.default.urls')),

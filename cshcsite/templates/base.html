@@ -30,8 +30,6 @@
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/project.css?v=1_0_7" rel="stylesheet">
 
-    <link type="text/css" href="{{ STATIC_URL }}css/feedback.css" rel="stylesheet"/>
-
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon.png" />
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ STATIC_URL }}ico/apple-touch-icon-57x57.png" />
@@ -65,11 +63,6 @@
 
   <body class="{% block body_class %}pull_top{% endblock body_class %}" id="{% block body_id %}page{% endblock body_id %}">
     <div id="page-top"></div>
-
-    {% comment %}
-    {% load feedback_widget %}
-    {% feedback_widget %}
-    {% endcomment %}
 
     {% block menu %}
     <div id="top-nav" class="{% block navbar_class %}navbar navbar-inverse navbar-static-top{% endblock navbar_class %}">
@@ -164,7 +157,6 @@
     {#<script src="{{ STATIC_URL }}js/loader.js"></script>#}
     <script src="{{ STATIC_URL }}clean_canvas/js/theme.js"></script>
     <script src="{{ STATIC_URL }}js/project.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/feedback.js"></script>
     {% endblock body_js %}
   </body>
 </html>

@@ -8,4 +8,3 @@ python manage.py migrate members
 python manage.py migrate matches
 python manage.py migrate awards
 python manage.py migrate training
-python manage.py migrate feedback

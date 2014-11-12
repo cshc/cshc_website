@@ -8,4 +8,3 @@ python manage.py migrate members --fake
 python manage.py migrate matches --fake
 python manage.py migrate awards --fake
 python manage.py migrate training --fake
-python manage.py migrate feedback --fake

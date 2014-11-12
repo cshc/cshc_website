@@ -1,69 +1,92 @@
 # Core Django framework
+# Ref: https://www.djangoproject.com/
 Django==1.6
 
 # Support for using database URLs in settings
+# This is primarily used for the Heroku staging server database config
+# but feel free to use it for local dev.
+# Ref: https://github.com/kennethreitz/dj-database-url
 dj-database-url==0.3.0
 
 # Python Imaging Library fork
+# Required for ImageField, thumbnails, etc.
+# Ref: https://pypi.python.org/pypi/Pillow
 Pillow==2.5.3
 
-# Database migration
+# Database migration support (required until we upgrade to Django v1.7 that has
+# database migration built in)
+# Ref: http://south.readthedocs.org/en/latest/
 South==1.0
 
-# Useful tools for models
+# Contains various useful classes and mixins for working with Django models
+# - check out the docs!
+# Ref: https://django-model-utils.readthedocs.org/en/latest/
 django-model-utils==2.2
 
 # Support for mobile website detection etc
+# Ref: https://github.com/gregmuellegger/django-mobile
 django_mobile==0.4
 
-# Generic reusable mixins for DJango
+# Generic reusable mixins for Django - check out the docs!
+# Ref: https://django-braces.readthedocs.org/en/v1.4.0/
 django-braces==1.4.0
 
-# (used by django-ical) Extensions to the standard Python datetime module
+# (django-ical prerequisite) Extensions to the standard Python datetime module
+# Ref: https://labix.org/python-dateutil
 python-dateutil==2.2
 
-# (django-ical) iCalendar parser/generator
+# (django-ical prerequisite) World Time Zone definitions in python
+# Ref: http://pytz.sourceforge.net/
 pytz>=2013b
+
+# (django-ical prerequisite) iCalendar parser/generator
+# Ref: https://github.com/collective/icalendar
 icalendar==3.8
 
 # iCal feeds based on Django's syndication framework
+# Ref: http://django-ics.readthedocs.org/en/latest/
 django-ical==1.2
 
 # Website scraper
+# Used for scraping the East League's website for league tables etc!
+# Ref: http://www.crummy.com/software/BeautifulSoup/
 beautifulsoup4==4.3
 
 # Modern theme for Django admin interface
+# Ref: http://djangosuit.com/
 django-suit==0.2
 
-# WYSIWYG editor integration
+# WYSIWYG editor integration that works with django-suit
+# Ref: https://github.com/darklow/django-suit-redactor
 django-suit-redactor==0.0.2
 
 # Support for (cached) thumbnails
+# Ref: http://sorl-thumbnail.readthedocs.org/en/latest/
 sorl-thumbnail==11.12.1b
 
-# Twitter API v1.1 support
-twython==3.1
-
-# Filtering support for list views
+# Filtering support for list views (e.g. match search)
+# Ref: https://django-filter.readthedocs.org/en/latest/
 django-filter==0.7
 
-# Pagination template tags
+# Pagination template tags (e.g. match search)
+# Ref: https://pypi.python.org/pypi/django-pagination
 django-pagination==1.0.7
 
-# Sorting template tags
+# Sorting template tags (e.g match search)
+# Ref: http://django-sorter.readthedocs.org/en/latest/
 django-sorter==0.2
 
-# Support for the disqus commenting framework
+# Support for the disqus (http://disqus.com) commenting framework
+# Ref: http://django-disqus.readthedocs.org/en/latest/
 django-disqus==0.4
 
-# Maintenance mode!
+# Easily put the site in Maintenance mode!
+# Ref: https://pypi.python.org/pypi/django-maintenancemode
 django-maintenancemode==0.10
 
 # Static file serving
+# Ref: https://github.com/kennethreitz/dj-static
 dj-static==0.0.6
-
-# Feedback form
-django-basic-feedback==1.0
 
 # Storage (e.g. Amazon S3)
 boto==2.32
