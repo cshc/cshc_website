@@ -39,22 +39,11 @@ class TeamCaptaincy(models.Model):
 
 
     @staticmethod
-    def get_captain(team, season):
-        """Returns a Member object corresponding to the captain for the specified team and season, or None if there was no captain"""
-        return TeamCaptaincy._get_captain(team, season, False)
+    def get_captains(team, season):
+        """Returns TeamCaptaincy objects corresponding to the captains for the specified team and season """
+        return TeamCaptaincy.objects.filter(team=team, season=season, is_vice=False).order_by('-start')
 
     @staticmethod
-    def get_vice_captain(team, season):
-        """Returns a Member object corresponding to the vice captain for the specified team and season, or None if there was no vice captain"""
-        return TeamCaptaincy._get_captain(team, season, True)
-
-    @staticmethod
-    def _get_captain(team, season, is_vice):
-        """Returns a Member object corresponding to the captain/vice-captain for the specified team and season, or None if there was no captaincy could be found"""
-        try:
-            captaincy = first_or_none(TeamCaptaincy.objects.filter(team=team, start__lte=season.end, is_vice=is_vice).order_by('-start'))
-            if captaincy is not None:
-                return captaincy.member
-        except TeamCaptaincy.DoesNotExist:
-            pass
-        return None
+    def get_vice_captains(team, season):
+        """Returns TeamCaptaincy objects corresponding to the vice captains for the specified team and season """
+        return TeamCaptaincy.objects.filter(team=team, season=season, is_vice=True).order_by('-start')

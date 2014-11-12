@@ -61,21 +61,28 @@ Currently just lists the values that will be needed by this template - no UI des
         <table id="captains-table" class="table table-clean table-hcondensed">
         <tbody>
             <tr><td class="dt">Captain:</td>
-            {% if captain %}
-                <td><strong>{{ captain|urlise_model }}</strong></td>
+            {% if captains %}
+                <td>
+                    {% for c in captains %}
+                        <strong>{{ c.member|urlise_model }}</strong>
+                        {% if not forloop.last %}<br/>{% endif %}
+                    {% endfor %}
+                </td>
             {% else %}
                 <td><strong>(Unknown)</strong></td>
                 <td>{% model_admin_links 'teams' 'teamcaptaincy' changelist=False %}</td>
             {% endif %}
             </tr>
-            <tr><td class="dt">Vice-captain:</td>
             {% if vice_captain %}
-                <td><strong>{{ vice_captain|urlise_model }}</strong></td>
-            {% else %}
-                <td><strong>(Unknown)</strong></td>
-                <td>{% model_admin_links 'teams' 'teamcaptaincy' changelist=False %}</td>
-            {% endif %}
+            <tr><td class="dt">Vice-captain:</td>
+                <td>
+                    {% for vc in vice_captains %}
+                        <strong>{{ vc.member|urlise_model }}</strong>
+                        {% if not forloop.last %}<br/>{% endif %}
+                    {% endfor %}
+                </td>
             </tr>
+            {% endif %}
         </tbody>
         </table>
         <div class="row quick-links">

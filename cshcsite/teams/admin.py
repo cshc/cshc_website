@@ -11,6 +11,12 @@ class TeamCaptaincyInline(admin.TabularInline):
     ordering = ('-start',)
 
 
+class TeamCaptaincyAdmin(admin.ModelAdmin):
+    """ Admin interface for a TeamCaptaincy """
+    list_display = ('member', 'team', 'season', 'start', 'is_vice')
+    search_fields = ('member', 'team', 'season')
+    list_filter = ('season', 'is_vice', 'team')
+
 class ClubTeamAdmin(admin.ModelAdmin):
     """Admin interface for a ClubTeam"""
     readonly_fields = ('slug',)
@@ -25,5 +31,5 @@ class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):
 
 # Register all teams models with the admin interface
 admin.site.register(ClubTeam, ClubTeamAdmin)
-admin.site.register(TeamCaptaincy)
+admin.site.register(TeamCaptaincy, TeamCaptaincyAdmin)
 admin.site.register(ClubTeamSeasonParticipation, ClubTeamSeasonParticipationAdmin)

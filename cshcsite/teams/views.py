@@ -86,8 +86,8 @@ class ClubTeamDetailView(TemplateView):
                 season = Season.current()
 
         # Retrieve captaincy information for this team
-        context['captain'] = TeamCaptaincy.get_captain(team, season)
-        context['vice_captain'] = TeamCaptaincy.get_vice_captain(team, season)
+        context['captains'] = TeamCaptaincy.get_captains(team, season)
+        context['vice_captains'] = TeamCaptaincy.get_vice_captains(team, season)
 
         # Get the participation information for this team and season
         participation = ClubTeamSeasonParticipation.objects.select_related('division__league', 'season').get(team=team, season=season)
