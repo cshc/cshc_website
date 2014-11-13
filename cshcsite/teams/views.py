@@ -334,19 +334,6 @@ class PlayingRecordView(PlayingRecordMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(PlayingRecordView, self).get_context_data(**kwargs)
-
-        # Get all participation entries
-        participation = ClubTeamSeasonParticipation.objects.all().select_related('team', 'season').order_by('team', '-season')
-
-        grouped_by_team = groupby(participation, lambda x: x.team)
-        parts = {}
-        for team, seasons in grouped_by_team:
-            print team.long_name
-            parts[team] = []
-            for s in seasons:
-                print "\t{}".format(s.season)
-                parts[team].append(s)
-
         context['participation'] = self.get_all_playing_records()
         return context
 
