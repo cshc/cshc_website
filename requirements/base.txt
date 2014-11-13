@@ -57,8 +57,7 @@ beautifulsoup4==4.3
 django-suit==0.2
 
 # WYSIWYG editor integration that works with django-suit
-# Ref: https://github.com/darklow/django-suit-redactor
-django-suit-redactor==0.0.2
+# Ref: https://github.com/TigorC/django-redactorjs
 django-redactorjs==0.3
 
 # Support for (cached) thumbnails

@@ -239,7 +239,6 @@ THIRD_PARTY_APPS = (
     's3_folder_storage',
     'dbbackup',
     'registration',
-    'suit_redactor',
     'tagging',
     'mptt',
     'zinnia',
@@ -537,9 +536,9 @@ REDACTOR_OPTIONS = {'lang': 'en',}
 REDACTOR_UPLOAD = 'uploads/'
 REDACTOR_CSS = {
     'all': (
-        'suit-redactor/redactor/redactor.css',)
+        STATIC_URL + 'redactor/redactor.css',)
 }
 REDACTOR_JS = [
     'http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
-    'suit-redactor/redactor/redactor.js',
+    STATIC_URL + 'redactor/redactor.js',
 ]
