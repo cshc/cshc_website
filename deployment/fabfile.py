@@ -24,7 +24,8 @@ env.user = _get_env_setting('MYTHIC_BEASTS_SSH_USER')
 env.password = _get_env_setting('MYTHIC_BEASTS_SSH_PASSWORD')
 env.remote_root = '~/new_site/'
 
-@task staging_release():
+@task
+def staging_release():
     local('heroku login')
     local('git push heroku master')
     local('heroku restart')
@@ -41,6 +42,7 @@ env.remote_root = '~/new_site/'
 
 @task
 def initial_setup(version):
+    check_not_debug()
     tag_release(version)
     archive_repo()
     upload_release()
@@ -55,6 +57,7 @@ def initial_setup(version):
 
 @task
 def file_update(version):
+    check_not_debug()
     tag_release(version)
     archive_repo()
     upload_release()
@@ -65,6 +68,7 @@ def file_update(version):
 
 @task
 def update_release(version):
+    check_not_debug()
     tag_release(version)
     archive_repo()
     upload_release()
@@ -75,6 +79,13 @@ def update_release(version):
     migrate_db()
     collectstatic()
     set_maintenance_mode(False)
+
+@task
+def check_not_debug():
+    with open('../cshcsite/cshcsite/settings/base.py') as f:
+        base_settings = f.read()
+        if "DEBUG = True" in base_settings:
+            abort("You must set 'DEBUG = False' in cshcsite/settings/base.py before deploying")
 
 @task
 def install_dependencies():
