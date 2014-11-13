@@ -3,7 +3,6 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import datetime
 import pytz
-from django.utils import timezone
 
 log = logging.getLogger(__name__)
 
@@ -57,7 +56,7 @@ class Season(models.Model):
     def current():
         """Returns the current season"""
         try:
-            return Season.objects.by_date(timezone.now().date())
+            return Season.objects.by_date(datetime.now().date())
         except Season.DoesNotExist:
             log.warn("Current season not found. Creating now")
             return Season.create_current_season()
@@ -71,13 +70,13 @@ class Season(models.Model):
     @staticmethod
     def create_current_season():
         current = Season()
-        dt = timezone.now()
+        dt = datetime.now()
         if dt.month >= 9:
             start_year = dt.year
         else:
             start_year = dt.year - 1
 
-        current.start = datetime(year=start_year, month=9, day=1, timezone=pytz.UTC)
-        current.end = datetime(year=start_year+1, month=8, day=31, timezone=pytz.UTC)
+        current.start = datetime(year=start_year, month=9, day=1)
+        current.end = datetime(year=start_year+1, month=8, day=31)
         current.save()
         return current
