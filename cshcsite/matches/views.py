@@ -1,8 +1,11 @@
 import logging
+import operator
 from datetime import datetime, date, timedelta
 from itertools import groupby
 from django.views.generic import DetailView, ListView, TemplateView
 from django.utils import timezone
+from django.db.models import Q
+from django.db import IntegrityError
 from exceptions import IndexError
 from braces.views import SelectRelatedMixin
 from core.models import first_or_none
@@ -375,3 +378,47 @@ class AccidentalTouristSeasonUpdateView(AccidentalTouristMixin, AjaxGeneral):
         GoalKing.update_for_season(season)
 
         return {'goalking_list': self.get_goalking_list(season)}
+
+
+
+
+class NaughtyStepView(TemplateView):
+
+    template_name = 'matches/naughty_step.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(NaughtyStepView, self).get_context_data(**kwargs)
+
+        q = Q(red_card=True) | Q(yellow_card=True) | Q(green_card=True)
+        card_apps = Appearance.objects.filter(q).order_by('match__date')
+
+        players = {}
+        for app in card_apps:
+            if app.member not in players:
+                players[app.member] = NaughtyPlayer(app.member)
+            players[app.member].add_appearance(app)
+
+        players = sorted(players.values(), key=lambda p: len(p.green_cards), reverse=True)
+        players = sorted(players, key=lambda p: len(p.yellow_cards), reverse=True)
+        players = sorted(players, key=lambda p: len(p.red_cards), reverse=True)
+        context['players'] = players
+        return context
+
+
+class NaughtyPlayer(object):
+
+    def __init__(self, member):
+        self.member = member
+        self.red_cards = []
+        self.yellow_cards = []
+        self.green_cards = []
+
+    def add_appearance(self, appearance):
+        if appearance.member != self.member:
+            raise IntegrityError("This appearance, {}, does not relate to {}.".format(appearance, self.member))
+        if appearance.red_card:
+            self.red_cards.append(appearance)
+        elif appearance.yellow_card:
+            self.yellow_cards.append(appearance)
+        elif appearance.green_card:
+            self.green_cards.append(appearance)

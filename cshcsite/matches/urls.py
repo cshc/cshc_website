@@ -83,6 +83,12 @@ urlpatterns = patterns('',
         name="accidental_tourist_season_update"
     ),
 
+    # E.g. '/matches/naughty-step/'
+    url(r'^naughty-step/$',
+        views.NaughtyStepView.as_view(),
+        name="naughty_step"
+    ),
+
     # Feeds
     url(r'^feed/rss/$',                          # RSS feed of match reports
         feeds.RssMatchReportsFeed(),

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Formatted display of the 'Naughty Step' tables for all members.
+This displays the red, yellow and green cards received by all players.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Naughty Step{% endblock %}
+
+{% block body_id %}naughty-step{% endblock body_id %}
+
+{% block content %}
+{% url 'stats' as stats_url %}
+
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    <li><a href="{{ stats_url }}">Stats</a> <span class="divider">/</span></li>
+    <li class="active">Naughty Step</li>
+</ul>
+
+<div class="page-header">
+    <h1>The Naughty Step</h1>
+</div>
+
+<img id="naughty-img" class="img-polaroid pull-right" src="{{ STATIC_URL }}media/Web%20site%20images/yellow-card.jpg">
+
+<p class="lead">So - who are the naughty ones? The players who can't help but
+accumulate cards. Find out here!</p>
+
+<table class="table table-condensed table-hover table-center-align">
+    <thead>
+        <tr>
+            <th class="{% if flavour != 'mobile' %}span3 {% endif %}left-align">Player</th>
+            <th class="left-align">Cards</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in players %}
+            <tr>
+                <td class="left-align">{{ p.member|urlise_model }}</td>
+                <td class="left-align">
+                    {% for red_card_app in p.red_cards %}
+                        <a href="{{ red_card_app.match.get_absolute_url }}" title="Match report...">
+                            <img src="{{ STATIC_URL }}img/red_card.png">
+                        </a>
+                    {% endfor %}
+                    {% for yellow_card_app in p.yellow_cards %}
+                        <a href="{{ yellow_card_app.match.get_absolute_url }}" title="Match report...">
+                            <img src="{{ STATIC_URL }}img/yellow_card.png">
+                        </a>
+                    {% endfor %}
+                    {% for green_card_app in p.green_cards %}
+                        <a href="{{ green_card_app.match.get_absolute_url }}" title="Match report...">
+                            <img src="{{ STATIC_URL }}img/green_card.png">
+                        </a>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
