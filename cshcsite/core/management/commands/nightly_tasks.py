@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+from django.utils import timezone
 from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
 from matches.models import GoalKing
@@ -7,6 +9,7 @@ from opposition.stats import update_all_club_stats
 from teams.models import ClubTeamSeasonParticipation
 from teams import league_scraper
 from teams.stats import update_participation_stats_for_season
+from training.models import TrainingSession
 
 # To run:
 # cron 0 2 * * * python /home/rgagarrett/new_site/repo/cshcsite/manage.py nightly_tasks >/dev/null
@@ -53,5 +56,21 @@ class Command(BaseCommand):
             except Exception as e:
                 errors.add("Failed to scrape league table from {}: {}".format(participation.division_tables_url, e))
 
+        try:
+            # Delete all training session entries from before yesterday (we don't care about
+            # training sessions in the past)
+            self.purge_training_sessions()
+        except Exception as e:
+            errors.add("Failed to purge training sessions: {}".format(e))
+
         if errors:
             send_mail("Nightly build task failed", "\n".join(errors), 'website@cambridgesouthhockeyclub.co.uk', ['website@cambridgesouthhockeyclub.co.uk'])
+
+
+    def purge_training_sessions(self):
+        """ Delete all training session entries from before a specified datetime,
+            so they don't clog up the system.
+        """
+        yesterday = timezone.now() - timedelta(days=1)
+        print "Purging all training sessions from before yesterday"
+        TrainingSession.objects.before(yesterday).delete()

@@ -1,4 +1,5 @@
 import logging
+from django.utils import timezone
 from django.db import models
 from django.db.models.query import QuerySet
 from datetime import datetime
@@ -16,7 +17,10 @@ class TrainingSessionQuerySet(QuerySet):
 
     def upcoming(self):
         """Returns only training sessions in the future, sorted by date"""
-        return self.filter(datetime__gte=datetime.now()).order_by('datetime')
+        return self.filter(datetime__gte=timezone.now()).order_by('datetime')
+
+    def before(self, dt):
+        return self.filter(datetime__lt=dt).order_by('datetime')
 
     def this_season(self):
         """Returns only training sessions for this season"""
