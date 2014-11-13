@@ -15,3 +15,11 @@ django-debug-toolbar==1.2.1
 # Used for remote execution and deployment of website to production site etc.
 # Ref: http://www.fabfile.org/en/latest/
 fabric==1.10
+
+# Graphical representation of models
+# NOTE: YOU SHOULD ALSO INSTALL GRAPHVIZ! http://www.graphviz.org/Download..php
+# Ref: http://django-extensions.readthedocs.org/en/latest/
+django-extensions==1.4.6
+# Image generation library - used by django-extension's graph_models command.
+pyparsing==1.5.7
+pydot==1.0.2
