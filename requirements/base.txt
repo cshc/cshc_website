@@ -59,6 +59,7 @@ django-suit==0.2
 # WYSIWYG editor integration that works with django-suit
 # Ref: https://github.com/darklow/django-suit-redactor
 django-suit-redactor==0.0.2
+django-redactorjs==0.3
 
 # Support for (cached) thumbnails
 # Ref: http://sorl-thumbnail.readthedocs.org/en/latest/

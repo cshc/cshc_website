@@ -243,6 +243,7 @@ THIRD_PARTY_APPS = (
     'tagging',
     'mptt',
     'zinnia',
+    'redactor',
 )
 
 # Apps specific for this project go here.
@@ -529,3 +530,16 @@ ACCOUNT_ACTIVATION_DAYS = 7
 ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0
 ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0
 ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0
+
+########## django-redactorjs CONFIGURATION
+# Ref: https://github.com/TigorC/django-redactorjs
+REDACTOR_OPTIONS = {'lang': 'en',}
+REDACTOR_UPLOAD = 'uploads/'
+REDACTOR_CSS = {
+    'all': (
+        'suit-redactor/redactor/redactor.css',)
+}
+REDACTOR_JS = [
+    'http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
+    'suit-redactor/redactor/redactor.js',
+]

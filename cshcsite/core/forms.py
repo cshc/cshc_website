@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from suit_redactor.widgets import RedactorWidget
+from redactor.widgets import RedactorEditor
 from .models import ContactSubmission, CshcUser
 
 
@@ -10,7 +10,7 @@ class FlatPageForm(forms.ModelForm):
     class Meta:
         model = FlatPage
         widgets = {
-            'content': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 400}),
+            'content': RedactorEditor(redactor_options={'minHeight': 400}),
         }
 
 

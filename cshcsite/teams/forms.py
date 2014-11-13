@@ -1,6 +1,6 @@
 from django import forms
 from .models import ClubTeamSeasonParticipation
-from suit_redactor.widgets import RedactorWidget
+from redactor.widgets import RedactorEditor
 
 
 class ClubTeamSeasonParticipationForm(forms.ModelForm):
@@ -11,6 +11,6 @@ class ClubTeamSeasonParticipationForm(forms.ModelForm):
     class Meta:
         model = ClubTeamSeasonParticipation
         widgets = {
-            'blurb': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 150}),
-            'team_photo_caption': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 150}),
+            'blurb': RedactorEditor(redactor_options={'minHeight': 150}),
+            'team_photo_caption': RedactorEditor(redactor_options={'minHeight': 150}),
         }

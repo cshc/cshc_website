@@ -1,7 +1,6 @@
 from django import forms
 from .models import Match
-from suit_redactor.widgets import RedactorWidget
-
+from redactor.widgets import RedactorEditor
 
 class MatchForm(forms.ModelForm):
     """
@@ -11,6 +10,6 @@ class MatchForm(forms.ModelForm):
     class Meta:
         model = Match
         widgets = {
-            'pre_match_hype': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 150}),
-            'report_body': RedactorWidget(editor_options={'lang': 'en', 'minHeight': 400})
+            'pre_match_hype': RedactorEditor(upload_to="uploads/match_reports/", redactor_options={'minHeight': 150}),
+            'report_body': RedactorEditor(upload_to="uploads/match_reports/", redactor_options={'minHeight': 400})
         }
