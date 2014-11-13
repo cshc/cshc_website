@@ -43,7 +43,7 @@ Currently just lists the values that will be needed by this template - no UI des
     </div>
 </div>
 
-<div class="row">
+<div class="row match-score">
 <table class="table table-score">
 <tbody>
     <tr>
@@ -58,7 +58,7 @@ Currently just lists the values that will be needed by this template - no UI des
         <td class="team-score">vs</td>
         {% endif %}
         <td class="team-name"><a href="{{ match.opp_team.club.get_absolute_url }}">{{ match.opp_team.name }}</a></td>
-    </td>
+    </tr>
 </tbody>
 </table>
 </div>
