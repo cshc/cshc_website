@@ -232,6 +232,23 @@ a .table-score:hover tbody tr td.team-score,
 
 .match-detail { background-color: rgb(237, 237, 234); }
 
+.team-played, .match-awards { padding-top: 10px; }
+
+.players-container { float: left; }
+.players-container .player-card{
+    float:left;
+    margin:10px 10px 0 0;
+    width: 170px;
+}
+.player-card .profile-pic {
+    text-align: left;
+    vertical-align: top;
+}
+.player-details {
+    display: inline-block;
+    margin-left: 10px;
+}
+
 .match-links .btn { width: 190px; }
 
 .absoluteCenterWrapper { position: relative; /* Contains the image in the div */ }
@@ -327,6 +344,7 @@ Responsive
     #matches-by-date .table-score tbody tr td.team-score.alt-score {font-size: 100%;}
     .banner-box .table-condensed th, .banner-box .table-condensed td {padding: 6px 1px;}
     .pager li a {font-size: 10px; line-height: 14px;}
+    .match-detail {padding: 0 0 10px 10px;}
 }
 
 @media only screen and (max-width: 320px) {
@@ -501,7 +519,8 @@ table.month .filled .dayNumber .popover {
 
 #member-list #filter input, #member-list #filter button { margin: 10px 10px 15px 0px; }
 
-#member-detail #shirt-number
+#shirt-number,
+.shirt-number
 {
     background-repeat: no-repeat; background-size: contain; background-position: center;
     width: 50px; height: 50px;
@@ -510,9 +529,13 @@ table.month .filled .dayNumber .popover {
     text-align: center;
     font-weight: bold;
 }
-#member-detail #shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt%20back.png");}
-#member-detail #shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt%20back.png");}
-
+#shirt-number.female, .shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt%20back.png");}
+#shirt-number.male, .shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt%20back.png");}
+.match-detail .shirt-number {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 40px;
+}
 
 /**************************************************************/
 /* Summer hockey banner */

@@ -2,27 +2,29 @@
 {% load thumbnail %}
 
 <div class="row match-detail team-played">
-    <div class="span12"><h4><i class="icon icon-group"></i>Team played</h4></div>
-    {% if appearances %}
-        {% for app in appearances %}
-            <div class="span3">
-                <div class="media">
-                    <a class="pull-left" href="{{ app.member.get_absolute_url }}">
-                        {% include 'members/_profile_pic_thumbnail.html' with member=app.member %}
-                    </a>
-                    <div class="media-body">
-                        <p><a href="{{ app.member.get_absolute_url }}" title="{{ app.member.full_name }}">{{ app.member.first_name_and_initial }}</a><br/>
-                        {% if app.goals %}<span class="badge" title="Goals">{{ app.goals }}</span>{% endif %}
-                        {% if app.green_card %}<img src="{{ STATIC_URL }}img/green_card.png" title="Green card">{% endif %}
-                        {% if app.yellow_card %}<img src="{{ STATIC_URL }}img/yellow_card.png" title="Yellow card">{% endif %}
-                        {% if app.red_card %}<img src="{{ STATIC_URL }}img/red_card.png" title="Red card">{% endif %}</p>
+    <div class="span12">
+        <h4><i class="icon icon-group"></i>Team played</h4>
+        {% if appearances %}
+            <div class="players-container">
+                {% for app in appearances %}
+                    <div class="player-card">
+                        <a href="{{ app.member.get_absolute_url }}">
+                            {% include 'members/_profile_pic_thumbnail.html' with member=app.member %}
+                        </a>
+                        <div class="player-details">
+                            <p><a href="{{ app.member.get_absolute_url }}" title="{{ app.member.full_name }}">{{ app.member.first_name_and_initial }}</a><br/>
+                            {% if app.goals %}<span class="badge" title="Goals">{{ app.goals }}</span>{% endif %}
+                            {% if app.green_card %}<img src="{{ STATIC_URL }}img/green_card.png" title="Green card">{% endif %}
+                            {% if app.yellow_card %}<img src="{{ STATIC_URL }}img/yellow_card.png" title="Yellow card">{% endif %}
+                            {% if app.red_card %}<img src="{{ STATIC_URL }}img/red_card.png" title="Red card">{% endif %}</p>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    {% else %}
-        <div class="span12"><p>No team details available.</p></div>
-    {% endif %}
+        {% else %}
+            <p>No team details available.</p>
+        {% endif %}
+    </div>
 </div>
 <div class="row match-detail match-awards">
     <div class="span6">

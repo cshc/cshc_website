@@ -10,8 +10,8 @@ Expected context:
 {% thumbnail member.profile_pic "50x50" crop="center" as im %}
     <img class="profile-pic" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 {% empty %}
-	<img class="profile-pic" src="{{ STATIC_URL }}media/profile_pics/default.jpg" width="50" height="50">
-    {#<span id="shirt-number" class="{{ member.gender|lower }}">{{ member.shirt_number|default:"" }}</span>#}
+	{#<img class="profile-pic" src="{{ STATIC_URL }}media/profile_pics/default.jpg" width="50" height="50">#}
+    <span class="shirt-number {{ member.gender|lower }}">{{ member.shirt_number|default:"" }}</span>
 {% endthumbnail %}
 
 {# TEMP #}
