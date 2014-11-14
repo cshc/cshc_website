@@ -98,11 +98,11 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% if same_date_matches|length > 0 %}
 <div class="row same-day">
-    <div class="well">
+    <div class="bottom-box">
         <h4>Other matches on {{ match.date|date:"jS M" }}</h4>
-        <ul>
+        <ul class="icons-ul">
             {% for m in same_date_matches %}
-                <li><a href="{{ m.get_absolute_url }}">{{ m.fixture_title }}</a></li>
+                <li><i class="icon-li {% if m.our_team.gender == 'Mens' %}icon-male{% else %}icon-female{% endif %}"></i>&nbsp;<a href="{{ m.get_absolute_url }}">{{ m.fixture_title }}</a></li>
             {% endfor %}
         </ul>
     </div>
