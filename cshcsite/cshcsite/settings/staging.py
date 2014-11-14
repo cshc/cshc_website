@@ -5,7 +5,7 @@ import dj_database_url
 
 MAINTENANCE_MODE = False
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 TEMPLATE_STRING_IF_INVALID = '######'
