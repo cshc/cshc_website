@@ -54,7 +54,7 @@ beautifulsoup4==4.3
 
 # Modern theme for Django admin interface
 # Ref: http://djangosuit.com/
-django-suit==0.2
+django-suit==0.2.11
 
 # WYSIWYG editor integration that works with django-suit
 # Ref: https://github.com/TigorC/django-redactorjs
