@@ -34,6 +34,10 @@ admin.site.register(Entry, ZinniaEntryAdmin)
 admin.site.unregister(Category)
 admin.site.register(Category, ZinniaCategoryAdmin)
 
+# Remove the third-party items we don't want to see in the admin interface
+from django_comments.models import Comment
+admin.site.unregister(Comment)
+
 class RedactorFlatPageAdmin(FlatPageAdmin):
     """Override for the FlatPage admin interface - uses a Redactor widget"""
 
