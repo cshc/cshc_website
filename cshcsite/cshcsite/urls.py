@@ -5,6 +5,7 @@ from django.conf import settings
 from venues.views import HomeVenueListView
 from core.views import ContactSubmissionCreateView, RegistrationView
 from members.views import ProfileView
+from .sitemap import CshcSitemap
 from . import views
 
 admin.autodiscover()
@@ -76,6 +77,9 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
+    # Sitemap (indexed)
+    url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': CshcSitemap}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': CshcSitemap}),
 )
 
 # Static pages - use the flatpage app

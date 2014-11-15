@@ -99,7 +99,7 @@ urlpatterns = patterns('',
         name="match_report_atom_feed"
     ),
     # E.g. '/matches/cshc_matches.ics'
-    url(r'^cshc_matches.ics$',
+    url(r'^cshc_matches.ics$',                  # Calendar feed of match reports
         feeds.MatchICalFeed(),
         name="match_ical_feed"
     ),
