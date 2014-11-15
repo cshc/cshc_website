@@ -3,9 +3,11 @@
 
 from base import *
 
+ALLOWED_HOSTS = ['127.0.0.1', 'cshc-website-cshc.c9.io']
+
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = True
+DEBUG = False
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG

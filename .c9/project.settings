@@ -1,0 +1,49 @@
+{
+    "run": {
+        "@path": "/.c9/runners",
+        "configs": {
+            "json()": {
+                "Django site": {
+                    "debug": true,
+                    "runner": "CSHC Django",
+                    "name": "CSHC Django site",
+                    "command": "python manage.py runserver",
+                    "cwd": "/cshcsite",
+                    "env": {
+                        "DJANGO_SETTINGS_MODULE": "cshcsite.settings.c9",
+                        "AWS_STORAGE_BUCKET_NAME": "cshc-c9",
+                        "AWS_ACCESS_KEY_ID": "AKIAIE3O6JWRZZRETY5Q",
+                        "AWS_SECRET_ACCESS_KEY": "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",
+                        "COOKIE_CTRL_API_KEY": "04c891a3b8a3b60149627ebc2f19e1b824d7c7f7"
+                    }
+                }
+            },
+            "@inited": "true"
+        }
+    },
+    "share": {
+        "@preview": false,
+        "@app": false,
+        "@useOwnerSettings": false
+    },
+    "ace": {
+        "@newLineMode": "unix",
+        "@tabSize": "4",
+        "@useSoftTabs": "true",
+        "@guessTabSize": "true"
+    },
+    "find.nak": {
+        "@searchLimit": 100
+    },
+    "language": {
+        "@warnLevel": "info",
+        "@instanceHighlight": "true",
+        "@undeclaredVars": "true",
+        "@unusedFunctionArgs": "false"
+    },
+    "build": {
+        "@path": "/.c9/builders",
+        "@saveall": true,
+        "@builder": "auto"
+    }
+}
