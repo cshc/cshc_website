@@ -1,0 +1,25 @@
+-r base.txt
+
+# Code coverage measurement tool
+# Ref: http://nedbatchelder.com/code/coverage/
+coverage==3.7
+
+# A Django test runner based on unittest2's test discovery
+# Ref: https://github.com/jezdez/django-discover-runner
+django-discover-runner==1.0
+
+# Configurable set of panels that display various debug information about the current request/response.
+# Ref: http://django-debug-toolbar.readthedocs.org/en/1.2.2/
+django-debug-toolbar==1.2.1
+
+# Used for remote execution and deployment of website to production site etc.
+# Ref: http://www.fabfile.org/en/latest/
+fabric==1.10
+
+# Graphical representation of models
+# NOTE: YOU SHOULD ALSO INSTALL GRAPHVIZ! http://www.graphviz.org/Download..php
+# Ref: http://django-extensions.readthedocs.org/en/latest/
+django-extensions==1.4.6
+# Image generation library - used by django-extension's graph_models command.
+#pyparsing==1.5.7
+#pydot==1.0.2
