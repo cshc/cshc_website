@@ -5,8 +5,15 @@
     "bash",
     "--login",
     "-c",
-    "python manage.py syncdb && python manage.py runserver $ip:$port"
+    "python cshcsite/manage.py syncdb && python cshcsite/manage.py runserver $ip:$port"
   ],
-  "working_dir": "/cshcsite",
-  "info": "Your code is running at \\033[01;34m$url\\033[00m.\n\\033[01;31m"
+  "working_dir": "$project_path",
+  "info": "Your code is running at \\033[01;34m$url\\033[00m.\n\\033[01;31m",
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "cshcsite.settings.c9",
+    "AWS_STORAGE_BUCKET_NAME": "cshc-c9",
+    "AWS_ACCESS_KEY_ID": "AKIAIE3O6JWRZZRETY5Q",
+    "AWS_SECRET_ACCESS_KEY": "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",
+    "COOKIE_CTRL_API_KEY": "04c891a3b8a3b60149627ebc2f19e1b824d7c7f7"
+  }
 }

@@ -3,12 +3,12 @@
         "@path": "/.c9/runners",
         "configs": {
             "json()": {
-                "Django site": {
+                "CSHC Django site": {
                     "debug": true,
                     "runner": "CSHC Django",
                     "name": "CSHC Django site",
-                    "command": "python manage.py runserver",
-                    "cwd": "/cshcsite",
+                    "command": "python cshcsite/manage.py syncdb && python cshcsite/manage.py runserver $ip:$port",
+                    "cwd": "/",
                     "env": {
                         "DJANGO_SETTINGS_MODULE": "cshcsite.settings.c9",
                         "AWS_STORAGE_BUCKET_NAME": "cshc-c9",
@@ -19,7 +19,8 @@
                 }
             },
             "@inited": "true"
-        }
+        },
+        "@runner": "CSHC Django"
     },
     "share": {
         "@preview": false,
