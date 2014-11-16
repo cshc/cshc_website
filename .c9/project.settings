@@ -14,7 +14,9 @@
                         "AWS_STORAGE_BUCKET_NAME": "cshc-c9",
                         "AWS_ACCESS_KEY_ID": "AKIAIE3O6JWRZZRETY5Q",
                         "AWS_SECRET_ACCESS_KEY": "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",
-                        "COOKIE_CTRL_API_KEY": "04c891a3b8a3b60149627ebc2f19e1b824d7c7f7"
+                        "COOKIE_CTRL_API_KEY": "04c891a3b8a3b60149627ebc2f19e1b824d7c7f7",
+                        "MYTHIC_BEASTS_SSH_USER": "rgagarrett",
+                        "MYTHIC_BEASTS_SSH_PASSWORD": "cH@mp10n5",
                     }
                 }
             },
