@@ -307,13 +307,13 @@ Top Banner
 
 #top-banner .container {margin-top: 105px; margin-bottom:20px;}
 .banner-box {font-size: 80%; }
-.banner-box h3 {color: white; text-shadow: 1px 1px 1px #000;}
+.banner-box h3 { line-height: 20px; color: white; text-shadow: 1px 1px 1px #000;}
 .banner-box {background-color: rgba(34, 102, 28, 0.8); color: white; padding: 10px;}
 .banner-box .table-hover tbody tr:hover>td {background-color: rgba(34, 102, 28, 0.9);}
 .banner-box .table th, .banner-box .table td {border-top: 1px solid #8A8A8A;}
 .banner-box a {color: rgb(216, 221, 255);}
 .banner-box a:hover {color: rgb(177, 186, 252);}
-.banner-box a.btn {color: white; margin-top: 18px;}
+.banner-box a.btn {color: white; margin-top: 5px;}
 .banner-box .table {margin-bottom: 5px;}
 .banner-box .table-condensed th, .banner-box .table-condensed td {padding: 1px 5px;}
 
@@ -498,6 +498,7 @@ table.awards td { border: none; }
 #directions div.box img { box-shadow: 1px 1px 6px 0px #888; border-radius: 5px; margin-bottom: 10px; max-width: 274px;}
 
 #southerners div.box {padding: 10px;}
+#southerners #southerners-league-table { margin-top: 20px;}
 #fees div.box {padding: 10px;}
 
 table.month { margin-bottom: 20px;}
