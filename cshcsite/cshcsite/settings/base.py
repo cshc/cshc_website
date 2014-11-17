@@ -42,6 +42,8 @@ DEBUG = False
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
+
+TEMPLATE_STRING_IF_INVALID = '######'
 ########## END DEBUG CONFIGURATION
 
 
@@ -57,22 +59,6 @@ MANAGERS = ADMINS
 SERVER_EMAIL = 'website@cambridgesouthhockeyclub.co.uk'
 
 ########## END MANAGER CONFIGURATION
-
-
-########## DATABASE CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
-########## END DATABASE CONFIGURATION
-
 
 ########## AUTHENTICATION CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-AUTH_USER_MODEL
@@ -99,7 +85,7 @@ USE_L10N = True
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 
-SESSION_COOKIE_AGE = 365*24*60*60   # one year in seconds
+SESSION_COOKIE_AGE = 30*24*60*60   # 30 days in seconds
 
 ########## END GENERAL CONFIGURATION
 
@@ -136,8 +122,7 @@ STATICFILES_FINDERS = (
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key only used for development and testing.
-SECRET_KEY = r"{{ secret_key }}"
+SECRET_KEY = get_env_setting('CSHCSITE_SECRET_KEY')
 ########## END SECRET CONFIGURATION
 
 
@@ -211,6 +196,7 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
     # Useful template tags:
     'django.contrib.humanize',
+    'django.contrib.sitemaps',
 
     # Even though we don't use it, the Zinnia admin
     # template requires this app
@@ -498,10 +484,6 @@ if not DEBUG:
     STATIC_ROOT = "/%s/" % STATIC_S3_PATH
     STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 ########## END django-storages CONFIGURATION
-
-# Ref: http://www.civicuk.com/cookie-law/index
-COOKIE_CTRL_API_KEY = get_env_setting('COOKIE_CTRL_API_KEY')
-
 
 ########## templated-emails CONFIGURATION
 # Ref: https://github.com/philippWassibauer/templated-emails

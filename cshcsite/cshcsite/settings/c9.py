@@ -1,20 +1,7 @@
 # Django settings for cshcsite project - Cloud9 development environment
-
-
 from base import *
 
 ALLOWED_HOSTS = ['127.0.0.1', 'cshc-website-cshc.c9.io']
-
-########## DEBUG CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = False
-
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
-TEMPLATE_DEBUG = DEBUG
-
-TEMPLATE_STRING_IF_INVALID = '######'
-########## END DEBUG CONFIGURATION
-
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend

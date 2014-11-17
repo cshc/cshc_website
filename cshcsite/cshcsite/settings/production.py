@@ -2,12 +2,7 @@
 from base import *
 
 
-ALLOWED_HOSTS = ['www.cambridgesouthhockeyclub.co.uk', 'cambridgesouthhockeyclub.co.uk', 'm.cambridgesouthhockeyclub.co.uk']
-
-MAINTENANCE_MODE = False
-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+ALLOWED_HOSTS = ['www.cambridgesouthhockeyclub.co.uk', 'cambridgesouthhockeyclub.co.uk']
 
 TEMPLATE_STRING_IF_INVALID = ''
 
@@ -37,7 +32,6 @@ EMAIL_USE_TLS = True
 SERVER_EMAIL = 'website@cambridgesouthhockeyclub.co.uk'
 ########## END EMAIL CONFIGURATION
 
-
 ########## DATABASE CONFIGURATION
 DATABASES = {
     'default': {
@@ -51,17 +45,10 @@ DATABASES = {
 }
 ########## END DATABASE CONFIGURATION
 
-
 ########## CACHE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
 #CACHES = {}
 ########## END CACHE CONFIGURATION
-
-
-########## SECRET CONFIGURATION
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = get_env_setting('CSHCSITE_SECRET_KEY')
-########## END SECRET CONFIGURATION
 
 ########## django-disqus CONFIGURATION
 

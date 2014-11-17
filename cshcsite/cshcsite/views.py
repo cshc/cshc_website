@@ -28,8 +28,6 @@ class HomeView(TemplateView):
         # Upcoming Training
         UpcomingTrainingSessionsView.add_upcoming_training_to_context(context)
 
-        context['cookie_ctrl_api_key'] = settings.COOKIE_CTRL_API_KEY
-
         # The top banner style can be modified by the value of the 'HomePageBanner'
         # ClubInfo database item. Currently the supported values are:
         #    - 'default': displays latest results and next fixtures
