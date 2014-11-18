@@ -120,4 +120,5 @@ django-tagging==0.3.2
 django-blog-zinnia==0.14.2
 
 # Web-API support
+# Ref: http://www.django-rest-framework.org/
 djangorestframework==2.3.14

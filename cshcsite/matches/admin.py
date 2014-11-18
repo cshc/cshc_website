@@ -49,11 +49,32 @@ class AppearanceInline(admin.TabularInline):
     verbose_name_plural = 'Appearances'
 
 
+
+class MatchCommentInlineForm(ModelForm):
+    """Inline form for match comments"""
+
+    class Meta:
+        model = MatchComment
+        widgets = {
+            'comment': AutosizedTextarea(
+                attrs={'class': 'input-medium', 'rows': 2,
+                       'style': 'width:95%'}),
+        }
+
+
+class MatchCommentInline(admin.TabularInline):
+    """Inline for match comments"""
+
+    model = MatchComment
+    form = MatchCommentInlineForm
+    exclude = ('state', 'photo')
+    extra = 0
+
 class MatchAdmin(admin.ModelAdmin):
     """Model Admin for matches"""
 
     form = MatchForm
-    inlines = (MatchAwardWinnerInline, AppearanceInline)
+    inlines = (MatchAwardWinnerInline, AppearanceInline, MatchCommentInline)
     radio_fields = {'fixture_type': admin.HORIZONTAL, 'home_away': admin.HORIZONTAL, 'alt_outcome': admin.HORIZONTAL}
     fieldsets = [
         ('Teams', {'fields': ['our_team', 'opp_team']}),

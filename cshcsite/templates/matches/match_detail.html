@@ -128,9 +128,9 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 
 {% block body_js %}
     {{ block.super }}
-    <script src="{{ STATIC_URL }}js/handlebars-v1.3.0.js"></script>
-    <script src="{{ STATIC_URL }}js/underscore-min.js"></script>
-    <script src="{{ STATIC_URL }}js/backbone-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
     <script type="text/javascript">
         var match_id = {{ match.id }};
     </script>
@@ -145,7 +145,7 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
     {% endcomment %}
 
     <script type="text/x-handlebars-template" id="comment-list-template">
-        <p>Last fetch: {{ last_fetch }}</p>
+        <p>Last fetch: {{ last_update }}</p>
     </script>
 
     <script type="text/x-handlebars-template" id="comment-template">

@@ -14,7 +14,8 @@
 # can relinquish his/her role as commentator - at which point someone
 # else could take over.
 
-from django.db import models, IntegrityError
+from django.db import models
+from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
 from model_utils.managers import PassThroughManager
 from model_utils import Choices
@@ -67,14 +68,12 @@ class MatchComment(models.Model):
         app_label = 'matches'
         ordering = ['-timestamp']
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         if self.comment_type == MatchComment.COMMENT_TYPE.Update and is_none_or_empty(self.comment):
-            raise IntegrityError("A comment must be supplied for an 'update' match comment")
+            raise ValidationError("A comment must be supplied for an 'update' match comment")
 
         if self.comment_type == MatchComment.COMMENT_TYPE.Photo and self.photo is None:
-            raise IntegrityError("A photo must be supplied for a 'photo' match comment")
-
-        super(MatchComment, self).save(*args, **kwargs)
+            raise ValidationError("A photo must be supplied for a 'photo' match comment")
 
     def __unicode__(self):
         return unicode("{}: {} ({})".format(self.timestamp.strftime('%X %x'), self.get_comment_type_display(), self.author))
