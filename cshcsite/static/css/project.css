@@ -538,14 +538,12 @@ table.month .filled .dayNumber .popover {
     font-size: 12px;
     text-align: center;
     font-weight: bold;
-}
-#shirt-number.female, .shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt%20back.png");}
-#shirt-number.male, .shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt%20back.png");}
-.match-detail .shirt-number {
     display: inline-block;
     vertical-align: top;
     line-height: 40px;
 }
+#shirt-number.female, .shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt%20back.png");}
+#shirt-number.male, .shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt%20back.png");}
 
 /**************************************************************/
 /* Summer hockey banner */
