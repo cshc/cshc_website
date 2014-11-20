@@ -15,6 +15,7 @@ Currently just lists the values that will be needed by this template - no UI des
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "a00305df-8936-42fa-94f6-0b4d2380413f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+<link href="{{ STATIC_URL }}css/commentary.css" rel="stylesheet">
 
 {% comment %}
 See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-15.html
@@ -75,14 +76,7 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 {% include 'matches/_fixture_detail.html' %}
 {% endif %}
 
-<div id="match-comments" class="row">
-    <hr/>
-    <h3>Live Match Updates</h3>
-    <div class="span12">
-        <div id="match-comment-stats"></div>
-        <ul id="match-comment-list"></ul>
-    </div>
-</div>
+{% include 'commentary/_commentary.html' %}
 
 <ul class="pager">
   <li class="previous{% if not prev_match %} disabled{% endif %}">
@@ -128,13 +122,14 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 
 {% block body_js %}
     {{ block.super }}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+    <script src="//code.angularjs.org/1.3.1/angular.js"></script>
+    <script src="//code.angularjs.org/1.2.22/angular-animate.js"></script>
     <script type="text/javascript">
         var match_id = {{ match.id }};
     </script>
     <script src="{{ STATIC_URL }}js/commentary.js"></script>
+    <script src="{{ STATIC_URL }}js/upload.js"></script>
+
 
     {% if not match.is_in_past %}
         {% include "venues/_venue_map_js.html" with venue_address=match.venue.full_address %}

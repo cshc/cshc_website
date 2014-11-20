@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.forms import ModelForm, widgets
 from suit.widgets import NumberInput, AutosizedTextarea
 from awards.models import MatchAwardWinner
-from .models import Match, Appearance, MatchComment
+from .models import Match, Appearance
 from .forms import MatchForm
 
 
@@ -50,31 +50,11 @@ class AppearanceInline(admin.TabularInline):
 
 
 
-class MatchCommentInlineForm(ModelForm):
-    """Inline form for match comments"""
-
-    class Meta:
-        model = MatchComment
-        widgets = {
-            'comment': AutosizedTextarea(
-                attrs={'class': 'input-medium', 'rows': 2,
-                       'style': 'width:95%'}),
-        }
-
-
-class MatchCommentInline(admin.TabularInline):
-    """Inline for match comments"""
-
-    model = MatchComment
-    form = MatchCommentInlineForm
-    exclude = ('state', 'photo')
-    extra = 0
-
 class MatchAdmin(admin.ModelAdmin):
     """Model Admin for matches"""
 
     form = MatchForm
-    inlines = (MatchAwardWinnerInline, AppearanceInline, MatchCommentInline)
+    inlines = (MatchAwardWinnerInline, AppearanceInline)
     radio_fields = {'fixture_type': admin.HORIZONTAL, 'home_away': admin.HORIZONTAL, 'alt_outcome': admin.HORIZONTAL}
     fieldsets = [
         ('Teams', {'fields': ['our_team', 'opp_team']}),
@@ -103,19 +83,8 @@ class AppearanceAdmin(admin.ModelAdmin):
     list_filter = ('green_card', 'yellow_card', 'red_card')
 
 
-
-class MatchCommentAdmin(admin.ModelAdmin):
-
-    model = MatchComment
-    search_fields = ('author',)
-    list_filter = ('author',)
-    list_display = ('__unicode__', 'author', 'comment')
-
-
-
 # Register matches models with the admin system
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Appearance, AppearanceAdmin)
 # NOTE: We do not register the GoalKing model - this is derived from other models
 # and should never be edited via the admin interface
-admin.site.register(MatchComment, MatchCommentAdmin)

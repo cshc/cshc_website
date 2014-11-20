@@ -203,6 +203,7 @@ DJANGO_APPS = (
     'django_comments',
 
     # Admin panel and documentation:
+    'autocomplete_light', # (must come before django.contrib.admin)
     'suit', # http://django-suit.readthedocs.org/en/develop/#installation (must come before django.contrib.admin)
     'django.contrib.admin',
     # 'django.contrib.admindocs',
@@ -243,6 +244,7 @@ LOCAL_APPS = (
     'matches',
     'awards',
     'training',
+    'commentary',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -306,6 +308,10 @@ LOGGING = {
             'level': 'DEBUG',
          },
         'matches': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+         },
+        'commentary': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
          },

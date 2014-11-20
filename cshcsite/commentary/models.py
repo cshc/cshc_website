@@ -41,8 +41,7 @@ class MatchComment(models.Model):
 
     COMMENT_TYPE = Choices((0, 'Scored', 'Goal scored'),
                            (1, 'Conceeded', 'Goal conceeded'),
-                           (2, 'Photo', 'Photo'),
-                           (3, 'Update', 'Update'))
+                           (2, 'Update', 'Update'))
 
     STATE = Choices('Pending', 'Approved', 'Rejected', 'Deleted')
 
@@ -54,26 +53,23 @@ class MatchComment(models.Model):
     comment = models.TextField("Comment", blank=True)
 
     # An optional photo
-    photo = models.ImageField("Photo", upload_to='uploads/match_photos', null=True, blank=True)
+    photo = models.ImageField("Photo", upload_to='uploads/matches', null=True, blank=True)
 
     state = models.CharField("State", max_length=10, choices=STATE, default=STATE.Approved)
 
     # Automatically created attribute
-    timestamp = models.DateTimeField("Timestamp", auto_now_add=True, editable=False)
-    last_modified = models.DateTimeField("Last modified", auto_now=True, editable=False)
+    timestamp = models.DateTimeField("Timestamp", auto_now_add=True)
+    last_modified = models.DateTimeField("Last modified", auto_now=True)
 
     objects = PassThroughManager.for_queryset_class(MatchCommentQuerySet)()
 
     class Meta:
-        app_label = 'matches'
+        app_label = 'commentary'
         ordering = ['-timestamp']
 
     def clean(self):
         if self.comment_type == MatchComment.COMMENT_TYPE.Update and is_none_or_empty(self.comment):
             raise ValidationError("A comment must be supplied for an 'update' match comment")
 
-        if self.comment_type == MatchComment.COMMENT_TYPE.Photo and self.photo is None:
-            raise ValidationError("A photo must be supplied for a 'photo' match comment")
-
     def __unicode__(self):
-        return unicode("{}: {} ({})".format(self.timestamp.strftime('%X %x'), self.get_comment_type_display(), self.author))
+        return unicode("\"{}\" - {} ({})".format(self.comment, self.author, self.get_comment_type_display()))

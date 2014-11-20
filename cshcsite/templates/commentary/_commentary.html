@@ -1,0 +1,69 @@
+{% verbatim %}
+<div id="match-comments" ng-app="commentaryApp" ng-controller="CommentsController" ng-cloak class="ng-cloak">
+  <form ng-submit="postComment()" id="update-form" name="postCommentForm">
+    <div class="row update-form-row">
+      <div id="user-options" class="span12">
+        <p ng-hide="user"><a href="/accounts/login/?next=/matches/{{ match_id }}/">Login</a> to post live comments on this match.</p>
+        <p ng-hide="!user || scorer">There is no-one currently keeping score.<label class="pull-right btn btn-primary">I'll keep score</label></p>
+        <p ng-hide="!user || !scorer || (user.id == scorer.id)"><a href="/members/{{ scorer.id }}/">{{ scorer.name }}</a> is keeping score.
+        <p ng-hide="!user || !scorer || (user.id != scorer.id)">You are keeping score.<label class="pull-right btn btn-primary">Stop keeping score</label></p>
+      </div>
+    </div>
+    <div class="row update-form-row">
+      <div class="span12">
+        <p class="error-msg" ng-hide="!error">{{ error }}</p>
+      </div>
+    </div>
+    <div id="comment-options" class="row update-form-row">
+      <div class="span2"><label><input type="radio" name="toggle" ng-model="new_comment_type" value="update"><span><i class="icon-edit"></i>&nbsp;Update</span></label></div>
+      <div class="span2"><label><input ng-disabled="!i_am_scorer()" type="radio" name="toggle" ng-model="new_comment_type" value="goal_scored"><span><i class="icon-thumbs-up"></i>&nbsp;We scored</span></label></div>
+      <div class="span2"><label><input ng-disabled="!i_am_scorer()" type="radio" name="toggle" ng-model="new_comment_type" value="goal_conceded"><span><i class="icon-thumbs-down"></i>&nbsp;They scored</span></label></div>
+    </div>
+    <div class="row update-form-row">
+      <div id="comment-text" class="span10">
+        <textarea name="comment" class="" placeholder="What just happened?" ng-model="new_comment"></textarea>
+      </div>
+      <div id="comment-btns" class="span2">
+        <label id="select-photo" class="btn" for="photo-selector">
+          <input id="photo-selector" type="file" ng-file-select="onPhotoSelect($files)">
+          <i class="icon-camera"></i>
+        </label>
+        <br/>
+        <label id="submit-comment" class="btn btn-success" for="submitter" ng-disabled="!new_comment" >
+          <input type="submit" id="submitter" class="btn btn-default">Post
+        </label>
+      </div>
+    </div>
+    <div class="row update-form-row">
+      <div class="span12">
+        <img id="img-preview" ng-show="imageSrc" ng-src="{{ imageSrc }}" />
+      </div>
+    </div>
+  </form>
+  <div id="comment-stats">
+    <h4>Live match updates
+      <span class="pull-right" id="last-update">Last update: {{ last_update|date:"shortTime" }}</span>
+    </h4>
+  </div>
+  <div id="live-comment-list" class="row">
+    <div class="span12">
+      <div ng-animate="'animate'" ng-repeat="comment in comments" class="media comment-item">
+        <div class="pull-left">
+          <i class="icon-3x" ng-class="{'icon-edit': comment.update, 'icon-thumbs-up': comment.we_scored, 'icon-thumbs-down': comment.they_scored, 'icon-camera': comment.photo}"></i>
+          <div class="comment-time">{{ comment.timestamp|date:"shortTime" }}</div>
+        </div>
+        <div class="media-body" ng-mouseenter="comment.highlight = true" ng-mouseleave="comment.highlight = false">
+          <a href="javascript:void(0);" title="Delete" ng-show="comment.highlight" class="close" ng-click="deleteComment(comment)">&times;</a>
+          <h5 class="media-heading" ng-hide="!comment.we_scored && !comment.they_scored">
+            <span ng-class="{'no-highlight': comment.they_scored}">{{ our_team }} {{ our_score($index) }}</span>
+            -
+            <span ng-class="{'no-highlight': comment.we_scored}">{{ opp_score($index) }} {{ opp_team }}</span>
+          </h5>
+          <img class="comment-img" ng-show="comment.photo" ng-src="{{ comment.photo }}" />
+          <p>{{ comment.comment }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endverbatim %}

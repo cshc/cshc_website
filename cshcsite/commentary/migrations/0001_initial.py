@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime
+from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
@@ -9,23 +9,23 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'MatchComment'
-        db.create_table(u'matches_matchcomment', (
+        db.create_table(u'commentary_matchcomment', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.CshcUser'], null=True, on_delete=models.SET_NULL, blank=True)),
             ('match', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['matches.Match'])),
-            ('comment_type', self.gf('django.db.models.fields.IntegerField')(default=3)),
+            ('comment_type', self.gf('django.db.models.fields.IntegerField')(default=2)),
             ('comment', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('photo', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
             ('state', self.gf('django.db.models.fields.CharField')(default='Approved', max_length=10)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('last_modified', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
-        db.send_create_signal('matches', ['MatchComment'])
+        db.send_create_signal('commentary', ['MatchComment'])
 
 
     def backwards(self, orm):
         # Deleting model 'MatchComment'
-        db.delete_table(u'matches_matchcomment')
+        db.delete_table(u'commentary_matchcomment')
 
 
     models = {
@@ -41,6 +41,18 @@ class Migration(SchemaMigration):
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+        },
+        'commentary.matchcomment': {
+            'Meta': {'ordering': "['-timestamp']", 'object_name': 'MatchComment'},
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['core.CshcUser']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'comment': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'comment_type': ('django.db.models.fields.IntegerField', [], {'default': '2'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'last_modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'match': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['matches.Match']"}),
+            'photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'state': ('django.db.models.fields.CharField', [], {'default': "'Approved'", 'max_length': '10'}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         },
         'competitions.cup': {
             'Meta': {'ordering': "['name']", 'object_name': 'Cup'},
@@ -81,7 +93,7 @@ class Migration(SchemaMigration):
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75', 'db_index': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -89,7 +101,7 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"})
         },
         'matches.appearance': {
             'Meta': {'ordering': "['match', 'member']", 'unique_together': "(('member', 'match'),)", 'object_name': 'Appearance'},
@@ -101,35 +113,6 @@ class Migration(SchemaMigration):
             'own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'red_card': ('django.db.models.fields.NullBooleanField', [], {'default': 'None', 'null': 'True', 'blank': 'True'}),
             'yellow_card': ('django.db.models.fields.NullBooleanField', [], {'default': 'None', 'null': 'True', 'blank': 'True'})
-        },
-        'matches.goalking': {
-            'Meta': {'ordering': "['season', 'member']", 'unique_together': "(('member', 'season'),)", 'object_name': 'GoalKing'},
-            'games_played': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'indoor_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'indoor_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'l1_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'l1_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'l2_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'l2_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'l3_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'l3_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm1_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm1_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm2_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm2_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm3_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm3_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm4_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm4_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm5_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'm5_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'member': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['members.Member']"}),
-            'mixed_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'mixed_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'season': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['competitions.Season']"}),
-            'total_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
-            'total_own_goals': ('django.db.models.fields.PositiveSmallIntegerField', [], {})
         },
         'matches.match': {
             'Meta': {'ordering': "['date']", 'object_name': 'Match'},
@@ -162,18 +145,6 @@ class Migration(SchemaMigration):
             'season': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['competitions.Season']"}),
             'time': ('django.db.models.fields.TimeField', [], {'default': 'None', 'null': 'True', 'blank': 'True'}),
             'venue': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['venues.Venue']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'})
-        },
-        'matches.matchcomment': {
-            'Meta': {'ordering': "['-timestamp']", 'object_name': 'MatchComment'},
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['core.CshcUser']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'comment': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'comment_type': ('django.db.models.fields.IntegerField', [], {'default': '3'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'match': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['matches.Match']"}),
-            'photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'state': ('django.db.models.fields.CharField', [], {'default': "'Approved'", 'max_length': '10'}),
-            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         },
         'members.member': {
             'Meta': {'ordering': "['first_name', 'last_name']", 'object_name': 'Member'},
@@ -241,4 +212,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['matches']
+    complete_apps = ['commentary']

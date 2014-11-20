@@ -1,158 +1,135 @@
-/* Backbone.js-based code for the match commentary feature in a match details page
-*/
 
-// Load the application once the DOM is ready, using `jQuery.ready`:
-$(function(){
+var app = angular.module('commentaryApp', ['ngAnimate']);
 
-    window.CSHC = {
-        Models: {},
-        Collections: {},
-        Views: {}
-    };
+// Should be automatically supplied by backend
+var nextId = 1;
 
-    CSHC.Models.Comment = Backbone.Model.extend({
+function defaultFor(arg, val) {
+  return typeof arg !== 'undefined' ? arg : val;
+}
 
-        urlRoot: function() {
-            return '/matches/' + this.get('match') + '/comments/';
-        },
+function Comment(id, comment, we_scored, they_scored, photo) {
+  this.id = id;
+  this.comment = defaultFor(comment);
+  this.we_scored = defaultFor(we_scored);
+  this.they_scored = defaultFor(they_scored);
+  this.photo = defaultFor(photo);
+  this.update = !this.we_scored && !this.they_scored && !this.photo;
+  this.timestamp = new Date();
+}
 
-        initialize: function() {
-            console.log('a new comment');
-            this.on("change", function() {
-                console.log('Comment Model Changed');
-            });
-            this.on("invalid", function(model, error) {
-                console.log('Invalid comment: ' + error);
-            });
-            this.on("error", function(model, xhr, opyions) {
-                console.log('Save failed: ' + xhr);
-            });
-        },
 
-        // Default attributes for the comment item.
-        defaults: function() {
-          return {
-            author: null,
-            match: null,
-            comment_type: 0,
-            comment: "",
-            photo_url: "",
-            state: "Pending",
-            timestamp: null,
-            last_modified: null
-          };
-        },
+Comment.prototype.toString = function() {
+  return "\"" + this.comment + "\"";
+};
 
-        validate: function(attrs) {
-            if(attrs.author == null){
-                return 'The comment author must be specified';
-            }
-        }
+app.service('commentsService', function() {
+  this.getComments = function() {
+    return comments;
+  };
 
-    });
+  this.insertComment = function(comment) {
+    console.debug("Inserting comment " + comment.toString());
+    comments.unshift(comment);
+  };
 
-    CSHC.Collections.CommentList = Backbone.Collection.extend({
+  this.deleteComment = function(id) {
+    for (var i = comments.length - 1; i >= 0; i--) {
+      if (comments[i].id === id) {
+        comments.splice(i, 1);
+        break;
+      }
+    }
+  };
 
-        model: CSHC.Models.Comment,
+  this.getComment = function(id) {
+    for (var i = 0; i < comments.length; i++) {
+      if (comments[i].id === id) {
+        return comments[i];
+      }
+    }
+    return null;
+  };
 
-        url: function(){
-            if (this.last_fetch == null){
-                return '/matches/' + this.match + '/comments/';
-            }
-            else {
-                return '/matches/' + this.match + '/comments/since/' + this.last_fetch.getTime() + '/';
-            }
-        },
+  comments = [
+    new Comment(nextId++, "Then I commented"),
+    new Comment(nextId++, "We scored", true, false),
+    new Comment(nextId++, "They scored", false, true),
+  ];
+});
 
-        initialize: function(models, options) {
-            options || (options = {});
-            if (options.match){
-                this.match = options.match;
-            }
-            this.last_fetch = null;
-            console.log('a new comment collection');
-            this.on("add", function() {
-                console.log('Comment added to collection');
-            });
-            this.on("remove", function() {
-                console.log('Comment removed from collection');
-            });
-        },
+app.controller('CommentsController', function($scope, commentsService, fileReader) {
+  init();
 
-        // Comments are sorted by descending timestamp order.
-        comparator: function(a, b){
-            return new Date(a.timestamp) < new Date(b.timestamp) ? -1 : 1;
-        }
-    });
 
-    var comments = new CSHC.Collections.CommentList([], {'match': match_id});
+  function init() {
+    $scope.comments = commentsService.getComments();
+    $scope.last_update = new Date();
+    $scope.our_team = "Cambridge South M1";
+    $scope.opp_team = "Ely City M2";
+    $scope.new_comment_type = 'update';
+    $scope.user = { 'id': 63, 'name': 'Graham McCulloch'};
+    //$scope.scorer = { 'id': 95, 'name': 'Neil Sneade'};
+    $scope.scorer = { 'id': 63, 'name': 'Graham McCulloch'};
+    $scope.match_id = match_id;
+  }
 
-    CSHC.Views.CommentView = Backbone.View.extend({
+  $scope.our_score = function(index){
+    return $scope.comments.slice(index).filter(function (comment) {
+      return comment.we_scored;
+    }).length;
+  };
 
-        tagName: 'li',
-        className: '',
-        id: function(){
-            return 'match-comment-' + this.model.get('id');
-        },
+  $scope.opp_score = function(index){
+    return $scope.comments.slice(index).filter(function (comment) {
+      return comment.they_scored;
+    }).length;
+  };
 
-        template: _.template($('#comment-template').html()),
+  $scope.i_am_scorer = function(){
+    return $scope.user && $scope.scorer && ($scope.user.id == $scope.scorer.id);
+  };
 
-        initialize: function(){
-            console.log('CommentView created');
-            this.listenTo(this.model, 'change', this.render);
-            this.listenTo(this.model, 'destroy', this.remove);
-        },
+  $scope.postComment = function() {
+    console.debug("Posting comment");
+    we_scored = $scope.new_comment_type == 'goal_scored';
+    they_scored = $scope.new_comment_type == 'goal_conceded';
+    var comment = new Comment(nextId++, $scope.new_comment, we_scored, they_scored, $scope.imageSrc);
+    commentsService.insertComment(comment);
+    $scope.new_comment = null;
+    $scope.imageSrc = null;
+    $scope.file = null;
+    $scope.last_update = new Date();
+    $scope.new_comment_type = 'update';
+  };
 
-        render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
-            return this;
-        }
-    });
+  $scope.deleteComment = function(comment) {
+    console.debug("Deleting comment: " + comment.id);
+    commentsService.deleteComment(comment.id);
+  };
 
-    CSHC.Views.CommentListView = Backbone.View.extend({
+  $scope.getFile = function() {
+    $scope.progress = 0;
+    fileReader.readAsDataUrl($scope.file, $scope)
+      .then(function(result) {
+        $scope.imageSrc = result;
+      });
+  };
 
-        el: $("#match-comments"),
+});
 
-        statsTemplate: _.template($('#comment-list-template').html()),
+app.directive("ngFileSelect", function() {
 
-        initialize: function(){
-            console.log('CommentListView created');
+  return {
+    link: function($scope, el) {
 
-            this.listenTo(comments, 'add', this.addOne);
-            this.listenTo(comments, 'all', this.render);
+      el.bind("change", function(e) {
 
-            comments.fetch({
-                success: function(collection){
-                    console.log('Fetched comments');
-                    collection.last_fetch = new Date();
-                },
-                error: function(collection){
-                    console.log('Failed to get comments');
-                }
-            });
-        },
+        $scope.file = (e.srcElement || e.target).files[0];
+        $scope.getFile();
+      })
 
-        render: function() {
-            this.$('#match-comment-stats').html(this.statsTemplate(this.collection));
-            return this;
-        },
+    }
 
-        addOne: function(comment) {
-            var view = new CSHC.Views.CommentView({model: comment});
-            this.$("#match-comment-list").append(view.render().el);
-        }
-    });
-
-    var commentList = new CSHC.Views.CommentListView({collection: comments});
-
-    // Need to handle Django's CSRF protection
-    // Ref: http://ozkatz.github.io/backbonejs-with-django-15.html
-    var _sync = Backbone.sync;
-    Backbone.sync = function(method, model, options){
-        options.beforeSend = function(xhr){
-            var token = $('meta[name="csrf-token"]').attr('content');
-            xhr.setRequestHeader('X-CSRFToken', token);
-        };
-        return _sync(method, model, options);
-    };
+  }
 });

@@ -2,6 +2,11 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.contrib import admin
 from django.conf import settings
+
+# import every app/autocomplete_light_registry.py (must come before admin.autodiscover())
+import autocomplete_light
+autocomplete_light.autodiscover()
+
 from venues.views import HomeVenueListView
 from core.views import ContactSubmissionCreateView, RegistrationView
 from members.views import ProfileView
@@ -66,6 +71,7 @@ urlpatterns = patterns('',
     url(r'^teams/', include('teams.urls')),
     url(r'^venues/', include('venues.urls')),
     url(r'^training/', include('training.urls')),
+    url(r'^commentary/', include('commentary.urls')),
 
     url(r'^accounts/profile/$', ProfileView.as_view(), name='user_profile'),
     url(r'^accounts/register/$', RegistrationView.as_view(), name='registration_register'),
@@ -76,6 +82,9 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
+    # Auto-completion urls
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
 
     # Sitemap (indexed)
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': CshcSitemap}),
