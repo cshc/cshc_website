@@ -19,32 +19,16 @@ Currently just lists the values that will be needed by this template - no UI des
 </ul>
 
 <div class="page-header">
-    <h1>Our Teams</h1>
+    <h1>Cambridge South Hockey Club Teams</h1>
 </div>
 
-<ul class="nav nav-pills">
-    {% for cls, team_list in teams %}
-        {% for team in team_list %}
-            <li><a href="#{{ team.short_name }}" title="Jump to {{ team.long_name }}">{{ team.short_name }}</a></li>
-        {% endfor %}
-    {% endfor %}
-</ul>
-{% for cls, team_list in teams %}
-    <div class="row {{ cls }}">
-        {% for team in team_list %}
-        <div class="span4 team" id="{{ team.short_name }}">
-            <a href="{{ team.get_absolute_url }}" title="Team Details..."><img class="team-photo" src="{{ team.photo }}"></img></a><br/>
-            <div class="team-details" >
-                <h4>{{ team.long_name }}</h4>
-                <p>{{ team.blurb }}</p>
-                <a href="{{ team.ical }}" target="_blank" title="{{ team.long_name }} calendar"><i class="icon-calendar"></i></a>
-                <a href="{{ team.rss }}" target="_blank" title="Subscribe to {{ team.long_name }} match reports"><i class="icon-rss"></i></a>
-                <a class="details" href="{{ team.get_absolute_url }}" title="Team Details..."><button class="btn btn-small btn-primary">Team details...</button></a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-{% endfor %}
+{% include "teams/_team_card.html" with teams=teams.active.Mens team_title='Mens Teams' team_class='mens' %}
+{% include "teams/_team_card.html" with teams=teams.active.Ladies team_title='Ladies Teams' team_class='ladies' %}
+{% include "teams/_team_card.html" with teams=teams.active.Mixed team_title='Mixed Teams' team_class='other' %}
+<hr/>
+{% include "teams/_team_card.html" with teams=teams.inactive.Mens team_title='Mens Teams - inactive' team_class='mens' %}
+{% include "teams/_team_card.html" with teams=teams.inactive.Ladies team_title='Ladies Teams - inactive' team_class='ladies' %}
+{% include "teams/_team_card.html" with teams=teams.inactive.Mixed team_title='Mixed Teams - inactive' team_class='other' %}
 
 {% model_admin_links 'teams' 'clubteam' add=False %}
 

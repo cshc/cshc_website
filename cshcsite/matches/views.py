@@ -132,7 +132,7 @@ class LatestResultsView(TemplateView):
             try:
                 now = timezone.now()
                 min_date = now - timedelta(days=365)
-                result = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team_id=team.pk, date__gt=min_date.date(), date__lt=now.date()).order_by('-date', '-time')[0]
+                result = Match.objects.select_related('our_team', 'opp_team__club', 'venue', 'division__league', 'cup', 'season').filter(our_team__active=True, our_team_id=team.pk, date__gt=min_date.date(), date__lte=now.date()).order_by('-date', '-time')[0]
                 latest_results.append(result)
             except IndexError:
                 pass    # Don't worry if there's no latest result for that team

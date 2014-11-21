@@ -22,7 +22,7 @@ class ClubTeamAdmin(admin.ModelAdmin):
     """Admin interface for a ClubTeam"""
     readonly_fields = ('slug',)
     inlines = (TeamCaptaincyInline, )
-    list_display = ('short_name', 'long_name', 'slug', 'southerners', 'rivals', 'fill_blanks', 'personal_stats')
+    list_display = ('short_name', 'long_name', 'slug', 'active', 'southerners', 'rivals', 'fill_blanks', 'personal_stats')
 
 
 class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):

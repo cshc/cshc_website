@@ -1,0 +1,18 @@
+
+{% if teams %}
+<h3>{{ team_title }}</h3>
+<div class="row {{ team_class }}">
+{% for team in teams %}
+    <div class="span4 team" id="{{ team.short_name }}">
+        <a href="{{ team.get_absolute_url }}" title="Team Details..."><img class="team-photo" src="{{ team.photo }}"></img></a><br/>
+        <div class="team-details" >
+            <h4>{{ team.long_name }}</h4>
+            <p>{{ team.blurb }}</p>
+            <a href="{{ team.ical }}" target="_blank" title="{{ team.long_name }} calendar"><i class="icon-calendar"></i></a>
+            <a href="{{ team.rss }}" target="_blank" title="Subscribe to {{ team.long_name }} match reports"><i class="icon-rss"></i></a>
+            <a class="details" href="{{ team.get_absolute_url }}" title="Team Details..."><button class="btn btn-small btn-primary">Team details...</button></a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endif %}

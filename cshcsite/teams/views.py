@@ -34,11 +34,12 @@ class ClubTeamListView(TemplateView):
 
         all_teams = ClubTeam.objects.all()
 
-        mens_teams = list(all_teams.filter(gender=TeamGender.Mens).exclude(ordinal=TeamOrdinal.TVets))
-        ladies_teams = list(all_teams.filter(gender=TeamGender.Ladies))
-        other_teams = [ClubTeam.objects.mixed(), ClubTeam.objects.indoor(), ClubTeam.objects.vets()]
+        teams = {}
+        teams['active'] = defaultdict(list)
+        teams['inactive'] = defaultdict(list)
 
-        for team in mens_teams + ladies_teams + other_teams:
+        for team in all_teams:
+            teams['active' if team.active else 'inactive'][team.get_gender_display()].append(team)
             try:
                 team.photo = ClubTeamSeasonParticipation.objects.by_team(team).order_by('-season__start')[0].team_photo.url
             except:
@@ -52,7 +53,8 @@ class ClubTeamListView(TemplateView):
             team.ical = reverse('clubteam_ical_feed', kwargs={'slug': team.slug})
             team.rss = reverse('clubteam_match_rss_feed', kwargs={'slug': team.slug})
 
-        context['teams'] = (('mens', mens_teams), ('ladies', ladies_teams), ('other', other_teams))
+        print teams
+        context['teams'] = teams#(('mens', mens_teams), ('ladies', ladies_teams), ('other', other_teams))
         return context
 
 
