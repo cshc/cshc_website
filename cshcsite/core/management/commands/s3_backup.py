@@ -31,7 +31,7 @@ class Command(BaseCommand):
             # 2. Copy all keys from production bucket's media/ directory to the corresponding
             #    staging bucket's media/ directory
             for media_key in prod_bucket.list(prefix='media'):
-                c9_bucket.copy_key(media_key.name, PROD_BUCKET_NAME, media_key.name)
+                c9_bucket.copy_key(media_key.name, PROD_BUCKET_NAME, media_key.name, preserve_acl=True)
 
         except Exception as e:
             errors.add("S3 (boto) error: {}".format(e))
