@@ -26,9 +26,9 @@ Currently just lists the values that will be needed by this template - no UI des
 {% include "teams/_team_card.html" with teams=teams.active.Ladies team_title='Ladies Teams' team_class='ladies' %}
 {% include "teams/_team_card.html" with teams=teams.active.Mixed team_title='Mixed Teams' team_class='other' %}
 <hr/>
-{% include "teams/_team_card.html" with teams=teams.inactive.Mens team_title='Mens Teams - inactive' team_class='mens' %}
-{% include "teams/_team_card.html" with teams=teams.inactive.Ladies team_title='Ladies Teams - inactive' team_class='ladies' %}
-{% include "teams/_team_card.html" with teams=teams.inactive.Mixed team_title='Mixed Teams - inactive' team_class='other' %}
+{% include "teams/_team_card.html" with teams=teams.inactive.Mens team_title='Mens Teams - archive' team_class='mens' %}
+{% include "teams/_team_card.html" with teams=teams.inactive.Ladies team_title='Ladies Teams - archive' team_class='ladies' %}
+{% include "teams/_team_card.html" with teams=teams.inactive.Mixed team_title='Mixed Teams - archive' team_class='other' %}
 
 {% model_admin_links 'teams' 'clubteam' add=False %}
 
