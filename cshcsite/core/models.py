@@ -1,3 +1,4 @@
+import uuid
 import logging
 from django.db import models
 from django.utils import timezone
@@ -9,7 +10,16 @@ from django.utils.http import urlquote
 from django.core.urlresolvers import reverse
 from model_utils import Choices
 
+
 log = logging.getLogger(__name__)
+
+
+def make_unique_filename(filename):
+    """ Produces a unique filename, combining the given filename
+        and a uuid.
+    """
+    ext = filename.split('.')[-1]
+    return "%s.%s" % (uuid.uuid4(), ext)
 
 
 def is_none_or_empty(s):

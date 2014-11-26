@@ -1,9 +1,17 @@
 import logging
+import os
 from django.conf import settings
 from django.db import models
+from django_resized import ResizedImageField
 from model_utils import Choices
+from core.models import make_unique_filename
 
 log = logging.getLogger(__name__)
+
+
+def get_file_name(instance, filename):
+    filename = make_unique_filename(filename)
+    return os.path.join('uploads/profile_pics', filename)
 
 
 class Member(models.Model):
@@ -38,7 +46,9 @@ class Member(models.Model):
                        (9, 'Other', 'Not known'))
 
     # An optional profile picture of the member
-    profile_pic = models.ImageField("Profile picture", upload_to='uploads/profile_pics', null=True, blank=True)
+    profile_pic = ResizedImageField("Profile picture",
+        max_width=400, max_height=400,
+        upload_to=get_file_name, null=True, blank=True)
 
     # The member's gender
     gender = models.CharField("Gender", max_length=6, choices=GENDER, default=GENDER.Male)

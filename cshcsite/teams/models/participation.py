@@ -1,14 +1,21 @@
 import logging
+import os
 from django.db import models
 from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
+from django_resized import ResizedImageField
 from model_utils import Choices
 from model_utils.managers import PassThroughManager
-from core.models import not_none_or_empty
+from core.models import not_none_or_empty, make_unique_filename
 from competitions.models import Season, Division, Cup
 from club_team import ClubTeam
 
 log = logging.getLogger(__name__)
+
+
+def get_file_name(instance, filename):
+    filename = make_unique_filename(filename)
+    return os.path.join('uploads/team_photos', filename)
 
 
 class ClubTeamSeasonParticipationQuerySet(QuerySet):
@@ -46,7 +53,9 @@ class ClubTeamSeasonParticipation(models.Model):
     division = models.ForeignKey(Division, null=True, blank=True)
     """The division in which the team participated in, if any."""
 
-    team_photo = models.ImageField(upload_to='uploads/team_photos', null=True, blank=True)
+    team_photo = ResizedImageField("Team photo",
+        max_width=900, max_height=600,
+        upload_to=get_file_name, null=True, blank=True)
     """A team photo (if available) from this sesason"""
 
     team_photo_caption = models.TextField(blank=True)
