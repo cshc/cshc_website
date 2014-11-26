@@ -14,6 +14,8 @@
 # can relinquish his/her role as commentator - at which point someone
 # else could take over.
 
+import uuid
+import os
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
@@ -23,6 +25,11 @@ from model_utils import Choices
 from core.models import is_none_or_empty, CshcUser
 from matches.models import Match
 
+
+def get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('uploads/matches', filename)
 
 
 class MatchCommentQuerySet(QuerySet):
@@ -54,7 +61,7 @@ class MatchComment(models.Model):
     comment = models.TextField("Comment", blank=True)
 
     # An optional photo
-    photo = ResizedImageField("Photo", max_width=900, max_height=600, use_thumbnail_aspect_ratio=True, upload_to='uploads/matches', null=True, blank=True)
+    photo = ResizedImageField("Photo", max_width=900, max_height=600, upload_to=get_file_path, null=True, blank=True)
 
     state = models.CharField("State", max_length=10, choices=STATE, default=STATE.Approved)
 

@@ -70,6 +70,11 @@
   margin-right: 20px;
   margin-bottom: 0;
 }
+
+#update-form #form-alert {
+  margin-right: 20px;
+}
+
 /**********************************************************************/
 /* Toggle buttons */
 

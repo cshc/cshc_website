@@ -19,7 +19,32 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
     $scope.access = get_access();
   }
 
+  // Ref: http://stackoverflow.com/a/3533099
+  // Allow ctrl+enter to act as enter (for when enter is
+  // used to submit)
+  function messageTextOnKeyEnter(e) {
+    if (e.keyCode == 13) {
+      if (e.ctrlKey) {
+        var val = this.value;
+        if (typeof this.selectionStart == "number" && typeof this.selectionEnd == "number") {
+          var start = this.selectionStart;
+          this.value = val.slice(0, start) + "\n" + val.slice(this.selectionEnd);
+          this.selectionStart = this.selectionEnd = start + 1;
+        } else if (document.selection && document.selection.createRange) {
+          this.focus();
+          var range = document.selection.createRange();
+          range.text = "\r\n";
+          range.collapse(false);
+          range.select();
+        }
+      }
+      return false;
+    }
+  }
+
   function resetNewComment(){
+    $("#comment-textarea").keydown(messageTextOnKeyEnter);
+    $scope.error = null;
     $scope.new_comment = new commentsFactory();
     $scope.new_comment.comment_type = 2;
     $scope.new_comment.author = $scope.user.id;
@@ -55,6 +80,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
   };
 
   $scope.startScoring = function(){
+    $scope.error = null;
     commentator = new commentatorsFactory();
     commentator.commentator = $scope.user.id;
     commentator.commentator_name = $scope.user.name;
@@ -67,26 +93,38 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
       },
       function(error){
         console.log("Failed to save new commentator: " + error);
-        $scope.error = error;
+        $scope.error = "Sorry - something went wrong";
       });
   };
 
   $scope.stopScoring = function(){
-    $scope.commentator.$delete({id:$scope.commentator.id}, function(){
-      console.log("Commentator deleted");
-      $scope.new_comment.comment_type = 2;
-      $scope.commentator = null;
-      $scope.access = get_access();
-    });
+    $scope.error = null;
+    $scope.commentator.$delete({id:$scope.commentator.id},
+      function(){
+        console.log("Commentator deleted");
+        $scope.new_comment.comment_type = 2;
+        $scope.commentator = null;
+        $scope.access = get_access();
+      },
+      function(error){
+        console.log("Failed to delete commentator: " + error);
+        $scope.error = "Sorry - something went wrong";
+      });
   };
 
   $scope.postComment = function() {
     console.debug("Posting comment");
-    $scope.new_comment.$save(function(response){
-      console.log("Saved new comment");
-      addComment(response);
-      $scope.last_update = new Date();
-    });
+    $scope.error = null;
+    $scope.new_comment.$save(
+      function(response){
+        console.log("Saved new comment");
+        addComment(response);
+        $scope.last_update = new Date();
+      },
+      function(error){
+        console.log("Failed to post comment: " + error);
+        $scope.error = "Sorry - something went wrong";
+      });
     resetNewComment();
     $scope.imageSrc = null;
     $scope.file = null;
@@ -94,11 +132,17 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
 
   $scope.deleteComment = function(comment) {
     console.debug("Deleting comment: " + comment.id);
-    comment.$delete({id:comment.id}, function(response){
-      console.log("Comment deleted");
-      removeComment(response);
-      $scope.last_update = new Date();
-    });
+    $scope.error = null;
+    comment.$delete({id:comment.id},
+      function(response){
+        console.log("Comment deleted");
+        removeComment(response);
+        $scope.last_update = new Date();
+      },
+      function(error){
+        console.log("Failed to delete comment: " + error);
+        $scope.error = "Sorry - something went wrong";
+      });
   };
 
   // Function to replicate setInterval using $timeout service.
@@ -131,26 +175,37 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
   function refresh(){
     console.log("Refreshing comments...");
     $("#list-refresh-icon").addClass('icon-spin');
-    var commentators = commentatorsFactory.query(function(){
-      console.log("Retrieved match commentator");
-      if (commentators.length > 0){
-        $scope.commentator = commentators[0];
-        $scope.access = get_access();
-      }
-      else{
-        $scope.commentator = null;
-        $scope.access = get_access();
-      }
-    });
+    $scope.error = null;
+    var commentators = commentatorsFactory.query(
+      function(){
+        console.log("Retrieved match commentator");
+        if (commentators.length > 0){
+          $scope.commentator = commentators[0];
+          $scope.access = get_access();
+        }
+        else{
+          $scope.commentator = null;
+          $scope.access = get_access();
+        }
+      },
+      function(error){
+        console.log("Failed to get commentators: " + error);
+        $scope.error = "Sorry - something went wrong";
+      });
 
-    var comments_on_server = commentsFactory.query(function() {
-      console.log("Retrieved match comments");
-      to_remove = comment_difference($scope.comments, comments_on_server);
-      to_add = comment_difference(comments_on_server, $scope.comments);
-      _.each(to_remove, function(comment, index, list){ removeComment(comment) });
-      _.each(to_add, function(comment, index, list){ addComment(comment) });
-      $("#list-refresh-icon").removeClass('icon-spin');
-    });
+    var comments_on_server = commentsFactory.query(
+      function() {
+        console.log("Retrieved match comments");
+        to_remove = comment_difference($scope.comments, comments_on_server);
+        to_add = comment_difference(comments_on_server, $scope.comments);
+        _.each(to_remove, function(comment, index, list){ removeComment(comment) });
+        _.each(to_add, function(comment, index, list){ addComment(comment) });
+        $("#list-refresh-icon").removeClass('icon-spin');
+      },
+      function(error){
+        console.log("Failed to get comments: " + error);
+        $scope.error = "Sorry - something went wrong";
+      });
 
     if($scope.auto_refresh && !$scope.refresh_promise){
       $scope.scheduleRefresh();

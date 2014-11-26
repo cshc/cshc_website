@@ -18,9 +18,11 @@
       </div>
     </div>
     <div ng-hide="access == 'not_authenticated'">
-      <div class="row update-form-row">
+      <div class="row update-form-row" ng-hide="!error">
         <div class="span12">
-          <p class="error-msg" ng-hide="!error">{{ error }}</p>
+          <div id="form-alert" class="alert alert-error">
+            <strong>Error&nbsp; </strong>{{ error }}
+          </div>
         </div>
       </div>
       <div id="comment-options" class="row update-form-row" ng-show="access == 'commentating'">
@@ -48,27 +50,27 @@
           </label>
         </div>
       </div>
-    </div>
-    <div class="row update-form-row">
-      <div id="comment-text" class="span10">
-        <textarea name="comment" class="" placeholder="What just happened?" ng-model="new_comment.comment"></textarea>
-      </div>
-      <div class="span2">
-        <div class="comment-btns">
-          <label id="select-photo" class="btn input-block-level" for="photo-selector">
-            <input id="photo-selector" type="file" ng-file-select="onPhotoSelect($files)">
-            <i class="icon-camera"></i>
-          </label>
-          <label id="submit-comment" class="btn btn-success input-block-level" for="submitter" ng-disabled="!new_comment.comment" >
-            <input type="submit" id="submitter" class="btn btn-default">Post
-          </label>
+      <div class="row update-form-row">
+        <div id="comment-text" class="span10">
+          <textarea id="comment-textarea" name="comment" class="" placeholder="What just happened?" bind-key="postComment()" key="13" ng-model="new_comment.comment"></textarea>
+        </div>
+        <div class="span2">
+          <div class="comment-btns">
+            <label id="select-photo" class="btn input-block-level" for="photo-selector">
+              <input id="photo-selector" type="file" ng-file-select="onPhotoSelect($files)">
+              <i class="icon-camera"></i>
+            </label>
+            <label id="submit-comment" class="btn btn-success input-block-level" for="submitter" ng-disabled="!new_comment.comment" >
+              <input type="submit" id="submitter" class="btn btn-default">Post
+            </label>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row update-form-row">
-      <div class="span12">
-        <div class="preview-wrapper">
-          <img id="img-preview" ng-show="imageSrc" ng-src="{{ imageSrc }}" />
+      <div class="row update-form-row">
+        <div class="span12">
+          <div class="preview-wrapper">
+            <img id="img-preview" ng-show="imageSrc" ng-src="{{ imageSrc }}" />
+          </div>
         </div>
       </div>
     </div>
