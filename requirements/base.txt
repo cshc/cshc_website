@@ -121,8 +121,12 @@ django-blog-zinnia==0.14.2
 
 # Web-API support
 # Ref: http://www.django-rest-framework.org/
-djangorestframework==2.3.14
+djangorestframework==2.3.13
 
 # Front and back-end autocompletion support
 # Ref: http://django-autocomplete-light.readthedocs.org/en/latest
 django-autocomplete-light==2.0.2
+
+# Resized model ImageFields
+# Ref: https://pypi.python.org/pypi/django-resized/0.2.4
+django-resized==0.2.4

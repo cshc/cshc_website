@@ -11,8 +11,8 @@ class Migration(SchemaMigration):
         # Adding model 'MatchComment'
         db.create_table(u'commentary_matchcomment', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.CshcUser'], null=True, on_delete=models.SET_NULL, blank=True)),
-            ('match', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['matches.Match'])),
+            ('author', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='match_comments', null=True, on_delete=models.SET_NULL, to=orm['core.CshcUser'])),
+            ('match', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match_comments', to=orm['matches.Match'])),
             ('comment_type', self.gf('django.db.models.fields.IntegerField')(default=2)),
             ('comment', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('photo', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
@@ -22,10 +22,21 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('commentary', ['MatchComment'])
 
+        # Adding model 'MatchCommentator'
+        db.create_table(u'commentary_matchcommentator', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('commentator', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match_commentries', to=orm['core.CshcUser'])),
+            ('match', self.gf('django.db.models.fields.related.ForeignKey')(related_name='match_commentator', unique=True, to=orm['matches.Match'])),
+        ))
+        db.send_create_signal('commentary', ['MatchCommentator'])
+
 
     def backwards(self, orm):
         # Deleting model 'MatchComment'
         db.delete_table(u'commentary_matchcomment')
+
+        # Deleting model 'MatchCommentator'
+        db.delete_table(u'commentary_matchcommentator')
 
 
     models = {
@@ -44,15 +55,21 @@ class Migration(SchemaMigration):
         },
         'commentary.matchcomment': {
             'Meta': {'ordering': "['-timestamp']", 'object_name': 'MatchComment'},
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['core.CshcUser']", 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'match_comments'", 'null': 'True', 'on_delete': 'models.SET_NULL', 'to': "orm['core.CshcUser']"}),
             'comment': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'comment_type': ('django.db.models.fields.IntegerField', [], {'default': '2'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'match': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['matches.Match']"}),
+            'match': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match_comments'", 'to': "orm['matches.Match']"}),
             'photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'state': ('django.db.models.fields.CharField', [], {'default': "'Approved'", 'max_length': '10'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
+        },
+        'commentary.matchcommentator': {
+            'Meta': {'ordering': "['-match']", 'object_name': 'MatchCommentator'},
+            'commentator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match_commentries'", 'to': "orm['core.CshcUser']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'match': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'match_commentator'", 'unique': 'True', 'to': "orm['matches.Match']"})
         },
         'competitions.cup': {
             'Meta': {'ordering': "['name']", 'object_name': 'Cup'},

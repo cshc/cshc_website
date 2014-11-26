@@ -15,7 +15,11 @@ Currently just lists the values that will be needed by this template - no UI des
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "a00305df-8936-42fa-94f6-0b4d2380413f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
-<link href="{{ STATIC_URL }}css/commentary.css" rel="stylesheet">
+
+{% comment %}
+<link href="{{ STATIC_URL }}commentary/css/commentary.css" rel="stylesheet">
+{% endcomment %}
+<link href="{{ STATIC_URL }}commentary2/styles/commentary.css" rel="stylesheet">
 
 {% comment %}
 See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-15.html
@@ -122,14 +126,46 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 
 {% block body_js %}
     {{ block.super }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
     <script src="//code.angularjs.org/1.3.1/angular.js"></script>
-    <script src="//code.angularjs.org/1.2.22/angular-animate.js"></script>
+    <script src="//code.angularjs.org/1.3.1/angular-animate.js"></script>
+    <script src="//code.angularjs.org/1.3.1/angular-resource.js"></script>
+    <script type="text/javascript">
+        var context = {
+            'match_id': {{ match.id }},
+            'match_is_in_past': {{ match.is_in_past|lower }},
+            'commentary_is_active': {{ match.commentary_is_active|lower }},
+            'our_team_name': '{{ match.our_team.abbr_name }}',
+            'opp_team_name': '{{ match.opp_team.name }}',
+            'media_url': '{{ MEDIA_URL }}',
+            {% if user.is_authenticated %}
+            'user_id': {{ user.id }},
+            'user_name': '{{ user.get_full_name }}',
+            {% else %}
+            'user_id': null,
+            'user_name': '',
+            'flavour': '{{ flavour }}',
+            {% endif%}
+        };
+    </script>
+    <script src="{{ STATIC_URL }}commentary2/scripts/app.js"></script>
+    <script src="{{ STATIC_URL }}commentary2/scripts/upload.js"></script>
+    <script src="{{ STATIC_URL }}commentary2/scripts/directives/commentdirectives.js"></script>
+    <script src="{{ STATIC_URL }}commentary2/scripts/services/commentservice.js"></script>
+    <script src="{{ STATIC_URL }}commentary2/scripts/controllers/commentscontroller.js"></script>
+    {% comment %}
     <script type="text/javascript">
         var match_id = {{ match.id }};
     </script>
-    <script src="{{ STATIC_URL }}js/commentary.js"></script>
-    <script src="{{ STATIC_URL }}js/upload.js"></script>
-
+    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+    <script src="{{ STATIC_URL }}commentary/js/models/comment.js"></script>
+    <script src="{{ STATIC_URL }}commentary/js/models/commentator.js"></script>
+    <script src="{{ STATIC_URL }}commentary/js/collections/matchcomments.js"></script>
+    <script src="{{ STATIC_URL }}commentary/js/views/commentview.js"></script>
+    <script src="{{ STATIC_URL }}commentary/js/views/matchcommentsview.js"></script>
+    <script src="{{ STATIC_URL }}commentary/js/app.js"></script>
+    {% endcomment %}
 
     {% if not match.is_in_past %}
         {% include "venues/_venue_map_js.html" with venue_address=match.venue.full_address %}

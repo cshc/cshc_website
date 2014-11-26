@@ -4,7 +4,8 @@
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
 
-    window.CSHC = {
+    window.CSHC = window.CSHC || {};
+
         Models: {},
         Collections: {},
         Views: {}
@@ -13,7 +14,7 @@ $(function(){
     CSHC.Models.Comment = Backbone.Model.extend({
 
         urlRoot: function() {
-            return '/matches/' + this.get('match') + '/comments/';
+            return '/commentary/' + this.get('match') + '/comments/';
         },
 
         initialize: function() {
@@ -34,9 +35,9 @@ $(function(){
           return {
             author: null,
             match: null,
-            comment_type: 0,
+            comment_type: 2,
             comment: "",
-            photo_url: "",
+            photo: "",
             state: "Pending",
             timestamp: null,
             last_modified: null

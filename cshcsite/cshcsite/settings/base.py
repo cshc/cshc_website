@@ -536,6 +536,5 @@ REDACTOR_JS = [
 # Ref: http://www.django-rest-framework.org/tutorial/quickstart#settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
-    'PAGINATE_BY': 10
 }
 ########## END djangorestframework CONFIGURATION

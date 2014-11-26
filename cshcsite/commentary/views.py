@@ -9,35 +9,8 @@ from django.views.generic import View
 from django.shortcuts import render_to_response
 from rest_framework import generics
 from core.views import kwargs_or_none
-from .serializers import MatchCommentSerializer
-from .models import MatchComment
-
-class LatestMatchCommentsView(View):
-
-    def get(self, args, **kwargs):
-        if not self.request.is_ajax():
-            return render_to_response('error/ajax_required.html', {},
-                                      context_instance=RequestContext(self.request))
-        match_id = kwargs['match_id']
-        last_update = kwargs_or_none('last_update', **kwargs)
-        if last_update:
-            last_update = float(last_update)
-            dt_last_update = datetime.utcfromtimestamp(time.mktime(time.gmtime(last_update)))
-            new_comments = MatchComment.objects.since(match_id, dt_last_update)
-        else:
-            new_comments = MatchComment.objects.by_match(match_id)
-
-        if new_comments.exists():
-            updated = datetime.utcnow()
-        else:
-            updated = None
-
-        result = {
-            "last_update": calendar.timegm(updated.timetuple()) if updated else None,
-            "comments": ast.literal_eval(serializers.serialize('json', new_comments))
-        }
-        return HttpResponse(json.dumps(result), content_type="application/json")
-
+from .serializers import MatchCommentSerializer, MatchCommentatorSerializer
+from .models import MatchComment, MatchCommentator
 
 
 class MatchCommentList(generics.ListCreateAPIView):
@@ -48,20 +21,11 @@ class MatchCommentList(generics.ListCreateAPIView):
     Also handles creating (via POST) a match comment.
     """
 
+    serializer_class = MatchCommentSerializer
+
     def get_queryset(self):
         match_id = self.kwargs['match_id']
-        last_update = kwargs_or_none('last_update', **self.kwargs)
-        if last_update:
-            # Last update is in milliseconds since the epoch
-            dt_last_update = datetime.utcfromtimestamp(last_update/1000)
-            print "Last comment update: " + dt_last_update
-            return MatchComment.objects.since(match_id, dt_last_update)
-        else:
-            comments = MatchComment.objects.by_match(match_id)
-            print "Fetched {} comments".format(comments.count())
-            return comments
-
-    serializer_class = MatchCommentSerializer
+        return MatchComment.objects.by_match(match_id)
 
 
 class MatchCommentDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -71,3 +35,26 @@ class MatchCommentDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = MatchComment.objects.all()
     serializer_class = MatchCommentSerializer
+
+
+class MatchCommentatorList(generics.ListCreateAPIView):
+    """
+    List all match commentators for a particular match (should always be zero or one).
+
+    Also handles creating (via POST) a match commentator.
+    """
+
+    serializer_class = MatchCommentatorSerializer
+
+    def get_queryset(self):
+        match_id = self.kwargs['match_id']
+        return MatchCommentator.objects.filter(match_id=match_id)
+
+
+class MatchCommentatorDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Get/update/delete a particular match comment.
+    """
+
+    queryset = MatchCommentator.objects.all()
+    serializer_class = MatchCommentatorSerializer
