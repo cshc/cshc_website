@@ -51,6 +51,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
     $scope.new_comment.author = $scope.user.id;
     $scope.new_comment.author_name = $scope.user.name;
     $scope.new_comment.match = $scope.context.match_id;
+    $scope.new_comment.photo = null;
   }
 
   function get_access(){
@@ -72,10 +73,12 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
     return comment.author_name.substr(0,comment.author_name.indexOf(' '));
   };
 
-  $scope.our_score = function(index){
-    return $scope.comments.slice(index).filter(function (comment) {
-      return comment.comment_type == 0;
-    }).length;
+  $scope.showDelete = function(comment){
+    // Users can always delete their own comment
+    if(comment.author == $scope.user.id){
+      return true;
+    }
+    return $scope.access == 'commentating' && $scope.context.commentary_is_active;
   };
 
   $scope.opp_score = function(index){
@@ -136,7 +139,6 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
       });
     resetNewComment();
     $scope.imageSrc = null;
-    $scope.file = null;
   };
 
   $scope.deleteComment = function(comment) {
@@ -227,6 +229,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
     fileReader.readAsDataUrl($scope.file, $scope)
     .then(function(result) {
       $scope.imageSrc = result;
+      $scope.new_comment.photo = $scope.file;
     });
   };
 

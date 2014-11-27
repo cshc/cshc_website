@@ -1,4 +1,6 @@
 {% verbatim %}
+
+
 <div id="match-comments"
   ng-show="context.match_is_in_past || context.commentary_is_active"
   ng-app="commentaryApp"
@@ -96,14 +98,15 @@
 
 <div class="row">
   <div id="live-comment-list">
-    <div ng-animate="'animate'" ng-repeat="comment in comments" class="comment-item"
+    <!-- Need onclick="" to support hover effect on iOS -->
+    <div ng-animate="'animate'" ng-repeat="comment in comments" class="comment-item" onclick=""
          ng-class="{'highlight': comment.comment_type == 0 || comment.comment_type == 1}">
       <div class="pull-left">
         <i ng-class="{
           'icon-thumbs-up': comment.comment_type == 0,
           'icon-thumbs-down': comment.comment_type == 1,
           'icon-camera': comment.photo,
-          'icon-edit': comment.comment_type == 2,
+          'icon-edit': comment.comment_type == 2 && !comment.photo,
           'icon-time': comment.comment_type == 3,
           'icon-3x': context.flavour == 'full',
           'icon-2x': context.flavour == 'mobile'}"></i>
@@ -113,7 +116,7 @@
         </div>
       </div>
       <div class="comment-body">
-        <a href="javascript:void(0);" title="Delete" ng-hide="access != 'commentating'" class="close" ng-click="deleteComment(comment)">&times;</a>
+        <a href="javascript:void(0);" title="Delete" ng-hide="!showDelete(comment)" class="close" ng-click="deleteComment(comment)">&times;</a>
         <h5 class="comment-heading" ng-hide="comment.comment_type != 0 && comment.comment_type != 1">GOAL!</h5>
         <img class="comment-img" ng-show="comment.photo" ng-src="{{ context.media_url }}{{ comment.photo }}" />
         <p>{{ comment.comment }}</p>
