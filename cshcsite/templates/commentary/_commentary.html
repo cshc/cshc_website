@@ -26,7 +26,7 @@
         </div>
       </div>
       <div id="comment-options" class="row update-form-row" ng-show="access == 'commentating'">
-        <div class="span2">
+        <!--<div class="span2">
           <label><input type="radio" name="toggle"
             ng-model="new_comment.comment_type"
             value="2">
@@ -48,28 +48,47 @@
             ng-disabled="access != 'commentating'">
             <i class="icon-thumbs-down"></i>&nbsp;They scored
           </label>
-        </div>
-      </div>
-      <div class="row update-form-row">
-        <div id="comment-text" class="span10">
-          <textarea id="comment-textarea" name="comment" class="" placeholder="What just happened?" bind-key="postComment()" key="13" ng-model="new_comment.comment"></textarea>
-        </div>
-        <div class="span2">
-          <div class="comment-btns">
-            <label id="select-photo" class="btn input-block-level" for="photo-selector">
-              <input id="photo-selector" type="file" ng-file-select="onPhotoSelect($files)">
-              <i class="icon-camera"></i>
-            </label>
-            <label id="submit-comment" class="btn btn-success input-block-level" for="submitter" ng-disabled="!new_comment.comment" >
-              <input type="submit" id="submitter" class="btn btn-default">Post
-            </label>
+        </div>-->
+        <div class="span12">
+          <div id="comment-options-toolbar" class="btn-toolbar">
+            <div class="btn-group">
+              <label class="comment-option btn" for="photo-selector" data-toggle='tooltip' title data-original-title="Add a photo">
+                <input id="photo-selector" type="file" ng-file-select="onPhotoSelect($files)">
+                <i class="icon-camera"></i>
+              </label>
+            </div>
+            <div class="btn-group" data-toggle="buttons-radio">
+              <label class="comment-option btn active" ng-click="setType(2)" data-toggle='tooltip' title data-original-title="Update">
+                <input type="radio" name="toggle"><i class="icon-edit"></i>
+              </label>
+              <label class="comment-option btn" ng-click="setType(0)" data-toggle='tooltip' title data-original-title="We scored">
+                <input type="radio" name="toggle"><i class="icon-thumbs-up"></i>
+              </label>
+              <label class="comment-option btn" ng-click="setType(1)" data-toggle='tooltip' title data-original-title="They scored">
+                <input type="radio" name="toggle"><i class="icon-thumbs-down"></i>
+              </label>
+              <label class="comment-option btn" ng-click="setType(3)" data-toggle='tooltip' title data-original-title="Start, half-time, full-time">
+                <input type="radio" name="toggle"><i class="icon-time"></i>
+              </label>
+            </div>
           </div>
         </div>
       </div>
       <div class="row update-form-row">
+        <div id="comment-text" class="span12">
+          <div class="textarea-wrapper">
+            <textarea id="comment-textarea" name="comment"
+              placeholder="What just happened?"
+              bind-key="postComment()" key="13"
+              ng-model="new_comment.comment">
+            </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row update-form-row" ng-show="imageSrc" >
         <div class="span12">
           <div class="preview-wrapper">
-            <img id="img-preview" ng-show="imageSrc" ng-src="{{ imageSrc }}" />
+            <img id="img-preview" ng-src="{{ imageSrc }}" />
           </div>
         </div>
       </div>

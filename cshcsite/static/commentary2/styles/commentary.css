@@ -85,6 +85,18 @@
 /**********************************************************************/
 /* Form fields */
 
+#update-form #comment-options-toolbar {
+  margin-bottom: 0;
+}
+
+.comment-option>input[type='radio']{
+  display: none;
+}
+
+#update-form .textarea-wrapper {
+  margin-right: 30px;
+}
+
 #update-form #comment-text textarea{
   min-height: 61px;
   width: 100%;

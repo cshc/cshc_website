@@ -17,6 +17,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
     resetNewComment();
     refresh();
     $scope.access = get_access();
+    $('.comment-option').tooltip()
   }
 
   // Ref: http://stackoverflow.com/a/3533099
@@ -67,6 +68,10 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
     }
   };
 
+  $scope.commenter = function(comment){
+    return comment.author_name.substr(0,comment.author_name.indexOf(' '));
+  };
+
   $scope.our_score = function(index){
     return $scope.comments.slice(index).filter(function (comment) {
       return comment.comment_type == 0;
@@ -78,6 +83,10 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
       return comment.comment_type == 1;
     }).length;
   };
+
+  $scope.setType = function(comment_type){
+    $scope.new_comment.comment_type = comment_type;
+  }
 
   $scope.startScoring = function(){
     $scope.error = null;
@@ -93,7 +102,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
       },
       function(error){
         console.log("Failed to save new commentator: " + error);
-        $scope.error = "Sorry - something went wrong";
+        $scope.error = "Sorry - something went wrong. Maybe someone else just beat you to it?";
       });
   };
 
