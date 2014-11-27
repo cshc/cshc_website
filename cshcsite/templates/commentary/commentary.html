@@ -112,7 +112,7 @@
           'icon-2x': context.flavour == 'mobile'}"></i>
         <div class="comment-meta">
           {{ comment.timestamp|date:"shortTime" }}<br/>
-          <a href="/members/{{ comment.author }}/" title="Player Profile">{{ commenter(comment) }}</a>
+          {{ commenter(comment) }}
         </div>
       </div>
       <div class="comment-body">

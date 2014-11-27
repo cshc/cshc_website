@@ -7,7 +7,6 @@ var REFRESH_INTERVAL_MS = 5000;
 app.controller('CommentsController', function($scope, $timeout, commentsFactory, commentatorsFactory, fileReader) {
   init();
 
-
   function init() {
     $scope.comments = [];
     $scope.last_update = new Date();
@@ -20,38 +19,15 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
     $('.comment-option').tooltip()
   }
 
-  // Ref: http://stackoverflow.com/a/3533099
-  // Allow ctrl+enter to act as enter (for when enter is
-  // used to submit)
-  function messageTextOnKeyEnter(e) {
-    if (e.keyCode == 13) {
-      if (e.ctrlKey) {
-        var val = this.value;
-        if (typeof this.selectionStart == "number" && typeof this.selectionEnd == "number") {
-          var start = this.selectionStart;
-          this.value = val.slice(0, start) + "\n" + val.slice(this.selectionEnd);
-          this.selectionStart = this.selectionEnd = start + 1;
-        } else if (document.selection && document.selection.createRange) {
-          this.focus();
-          var range = document.selection.createRange();
-          range.text = "\r\n";
-          range.collapse(false);
-          range.select();
-        }
-      }
-      return false;
-    }
-  }
-
   function resetNewComment(){
-    $("#comment-textarea").keydown(messageTextOnKeyEnter);
     $scope.error = null;
     $scope.new_comment = new commentsFactory();
     $scope.new_comment.comment_type = 2;
     $scope.new_comment.author = $scope.user.id;
     $scope.new_comment.author_name = $scope.user.name;
     $scope.new_comment.match = $scope.context.match_id;
-    $scope.new_comment.photo = null;
+    // Important: don't specify the photo attribute (i.e. don't set it to null)
+    // Otherwise the Django Rest Framework view expects a photo file!
   }
 
   function get_access(){
