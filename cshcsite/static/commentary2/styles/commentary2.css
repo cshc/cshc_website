@@ -1,0 +1,157 @@
+.ng-cloak { visibility:hidden; }
+
+#match-comments.guest .comment-form,
+#match-comments.inactive .comment-form,
+#match-comments.inactive #access {
+  display: none;
+}
+
+#match-comments #access,
+#match-comments .comment-form {
+  padding: 10px;
+}
+
+#match-comments #access {
+  background-image: -moz-linear-gradient(top, #025702, #358E35);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#025702), to(#358E35));
+  background-image: -webkit-linear-gradient(top, #025702, #358E35);
+  background-image: -o-linear-gradient(top, #025702, #358E35);
+  background-image: linear-gradient(to bottom, #025702, #358E35);
+}
+
+#match-comments #access span {
+  display: block;
+  width: 100%;
+  color: white;
+  text-align: right;
+}
+
+#match-comments #access span .btn { margin-bottom: 0; margin-left: 10px;}
+
+#match-comments .comment-form {
+  background-color: rgb(237, 237, 234);
+}
+
+#comment-options-toolbar.btn-toolbar,
+#comment-options-toolbar .btn,
+#photo-btn {
+  margin: 0;
+}
+
+.comment-option>input[type='radio'],
+.comment-option>input[type='file']{
+  display: none;
+}
+
+#match-comments #photo-btn {
+  float: left;
+}
+
+#match-comments #textarea-wrapper {
+  padding: 0 10px;
+  overflow: hidden;
+}
+
+#match-comments #comment-textarea {
+  width: 100%;
+  min-height: 44px;
+  margin-bottom: 0;
+}
+
+#match-comments #photo-btn i {
+  margin: 0;
+}
+
+#last-update {
+  margin-top: 10px;
+  font-style: italic;
+  color: grey;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+#last-update .btn {
+  margin-left: 10px;
+}
+
+.comment-item {
+  position: relative;
+  border-bottom: 1px solid rgb(245, 244, 244);
+  margin-top: 0;
+  padding-top: 5px;
+}
+
+.comment-item.highlight{
+  background-color: rgb(237, 237, 234);
+}
+
+.comment-item,
+.comment-body {
+  overflow: hidden;
+  *overflow: visible;
+  zoom: 1;
+}
+
+.comment-item .pull-left{
+  text-align: center;
+}
+
+.comment-item .pull-left i {
+  margin: 0 10px;
+}
+
+.comment-body {
+  padding-left: 5px;
+}
+
+.comment-heading {
+  margin: 0 0 5px;
+}
+
+#live-comment-list .comment-item .close {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 5px;
+  font-size: 30px;
+  height: 20px;
+}
+
+#live-comment-list .comment-item .close{
+  visibility: hidden;
+}
+
+#live-comment-list .comment-item:hover .close {
+  visibility: visible;
+}
+
+#live-comment-list .comment-item .comment-meta{
+  font-size: 9px;
+  line-height: 12px;
+  margin: 5px 0;
+  color: grey;
+  width: 100%;
+  text-align: center;
+  max-width: 84px;
+}
+
+/**********************************************************************/
+/* List animations */
+
+.comment-item.ng-enter,
+.comment-item.ng-leave {
+  -webkit-transition:1.0s linear all;
+  transition:1.0s linear all;
+}
+
+.comment-item.ng-enter,
+.comment-item.ng-leave.ng-leave-active {
+  opacity:0;
+}
+.comment-item.ng-leave,
+.comment-item.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+

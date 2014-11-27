@@ -1,0 +1,129 @@
+{% verbatim %}
+<div id="match-comments"
+  ng-show="context.match_is_in_past || context.commentary_is_active"
+  ng-app="commentaryApp"
+  ng-controller="CommentsController"
+  ng-cloak class="ng-cloak"
+  ng-class="{guest: access == 'not_authenticated', inactive: !context.commentary_is_active}">
+
+<div class="row">
+  <h3>Live match updates</h3>
+</div>
+
+<div class="row">
+  <div id="access">
+    <span ng-hide="access != 'not_authenticated'">
+      <a href="/accounts/login/?next=/matches/{{ context.match_id }}/">Login</a> to post live comments on this match.
+    </span>
+    <span ng-hide="access != 'no_commentator'">
+      Wanna take control? <label ng-click="startScoring()" class="btn">I'll commentate!</label>
+    </span>
+    <span ng-hide="access != 'other_commentator'">
+      <a href="/members/{{ commentator.commentator }}/">{{ commentator.commentator_name }}</a> is the official commentator.
+    </span>
+    <span ng-hide="access != 'commentating'">
+      You are in charge! <label ng-click="stopScoring()" class="btn">Stop commentating</label>
+    </span>
+  </div>
+</div>
+
+<div class="row" ng-hide="!error">
+  <div id="form-alert" class="comment-form">
+    <div class="alert alert-error" >
+      <strong>Error&nbsp; </strong>{{ error }}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div id="comment-options-toolbar" class="comment-form btn-toolbar">
+    <div class="btn-group" data-toggle="buttons-radio">
+      <label class="comment-option btn active" ng-click="setType(2)" data-toggle='tooltip' title data-original-title="Update">
+        <input type="radio" name="toggle">
+        <i ng-class="{icon-2x: context.flavour == 'full'}" class="icon-edit"></i>
+      </label>
+      <label ng-disabled="access != 'commentating'" class="comment-option btn" ng-click="setType(0)" data-toggle='tooltip' title data-original-title="We scored">
+        <input type="radio" name="toggle">
+        <i ng-class="{icon-2x: context.flavour == 'full'}" class="icon-thumbs-up"></i>
+      </label>
+      <label ng-disabled="access != 'commentating'" class="comment-option btn" ng-click="setType(1)" data-toggle='tooltip' title data-original-title="They scored">
+        <input type="radio" name="toggle">
+        <i ng-class="{icon-2x: context.flavour == 'full'}" class="icon-thumbs-down"></i>
+      </label>
+      <label ng-disabled="access != 'commentating'" class="comment-option btn" ng-click="setType(3)" data-toggle='tooltip' title data-original-title="Start, half-time, full-time">
+        <input type="radio" name="toggle">
+        <i ng-class="{icon-2x: context.flavour == 'full'}" class="icon-time"></i>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="comment-form">
+    <label id="photo-btn" class="comment-option btn" for="photo-selector" data-toggle='tooltip' title data-original-title="Add a photo">
+      <input id="photo-selector" type="file" ng-file-select="onPhotoSelect($files)">
+      <i class="icon-camera" ng-class="{'icon-3x': context.flavour == 'full'}"></i>
+    </label>
+    <div id="textarea-wrapper">
+      <textarea id="comment-textarea" name="comment"
+        placeholder="What just happened?"
+        bind-key="postComment()" key="13"
+        ng-model="new_comment.comment">
+      </textarea>
+    </div>
+  </div>
+</div>
+
+<div class="row" ng-show="imageSrc">
+  <div class="preview-wrapper comment-form">
+    <img id="img-preview" ng-src="{{ imageSrc }}" />
+  </div>
+</div>
+
+<div class="row">
+  <span class="pull-right" ng-show="context.commentary_is_active" id="last-update">Last update: {{ last_update|date:"shortTime" }}
+    <div class="btn-group">
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        <span ng-click="refresh()"><i id="list-refresh-icon" class="icon-refresh"></i>&nbsp;Refresh&nbsp;</span>
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="javascript:void(0);" ng-click="toggleRefresh()"><i ng-show="auto_refresh" class="icon-check"></i>Auto-refresh</a></li>
+      </ul>
+    </div>
+  </span>
+</div>
+
+<div class="row">
+  <div id="live-comment-list">
+    <div ng-animate="'animate'" ng-repeat="comment in comments" class="comment-item"
+         ng-class="{'highlight': comment.comment_type == 0 || comment.comment_type == 1}">
+      <div class="pull-left">
+        <i ng-class="{
+          'icon-thumbs-up': comment.comment_type == 0,
+          'icon-thumbs-down': comment.comment_type == 1,
+          'icon-camera': comment.photo,
+          'icon-edit': comment.comment_type == 2,
+          'icon-time': comment.comment_type == 3,
+          'icon-3x': context.flavour == 'full',
+          'icon-2x': context.flavour == 'mobile'}"></i>
+        <div class="comment-meta">
+          {{ comment.timestamp|date:"shortTime" }}<br/>
+          <a href="/members/{{ comment.author }}/" title="Player Profile">{{ commenter(comment) }}</a>
+        </div>
+      </div>
+      <div class="comment-body">
+        <a href="javascript:void(0);" title="Delete" ng-hide="access != 'commentating'" class="close" ng-click="deleteComment(comment)">&times;</a>
+        <h5 class="comment-heading" ng-hide="comment.comment_type != 0 && comment.comment_type != 1">GOAL!</h5>
+        <img class="comment-img" ng-show="comment.photo" ng-src="{{ context.media_url }}{{ comment.photo }}" />
+        <p>{{ comment.comment }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+{% endverbatim %}
+
+

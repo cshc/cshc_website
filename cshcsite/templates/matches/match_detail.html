@@ -19,7 +19,7 @@ Currently just lists the values that will be needed by this template - no UI des
 {% comment %}
 <link href="{{ STATIC_URL }}commentary/css/commentary.css" rel="stylesheet">
 {% endcomment %}
-<link href="{{ STATIC_URL }}commentary2/styles/commentary.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}commentary2/styles/commentary2.css" rel="stylesheet">
 
 {% comment %}
 See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-15.html
@@ -74,13 +74,15 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 </table>
 </div>
 
-{% if match.is_in_past %}
+{% if match.commentary_is_active %}
+{% include 'commentary/commentary.html' %}
+{% elif match.is_in_past %}
 {% include 'matches/_result_detail.html' %}
+{% include 'commentary/commentary.html' %}
 {% else %}
 {% include 'matches/_fixture_detail.html' %}
 {% endif %}
 
-{% include 'commentary/_commentary.html' %}
 
 <ul class="pager">
   <li class="previous{% if not prev_match %} disabled{% endif %}">
@@ -145,8 +147,8 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
             {% else %}
             'user_id': null,
             'user_name': '',
-            'flavour': '{{ flavour }}',
             {% endif%}
+            'flavour': '{{ flavour }}',
         };
     </script>
     <script src="{{ STATIC_URL }}commentary2/scripts/app.js"></script>
