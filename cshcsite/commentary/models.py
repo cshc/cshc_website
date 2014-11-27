@@ -49,7 +49,8 @@ class MatchComment(models.Model):
 
     COMMENT_TYPE = Choices((0, 'Scored', 'Goal scored'),
                            (1, 'Conceeded', 'Goal conceeded'),
-                           (2, 'Update', 'Update'))
+                           (2, 'Update', 'Update'),
+                           (3, 'Time', 'Time'),)
 
     STATE = Choices('Pending', 'Approved', 'Rejected', 'Deleted')
 

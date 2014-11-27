@@ -141,8 +141,8 @@
 
 .comment-item.ng-enter,
 .comment-item.ng-leave {
-  -webkit-transition:1.0s linear all;
-  transition:1.0s linear all;
+  -webkit-transition:0.8s linear all;
+  transition:0.8s linear all;
 }
 
 .comment-item.ng-enter,

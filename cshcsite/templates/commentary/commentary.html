@@ -4,7 +4,7 @@
   ng-app="commentaryApp"
   ng-controller="CommentsController"
   ng-cloak class="ng-cloak"
-  ng-class="{guest: access == 'not_authenticated', inactive: !context.commentary_is_active}">
+  ng-class="{'guest': access == 'not_authenticated', 'inactive': !context.commentary_is_active}">
 
 <div class="row">
   <h3>Live match updates</h3>
@@ -16,7 +16,7 @@
       <a href="/accounts/login/?next=/matches/{{ context.match_id }}/">Login</a> to post live comments on this match.
     </span>
     <span ng-hide="access != 'no_commentator'">
-      Wanna take control? <label ng-click="startScoring()" class="btn">I'll commentate!</label>
+      Wanna take control? <label ng-click="startScoring()" class="btn">I'll keep score!</label>
     </span>
     <span ng-hide="access != 'other_commentator'">
       <a href="/members/{{ commentator.commentator }}/">{{ commentator.commentator_name }}</a> is the official commentator.
@@ -36,23 +36,23 @@
 </div>
 
 <div class="row">
-  <div id="comment-options-toolbar" class="comment-form btn-toolbar">
+  <div id="comment-options-toolbar" class="comment-form btn-toolbar" ng-hide="access != 'commentating'">
     <div class="btn-group" data-toggle="buttons-radio">
       <label class="comment-option btn active" ng-click="setType(2)" data-toggle='tooltip' title data-original-title="Update">
         <input type="radio" name="toggle">
-        <i ng-class="{icon-2x: context.flavour == 'full'}" class="icon-edit"></i>
+        <i ng-class="{'icon-2x': context.flavour == 'full'}" class="icon-edit"></i>
       </label>
-      <label ng-disabled="access != 'commentating'" class="comment-option btn" ng-click="setType(0)" data-toggle='tooltip' title data-original-title="We scored">
+      <label class="comment-option btn" ng-click="setType(0)" data-toggle='tooltip' title data-original-title="We scored">
         <input type="radio" name="toggle">
-        <i ng-class="{icon-2x: context.flavour == 'full'}" class="icon-thumbs-up"></i>
+        <i ng-class="{'icon-2x': context.flavour == 'full'}" class="icon-thumbs-up"></i>
       </label>
-      <label ng-disabled="access != 'commentating'" class="comment-option btn" ng-click="setType(1)" data-toggle='tooltip' title data-original-title="They scored">
+      <label class="comment-option btn" ng-click="setType(1)" data-toggle='tooltip' title data-original-title="They scored">
         <input type="radio" name="toggle">
-        <i ng-class="{icon-2x: context.flavour == 'full'}" class="icon-thumbs-down"></i>
+        <i ng-class="{'icon-2x': context.flavour == 'full'}" class="icon-thumbs-down"></i>
       </label>
-      <label ng-disabled="access != 'commentating'" class="comment-option btn" ng-click="setType(3)" data-toggle='tooltip' title data-original-title="Start, half-time, full-time">
+      <label class="comment-option btn" ng-click="setType(3)" data-toggle='tooltip' title data-original-title="Start, half-time, full-time">
         <input type="radio" name="toggle">
-        <i ng-class="{icon-2x: context.flavour == 'full'}" class="icon-time"></i>
+        <i ng-class="{'icon-2x': context.flavour == 'full'}" class="icon-time"></i>
       </label>
     </div>
   </div>
