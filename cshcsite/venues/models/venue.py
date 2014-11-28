@@ -1,9 +1,10 @@
-import logging
+""" The Venue model represents a hockey venue - typically
+    an astro pitch but can also be used for clubhouses etc.
+"""
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from core.models import not_none_or_empty
-
-log = logging.getLogger(__name__)
 
 
 class VenueManager(models.Manager):
@@ -16,6 +17,7 @@ class VenueManager(models.Manager):
     def away_venues(self):
         """ Returns only away venues """
         return super(VenueManager, self).get_query_set().filter(is_home=False)
+
 
 class Venue(models.Model):
     """Represents a match venue"""
@@ -66,6 +68,7 @@ class Venue(models.Model):
     objects = VenueManager()
 
     class Meta:
+        """ Meta-info for the Venue model."""
         app_label = 'venues'
         ordering = ['name']
 
@@ -78,36 +81,54 @@ class Venue(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
+        """ Gets the url corresponding to this instance."""
         return ('venue_detail', [self.slug])
 
     @property
     def address_known(self):
+        """ Returns True if the address is known.
+
+            Currently this just checks if the postcode field is
+            populated.
+        """
         return not_none_or_empty(self.addr_postcode)
 
     def full_address(self):
-        """ Returns the full address with (not None) address items separated by commas."""
-        addr = ", ".join(filter(None, (self.addr1, self.addr2, self.addr3, self.addr_city, self.addr_postcode)))
+        """ Returns the full address with (not None) address items separated by commas.
+
+            If the address is empty, returns 'Address unknown'.
+        """
+        addr = ", ".join(filter(None, (self.addr1, self.addr2, self.addr3,
+                                       self.addr_city, self.addr_postcode)))
         if not addr.strip():
             return 'Address unknown'
         return addr
 
     def round_trip_distance(self):
+        """ Calculates the round-trip distance (miles) to this venue."""
         if self.distance is None:
             return None
         return self.distance * 2
 
     def approx_round_trip_distance(self):
+        """ Calculates the round-trip distance (miles) to this venue,
+            rounding to the nearest 5 miles.
+        """
         if self.distance is None:
             return None
-        return self.round(self.round_trip_distance(), 5)
+        return self._round(self.round_trip_distance(), 5)
 
     def round_trip_cost(self):
+        """ Calculates the cost (in pounds) of a round-trip journey to this venue,
+            based on the preset price per mile.
+        """
         if self.distance is None:
             return None
         total_pence = Venue.PENCE_PER_MILE * self.approx_round_trip_distance()
-        rounded_pence = self.round(total_pence, 50)
+        rounded_pence = self._round(total_pence, 50)
         return float(rounded_pence) / float(100)
 
-    def round(self, x, base=5):
-        return int(base * round(float(x)/base))
+    def _round(self, value, base=5):
+        """ Rounds the given number."""
+        return int(base * round(float(value)/base))
 

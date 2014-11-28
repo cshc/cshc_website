@@ -1,2 +1,0 @@
-from test_models import VenueTest
-from test_views import VenueViewTest
