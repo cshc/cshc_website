@@ -1,4 +1,0 @@
-from test_division_model import DivisionTest
-from test_league_model import LeagueTest
-from test_season_model import SeasonTest
-from test_cup_model import CupTest

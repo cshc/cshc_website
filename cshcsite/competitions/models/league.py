@@ -1,7 +1,8 @@
-import logging
-from django.db import models
+""" The League model represents a single hockey league,
+    which can be made up of multiple divisions.
+"""
 
-log = logging.getLogger(__name__)
+from django.db import models
 
 
 class League(models.Model):
@@ -10,10 +11,12 @@ class League(models.Model):
     # The (unique) name of the league
     name = models.CharField("League Name", max_length=255, unique=True, default=None)
 
-    # The (external) league website
-    url = models.URLField("League Website", blank=True, help_text="The club's website (if it has one)")
+    # The (external) league website - optional
+    url = models.URLField("League Website", blank=True,
+                          help_text="The club's website (if it has one)")
 
     class Meta:
+        """ Meta-info for the League model."""
         app_label = 'competitions'
         ordering = ['name']
 

@@ -1,6 +1,9 @@
+""" Configuration of Competition models for the Django admin interface.
+"""
+
 from django.contrib import admin
 from django.forms import ModelForm, widgets
-from .models import League, Division, Season, Cup
+from competitions.models import League, Division, Season, Cup
 
 
 class CupInline(admin.TabularInline):
@@ -14,6 +17,7 @@ class DivisionInlineForm(ModelForm):
     """Inline form for divisions"""
 
     class Meta:
+        """ Meta-info for the form."""
         model = Division
         widgets = {
             'gender': widgets.Select(attrs={'class': 'input-small'}),
@@ -29,6 +33,7 @@ class DivisionInline(admin.TabularInline):
 
 
 class DivisionAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the Division model."""
     model = Division
     list_display = ('__unicode__', 'league', 'name', 'gender')
     list_filter = ('league', 'gender')
@@ -36,16 +41,16 @@ class DivisionAdmin(admin.ModelAdmin):
 
 
 class LeagueAdmin(admin.ModelAdmin):
-    """Admin interface for the League model"""
-    # Allow quick editing of divisions within a league
+    """Admin interface definition for the League model"""
     model = League
+    # Allow quick editing of divisions within a league
     inlines = (DivisionInline, CupInline)
     list_display = ('name', 'url')
     search_fields = ('name',)
 
 
 class SeasonAdmin(admin.ModelAdmin):
-    """Admin interface for the Season model"""
+    """Admin interface definition for the Season model"""
     model = Season
     list_display = ('__unicode__', 'start', 'end')
     readonly_fields = ('slug',)

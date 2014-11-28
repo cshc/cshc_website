@@ -1,9 +1,9 @@
-import logging
+""" The Division model represents a single division within a league.
+"""
+
 from django.db import models
 from core.models import TeamGender
-from league import League
-
-log = logging.getLogger(__name__)
+from competitions.models.league import League
 
 
 class Division(models.Model):
@@ -13,12 +13,14 @@ class Division(models.Model):
     name = models.CharField("Division Name", max_length=255, default=None)
 
     # The league which runs this division
-    league = models.ForeignKey(League, related_name="divisions", help_text="The league that is responsible for this division")
+    league = models.ForeignKey(League, related_name="divisions",
+                               help_text="The league that is responsible for this division")
 
     # Denotes whether this is a mens, ladies or mixed league
     gender = models.CharField("Division gender (mens/ladies)", max_length=6, choices=TeamGender)
 
     class Meta:
+        """ Meta-info for the Division model."""
         app_label = 'competitions'
         # A division's name must be unique within a league.
         # However two different leagues can have divisions with the same name

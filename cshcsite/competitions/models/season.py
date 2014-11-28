@@ -1,11 +1,19 @@
+""" The Season model represents a single season (year)
+    in which the club played hockey.
+"""
+
 import logging
 from django.db import models
 from django.core.exceptions import ValidationError
 from datetime import datetime
-import pytz
 
-log = logging.getLogger(__name__)
+# Define the default season start/end dates
+SEASON_START_MONTH = 9  # Sept
+SEASON_END_MONTH = 8    # Aug
+SEASON_START_DAY = 1
+SEASON_END_DAY = 31
 
+LOG = logging.getLogger(__name__)
 
 class SeasonManager(models.Manager):
     """Model Manager for Season models"""
@@ -24,12 +32,14 @@ class Season(models.Model):
     # The last date of the season
     end = models.DateField("Season end", help_text="(Approx) last day of the season")
 
-    # A slug to identify the season. This will be automatically created
+    # A slug to identify the season. This will be automatically created.
+    # This field is most often used in urls.
     slug = models.SlugField()
 
     objects = SeasonManager()
 
     class Meta:
+        """ Meta-info for the Season  model."""
         app_label = 'competitions'
         ordering = ['start']
         get_latest_by = "start"
@@ -40,7 +50,7 @@ class Season(models.Model):
 
     def clean(self):
         # Make sure the start is before the end!
-        if (self.start is not None and self.end is not None and self.start >= self.end):
+        if self.start is not None and self.end is not None and self.start >= self.end:
             raise ValidationError("The start of the season must be before the end of the season")
 
         # Prevent any overlapping seasons
@@ -54,29 +64,29 @@ class Season(models.Model):
 
     @staticmethod
     def current():
-        """Returns the current season"""
+        """Returns the current season (or creates it if it doesn't exist)"""
         try:
             return Season.objects.by_date(datetime.now().date())
         except Season.DoesNotExist:
-            log.warn("Current season not found. Creating now")
+            LOG.warn("Current season not found. Creating now")
             return Season.create_current_season()
 
     @staticmethod
     def is_current_season(season_id):
         """Returns true if the specified season ID is the ID of the current season"""
-        log.debug("Current season ID = {}".format(Season.current().pk))
         return Season.current().pk == season_id
 
     @staticmethod
     def create_current_season():
+        """ Utility method to create the current season."""
         current = Season()
-        dt = datetime.now()
-        if dt.month >= 9:
-            start_year = dt.year
+        dtnow = datetime.now()
+        if dtnow.month >= 9:
+            start_year = dtnow.year
         else:
-            start_year = dt.year - 1
+            start_year = dtnow.year - 1
 
-        current.start = datetime(year=start_year, month=9, day=1)
-        current.end = datetime(year=start_year+1, month=8, day=31)
+        current.start = datetime(year=start_year, month=SEASON_START_MONTH, day=SEASON_START_DAY)
+        current.end = datetime(year=start_year+1, month=SEASON_END_MONTH, day=SEASON_END_DAY)
         current.save()
         return current
