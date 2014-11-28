@@ -13,7 +13,7 @@ Awards appear on the website in the following locations:
 |Name                       | Description  |
 |---------------------------|----------------
 |**Award**                  |A base class with common award functionality (the award name)|
-|**MatchAward***            |The various awards that can be awarded at a match. Currently there are just two instances - MOM and LOM|
+|**MatchAward**             |The various awards that can be awarded at a match. Currently there are just two instances - MOM and LOM|
 |**EndOfSeasonAward**       |The various awards that can be awarded at the end of a season. Note - these can change from year to year so some years you may need to add some awards (via the admin interface)|
 |**AwardWinner**            |A base class with common award winner functionality (member, comment etc)|
 |**MatchAwardWinner**       |All the MOM and LOM award winners|
