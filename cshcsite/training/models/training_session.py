@@ -1,15 +1,21 @@
-import logging
+""" A model that represents a particular training session.
+
+    Also used for 'Pay and Play' sessions.
+
+    All sessions have a description, a start time and duration (in minutes)
+    and are associated with a Venue. The status of previously scheduled
+    venues can be set to 'Cancelled' to show that a particular session has
+    been cancelled (rather than just deleting it).
+"""
+
 from django.utils import timezone
 from django.db import models
 from django.db.models.query import QuerySet
-from datetime import datetime
 from model_utils import Choices
 from model_utils.managers import PassThroughManager
 from model_utils.fields import StatusField
 from venues.models import Venue
 from competitions.models import Season
-
-log = logging.getLogger(__name__)
 
 
 class TrainingSessionQuerySet(QuerySet):
@@ -20,6 +26,7 @@ class TrainingSessionQuerySet(QuerySet):
         return self.filter(datetime__gte=timezone.now()).order_by('datetime')
 
     def before(self, dt):
+        """ Returns all training sessions scheduled prior to the specified date/time."""
         return self.filter(datetime__lt=dt).order_by('datetime')
 
     def this_season(self):
@@ -51,8 +58,10 @@ class TrainingSession(models.Model):
     objects = PassThroughManager.for_queryset_class(TrainingSessionQuerySet)()
 
     class Meta:
+        """ Meta-info for the TrainingSession model."""
         app_label = 'training'
         ordering = ['datetime']
+        # Ensure we don't create 'identical' two sessions
         unique_together = ('description', 'datetime')
 
     def __unicode__(self):
@@ -60,4 +69,5 @@ class TrainingSession(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
+        """ Returns the url for this training session."""
         return ('trainingsession_detail', [self.pk])

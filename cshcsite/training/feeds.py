@@ -1,9 +1,14 @@
-import logging
+""" Automatically generated calendar feed for training sessions.
+
+    This feed can be added to an external calendar app to display all
+    training sessions.
+
+    Ref: http://django-ics.readthedocs.org/en/latest/usage.html#overview
+"""
+
 from django_ical.views import ICalFeed
 from datetime import timedelta
-from .models import TrainingSession
-
-log = logging.getLogger(__name__)
+from training.models import TrainingSession
 
 
 class TrainingSessionICalFeed(ICalFeed):

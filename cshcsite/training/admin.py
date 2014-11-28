@@ -1,5 +1,8 @@
+""" Configuration of training models for the Django admin interface.
+"""
+
 from django.contrib import admin
-from .models import TrainingSession
+from training.models import TrainingSession
 
 
 class TrainingSessionAdmin(admin.ModelAdmin):
