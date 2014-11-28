@@ -2,7 +2,11 @@
 
 This app deals with awards - both those awarded each match (i.e. Man of the Match and Lemon of the Match) and at the End of Season dinner (e.g. Player of the Season, etc.).
 
-This is a very simple app - there are no views directly associated with it.
+This is a very simple app - there are no views directly associated with it. Typically you just add match award winners as you enter the details for a match result and end of season award winners once they're decided at the end of a season.
+
+Awards appear on the website in the following locations:
+- Player (member) profile pages (end of season and match awards)
+- Match details (match awards)
 
 ### Models
 
