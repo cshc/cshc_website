@@ -147,8 +147,8 @@ class Old_Match_Players(Old_Table_Entry):
     field_names = ('Match_Player_ID', 'Match_ID', 'Player', 'MOM', 'LOM', 'Goals_Scored', 'Report_Link', 'MOM_Comment', 'LOM_Comment', 'Played', 'Own_Goals')
     new_table_name = 'Appearance'
 
-    mom_id = MatchAward.objects.MOM().pk
-    lom_id = MatchAward.objects.LOM().pk
+    mom_id = MatchAward.objects.mom().pk
+    lom_id = MatchAward.objects.lom().pk
 
     def existing_check(self, new_row):
         return { "member":new_row.member, "match":new_row.match }

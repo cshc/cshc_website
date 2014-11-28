@@ -1,8 +1,12 @@
+""" Configuration of Award models for the Django admin interface.
+"""
+
 from django.contrib import admin
-from .models import MatchAward, EndOfSeasonAward, MatchAwardWinner, EndOfSeasonAwardWinner
+from awards.models import MatchAward, EndOfSeasonAward, MatchAwardWinner, EndOfSeasonAwardWinner
 
 
 class MatchAwardWinnerAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the MatchAwardWinner model."""
     model = MatchAwardWinner
     search_fields = ('member__firstname', 'member__lastname')
     list_display = ('__unicode__', 'member', 'awardee', 'award', 'match')
@@ -10,6 +14,7 @@ class MatchAwardWinnerAdmin(admin.ModelAdmin):
 
 
 class EndOfSeasonAwardWinnerAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the EndOfSeasonAwardWinner model."""
     model = EndOfSeasonAwardWinner
     search_fields = ('member__firstname', 'member__lastname')
     list_display = ('__unicode__', 'member', 'awardee', 'award', 'season')

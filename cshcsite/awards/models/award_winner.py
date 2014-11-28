@@ -1,4 +1,7 @@
-import logging
+""" These models keep track of all the times members won an award,
+    be it a match award (MOM, LOM) or an end of season award.
+"""
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
@@ -6,9 +9,7 @@ from model_utils.managers import PassThroughManager
 from matches.models import Match
 from members.models import Member
 from competitions.models import Season
-from award import MatchAward, EndOfSeasonAward
-
-log = logging.getLogger(__name__)
+from awards.models.award import MatchAward, EndOfSeasonAward
 
 
 class AwardWinnerQuerySet(QuerySet):
@@ -34,6 +35,7 @@ class MatchAwardWinnerQuerySet(AwardWinnerQuerySet):
         """Returns only award winners for the specified match"""
         return self.filter(match=match)
 
+
 class EndOfSeasonAwardWinnerQuerySet(AwardWinnerQuerySet):
     """ Queries that relate to End of Season Award Winners"""
 
@@ -45,30 +47,36 @@ class EndOfSeasonAwardWinnerQuerySet(AwardWinnerQuerySet):
 class AwardWinner(models.Model):
     """Abstract base class for an award winner"""
 
-    # The member that won this award. Either this field or the awardee field must be filled in (but not both).
-    member = models.ForeignKey(Member, related_name="%(app_label)s_%(class)s_awards", null=True, blank=True, default=None, help_text="(Leave blank if award winner is not a member)")
+    # The member that won this award. Either this field or the awardee field must
+    # be filled in (but not both).
+    member = models.ForeignKey(Member, related_name="%(app_label)s_%(class)s_awards",
+                               null=True, blank=True, default=None,
+                               help_text="(Leave blank if award winner is not a member)")
 
-    # The name of the person that won this award (if not a member). Either this field or the member field must be filled in (but not both).
-    awardee = models.CharField("Award winner", max_length=255, blank=True, help_text="Only use this field if the award winner is not a member")
+    # The name of the person that won this award (if not a member). Either this
+    # field or the member field must be filled in (but not both).
+    awardee = models.CharField("Award winner", max_length=255, blank=True,
+                               help_text="Only use this field if the award winner is not a member")
 
     # A comment describing the award
-    comment = models.TextField(help_text="Enter a short description of why this person received this award")
+    comment = models.TextField(help_text="Enter a short description of why this person " +
+                               "received this award")
 
     class Meta:
+        """ Meta-info on the AwardWinner model."""
         app_label = 'awards'
         abstract = True
 
     def clean(self):
-        if (self.member == None and
-            (self.awardee == None or self.awardee == "")):
-            raise ValidationError("You must specify either a member or an awardee (if the awardee is not a member)")
-        elif (self.member != None and
-            (self.awardee != None and self.awardee != "")):
+        if self.member == None and (self.awardee == None or self.awardee == ""):
+            raise ValidationError("You must specify either a member or an awardee " +
+                                  "(if the awardee is not a member)")
+        elif self.member != None and (self.awardee != None and self.awardee != ""):
             raise ValidationError("You cannot specify both a member and an awardee")
 
     def awardee_name(self):
         """ Returns either the awardee or the member's full name"""
-        if(self.member == None):
+        if self.member == None:
             return self.awardee
         return self.member.full_name()
 
