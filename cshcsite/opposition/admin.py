@@ -1,16 +1,23 @@
+""" Configuration of Opposition models for the Django admin interface.
+"""
+
 from django.contrib import admin
 from django.forms import ModelForm
-from .models import Club, Team
+from opposition.models import Club, Team
 
 class TeamInlineForm(ModelForm):
-    """Inline form for a Team model"""
+    """ Inline form for a Team model"""
 
     class Meta:
+        """ Meta-info for the form."""
         model = Team
 
 
 class TeamInline(admin.TabularInline):
-    """Inline admin interface for a Team model"""
+    """ Inline admin interface for a Team model.
+
+        This allows teams to be added inline when editing a club.
+    """
 
     model = Team
     form = TeamInlineForm
@@ -20,21 +27,23 @@ class TeamInline(admin.TabularInline):
 
 
 class ClubAdmin(admin.ModelAdmin):
-    """Club admin interface"""
+    """ Admin interface definition for the Club model"""
 
     readonly_fields = ('slug',)
     inlines = (TeamInline,)
-    list_display = ('name', 'website', 'kit_clash_men', 'kit_clash_ladies', 'kit_clash_mixed', 'default_venue')
+    list_display = ('name', 'website', 'kit_clash_men', 'kit_clash_ladies',
+                    'kit_clash_mixed', 'default_venue')
     search_fields = ('name',)
 
 
 class TeamAdmin(admin.ModelAdmin):
-    """Team admin interface"""
+    """ Admin interface definition for the Team model"""
 
     readonly_fields = ('slug',)
     search_fields = ('name',)
     list_filter = ('club', 'gender')
     list_display = ('name', 'short_name', 'club', 'gender')
+
 
 # Register all opposition models with the admin interface
 admin.site.register(Club, ClubAdmin)

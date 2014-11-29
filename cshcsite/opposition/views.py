@@ -1,19 +1,17 @@
-import logging
-from collections import defaultdict
-from django.views.generic import DetailView, ListView, TemplateView
-from braces.views import SelectRelatedMixin, PrefetchRelatedMixin
+""" Django Views for the opposition clubs and teams.
+"""
+
+from django.views.generic import TemplateView
 from core.views import AjaxGeneral
 from matches.models import Match, Appearance
 from awards.models import MatchAwardWinner
 from core.stats import MatchStats
-from . import stats
-from .models import Club, Team, ClubStats
-
-log = logging.getLogger(__name__)
+from opposition import stats
+from opposition.models import Club, ClubStats
 
 
 class ClubListView(TemplateView):
-    """View for a list of opposition clubs"""
+    """ View for a list of opposition clubs"""
 
     template_name = 'opposition/club_list.html'
     model = Club
@@ -22,29 +20,36 @@ class ClubListView(TemplateView):
         context = super(ClubListView, self).get_context_data(**kwargs)
 
         all_club_stats = ClubStats.objects.totals()
-        context['clubstats_list'] = filter(lambda x: x.total_played > 0, all_club_stats)
+        context['clubstats_list'] = [x for x in all_club_stats if x.total_played > 0]
         return context
 
 
 class ClubStatsUpdateView(AjaxGeneral):
-    """View for updating and then displaying Opposition Club stats"""
+    """ AJAX view for updating and then displaying Opposition Club stats"""
+
     template_name = 'opposition/_clubstats_table.html'
 
     def get_template_context(self, **kwargs):
-        """
-        Updates the Opposition Club stats and then returns the context data
-        for the template, containing just a 'clubstats_list' item
+        """ Updates the Opposition Club stats and then returns the context data
+            for the template, containing just a 'clubstats_list' item
         """
         all_club_stats = stats.update_all_club_stats()
-        return { 'clubstats_list':  filter(lambda x: x.total_played > 0, all_club_stats)}
+        return {'clubstats_list': [x for x in all_club_stats if x.total_played > 0]}
+
 
 class ClubDetailView(TemplateView):
-    """View for a particular opposition club"""
+    """ View for a particular opposition club.
+
+        This view includes the breakdown of CSHC teams playing record
+        against this club as well as a list of results/fixtures
+        against this club, grouped by CSHC team.
+    """
 
     template_name = 'opposition/club_detail.html'
     model = Club
 
     def get_context_data(self, **kwargs):
+        """ Gets the context for this view. """
         context = super(ClubDetailView, self).get_context_data(**kwargs)
         club_slug = kwargs['slug']
         club = Club.objects.get(slug=club_slug)
@@ -59,7 +64,7 @@ class ClubDetailView(TemplateView):
         # Get all the award winners against this club
         award_winners = MatchAwardWinner.objects.select_related('member__user', 'award').filter(match__opp_team__club=club)
 
-        match_lookup = { match.pk: MatchStats(match) for match in matches}
+        match_lookup = {match.pk: MatchStats(match) for match in matches}
 
         for app in appearances:
             match_lookup[app.match_id].add_appearance(app)
@@ -69,33 +74,18 @@ class ClubDetailView(TemplateView):
 
 
         all_team_fixtures = {}
+        # Group fixtures by CSHC team
         [all_team_fixtures.setdefault(ms.match.our_team, []).append(ms) for _, ms in match_lookup.iteritems()]
         for team, fixtures in all_team_fixtures.iteritems():
             all_team_fixtures[team] = sorted(fixtures, key=lambda f: f.match.date)
 
         # Shift the totals column to the end of the list
         if club_stats:
-            all_teams = filter(lambda c: c.team is None, club_stats)[0]
-            assert all_teams.team is None
-            club_stats.remove(all_teams)
-            club_stats.append(all_teams)
+            club_totals = next(stat for stat in club_stats if stat.is_club_total())
+            club_stats.remove(club_totals)
+            club_stats.append(club_totals)
 
         context['club'] = club
         context['clubstats_list'] = club_stats
         context['all_team_fixtures'] = all_team_fixtures
         return context
-
-# Not implemented
-
-# class TeamListView(SelectRelatedMixin, ListView):
-#     """View for a list of opposition teams"""
-
-#     model = Team
-#     select_related = ["club"]
-
-
-# class TeamDetailView(SelectRelatedMixin, DetailView):
-#     """View for a particular opposition team"""
-
-#     model = Team
-#     select_related = ["club"]

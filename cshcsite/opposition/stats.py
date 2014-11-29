@@ -1,14 +1,20 @@
-import logging
-from models.club import Club
-from models.club_stats import ClubStats
-from matches.models import Match
+""" Helper methods for collecting statistics on opposition clubs.
+"""
 
-log = logging.getLogger(__name__)
+import logging
+from matches.models import Match
+from opposition.models import Club, ClubStats
+
+LOG = logging.getLogger(__name__)
 
 
 def update_all_club_stats():
-    """Updates all club stats"""
-    log.info("Updating all Club stats")
+    """ Updates all club stats.
+
+        Returns an array of 'totals' ClubStats instances,
+        one per club.
+    """
+    LOG.info("Updating all Club stats")
     clubs = Club.objects.only('pk', 'name')
 
     clubstats = []
@@ -20,8 +26,11 @@ def update_all_club_stats():
 
 
 def update_club_stats_for_club(club):
-    """Updates the Club Stats entries for the specified opposition club"""
-    log.info("Updating Club stats for {}".format(club))
+    """ Updates the Club Stats entries for the specified opposition club.
+
+        Returns the totals ClubStat instance for the specified club.
+    """
+    LOG.info("Updating Club stats for {}".format(club))
     s_entries = ClubStats.objects.filter(club=club)
 
     # A dictionary for Club Stats entries, keyed by the team id
@@ -29,15 +38,16 @@ def update_club_stats_for_club(club):
 
     totals = None
     # Reset all the entries
-    for s in s_entries:
-        s.reset()
-        if s.team is not None:
-            s_lookup[s.team_id] = s
+    for stat in s_entries:
+        stat.reset()
+        if not stat.is_club_total():
+            s_lookup[stat.team_id] = stat
         else:
-            totals = s
+            totals = stat
 
-    # Get all matche results against this club
-    matches = Match.objects.results().filter(our_team__rivals=True, our_score__isnull=False, opp_score__isnull=False, opp_team__club=club).select_related('our_team', 'opp_team__club')
+    # Get all match results against this club
+    matches = Match.objects.results().filter(our_team__rivals=True, our_score__isnull=False,
+        opp_score__isnull=False, opp_team__club=club).select_related('our_team', 'opp_team__club')
 
     # Update with match stats
     for match in matches:
@@ -48,12 +58,12 @@ def update_club_stats_for_club(club):
     # Update totals
     if totals is None:
         totals = ClubStats(club=club)
-    for s in s_lookup.values():
-        totals.accumulate_stats(s)
+    for stat in s_lookup.values():
+        totals.accumulate_stats(stat)
     totals.save()
 
     # Save all updated stats back to the database
-    for key, value in s_lookup.iteritems():
+    for _, value in s_lookup.iteritems():
         value.save()
 
     return totals

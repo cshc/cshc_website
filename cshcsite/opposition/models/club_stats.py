@@ -1,9 +1,21 @@
-import logging
-from django.db import models
-from club import Club
-from teams.models import ClubTeam
+""" The ClubStats model represents the accumulative playing record
+    of Cambridge South teams against another club.
 
-log = logging.getLogger(__name__)
+    The data is used in the Opposition Clubs stats page.
+
+    Note that for a particular opposition club, there will be multiple
+    instances of ClubStats. One tracks the accumulative playing record
+    of ALL Cambridge South teams and the others track the playing
+    records of the individual Cambridge South teams against that club.
+
+    Note: ClubStats are updated automatically via the nightly cronjob
+    task. They should not be manually edited (and for this reason are
+    not available on the admin interface).
+"""
+
+from django.db import models
+from opposition.models.club import Club
+from teams.models import ClubTeam
 
 
 class ClubStatsManager(models.Manager):
@@ -15,7 +27,9 @@ class ClubStatsManager(models.Manager):
 
 
 class ClubStats(models.Model):
-    """Represents match statistics for a particular Cambridge South team against a particular opposition club"""
+    """ Represents the playing record for Cambridge South teams against
+        a particular opposition club.
+    """
 
     team = models.ForeignKey(ClubTeam, null=True)
     """The Cambridge South team these stats relate to. Null for ALL teams."""
@@ -38,6 +52,7 @@ class ClubStats(models.Model):
     objects = ClubStatsManager()
 
     class Meta:
+        """ Meta-info for the ClubStats model."""
         app_label = 'opposition'
         ordering = ['club', 'team']
 
@@ -107,6 +122,12 @@ class ClubStats(models.Model):
             return 0.0
         return float(self.total_won * 3 + self.total_drawn * 1) / float(self.total_played)
 
+    def is_club_total(self):
+        """ Returns true if this instance represents the totals for a club
+            (rather than being specific to a particular CSHC team).
+        """
+        return self.team is None
+
     def reset(self):
         """Resets all stats to zero"""
         self.home_won = 0
@@ -124,7 +145,7 @@ class ClubStats(models.Model):
         """Adds a match to the stats"""
         assert match.final_scores_provided()
         assert match.opp_team.club_id == self.club_id
-        assert (self.team is None) or (match.our_team == self.team)
+        assert (self.is_club_total()) or (match.our_team == self.team)
 
         if match.is_home:
             if match.was_won():
@@ -151,7 +172,7 @@ class ClubStats(models.Model):
         """Accumulate the given stats to the totals.
            Note: This should only be called for 'totals' stats.
         """
-        assert self.team is None
+        assert self.is_club_total()
         self.home_won += stats.home_won
         self.home_drawn += stats.home_drawn
         self.home_lost += stats.home_lost

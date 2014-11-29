@@ -1,10 +1,13 @@
-import logging
+""" The Team model represents an opposition team within a club.
+
+    Teams are simply identified by a name but are also marked as
+    Mens/Ladies/Mixed.
+"""
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from core.models import TeamGender
-from club import Club
-
-log = logging.getLogger(__name__)
+from opposition.models.club import Club
 
 
 class TeamManager(models.Manager):
@@ -44,6 +47,7 @@ class Team(models.Model):
     objects = TeamManager()
 
     class Meta:
+        """ Meta-info for the Team model."""
         app_label = 'opposition'
         ordering = ['club', 'name']
 
@@ -55,7 +59,10 @@ class Team(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
+        """ Returns the url for this Team instance."""
         return ('opposition_team_detail', [self.slug])
 
     def genderless_name(self):
+        """ Utility method to get the team name without 'Mens' or 'Ladies' in it."""
         return self.name.replace(" Ladies", "").replace(" Mens", "")
+
