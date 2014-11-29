@@ -1,2 +1,0 @@
-from test_member_model import MemberTest
-from test_views import MemberViewTest

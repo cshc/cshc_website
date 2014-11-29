@@ -1,13 +1,15 @@
-import logging
+""" Models relating to the CSHC committee.
+
+    CommitteePosition   - defines a particular position on the committee.
+    CommitteeMembership - specifies which member held a particular CommitteePosition
+                          during a particular season.
+"""
+
 from django.db import models
 from django.db.models.query import QuerySet
-from django.core.exceptions import ValidationError
 from model_utils.managers import PassThroughManager
 from competitions.models import Season
 from core.models import TeamGender
-from .member import Member
-
-log = logging.getLogger(__name__)
 
 
 class CommitteePosition(models.Model):
@@ -18,9 +20,11 @@ class CommitteePosition(models.Model):
 
     gender = models.CharField("Mens/Ladies/Mixed", max_length=6, choices=TeamGender)
 
-    index = models.PositiveSmallIntegerField("Index", help_text="Used for visual ordering of the committee", default=0)
+    index = models.PositiveSmallIntegerField("Index", default=0,
+                                             help_text="Used for visual ordering of the committee")
 
     class Meta:
+        """ Meta-info for the CommitteePosition model."""
         app_label = 'members'
         unique_together = ('gender', 'index')
         # By default, list the general committee members first, then ladies then men.
@@ -73,6 +77,7 @@ class CommitteeMembership(models.Model):
     objects = PassThroughManager.for_queryset_class(CommitteeMembershipQuerySet)()
 
     class Meta:
+        """ Meta-info for the CommitteeMembership model."""
         app_label = 'members'
         ordering = ['member', 'position', 'season']
         # Only one person can hold a particular position in a particular season

@@ -1,13 +1,18 @@
+""" Configuration of Members models for the admin interface.
+"""
+
 from django.contrib import admin
-from .models import Member, SquadMembership, CommitteeMembership, CommitteePosition
+from members.models import Member, SquadMembership, CommitteeMembership, CommitteePosition
 
 
 class SquadMembershipInline(admin.TabularInline):
+    """ Allows squad membership to be edited from the admin page of the member model."""
     model = SquadMembership
     extra = 0
 
 
 class MemberAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the Member model."""
     model = Member
     inlines = (SquadMembershipInline,)
     search_fields = ('first_name', 'last_name')
@@ -16,6 +21,7 @@ class MemberAdmin(admin.ModelAdmin):
 
 
 class SquadMembershipAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the SquadMembership model."""
     model = SquadMembership
     search_fields = ('member__firstname', 'member__lastname')
     list_filter = ('member', 'team', 'season')
@@ -23,6 +29,7 @@ class SquadMembershipAdmin(admin.ModelAdmin):
 
 
 class CommitteePositionAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the CommitteePosition model."""
     model = CommitteePosition
     search_fields = ('name',)
     list_filter = ('name', 'gender')
@@ -30,6 +37,7 @@ class CommitteePositionAdmin(admin.ModelAdmin):
 
 
 class CommitteeMembershipAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the CommitteeMembership model."""
     model = CommitteeMembership
     search_fields = ('member__firstname', 'member__lastname')
     list_filter = ('member', 'position', 'season')

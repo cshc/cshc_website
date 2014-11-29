@@ -1,3 +1,6 @@
+""" Django views relating to Members.
+"""
+
 import logging
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import UpdateView
@@ -13,16 +16,18 @@ from core.views import AjaxGeneral
 from core.models import first_or_none
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
-from .models import Member, SquadMembership
-from .forms import ProfileEditForm
-from .util import get_recent_match_awards, get_recent_end_of_season_awards, get_recent_match_reports, get_committee_positions
-from .stats import MemberSeasonStat
-from .filters import MemberFilter
+from members.models import Member, SquadMembership
+from members.forms import ProfileEditForm
+from members.util import (get_recent_match_awards, get_recent_end_of_season_awards,
+                          get_recent_match_reports, get_committee_positions)
+from members.stats import MemberSeasonStat
+from members.filters import MemberFilter
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 def login(request, *args, **kwargs):
+    """ Legacy? """
     if request.method == 'POST':
         if not request.POST.get('remember_me', None):
             request.session.set_expiry(0)
@@ -30,8 +35,15 @@ def login(request, *args, **kwargs):
 
 
 class ProfileView(LoginRequiredMixin, UpdateView):
+    """ Player profile view for a particular member.
+
+        Provides for updating the member details via a form
+        (e.g. profile pic, preferred position).
+
+        Most player stats are loaded via a separate AJAX call.
+    """
     model = Member
-    template_name='registration/profile.html'
+    template_name = 'registration/profile.html'
     form_class = ProfileEditForm
     success_url = reverse_lazy('user_profile')
 
@@ -44,39 +56,43 @@ class ProfileView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
         context['is_profile'] = True # Differentiates between this view and MemberDetailView
-        try:
-            context['member'] = Member.objects.get(user=self.request.user)
-        except Member.DoesNotExist:
-            context['member'] =None
+        context['member'] = self.get_object()
         return context
 
     def form_valid(self, form):
-        log.debug(form.cleaned_data['profile_pic'])
-        log.debug(form.cleaned_data['pref_position'])
         messages.success(self.request, "Nice! Your profile has been updated.")
         return super(ProfileView, self).form_valid(form)
 
     def form_invalid(self, form):
-        log.debug("{}".format(form.cleaned_data))
-
-        # HACK: Make use of the invalid form for handling the 'Connect my account to a player' request
+        # HACK: Make use of the invalid form for handling the 'Connect my account
+        # to a player' request
         if self.request.POST.get('request_link') == '1':
             try:
-                send_templated_email([settings.SERVER_EMAIL], 'emails/req_player_link', {'user': self.request.user, 'base_url': "http://" + Site.objects.all()[0].domain })
+                send_templated_email([settings.SERVER_EMAIL],
+                                     'emails/req_player_link',
+                                     {
+                                         'user': self.request.user,
+                                         'base_url': "http://" + Site.objects.all()[0].domain
+                                     })
             except:
-                log.error("Failed to send player link request email for {}".format(self.request.user), exc_info=True)
-                messages.error(self.request, "Sorry - we were unable to handle your request. Please try again later.")
+                LOG.error("Failed to send player link request email for {}".format(self.request.user), exc_info=True)
+                messages.error(
+                    self.request,
+                    "Sorry - we were unable to handle your request. Please try again later.")
             else:
-                messages.success(self.request, "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
+                messages.success(
+                    self.request,
+                    "Thanks - your request to be linked to a player/club member has been sent to the website administrator.")
         else:
             messages.error(
                 self.request,
-                "Failed to update profile. Errors: {}".format(form.errors)
-            )
+                "Failed to update profile. Errors: {}".format(form.errors))
+
         return super(ProfileView, self).form_invalid(form)
 
+
 class MemberListView(ListView):
-    """View with a list of all members"""
+    """ View with a list of all members"""
     model = Member
 
     def get_context_data(self, **kwargs):
@@ -87,7 +103,7 @@ class MemberListView(ListView):
 
 
 class MemberDetailView(DetailView):
-    """View of a particular member"""
+    """ View of a particular member"""
     model = Member
 
     def get_context_data(self, **kwargs):
@@ -112,7 +128,7 @@ class MemberDetailView(DetailView):
 
 
 class MemberStatsView(AjaxGeneral):
-    """An AJAX-only view for calculating and displaying statistics related to a particular member"""
+    """ An AJAX-only view for calculating and displaying statistics related to a particular member"""
     template_name = 'members/_member_stats.html'
 
     def get_template_context(self, **kwargs):
@@ -124,7 +140,8 @@ class MemberStatsView(AjaxGeneral):
         # Get all the appearances for this member
         apps = Appearance.objects.by_member(member).select_related('member__user', 'match__season', 'match__our_team').filter(match__our_team__personal_stats=True).order_by('match__date')
 
-        # This will be keyed on the season id, with a special 'totals' entry for the combined totals from all seasons.
+        # This will be keyed on the season id, with a special 'totals' entry for the
+        # combined totals from all seasons.
         season_dict = {}
 
         for app in apps:
@@ -146,7 +163,7 @@ class MemberStatsView(AjaxGeneral):
         # Now create and calculate the combined totals for all seasons
         season_total = MemberSeasonStat()
 
-        for season_id, season in season_dict.items():
+        for _, season in season_dict.items():
             season_total.accumulate(season)
 
         seasons = sorted(season_dict.values(), key=lambda s: s.season.start)

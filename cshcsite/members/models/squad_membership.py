@@ -1,19 +1,25 @@
-import logging
+""" The SquadMembership model nominally associates a member with a
+    particular CSHC team. This is currently just used for displaying
+    the team link on a member's profile page. Additionally it can be
+    used to filter member lists a bit more intelligently - for example
+    when selecting the players who played in a match.
+"""
+
 from django.db import models
 from django.db.models.query import QuerySet
 from django.core.exceptions import ValidationError
 from model_utils.managers import PassThroughManager
 from competitions.models import Season
 from teams.models import ClubTeam
-from .member import Member
-
-log = logging.getLogger(__name__)
 
 
 def validate_squad(team_id):
+    """ Utility validation method to make sure members aren't assigned to
+        the Mixed or Indoor or Vets squads.
+    """
     try:
-        t = ClubTeam.objects.get(pk=team_id)
-        if t.short_name.lower() in ('mixed', 'indoor', 'vets'):
+        team = ClubTeam.objects.get(pk=team_id)
+        if team.short_name.lower() in ('mixed', 'indoor', 'vets'):
             raise ValidationError("Squad assignments must be to one of the Men's or Ladies teams")
     except ClubTeam.DoesNotExist:
         raise ValidationError("Team not found")
@@ -55,6 +61,7 @@ class SquadMembership(models.Model):
     objects = PassThroughManager.for_queryset_class(SquadMembershipQuerySet)()
 
     class Meta:
+        """ Meta-info for the SquadMembership model."""
         app_label = 'members'
         ordering = ['member', 'season']
         # A member can only be in one squad in a particular season
@@ -62,4 +69,3 @@ class SquadMembership(models.Model):
 
     def __unicode__(self):
         return unicode("{} - {} ({})".format(self.member, self.team, self.season))
-
