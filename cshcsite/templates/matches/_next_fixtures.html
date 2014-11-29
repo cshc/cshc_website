@@ -22,7 +22,7 @@ Context should have a 'next_fixtures' list of Match objects.
         </thead>
         <tbody>
         {% for m in next_fixtures %}
-            <tr {% if m.is_mine %}class="my-fixture" data-toggle='tooltip' title data-original-title="This is probably your next match"{% endif %}>
+            <tr>
                 <td class="priority3">
                     {% include 'matches/_fixture_icon.html' with match=m %}
                 </td>

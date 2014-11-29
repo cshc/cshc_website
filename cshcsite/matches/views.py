@@ -154,11 +154,11 @@ class NextFixturesView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(NextFixturesView, self).get_context_data(**kwargs)
-        NextFixturesView.add_next_fixtures_to_context(context, self.request.user)
+        NextFixturesView.add_next_fixtures_to_context(context)
         return context
 
     @staticmethod
-    def add_next_fixtures_to_context(context, user):
+    def add_next_fixtures_to_context(context):
         """
         Helper method to add next fixtures to a context dictionary.
         context = the view context (a dictionary)
@@ -175,13 +175,6 @@ class NextFixturesView(TemplateView):
                 pass    # Don't worry if there's no next fixture for that team
 
         context['next_fixtures'] = next_fixtures
-
-        if hasattr(user, 'member') and user.member is not None:
-            my_next_fixture = Appearance.probable_next_match(user.member)
-            if my_next_fixture is not None:
-                for fixture in next_fixtures:
-                    fixture.is_mine = fixture.id == my_next_fixture.match.id
-            context['my_next_fixture'] = my_next_fixture
 
 
 class MatchDetailView(SelectRelatedMixin, DetailView):

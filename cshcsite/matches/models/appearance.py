@@ -69,29 +69,6 @@ class Appearance(models.Model):
         return cls.get_stats(last_app.match)
 
     @classmethod
-    def probable_next_match(cls, member):
-        """ Returns the likely next match that the specified member might play in, or
-            None if they haven't played for the club before or the team they last played
-            for have no upcoming fixtures.
-
-            Note: its only 'probable' because we pick the match by finding the next
-            match for the team that this member last played for.
-        """
-        try:
-            last_app = Appearance.objects.by_member(member).select_related('match').latest('match__date')
-        except Appearance.DoesNotExist:
-            return None
-        team_id = last_app.match.our_team_id
-        try:
-            next_match = Match.objects.fixtures().filter(our_team_id=team_id).select_related(
-                'our_team', 'opp_team', 'venue', 'season', 'division__league', 'cup'
-                ).order_by('date', 'time')[0]
-        except (Match.DoesNotExist, IndexError):
-            return None
-
-        return cls.get_stats(next_match)
-
-    @classmethod
     def get_stats(cls, match):
         match_stats = MatchStats(match)
         # Get all appearances for this match

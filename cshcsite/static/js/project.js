@@ -87,10 +87,6 @@ $(function(){
         $pElem.popover('toggle');
     });
 
-
-    $('tr.my-fixture').tooltip()
-    // $('.po').popover()
-    // $('.tt').tooltip()
 });
 
 function getPopTitle(target) {

@@ -23,7 +23,7 @@ class HomeView(TemplateView):
         LatestResultsView.add_latest_results_to_context(context, self.request.user)
 
         # Next Fixtures
-        NextFixturesView.add_next_fixtures_to_context(context, self.request.user)
+        NextFixturesView.add_next_fixtures_to_context(context)
 
         # Upcoming Training
         UpcomingTrainingSessionsView.add_upcoming_training_to_context(context)
