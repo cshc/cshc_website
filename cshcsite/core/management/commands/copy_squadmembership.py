@@ -1,8 +1,8 @@
 """ Management command used to copy all Squad Memberships from the previous
-    season to the specified season.
+    season to the latest season.
 
     Usage:
-    python manage.py copy_squadmembership <season-slug>
+    python manage.py copy_squadmembership
 """
 
 from optparse import make_option
@@ -13,7 +13,7 @@ from competitions.models import Season
 
 class Command(BaseCommand):
     """ Management command used to copy all Squad Memberships from the previous
-        season to the specified season.
+        season to the latest season.
     """
     option_list = BaseCommand.option_list + (
         make_option('--sim',
@@ -24,13 +24,12 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        if len(args) != 1:
-            print "ERROR: You must specify the season for which to populate squad membership entries"
-            print "       E.g. 'python manage.py copy_squadmembership 2012-2013'"
-            return
-        season_slug = args[0]
-        season = Season.objects.get(slug=season_slug)
+        season = Season.objects.latest()
         prev_season = Season.objects.previous(season)
+
+        if SquadMembership.objects.by_season(season).exists():
+            print "ERROR: SquadMembership entries already exist for {0}. To run this command, first delete all SquadMembership entries for {0}".format(season)
+            return
 
         prev_memberships = SquadMembership.objects.by_season(prev_season)
 

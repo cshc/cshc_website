@@ -26,6 +26,10 @@ class SeasonManager(models.Manager):
         """ Returns the seasons in reverse chronological order."""
         return super(SeasonManager, self).get_query_set().order_by('-start')
 
+    def latest(self):
+        """ Returns the latest season (this may be 'next season')"""
+        return Season.objects.order_by('-start').first()
+
     def previous(self, season):
         """ Returns the previous season to the given one (or None if the given
             season is the first one)
