@@ -6,10 +6,10 @@ Venues are typically astro pitches but the model can be used for any geographica
 
 ### URLS
 
-|(Example) URL       |View            |Description                                 |
-|--------------------|----------------|--------------------------------------------|
-|**/venues/**        |VenueListView   |Lists all venues, home and away. Filterable.|
-|**/venues/leys/**   |VenueDetailView |Details on a particular venue.              |
+|(Example) URL         |View            |Description                                 |
+|----------------------|----------------|--------------------------------------------|
+|**/venues/**          |VenueListView   |Lists all venues, home and away. Filterable.|
+|**/venues/<leys>/**   |VenueDetailView |Details on a particular venue.              |
 
 ### Models
 

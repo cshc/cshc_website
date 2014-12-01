@@ -13,13 +13,13 @@ RSS/Atom feeds of the latest match reports and an ical calendar feed of all matc
 |(Example) URL                                      |View                               |Description                                 |
 |---------------------------------------------------|-----------------------------------|--------------------------------------------|
 |**/matches/**                                      |MatchListView                      |Searchable/filterable list of all matches.|
-|**/matches/23/**                                   |MatchDetailView                    |Details of a specific match (fixture or result) - includes match report.|
-|**/matches/23-Apr-13/**                            |MatchesByDateView                  |List of matches on a particular date.|
+|**/matches/<23>/**                                 |MatchDetailView                    |Details of a specific match (fixture or result) - includes match report.|
+|**/matches/<23-Apr-13>/**                          |MatchesByDateView                  |List of matches on a particular date.|
 |**/matches/by-season/<2012-2013>/**                |MatchesBySeasonView                |Calendar view of all matches in a particular season. If the season is not supplied in the URL, the current season's matches will be displayed.|
 |**/matches/latest-results/**                       |LatestResultsView                  |List of the latest result for each team.|
 |**/matches/next-fixtures/**                        |NextFixturesView                   |List of the next fixture for each team.|
 |**/matches/goal-king/<2012-2013>/**                |GoalKingSeasonView                 |Goal King stats table for a particular season. If the season is not supplied in the URL, the current season's stats will be displayed.|
-|**/matches/goal-king/2011-2012/ajax/**             |GoalKingSeasonUpdateView           |AJAX-only: Updates and refreshes Goal King stats.|
+|**/matches/goal-king/<2011-2012>/ajax/**           |GoalKingSeasonUpdateView           |AJAX-only: Updates and refreshes Goal King stats.|
 |**/matches/accidental-tourist/<2012-2013>/**       |AccidentalTouristSeasonView        |Accidental Tourist stats table for a particular season. If the season is not supplied in the URL, the current season's stats will be displayed.|
 |**/matches/accidental-tourist/<2012-2013>/ajax/**  |AccidentalTouristSeasonUpdateView  |AJAX-only: Updates and refreshes Accidental Tourist stats.|
 |**/matches/naughty-step/**                         |NaughtyStepView                    |Statistics on the number of cards (red/yellow/green) received by members.|

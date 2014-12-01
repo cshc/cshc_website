@@ -6,11 +6,11 @@ Cambridge South's playing record against each club is automatically calculated a
 
 ### URLS
 
-|(Example) URL                         |View                |Description                                 |
-|--------------------------------------|--------------------|--------------------------------------------|
-|**/opposition/clubs/**                |ClubListView        |List of all oppostion clubs (including statistics).|
-|**/opposition/clubs/ajax/**           |ClubStatsUpdateView |AJAX-only endpoint for refreshing the club stats.|
-|**/opposition/clubs/cambridge-city/** |ClubDetailView      |Details of a particular opposition club. |
+|(Example) URL                           |View                |Description                                 |
+|----------------------------------------|--------------------|--------------------------------------------|
+|**/opposition/clubs/**                  |ClubListView        |List of all oppostion clubs (including statistics).|
+|**/opposition/clubs/ajax/**             |ClubStatsUpdateView |AJAX-only endpoint for refreshing the club stats.|
+|**/opposition/clubs/<cambridge-city>/** |ClubDetailView      |Details of a particular opposition club. |
 
 ### Models
 

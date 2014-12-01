@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
 from matches.models import GoalKing
 from competitions.models import Season, DivisionResult
-from teams.stats import update_clubstats_for_season
+from teams.stats import update_southerners_stats_for_season
 from opposition.stats import update_all_club_stats
 from teams.models import ClubTeamSeasonParticipation
 from teams import league_scraper
@@ -27,7 +27,7 @@ class Command(BaseCommand):
 
         try:
             # Update Southerners league
-            update_clubstats_for_season(season)
+            update_southerners_stats_for_season(season)
         except Exception as e:
             errors.add("Failed to update Southerners League: {}".format(e))
 

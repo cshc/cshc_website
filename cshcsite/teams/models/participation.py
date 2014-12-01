@@ -1,4 +1,9 @@
-import logging
+""" The ClubTeamSeasonParticipation model is used to track
+    details about a particular team for a particular season.
+
+    There should be one instance per team/season combination.
+"""
+
 import os
 from django.db import models
 from django.db.models.query import QuerySet
@@ -8,36 +13,37 @@ from model_utils import Choices
 from model_utils.managers import PassThroughManager
 from core.models import not_none_or_empty, make_unique_filename
 from competitions.models import Season, Division, Cup
-from club_team import ClubTeam
+from teams.models.club_team import ClubTeam
 
-log = logging.getLogger(__name__)
-
+# The directory where uploaded team photos should be stored (within MEDIA_URL)
+TEAM_PHOTO_DIR = 'uploads/team_photos'
 
 def get_file_name(instance, filename):
+    """ Returns a unique filename for uploaded team photos. """
     filename = make_unique_filename(filename)
-    return os.path.join('uploads/team_photos', filename)
+    return os.path.join(TEAM_PHOTO_DIR, filename)
 
 
 class ClubTeamSeasonParticipationQuerySet(QuerySet):
-    """QuerySet for the ClubTeamSeasonParticipation model"""
+    """ Queries relating to the ClubTeamSeasonParticipation model"""
 
     def current(self):
-        """Returns just the participations for the current season"""
+        """ Returns just the participations for the current season"""
         return self.filter(season=Season.current())
 
     def by_season(self, season):
-        """Returns just the participations for the specified season"""
+        """ Returns just the participations for the specified season"""
         return self.filter(season=season)
 
     def by_team(self, team):
-        """Returns just the participations for the specified team"""
+        """ Returns just the participations for the specified team"""
         return self.filter(team=team)
 
 
 class ClubTeamSeasonParticipation(models.Model):
-    """Represents the participation of a Cambridge South team in a particular season.
+    """ Represents the participation of a Cambridge South team in a particular season.
 
-       Includes division and cup participation.
+        Includes division and cup participation.
     """
 
     DIVISION_RESULT = Choices('Promoted', 'Relegated', 'Champions')
@@ -53,18 +59,21 @@ class ClubTeamSeasonParticipation(models.Model):
     division = models.ForeignKey(Division, null=True, blank=True)
     """The division in which the team participated in, if any."""
 
-    team_photo = ResizedImageField("Team photo",
-        max_width=900, max_height=600,
-        upload_to=get_file_name, null=True, blank=True)
+    team_photo = ResizedImageField("Team photo", max_width=900, max_height=600,
+                                   upload_to=get_file_name, null=True, blank=True)
     """A team photo (if available) from this sesason"""
 
     team_photo_caption = models.TextField(blank=True)
     """Caption for the team photo. Could include a list of who's who."""
 
-    final_pos = models.PositiveSmallIntegerField("Final position", null=True, blank=True, default=None, help_text="Once the season is complete, enter the final league position here")
+    final_pos = models.PositiveSmallIntegerField("Final position", null=True,
+                                                 blank=True, default=None,
+                                                 help_text="Once the season is complete, enter the final league position here")
     """The final league position of the team"""
 
-    division_result = models.CharField(max_length=20, choices=DIVISION_RESULT, null=True, blank=True, default=None, help_text="Set to one of the options if the team was promoted or relegated this season.")
+    division_result = models.CharField(max_length=20, choices=DIVISION_RESULT,
+                                       null=True, blank=True, default=None,
+                                       help_text="Set to one of the options if the team was promoted or relegated this season.")
     """Indicates if the team was promoted or relegated this season"""
 
     # The (external) URL of the division leauge table
@@ -78,13 +87,15 @@ class ClubTeamSeasonParticipation(models.Model):
     cup = models.ForeignKey(Cup, null=True, blank=True)
     """The cup the team participated in, if any."""
 
-    cup_result = models.CharField("Cup result", max_length=100, null=True, blank=True, default=None, help_text="Where did the team get to in the cup? (Enter once cup participation is complete)")
+    cup_result = models.CharField("Cup result", max_length=100, null=True, blank=True, default=None,
+                                  help_text="Where did the team get to in the cup? (Enter once cup participation is complete)")
     """How the team got on in the cup"""
 
     blurb = models.TextField(blank=True)
     """Some optional comments about the team this season."""
 
     # Statistics (updated with a script on a regular basis for the current season)
+    # Note - these fields will not show up on the admin interface
 
     friendly_played = models.PositiveSmallIntegerField("Friendly games played", default=0)
     friendly_won = models.PositiveSmallIntegerField("Friendly games won", default=0)
@@ -110,6 +121,7 @@ class ClubTeamSeasonParticipation(models.Model):
     objects = PassThroughManager.for_queryset_class(ClubTeamSeasonParticipationQuerySet)()
 
     class Meta:
+        """ Meta-info for the ClubTeamSeasonParticipation model."""
         app_label = 'teams'
         # A team can only participate once per season!
         unique_together = ('team', 'season')
@@ -137,71 +149,74 @@ class ClubTeamSeasonParticipation(models.Model):
             raise ValidationError("{} is a {} team but {} is a {} cup", self.team, self.team.get_gender_display(), self.cup, self.cup.get_gender_display());
 
     def total_played(self):
+        """ Returns the total number of matches played. """
         return self.friendly_played + self.cup_played + self.league_played
 
     def total_won(self):
+        """ Returns the total number of matches won. """
         return self.friendly_won + self.cup_won + self.league_won
 
     def total_drawn(self):
+        """ Returns the total number of matches drawn. """
         return self.friendly_drawn + self.cup_drawn + self.league_drawn
 
     def total_lost(self):
+        """ Returns the total number of matches lost. """
         return self.friendly_lost + self.cup_lost + self.league_lost
 
     def total_goals_for(self):
+        """ Returns the total number of goals scored. """
         return self.friendly_goals_for + self.cup_goals_for + self.league_goals_for
 
     def total_goals_against(self):
+        """ Returns the total number of goals conceded. """
         return self.friendly_goals_against + self.cup_goals_against + self.league_goals_against
 
     def friendly_goals_per_game(self):
+        """ Returns the average number of goals scored per game in friendly matches. """
         if self.friendly_played == 0:
             return 0.0
 
         return float(self.friendly_goals_for) / float(self.friendly_played)
 
     def cup_goals_per_game(self):
+        """ Returns the average number of goals scored per game in cup matches. """
         if self.cup_played == 0:
             return 0.0
 
         return float(self.cup_goals_for) / float(self.cup_played)
 
     def league_goals_per_game(self):
+        """ Returns the average number of goals scored per game in league matches. """
         if self.league_played == 0:
             return 0.0
 
         return float(self.league_goals_for) / float(self.league_played)
 
     def total_goals_per_game(self):
+        """ Returns the average number of goals scored per game in all matches. """
         if self.total_played() == 0:
             return 0.0
 
         return float(self.total_goals_for()) / float(self.total_played())
 
-    def total_points(self):
-        return (Match.POINTS_FOR_WIN * self.total_won()) + (Match.POINTS_FOR_DRAW * self.total_drawn()) + (Match.POINTS_FOR_LOSS * self.total_lost())
-
     def avg_goals_for(self):
-        """Returns the average number of goals scored per game in matches played by this team in this season"""
+        """ Returns the average number of goals scored per game in matches played by
+            this team in this season.
+        """
         if self.total_played() == 0:
             return 0.0
 
         return float(self.total_goals_for()) / float(self.total_played())
 
     def avg_goals_against(self):
-        """Returns the average number of goals scored per game by the opposition in matches played by this team in this season"""
+        """ Returns the average number of goals scored per game by the opposition in
+            matches played by this team in this season.
+        """
         if self.total_played() == 0:
             return 0.0
 
         return float(self.total_goals_against()) / float(self.total_played())
-
-    def avg_points(self):
-        """Returns the average number of points per game in matches played by this team in this season"""
-        if self.total_played() == 0:
-            return 0.0
-
-        return float(self.total_points()) / float(self.total_played())
-
 
     def reset(self):
         """ Resets all tallies to zero """

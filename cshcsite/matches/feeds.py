@@ -1,6 +1,5 @@
 """ The code in this module auto-generates RSS/Atom feeds for
-    matches played by CSHC teams. There is a general one for all
-    teams as well as team-specific feeds.
+    all matches played by CSHC teams.
 
     Ref: https://docs.djangoproject.com/en/1.6/ref/contrib/syndication/
 
@@ -8,7 +7,7 @@
     for matches this season.
 
     This feed can be added to an external calendar app to display all
-    training sessions.
+    matches right in the calendar.
 
     Ref: http://django-ics.readthedocs.org/en/latest/usage.html#overview
 """

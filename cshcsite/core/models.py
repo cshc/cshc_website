@@ -31,14 +31,6 @@ def not_none_or_empty(s):
     """Given a string, returns True if the string is not equal to None and is not empty"""
     return not is_none_or_empty(s)
 
-
-def first_or_none(q):
-    """ Given a QuerySet or a list, returns the first item, or None if the QuerySet/list is empty."""
-    try:
-        return q[0]
-    except IndexError:
-        return None
-
 # Enumeration of choices for a team's gender. Used in multiple apps.
 TeamGender = Choices('Mens', 'Ladies', 'Mixed')
 
@@ -190,7 +182,7 @@ class CshcUser(AbstractBaseUser, PermissionsMixin):
         ordering = ['first_name', 'last_name']
 
     def __unicode__(self):
-        return unicode(self.email)
+        return unicode("{} {} ({})".format(self.first_name, self.last_name, self.email))
 
     def get_full_name(self):
         return u"{} {}".format(self.first_name, self.last_name).strip()

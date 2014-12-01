@@ -13,7 +13,6 @@ from django.conf import settings
 from templated_emails.utils import send_templated_email
 from braces.views import LoginRequiredMixin
 from core.views import AjaxGeneral
-from core.models import first_or_none
 from matches.models import Appearance
 from awards.models import MatchAwardWinner
 from members.models import Member, SquadMembership
@@ -110,7 +109,7 @@ class MemberDetailView(DetailView):
         context = super(MemberDetailView, self).get_context_data(**kwargs)
 
         member = context["member"]
-        context['squad'] = first_or_none(SquadMembership.objects.current().by_member(member))
+        context['squad'] = SquadMembership.objects.current().by_member(member).first()
 
         # Add recent match reports written by this member
         context['recent_match_reports'] = get_recent_match_reports(member)

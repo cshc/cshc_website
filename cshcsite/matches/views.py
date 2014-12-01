@@ -7,9 +7,8 @@ from django.views.generic import DetailView, ListView, TemplateView
 from django.utils import timezone
 from django.db.models import Q
 from braces.views import SelectRelatedMixin
-from core.models import first_or_none
 from core.stats import MatchStats
-from core.views import AjaxGeneral, get_season_from_kwargs
+from core.views import AjaxGeneral, get_season_from_kwargs, add_season_selector
 from competitions.models import Season
 from awards.models import MatchAward, MatchAwardWinner
 from teams.models import ClubTeam
@@ -59,8 +58,8 @@ class MatchesBySeasonView(TemplateView):
         }
 
         context['matches_by_year'] = matches_by_year
-        context['season'] = season
-        context['season_list'] = Season.objects.all().order_by("-start")
+
+        add_season_selector(context, season, Season.objects.reversed())
 
         return context
 
@@ -109,8 +108,8 @@ class MatchesByDateView(TemplateView):
         match_list = sorted(match_lookup.values(), key=lambda m: m.match.our_team.position)
 
         # Get previous and next match dates
-        prev_match = first_or_none(Match.objects.only('date').filter(date__lt=match_date).order_by('-date', '-time'))
-        next_match = first_or_none(Match.objects.only('date').filter(date__gt=match_date).order_by('date', 'time'))
+        prev_match = Match.objects.only('date').filter(date__lt=match_date).order_by('-date', '-time').first()
+        next_match = Match.objects.only('date').filter(date__gt=match_date).order_by('date', 'time').first()
         context['prev_date'] = prev_match.date if prev_match else None
         context['next_date'] = next_match.date if next_match else None
 
@@ -252,6 +251,8 @@ class GoalKingMixin(object):
         """ Adds a rank attribute to each GoalKing instance in the given list
             based on the total number of goals scored by that person.
         """
+        if len(goalking_list) == 0:
+            return
         rank = 1
         previous = goalking_list[0]
         previous.rank = 1
@@ -283,8 +284,8 @@ class GoalKingSeasonView(GoalKingMixin, TemplateView):
 
         context['goalking_list'] = self.get_goalking_list(season)
 
-        context['season'] = season
-        context['season_list'] = Season.objects.all().order_by("-start")
+        add_season_selector(context, season, Season.objects.reversed())
+
         return context
 
 
@@ -327,6 +328,8 @@ class AccidentalTouristMixin(object):
         """ Adds a rank attribute to each GoalKing instance in the given list.
             based on the total number of miles travelled by that person.
         """
+        if len(goalking_list) == 0:
+            return
         rank = 1
         previous = goalking_list[0]
         previous.rank = 1
@@ -358,8 +361,8 @@ class AccidentalTouristSeasonView(AccidentalTouristMixin, TemplateView):
 
         context['goalking_list'] = self.get_goalking_list(season)
 
-        context['season'] = season
-        context['season_list'] = Season.objects.all().order_by("-start")
+        add_season_selector(context, season, Season.objects.reversed())
+
         return context
 
 

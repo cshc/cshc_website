@@ -176,7 +176,7 @@ class Match(models.Model):
         """ Meta-info for the Match model."""
         app_label = 'matches'
         verbose_name_plural = "matches"
-        ordering = ['date']
+        ordering = ['date', 'time']
 
     def __unicode__(self):
         return unicode("{} vs {} ({}, {})".format(self.our_team, self.opp_team,

@@ -16,15 +16,19 @@ SEASON_END_DAY = 31
 LOG = logging.getLogger(__name__)
 
 class SeasonManager(models.Manager):
-    """Model Manager for Season models"""
+    """ Model Manager for Season models"""
 
     def by_date(self, date):
-        """Returns the season in which the specified date falls"""
+        """ Returns the season in which the specified date falls"""
         return super(SeasonManager, self).get_query_set().get(start__lte=date, end__gte=date)
+
+    def reversed(self):
+        """ Returns the seasons in reverse chronological order."""
+        return super(SeasonManager, self).get_query_set().order_by('-start')
 
 
 class Season(models.Model):
-    """Represents a season during which matches are played"""
+    """ Represents a season during which matches are played"""
 
     # The first date of the season
     start = models.DateField("Season start", help_text="(Approx) first day of the season")
@@ -64,7 +68,7 @@ class Season(models.Model):
 
     @staticmethod
     def current():
-        """Returns the current season (or creates it if it doesn't exist)"""
+        """ Returns the current season (or creates it if it doesn't exist)"""
         try:
             return Season.objects.by_date(datetime.now().date())
         except Season.DoesNotExist:
@@ -73,7 +77,7 @@ class Season(models.Model):
 
     @staticmethod
     def is_current_season(season_id):
-        """Returns true if the specified season ID is the ID of the current season"""
+        """ Returns true if the specified season ID is the ID of the current season"""
         return Season.current().pk == season_id
 
     @staticmethod

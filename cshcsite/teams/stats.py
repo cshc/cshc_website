@@ -1,55 +1,65 @@
+""" Utility methods for calculating team statistics.
+"""
+
 import logging
 from awards.models import MatchAward
 from matches.models import Match
-from models import Southerner, ClubTeamSeasonParticipation
+from teams.models import Southerner, ClubTeamSeasonParticipation
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
-def update_clubstats_for_season(season):
+def update_southerners_stats_for_season(season):
     """Updates the Southerner entries for the specified season"""
-    log.info("Updating Southerners League stats for {}".format(season))
+    LOG.info("Updating Southerners League stats for {}".format(season))
     s_entries = Southerner.objects.by_season(season)
 
     # A dictionary for Southerner entries, keyed by the team id
     s_lookup = {}
 
     # Reset all the entries
-    for s in s_entries:
-        s.reset()
-        s_lookup[s.team_id] = s
+    for entry in s_entries:
+        entry.reset()
+        s_lookup[entry.team_id] = entry
 
-    matches = Match.objects.by_season(season).results().filter(ignore_for_southerners=False, our_team__southerners=True, our_score__isnull=False, opp_score__isnull=False).select_related('our_team', 'season')
+    match_qs = Match.objects.by_season(season).results()
+    match_qs = match_qs.filter(ignore_for_southerners=False, our_team__southerners=True,
+                               our_score__isnull=False, opp_score__isnull=False)
+    match_qs = match_qs.select_related('our_team', 'season')
 
-    for match in matches:
+    for match in match_qs:
         if not s_lookup.has_key(match.our_team_id):
             s_lookup[match.our_team_id] = Southerner(team=match.our_team, season=match.season)
         s_lookup[match.our_team_id].add_match(match)
 
-    for key, value in s_lookup.iteritems():
+    for _, value in s_lookup.iteritems():
         value.save()
 
 
 def update_participation_stats_for_season(season):
+    """ Updates the stats fields embedded in all ClubTeamSeasonParticipation
+        model instances.
+    """
     participations = ClubTeamSeasonParticipation.objects.by_season(season).select_related('team')
     for participation in participations:
         update_participation_stats(participation)
 
 
-# Note - the following two methods can't be an instance methods of the
+# Note - the following two methods can't be instance methods of the
 # ClubTeamSeasonParticipation model as it would result in a circular reference
 # between Match and ClubTeamSeasonParticipation.
 
 def update_participation_stats(participation):
     """ Updates participation stats.
     """
-    log.info("Updating Club Team Season Participation stats for {}".format(participation))
+    LOG.info("Updating Club Team Season Participation stats for {}".format(participation))
     participation.reset()
 
     # We just want the member id, the match team, the number of goals scored (and own goals)
-    matches = Match.objects.by_season(participation.season).filter(our_team=participation.team, our_score__isnull=False, opp_score__isnull=False)
-    log.debug("Retrieved {} matches for {}".format(matches.count(), participation))
+    match_qs = Match.objects.by_season(participation.season)
+    match_qs = match_qs.filter(our_team=participation.team, our_score__isnull=False,
+                               opp_score__isnull=False)
 
-    for match in matches:
+    for match in match_qs:
         add_match(participation, match)
 
     # Save the updated entries back to the database
@@ -57,6 +67,9 @@ def update_participation_stats(participation):
 
 
 def add_match(participation, match):
+    """ Adds the statistics from the given match to the running totals
+        within the ClubTeamSeasonParticipation instance.
+    """
     if match.fixture_type == Match.FIXTURE_TYPE.Friendly:
         participation.friendly_played += 1
         if match.was_won():
@@ -90,7 +103,7 @@ def add_match(participation, match):
 
 
 class SquadMember(object):
-    """Represents statistics about a squad member"""
+    """ Represents statistics about a squad member"""
 
     def __init__(self, member):
         self.member = member
@@ -101,14 +114,14 @@ class SquadMember(object):
         self.lom = 0
 
     def add_appearance(self, appearance):
-        """Add the specified appearance to the squad member's stats"""
+        """ Add the specified appearance to the squad member's stats"""
         self.appearances += 1
         self.goals += appearance.goals
         if appearance.match.opp_score == 0:
             self.clean_sheets += 1
 
     def add_award(self, award):
-        """Add the specified award to the squad member's stats"""
+        """ Add the specified award to the squad member's stats"""
         if award.name == MatchAward.MOM:
             self.mom += 1
         elif award.name == MatchAward.LOM:

@@ -1,7 +1,7 @@
 import logging
 from django.views.generic import TemplateView
 from django.conf import settings
-from core.views import get_season_from_kwargs
+from core.views import get_season_from_kwargs, add_season_selector
 from core.models import ClubInfo, TeamGender
 from competitions.models import Season
 from matches.views import LatestResultsView, NextFixturesView
@@ -130,9 +130,7 @@ class CommitteeSeasonView(TemplateView):
             'vice_captain': next((m for m in mens_committee if m.position.name == "Men's 5th XI Vice-Captain"), None)
         }]
 
-        context['season'] = season
-        context['is_current_season'] = season == Season.current()
-        context['season_list'] = Season.objects.all().order_by("-start")
+        add_season_selector(context, season, Season.objects.reversed())
         return context
 
 

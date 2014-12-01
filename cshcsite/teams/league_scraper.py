@@ -1,17 +1,25 @@
+""" This module contains functions and classes used to scrape the league's
+    website to extract league tables in a format that can be used by our own
+    template files to render the league tables on our site.
+
+    WARNING: As the scraping logic relies on the East League's website pages
+    sticking to a particular layout, it is prone to go wrong at some point in
+    the future when they update their layout! When this breaking change happens,
+    you should spot it in the cronjob error report (and in incomplete league
+    tables on the CSHC website). You will then need to debug the league scraping
+    code and modify it to cope with the new layout of the East League's pages.
 """
-This module contains functions and classes used to scrape the league's website to extract league tables in a
-format that can be used by our own template files to render the league tables on our site.
-"""
+
 import logging
 import re
 from urllib import urlopen
 from bs4 import BeautifulSoup
-from competitions.models import DivisionResult
 from core.models import TeamGender
+from competitions.models import DivisionResult
 from teams.models import ClubTeam
 from opposition.models import Team
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 def parse_url(url):
@@ -20,10 +28,9 @@ def parse_url(url):
     return BeautifulSoup(source)
 
 def get_east_leagues_nw_division(url, division, season):
-    """Returns a ScrapedDivision object with the scraped league table from the specified url who's name matches
-    the div_name parameter."""
-    print url
-    print division.name
+    """ Returns a ScrapedDivision object with the scraped league table from the specified
+        url who's name matches the div_name parameter.
+    """
     soup = parse_url(url)
     div_name = division.name.upper()
     # Hack: women's leagues slightly different
@@ -63,7 +70,7 @@ def get_east_leagues_nw_division(url, division, season):
             team.notes = columns[11].text
             team.save()
             teams.append(team)
-            print "Parsed team: {}".format(team)
+            LOG.debug("Parsed team: {}".format(team))
         try:
             current_row = current_row.find_next('tr')
         except:
@@ -72,6 +79,10 @@ def get_east_leagues_nw_division(url, division, season):
     return teams
 
 def set_team(team, name, division):
+    """ Works out whether the team should be a CSHC team (ClubTeam) or
+        an opposition team (Team). Also handles the lack of the text 'Ladies'
+        in the team name.
+    """
 
     try:
         if name.startswith('Cambridge South '):
@@ -89,9 +100,10 @@ def set_team(team, name, division):
             team.opp_team = Team.objects.get(name=name)
             team.our_team = None
     except (Team.DoesNotExist, ClubTeam.DoesNotExist):
-        log.error("Could not find team '{}'".format(name))
+        LOG.error("Could not find team '{}'".format(name))
 
 
+# Deprecated:
 # def get_east_leagues_cambs_division(url):
 #     """Returns a ScrapedDivision object with the scraped league table from the specified url.
 

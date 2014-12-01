@@ -36,7 +36,20 @@ def get_season_from_kwargs(kwargs):
     return season
 
 
+def add_season_selector(context, season, season_list):
+    """ Adds season information to the given context, facilitating
+        the use of the core/_season_selector.html template.
+
+        Returns the updated context.
+    """
+    context['season'] = season
+    context['season_list'] = season_list
+    context['is_current_season'] = Season.is_current_season(season.id)
+    return context
+
+
 def is_prod_site():
+    """ Utility method to check if this is the production site."""
     return 'cambridgesouthhockeyclub' in Site.objects.all()[0].domain
 
 def saturdays_in_season(season):

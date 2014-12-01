@@ -1,71 +1,71 @@
-import logging
+""" The ClubTeam model represents a Cambridge South team.
+"""
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.db.models.query import QuerySet
 from model_utils.managers import PassThroughManager
 from core.models import TeamGender, TeamOrdinal, ordinal_from_TeamOrdinal
 
-log = logging.getLogger(__name__)
-
 
 class ClubTeamQuerySet(QuerySet):
-    """Model manager for the ClubTeam model"""
+    """ Queries relating to the ClubTeam model"""
 
     def active(self):
         """ Returns only active teams (currently playing)"""
         return self.filter(active=True)
 
     def mens(self):
-        """Returns only men's teams"""
+        """ Returns only men's teams"""
         return self.filter(gender=TeamGender.Mens)
 
     def ladies(self):
-        """Returns only ladies teams"""
+        """ Returns only ladies teams"""
         return self.filter(gender=TeamGender.Ladies)
 
     def m1(self):
-        """Returns the Men's 1sts team"""
+        """ Returns the Men's 1sts team"""
         return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T1)
 
     def m2(self):
-        """Returns the Men's 2nds team"""
+        """ Returns the Men's 2nds team"""
         return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T2)
 
     def m3(self):
-        """Returns the Men's 3rds team"""
+        """ Returns the Men's 3rds team"""
         return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T3)
 
     def m4(self):
-        """Returns the Men's 4ths team"""
+        """ Returns the Men's 4ths team"""
         return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.T4)
 
     def l1(self):
-        """Returns the Ladies 1sts team"""
+        """ Returns the Ladies 1sts team"""
         return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T1)
 
     def l2(self):
-        """Returns the Ladies 2nds team"""
+        """ Returns the Ladies 2nds team"""
         return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T2)
 
     def l3(self):
-        """Returns the Ladies 3rds team"""
+        """ Returns the Ladies 3rds team"""
         return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T3)
 
     def mixed(self):
-        """Return the mixed team"""
+        """ Return the mixed team"""
         return self.get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther)
 
     def indoor(self):
-        """Return the indoor team"""
+        """ Return the indoor team"""
         return self.get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TIndoor)
 
     def vets(self):
-        """Return the vets team"""
+        """ Return the vets team"""
         return self.get(gender=TeamGender.Mens, ordinal=TeamOrdinal.TVets)
 
 
 class ClubTeam(models.Model):
-    """Represents a Cambridge South team"""
+    """ Represents a Cambridge South team"""
 
     short_name = models.CharField(max_length=10, unique=True)
     """A short identifying name for the team, e.g. 'M1'. Used in links etc."""
@@ -106,6 +106,7 @@ class ClubTeam(models.Model):
     objects = PassThroughManager.for_queryset_class(ClubTeamQuerySet)()
 
     class Meta:
+        """ Meta-info for the ClubTeam model. """
         app_label = 'teams'
         ordering = ['position']
 
@@ -117,10 +118,11 @@ class ClubTeam(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
+        """ Returns the URL for this ClubTeam instance. """
         return ('clubteam_detail', [self.slug])
 
     def abbr_name(self):
-        """Returns an abbreviated name, including the club (e.g. 'Cambridge South 1')"""
+        """ Returns an abbreviated name, including the club (e.g. 'Cambridge South 1')"""
         if self.short_name == 'Mixed':
             return "Cambridge South Mixed"
         elif self.gender == TeamGender.Ladies:
@@ -129,4 +131,5 @@ class ClubTeam(models.Model):
             return "Cambridge South {}".format(ordinal_from_TeamOrdinal(self.ordinal))
 
     def genderless_abbr_name(self):
+        """ Returns the abbreviated team name without either 'Ladies' or 'Mens'. """
         return self.abbr_name().replace(" Ladies", "").replace(" Mens", "")

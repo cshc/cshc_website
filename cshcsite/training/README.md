@@ -13,7 +13,7 @@ One of the cool features of this app is the auto-generated ical calendar feed of
 |(Example) URL                   |View                         |Description                                 |
 |--------------------------------|-----------------------------|--------------------------------------------|
 |**/training/**                  |UpcomingTrainingSessionsView |Lists all upcoming training sessions.       |
-|**/training/41/**               |TrainingSessionDetailView    |Details of a particular training session.   |
+|**/training/<41>/**             |TrainingSessionDetailView    |Details of a particular training session.   |
 |**/training/cshc_training.ics** |TrainingSessionICalFeed      |Automatically generated ical calendar feed of this season's training sessions|
 
 ### Models
