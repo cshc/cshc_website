@@ -26,6 +26,18 @@ class SeasonManager(models.Manager):
         """ Returns the seasons in reverse chronological order."""
         return super(SeasonManager, self).get_query_set().order_by('-start')
 
+    def previous(self, season):
+        """ Returns the previous season to the given one (or None if the given
+            season is the first one)
+        """
+        return super(SeasonManager, self).get_query_set().filter(end__lt=season.start).order_by('-start').first()
+
+    def next(self, season):
+        """ Returns the next season to the given one (or None if the given
+            season is the last one)
+        """
+        return super(SeasonManager, self).get_query_set().filter(start__gt=season.end).order_by('start').first()
+
 
 class Season(models.Model):
     """ Represents a season during which matches are played"""
