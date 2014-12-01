@@ -1,3 +1,0 @@
-from test_appearance_model import AppearanceTest
-from test_match_model import MatchTest
-from test_views import MatchViewTest

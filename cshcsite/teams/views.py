@@ -7,10 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.conf import settings
 import django_mobile
-from core.views import AjaxGeneral, saturdays_in_range
-
+from core.views import kwargs_or_none, AjaxGeneral, saturdays_in_range, get_season_from_kwargs
 from core.models import TeamGender, TeamOrdinal, first_or_none, not_none_or_empty
-from core.views import kwargs_or_none
 from core.stats import MatchStats
 from competitions.models import Division, Season, DivisionResult
 from matches.models import Match, Appearance
@@ -251,13 +249,7 @@ class SouthernersSeasonView(SouthernersMixin, TemplateView):
             - is_current_season:    True if season == Season.current()
         """
         context = super(SouthernersSeasonView, self).get_context_data(**kwargs)
-
-        # If we're viewing this season's stats we may not have a season_slug keyword arg.
-        season_slug = kwargs_or_none('season_slug', **kwargs)
-        if season_slug is not None:
-            season = Season.objects.get(slug=season_slug)
-        else:
-            season = Season.current()
+        season = get_season_from_kwargs(kwargs)
 
         context['team_list'] = self.get_southerners_list(season)
 

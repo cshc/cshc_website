@@ -1,15 +1,19 @@
+""" Configuration of Match models for the admin interface.
+"""
+
 from django.contrib import admin
 from django.forms import ModelForm, widgets
 from suit.widgets import NumberInput, AutosizedTextarea
 from awards.models import MatchAwardWinner
-from .models import Match, Appearance
-from .forms import MatchForm
+from matches.models import Match, Appearance
+from matches.forms import MatchForm
 
 
 class MatchAwardWinnerInlineForm(ModelForm):
     """Inline form for match award winners"""
 
     class Meta:
+        """ Meta-info for the form."""
         model = MatchAwardWinner
         widgets = {
             'comment': AutosizedTextarea(
@@ -31,6 +35,7 @@ class AppearanceInlineForm(ModelForm):
     """Inline form for appearances"""
 
     class Meta:
+        """ Meta-info for the form."""
         model = Appearance
         widgets = {
             'goals': NumberInput(attrs={'class': 'input-mini'}),
@@ -54,12 +59,17 @@ class MatchAdmin(admin.ModelAdmin):
 
     form = MatchForm
     inlines = (MatchAwardWinnerInline, AppearanceInline)
-    radio_fields = {'fixture_type': admin.HORIZONTAL, 'home_away': admin.HORIZONTAL, 'alt_outcome': admin.HORIZONTAL}
+    radio_fields = {'fixture_type': admin.HORIZONTAL,
+                    'home_away': admin.HORIZONTAL,
+                    'alt_outcome': admin.HORIZONTAL}
     fieldsets = [
         ('Teams', {'fields': ['our_team', 'opp_team']}),
         ('Fixture details', {'fields': ['venue', 'home_away', 'fixture_type', 'date', 'time']}),
-        ('Result', {'fields': ['alt_outcome', 'our_score', 'opp_score', 'our_ht_score', 'opp_ht_score', 'opp_own_goals']}),
-        ('Advanced', {'classes': ('collapse',), 'fields': ['ignore_for_goal_king', 'ignore_for_southerners', 'override_kit_clash', 'gpg_pro_rata']}),
+        ('Result', {'fields': ['alt_outcome', 'our_score', 'opp_score', 'our_ht_score',
+                               'opp_ht_score', 'opp_own_goals']}),
+        ('Advanced', {'classes': ('collapse',),
+                      'fields': ['ignore_for_goal_king', 'ignore_for_southerners',
+                                 'override_kit_clash', 'gpg_pro_rata']}),
         ('Pre-match hype', {
             'classes': ('full-width',),
             'fields': ['pre_match_hype']}),
@@ -76,6 +86,7 @@ class MatchAdmin(admin.ModelAdmin):
 
 
 class AppearanceAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the Appearance model."""
 
     model = Appearance
     search_fields = ('member__first_name', 'member__last_name')

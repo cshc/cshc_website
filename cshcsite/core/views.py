@@ -11,6 +11,7 @@ from django.contrib.sites.models import RequestSite
 from templated_emails.utils import send_templated_email
 from registration import signals as reg_signals
 from registration.views import RegistrationView as BaseRegistrationView
+from competitions.models import Season
 from .models import ClubInfo, ContactSubmission
 from .forms import ContactSubmissionForm, UserCreationForm
 from .reg_utils import create_inactive_user
@@ -20,6 +21,19 @@ log = logging.getLogger(__name__)
 
 one_day = timedelta(days=1)
 one_week = timedelta(days=7)
+
+
+def get_season_from_kwargs(kwargs):
+    """ Many URLs have an optional 'season_slug' parameter, specifying
+        a particular season. If not specified, we default to the current
+        season.
+    """
+    season_slug = kwargs_or_none('season_slug', **kwargs)
+    if season_slug is not None:
+        season = Season.objects.get(slug=season_slug)
+    else:
+        season = Season.current()
+    return season
 
 
 def is_prod_site():

@@ -188,29 +188,6 @@ Tables
   height: 100%;
 }
 
-#latest-results .fixture-table tbody tr.my-fixture,
-#next-fixtures .fixture-table tbody tr.my-fixture {
-    background-color: rgb(214, 241, 214);
-}
-
-#latest-results .table-hover.fixture-table tbody tr.my-fixture:hover>td,
-#latest-results .table-hover.fixture-table tbody tr.my-fixture:hover>th,
-#next-fixtures .table-hover.fixture-table tbody tr.my-fixture:hover>td,
-#next-fixtures .table-hover.fixture-table tbody tr.my-fixture:hover>th {
-    background-color: rgb(199, 231, 199);
-}
-
-
-#home .fixture-table tbody tr.my-fixture {
-    background-color: rgba(0, 0, 0, 0.25);
-}
-
-#home .table-hover.fixture-table tbody tr.my-fixture:hover>td,
-#home .table-hover.fixture-table tbody tr.my-fixture:hover>th {
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-
 /******************************************************************************
 Match Details
 */

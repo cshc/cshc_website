@@ -1,7 +1,7 @@
 import logging
 from django.views.generic import TemplateView
 from django.conf import settings
-from core.views import kwargs_or_none
+from core.views import get_season_from_kwargs
 from core.models import ClubInfo, TeamGender
 from competitions.models import Season
 from matches.views import LatestResultsView, NextFixturesView
@@ -20,7 +20,7 @@ class HomeView(TemplateView):
         context = super(HomeView, self).get_context_data(**kwargs)
 
         # Latest Results
-        LatestResultsView.add_latest_results_to_context(context, self.request.user)
+        LatestResultsView.add_latest_results_to_context(context)
 
         # Next Fixtures
         NextFixturesView.add_next_fixtures_to_context(context)
@@ -85,11 +85,7 @@ class CommitteeSeasonView(TemplateView):
         context = super(CommitteeSeasonView, self).get_context_data(**kwargs)
 
         # If we're viewing this season's committee we may not have a season_slug keyword arg.
-        season_slug = kwargs_or_none('season_slug', **kwargs)
-        if season_slug is not None:
-            season = Season.objects.get(slug=season_slug)
-        else:
-            season = Season.current()
+        season = get_season_from_kwargs(kwargs)
 
         all_members = CommitteeMembership.objects.select_related('position', 'member', 'season').by_season(season)
 
