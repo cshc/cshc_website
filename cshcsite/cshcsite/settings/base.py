@@ -277,7 +277,7 @@ LOGGING = {
         'file': {
             'level': 'WARN',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': join(SITE_ROOT, 'django.log'),
+            'filename': join(SITE_ROOT, '..', '..', 'django.log'),
             'maxBytes': '16777216', # 16megabytes
         },
 

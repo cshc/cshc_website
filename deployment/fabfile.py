@@ -4,8 +4,17 @@ PRODUCTION SITE DEPLOYMENT - cambridgesouthhockeyclub.co.uk
 USE WITH CAUTION!!!
 ===================
 
-These scripts handle the deployment and upgrade of the CSHC site.
+Deployment is handled using fabric, 'a Python library and command-line
+tool for streamlining the use of SSH for application deployment or
+systems administration tasks.'
+
+Ref: http://www.fabfile.org/
+
+
+These fabric scripts handle the deployment and upgrade of the CSHC site.
+
 Example usage: 'fab update_release:v1.2.0'
+
 (run from the deployment directory on the command line)
 
 NOTE: To rollback a release, you can try this:
