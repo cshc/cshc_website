@@ -1,3 +1,6 @@
+""" Utility methods to help with registration and account activation etc.
+"""
+
 import hashlib
 import random
 from django.contrib.auth import get_user_model
@@ -25,16 +28,13 @@ def create_profile(user, simulate=False):
         email = email.encode('utf-8')
     activation_key = hashlib.sha1(salt+email).hexdigest()
     if simulate:
-        return RegistrationProfile(user=user,
-                       activation_key=activation_key)
+        return RegistrationProfile(user=user, activation_key=activation_key)
     else:
-        return RegistrationProfile.objects.create(user=user,
-                       activation_key=activation_key)
+        return RegistrationProfile.objects.create(user=user, activation_key=activation_key)
 
 # Copied + modified from registration.models.RegistrationManager
 @transaction.commit_on_success
-def create_inactive_user(email, password, first_name, last_name,
-                         site, send_email=True):
+def create_inactive_user(email, password, first_name, last_name, site, send_email=True):
     """
     Create a new, inactive ``User``, generate a
     ``RegistrationProfile`` and email its activation key to the

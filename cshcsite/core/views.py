@@ -1,3 +1,6 @@
+""" Common Django views and view utilities
+"""
+
 import logging
 from datetime import timedelta
 from django.views.generic import TemplateView, FormView
@@ -12,15 +15,11 @@ from templated_emails.utils import send_templated_email
 from registration import signals as reg_signals
 from registration.views import RegistrationView as BaseRegistrationView
 from competitions.models import Season
-from .models import ClubInfo, ContactSubmission
-from .forms import ContactSubmissionForm, UserCreationForm
-from .reg_utils import create_inactive_user
+from core.models import ClubInfo, ContactSubmission
+from core.forms import ContactSubmissionForm, UserCreationForm
+from core.reg_utils import create_inactive_user
 
-log = logging.getLogger(__name__)
-
-
-one_day = timedelta(days=1)
-one_week = timedelta(days=7)
+LOG = logging.getLogger(__name__)
 
 
 def get_season_from_kwargs(kwargs):
@@ -35,7 +34,6 @@ def get_season_from_kwargs(kwargs):
         season = Season.current()
     return season
 
-
 def add_season_selector(context, season, season_list):
     """ Adds season information to the given context, facilitating
         the use of the core/_season_selector.html template.
@@ -47,7 +45,6 @@ def add_season_selector(context, season, season_list):
     context['is_current_season'] = Season.is_current_season(season.id)
     return context
 
-
 def is_prod_site():
     """ Utility method to check if this is the production site."""
     return 'cambridgesouthhockeyclub' in Site.objects.all()[0].domain
@@ -56,50 +53,49 @@ def saturdays_in_season(season):
     """ Gets a list of all the Saturdays (match days) in the given season. """
     return saturdays_in_range(season.start, season.end)
 
-
 def saturdays_in_range(start, end):
     """ Gets a list of all the Saturdays (match days) in the given range. """
     sats = []
     sat = _first_sat(start)
     while sat <= end:
         sats.append(sat)
-        sat += one_week
+        sat += timedelta(days=7)
 
     return sats
-
 
 def _first_sat(dt):
     """ Gets the first Saturday following the given date. """
     while dt.weekday() < 5:
-        dt = dt + one_day
+        dt = dt + timedelta(days=1)
     return dt
 
-
 def valid_kwarg(key, **dict):
-    """Given a key and a dictionary, returns True if the given key is in the dictionary and its value is not None or an empty string"""
+    """ Given a key and a dictionary, returns True if the given key is in
+        the dictionary and its value is not None or an empty string.
+    """
     return key in dict and dict[key] is not None and dict[key] != ""
 
-
 def kwargs_or_none(key, **dict):
-    """Given a key and a dictionary, returns the key's value, or None if the key is not valid"""
-    if(valid_kwarg(key, **dict)):
+    """ Given a key and a dictionary, returns the key's value, or None
+        if the key is not valid.
+    """
+    if valid_kwarg(key, **dict):
         return dict[key]
     else:
         return None
 
-
 def add_clubinfo_to_context(context):
+    """ Adds all ClubInfo instances to the given context. """
     context['clubinfo'] = ClubInfo.objects.all()
 
-
 def ajax_request(function):
-    """
-    Used as a method decorator.
-    Given a request, checks if the request is an AJAX request.
-    If not, the 'AJAX required' error template is rendered.
-    Otherwise the wrapped function is called.
+    """ Used as a method decorator.
+        Given a request, checks if the request is an AJAX request.
+        If not, the 'AJAX required' error template is rendered.
+        Otherwise the wrapped function is called.
     """
     def wrapper(request, *args, **kwargs):
+        """ Returns error response if request is not AJAX. """
         if not request.is_ajax():
             return render_to_response('error/ajax_required.html', {},
                                       context_instance=RequestContext(request))
@@ -109,9 +105,8 @@ def ajax_request(function):
 
 
 class AjaxGeneral(TemplateView):
-    """
-    Base template view for AJAX views.
-    All views are wrapped by a call that ensures the request is an AJAX request.
+    """ Base template view for AJAX views.
+        All views are wrapped by a call that ensures the request is an AJAX request.
     """
     template_name = None
 
@@ -121,6 +116,7 @@ class AjaxGeneral(TemplateView):
                                   context_instance=RequestContext(request))
 
     def get_template_context(self, **kwargs):
+        """ Return the template context."""
         msg = "{0} is missing get_template_context.".format(self.__class__)
         raise NotImplementedError(msg)
 
@@ -130,16 +126,17 @@ class AjaxGeneral(TemplateView):
 
 
 class ContactSubmissionCreateView(FormView):
-    """This is essentially the 'Contact Us' form view"""
+    """ This is essentially the 'Contact Us' form view. """
+
     model = ContactSubmission
     form_class = ContactSubmissionForm
     template_name = "core/contact.html"
-    # TODO: Redirect to another page and give them more links to click on!
     success_url = '/contact/'
 
     def email_to_secretary(self, form):
+        """ Send an email to the secretary with the form data. """
         email = form.cleaned_data['email']
-        log.debug("Email = {}".format(email))
+        LOG.debug("Email = {}".format(email))
         context = {
             'name': u"{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
             'phone': form.cleaned_data['phone'],
@@ -151,10 +148,12 @@ class ContactSubmissionCreateView(FormView):
         try:
             recipient_email = ClubInfo.objects.get(key='SecretaryEmail').value
         except ClubInfo.DoesNotExist:
-                recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
-        send_templated_email([recipient_email], 'emails/contact_secretary', context, from_email=email)
+            recipient_email = 'secretary@cambridgesouthhockeyclub.co.uk'
+        send_templated_email([recipient_email], 'emails/contact_secretary',
+                             context, from_email=email)
 
     def email_to_enquirer(self, form):
+        """ Send a confirmation email to the person submitting the form. """
         context = {
             'first_name': unicode(form.cleaned_data['first_name']),
             'message': unicode(form.cleaned_data['message']),
@@ -167,7 +166,8 @@ class ContactSubmissionCreateView(FormView):
             context['secretary_email'] = 'secretary@cambridgesouthhockeyclub.co.uk'
 
         recipient_email = form.cleaned_data['email']
-        send_templated_email([recipient_email], 'emails/contact_sender', context, from_email=context['secretary_email'])
+        send_templated_email([recipient_email], 'emails/contact_sender',
+                             context, from_email=context['secretary_email'])
 
     def form_valid(self, form):
         try:
@@ -175,7 +175,7 @@ class ContactSubmissionCreateView(FormView):
             self.email_to_enquirer(form)
             messages.info(self.request, "Thanks for your message. We'll be in touch shortly!")
         except:
-            log.warn("Failed to send contact us email")
+            LOG.warn("Failed to send contact us email")
             messages.error(self.request, "Sorry - we were unable to send your message. Please try again later.")
         return super(ContactSubmissionCreateView, self).form_valid(form)
 

@@ -1,6 +1,10 @@
-# Django settings for cshcsite project - production environment
-from base import *
+""" Django settings for cshcsite project - production environment
+"""
 
+from cshcsite.settings.base import *
+
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = ['www.cambridgesouthhockeyclub.co.uk', 'cambridgesouthhockeyclub.co.uk']
 

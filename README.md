@@ -26,7 +26,7 @@ The website is split into a number of logical Django apps. See the individual ap
 
 |App                |Description                                                                 |
 |-------------------|----------------------------------------------------------------------------|
-|**core**           |Common/shared functionality and utilities, custom Django management commands, middleware, template tags, etc.|
+|**core**           |Common/shared functionality and utilities, custom Django management commands, template tags, etc.|
 |**matches**        |Handles matches, appearances and goal king and accidental tourist statistics|
 |**teams**          |Handles CSHC teams, team captains etc.|
 |**competitions**   |Handles leagues, divisions, cup competitions and seasons|

@@ -1,5 +1,7 @@
-# Django settings for cshcsite project - Cloud9 development environment
-from base import *
+""" Django settings for cshcsite project - Cloud9 development environment
+"""
+
+from cshcsite.settings.base import *
 
 ALLOWED_HOSTS = ['127.0.0.1', 'cshc-website-cshc.c9.io']
 

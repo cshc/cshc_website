@@ -1,22 +1,13 @@
-# Django settings for cshcsite project - local development environment
+""" Django settings for cshcsite project - local development environment
+"""
 
-
-from base import *
+from cshcsite.settings.base import *
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-########## EMAIL CONFIGURATION
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'cshc.club@gmail.com'
-EMAIL_HOST_PASSWORD = get_env_setting('EMAIL_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-########## END EMAIL CONFIGURATION
 
 ########## DATABASE CONFIGURATION
 #See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
