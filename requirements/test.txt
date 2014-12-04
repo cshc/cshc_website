@@ -1,5 +1,0 @@
--r base.txt
-
-# A Django test runner based on unittest2's test discovery
-# Ref: https://github.com/jezdez/django-discover-runner
-django-discover-runner==1.0
