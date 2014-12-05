@@ -22,6 +22,12 @@ DATABASES = {
     }
 }
 
+# Only specify this option for syncdb or migrate calls (for efficiency)
+# Ref: Comment on http://stackoverflow.com/a/5270072
+import sys
+if 'migrate' in sys.argv or 'syncdb' in sys.argv:
+    DATABASES['default']['OPTIONS'] = {'init_command': 'SET storage_engine=MyISAM',}
+
 ########## TOOLBAR CONFIGURATION
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 INSTALLED_APPS += (
