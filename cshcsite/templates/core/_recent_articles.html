@@ -8,8 +8,10 @@
                     <img class="article-pic" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                 {% endthumbnail %}
             {% else %}
-                {% with static_url|add:'media/placeholder.png' as img_path %}
-                    <img class="article-pic" src="{{ img_path }}" width="150" height="100">
+                {% with absolute_static_url|add:'media/placeholder.png' as img_path %}
+                    {% thumbnail img_path "150x100" crop="center" as placeholder %}
+                        <img class="article-pic" src="{{ placeholder.url }}" width="{{ placeholder.width }}" height="{{ placeholder.height }}">
+                    {% endthumbnail %}
                 {% endwith %}
             {% endif %}
         </a>
