@@ -3,15 +3,13 @@
     <li class="media">
         <a class="pull-left" title="{{ entry.title }}" href="{{ entry.get_absolute_url }}">
             {% load thumbnail %}
-            {% if entry.image %}            
+            {% if entry.image %}
                 {% thumbnail entry.image "150x100" crop="center" as im %}
                     <img class="article-pic" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                 {% endthumbnail %}
             {% else %}
-                {% with 'http://'|add:request.get_host|add:'/static/media/placeholder.png' as path %}
-                {% thumbnail path "150x100" crop="center" as im %}
-                    <img class="article-pic" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-                {% endthumbnail %}
+                {% with static_url|add:'media/placeholder.png' as img_path %}
+                    <img class="article-pic" src="{{ img_path }}" width="150" height="100">
                 {% endwith %}
             {% endif %}
         </a>

@@ -17,7 +17,7 @@ log = logging.getLogger(__name__)
 
 
 
-# Override of Zinnia's get_recent_entries tag. 
+# Override of Zinnia's get_recent_entries tag.
 # Here we include the context as we need to pass the request object
 # to the template so we can make use of the base url etc.
 @register.inclusion_tag('zinnia/tags/dummy.html', takes_context=True)
@@ -27,6 +27,7 @@ def cshc_get_recent_entries(context, number=5, template='zinnia/tags/entries_rec
     """
     return {'request': context['request'],
             'template': template,
+            'static_url': settings.STATIC_URL,
             'entries': Entry.published.all()[:number]}
 
 
