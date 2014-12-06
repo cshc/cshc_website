@@ -188,6 +188,11 @@ Tables
   height: 100%;
 }
 
+
+.fixture-list tr.future {
+    background-color: rgb(239, 239, 239);
+}
+
 /******************************************************************************
 Match Details
 */

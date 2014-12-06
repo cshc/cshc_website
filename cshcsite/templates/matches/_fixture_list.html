@@ -6,7 +6,7 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
 {% load core_tags %}
 
 {% if match_list %}
-    <table class="table table-condensed table-hover">
+    <table class="table table-condensed table-hover fixture-list">
         <thead>
             <tr>
                 <th class="priority3"></th>
@@ -24,7 +24,7 @@ Context should have a 'match_list' list of (date, MatchStats) tuples.
         <tbody>
         {% for date, matches in match_list %}
             {% for m in matches %}
-            <tr class="{{ m.match.get_fixture_type_display|lower }}">
+            <tr class="{{ m.match.get_fixture_type_display|lower }} {% if not m.match.is_in_past %}future{% endif %}">
                 <td class="priority3">
                     {% include 'matches/_fixture_icon.html' with match=m.match %}
                 </td>
