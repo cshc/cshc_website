@@ -4,7 +4,7 @@ import traceback
 from django.core.management.base import BaseCommand
 from optparse import make_option
 from core.models import CshcUser
-from _command_utils import send_welcome_email_to_user, create_password
+from command_utils import send_welcome_email_to_user, create_password
 from core.reg_utils import create_profile
 
 class Command(BaseCommand):

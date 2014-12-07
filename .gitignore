@@ -6,7 +6,6 @@ themes/classic/views/
 *.swp
 *.sqlite
 .ropeproject/
-cshcsite/cshcsite/cshc.db
 repo_release.tar.bz2
 cshcsite/*.log
 .c9/

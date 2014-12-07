@@ -1,32 +1,43 @@
+""" Various Django forms:
+
+    FlatPageForm - for creating/updating flat pages.
+    ContactSubmissionForm - for submitting 'Contact Us' form
+    UserCreationForm - creating new users
+    UserChangeForm - used for changing user's password
+"""
+
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from redactor.widgets import RedactorEditor
-from .models import ContactSubmission, CshcUser
+from core.models import ContactSubmission, CshcUser
 
 
 class FlatPageForm(forms.ModelForm):
-    """Form for the FlatPage model - uses a Redactor widget"""
+    """ Form for the FlatPage model - uses a Redactor widget"""
+
     class Meta:
+        """ Meta-info for the form. """
         model = FlatPage
         widgets = {
-            'content': RedactorEditor(redactor_options={'minHeight': 400}),
+            'content': RedactorEditor(upload_to="uploads/flatpages/",
+                                      redactor_options={'minHeight': 400}),
         }
 
 
 class ContactSubmissionForm(forms.ModelForm):
-    """Form used for the contact form"""
+    """ Form used for the contact form"""
 
     class Meta:
+        """ Meta-info for the form. """
         model = ContactSubmission
         # our_notes is only to be used by staff/admin
         exclude = ('our_notes',)
 
 
 class UserCreationForm(forms.ModelForm):
-    """
-    A form that creates a user, with no privileges, from the given email and
-    password.
+    """ A form that creates a user, with no privileges, from the given email and
+        password.
     """
     error_messages = {
         'duplicate_email': "A user with that email address already exists.",
@@ -45,6 +56,7 @@ class UserCreationForm(forms.ModelForm):
         self.fields['last_name'].required = True
 
     class Meta:
+        """ Meta-info for the form. """
         model = CshcUser
         fields = ('email', 'first_name', 'last_name')
 
@@ -75,6 +87,7 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
+    """ Used for changing the user's password. """
 
     password = ReadOnlyPasswordHashField(label="Password",
         help_text="Raw passwords are not stored, so there is no way to see "
@@ -82,13 +95,14 @@ class UserChangeForm(forms.ModelForm):
                   "using <a href=\"password/\">this form</a>.")
 
     class Meta:
+        """ Meta-info for the form. """
         model = CshcUser
 
     def __init__(self, *args, **kwargs):
         super(UserChangeForm, self).__init__(*args, **kwargs)
-        f = self.fields.get('user_permissions', None)
-        if f is not None:
-            f.queryset = f.queryset.select_related('content_type')
+        permissions = self.fields.get('user_permissions', None)
+        if permissions is not None:
+            permissions.queryset = permissions.queryset.select_related('content_type')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

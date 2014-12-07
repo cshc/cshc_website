@@ -4,7 +4,7 @@ import traceback
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from optparse import make_option
-from ._command_utils import import_csv_data
+from .command_utils import import_csv_data
 from core.models import TeamGender
 from opposition.models import Team
 from teams.models import ClubTeam
@@ -72,7 +72,7 @@ class Command(BaseCommand):
             except Season.DoesNotExist:
                 errors.append("ERROR: Could not find season {}".format(season_slug))
                 continue
-            teams = import_csv_data(os.path.join(root_folder, f), sim, TeamCsv)
+            teams = import_csv_data(os.path.join(root_folder, f), TeamCsv)
 
             pos = 0
             for team in teams:

@@ -4,6 +4,7 @@
 import logging
 from datetime import timedelta
 from django.views.generic import TemplateView, FormView
+from django.views.generic.edit import CreateView
 from django.shortcuts import render_to_response
 from django.contrib import messages
 from django.template import RequestContext
@@ -125,7 +126,7 @@ class AjaxGeneral(TemplateView):
         return super(AjaxGeneral, self).dispatch(*args, **kwargs)
 
 
-class ContactSubmissionCreateView(FormView):
+class ContactSubmissionCreateView(CreateView):
     """ This is essentially the 'Contact Us' form view. """
 
     model = ContactSubmission
@@ -175,7 +176,7 @@ class ContactSubmissionCreateView(FormView):
             self.email_to_enquirer(form)
             messages.info(self.request, "Thanks for your message. We'll be in touch shortly!")
         except:
-            LOG.warn("Failed to send contact us email")
+            LOG.warn("Failed to send contact us email", exc_info=True)
             messages.error(self.request, "Sorry - we were unable to send your message. Please try again later.")
         return super(ContactSubmissionCreateView, self).form_valid(form)
 

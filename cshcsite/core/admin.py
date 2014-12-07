@@ -1,17 +1,22 @@
+""" Configuration of Core models for the admin interface.
+"""
+
 from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
-from .forms import FlatPageForm, UserChangeForm, UserCreationForm
-from .models import ClubInfo, ContactSubmission, CshcUser
-from .blog import ZinniaEntryAdminForm, ZinniaCategoryAdminForm
 from zinnia.models import Entry, Category
 from zinnia.admin import EntryAdmin, CategoryAdmin
+from core.forms import FlatPageForm, UserChangeForm, UserCreationForm
+from core.models import ClubInfo, ContactSubmission, CshcUser
+from core.blog import ZinniaEntryAdminForm, ZinniaCategoryAdminForm
 
-# Override the provided admin interface for blog entries - simplify it a bit
-# and add support (via a custom form) for WYSIWYG entry
+
 class ZinniaEntryAdmin(EntryAdmin):
+    """ Override the provided admin interface for blog entries - simplify it a bit
+        and add support (via a custom form) for WYSIWYG entry.
+    """
     form = ZinniaEntryAdminForm
 
     fieldsets = (
@@ -24,10 +29,14 @@ class ZinniaEntryAdmin(EntryAdmin):
         (_('Templates'), {
             'fields': ('content_template', 'detail_template'),
             'classes': ('collapse', 'collapse-closed')}),
-        (None, {'fields': ('featured', 'comment_enabled', 'excerpt', 'authors', 'related', 'categories', 'tags', 'slug')}))
+        (None, {'fields': ('featured', 'comment_enabled', 'excerpt', 'authors',
+                           'related', 'categories', 'tags', 'slug')}))
+
 
 class ZinniaCategoryAdmin(CategoryAdmin):
+    """ Override the CategoryAdmin interface, specifying our own form. """
     form = ZinniaCategoryAdminForm
+
 
 admin.site.unregister(Entry)
 admin.site.register(Entry, ZinniaEntryAdmin)
@@ -38,14 +47,17 @@ admin.site.register(Category, ZinniaCategoryAdmin)
 from django_comments.models import Comment
 admin.site.unregister(Comment)
 
+
 class RedactorFlatPageAdmin(FlatPageAdmin):
-    """Override for the FlatPage admin interface - uses a Redactor widget"""
+    """ Override for the FlatPage admin interface - uses a Redactor widget"""
 
     form = FlatPageForm
     fieldsets = [
         ('None', {'fields': ['url', 'title', 'sites']}),
-        ('Advanced options', {'classes': ('collapse',), 'fields': ('enable_comments', 'registration_required', 'template_name')}),
-
+        ('Advanced options', {
+            'classes': ('collapse',),
+            'fields': ('enable_comments', 'registration_required', 'template_name')
+        }),
         ('Content', {
             'classes': ('full-width',),
             'fields': ['content']}),
@@ -53,10 +65,12 @@ class RedactorFlatPageAdmin(FlatPageAdmin):
 
 
 class ClubInfoAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the ClubInfo model. """
     list_display = ('key', 'value')
 
 
 class ContactSubmissionAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the ContactSubmission model. """
     list_display = ('full_name', 'email', 'submitted')
 
 ###############################################################################
@@ -64,6 +78,8 @@ class ContactSubmissionAdmin(admin.ModelAdmin):
 
 
 class CshcUserAdmin(UserAdmin):
+    """ Admin interface for the custom auth user model, CshcUser. """
+
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
@@ -75,7 +91,8 @@ class CshcUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                    'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
@@ -91,8 +108,8 @@ class CshcUserAdmin(UserAdmin):
 ###############################################################################
 
 # Re-register the FlatPage admin interface
-admin.site.register(CshcUser, CshcUserAdmin)
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, RedactorFlatPageAdmin)
 admin.site.register(ClubInfo, ClubInfoAdmin)
-admin.site.register(ContactSubmission)
+admin.site.register(ContactSubmission, ContactSubmissionAdmin)
+admin.site.register(CshcUser, CshcUserAdmin)

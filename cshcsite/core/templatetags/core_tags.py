@@ -1,3 +1,6 @@
+""" Common template tags.
+"""
+
 import logging
 from datetime import date
 from itertools import groupby
@@ -13,7 +16,7 @@ from core.models import ClubInfo
 
 register = template.Library()
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 def get_absolute_static_url(request):
@@ -36,9 +39,7 @@ def get_absolute_static_url(request):
 # to the template so we can make use of the base url etc.
 @register.inclusion_tag('zinnia/tags/dummy.html', takes_context=True)
 def cshc_get_recent_entries(context, number=5, template='zinnia/tags/entries_recent.html'):
-    """
-    Return the most recent entries.
-    """
+    """ Return the most recent blog entries. """
     return {'request': context['request'],
             'template': template,
             'absolute_static_url': get_absolute_static_url(context['request']),
@@ -92,7 +93,7 @@ def obfuscate(email, linktext=None, autoescape=None):
         email = re.sub('@', '\\\\100', re.sub('\.', '\\\\056',
                        esc(email))).encode('rot13')
     except TypeError:
-        log.warn("Failed to obfuscate email address")
+        LOG.warn("Failed to obfuscate email address")
         email = ''
 
     if linktext:
@@ -127,9 +128,9 @@ class NavSelectedNode(template.Node):
 
     def render(self, context):
         path = context['request'].path
-        for p in self.patterns:
-            pValue = template.Variable(p).resolve(context)
-            if path == pValue:
+        for pattern in self.patterns:
+            p_value = template.Variable(pattern).resolve(context)
+            if path == p_value:
                 return "active"
         return ""
 
@@ -186,7 +187,7 @@ def event_calendar(parser, token):
     try:
         tag_name, year, month, event_list = token.split_contents()
     except ValueError:
-        log.error("Failed to parse token")
+        LOG.error("Failed to parse token")
         raise template.TemplateSyntaxError, "%r tag requires three arguments" % token.contents.split()[0]
     return EventCalendarNode(year, month, event_list)
 
@@ -210,27 +211,27 @@ class EventCalendarNode(template.Node):
             try:
                 my_event_list = self.event_list.resolve(context)
             except template.VariableDoesNotExist:
-                log.error("event_list does not exist")
+                LOG.error("event_list does not exist")
                 return
             try:
                 my_year = self.year.resolve(context)
             except template.VariableDoesNotExist:
-                log.error("year does not exist")
+                LOG.error("year does not exist")
                 return
             try:
                 my_month = self.month.resolve(context)
             except template.VariableDoesNotExist:
-                log.error("month does not exist")
+                LOG.error("month does not exist")
                 return
         except ValueError:
-            log.error("ValueError", exc_info=True)
+            LOG.error("ValueError", exc_info=True)
             return
         try:
-            #log.debug("Creating EventCalendar. year = {}, month = {}, event_list = {}".format(my_year, my_month, my_event_list))
+            #LOG.debug("Creating EventCalendar. year = {}, month = {}, event_list = {}".format(my_year, my_month, my_event_list))
             cal = EventCalendar(my_event_list)
             return mark_safe(cal.formatmonth(int(my_year), int(my_month)))
         except:
-            log.error("Unexpected exception", exc_info=True)
+            LOG.error("Unexpected exception", exc_info=True)
             return
 
 
@@ -261,7 +262,7 @@ class EventCalendar(HTMLCalendar):
             elif weekday == 6:
                 return "<th class='sun'>S</th>"
         except:
-            log.error("Failed to formatweekday {}".format(weekday))
+            LOG.error("Failed to formatweekday {}".format(weekday))
 
     def formatday(self, day, weekday):
         if day != 0:
@@ -315,7 +316,7 @@ def disqus_config(user):
     try:
         return get_disqus_sso(user)
     except:
-        log.error("Unable to get disqus sso info for user.", exc_info=True)
+        LOG.error("Unable to get disqus sso info for user.", exc_info=True)
         return
 
 # TEMP - until this is provided by the django-disqus app
@@ -332,6 +333,7 @@ def get_config(context):
             output.append('\tvar %s = "%s";' % (item, context[item]))
     return '\n'.join(output)
 
+@register.inclusion_tag('disqus/recent_comments.html', takes_context=True)
 def cshc_disqus_recent_comments(context, shortname='', num_items=5, excerpt_length=200, hide_avatars=0, avatar_size=32):
     """
     Return the HTML/js code which shows recent comments.
@@ -348,8 +350,6 @@ def cshc_disqus_recent_comments(context, shortname='', num_items=5, excerpt_leng
         'config': get_config(context),
     }
 
-register.inclusion_tag('disqus/recent_comments.html', takes_context=True)(cshc_disqus_recent_comments)
-
 
 ############################################################################################
 # ADMIN INTERACE SUPPORT
@@ -362,7 +362,7 @@ def instance_admin_links(context, model, change=True, add=False, changelist=Fals
         content_type = ContentType.objects.get_for_model(model)
         return AdminLinksCreator(content_type.app_label, content_type.name, content_type.model, model.pk, change, add, changelist).render(context)
     except:
-        log.error("Failed to render instance_admin_links", exc_info=True)
+        LOG.error("Failed to render instance_admin_links", exc_info=True)
 
 
 @register.inclusion_tag('core/_admin_link.html', takes_context=True)
@@ -373,7 +373,7 @@ def model_admin_links(context, app_label, model_name, add=True, changelist=True)
         content_type = ContentType.objects.get(app_label=app_label, model=model_name)
         return AdminLinksCreator(content_type.app_label, content_type.name, content_type.model, None, False, add, changelist).render(context)
     except:
-        log.error("Failed to render model_admin_links", exc_info=True)
+        LOG.error("Failed to render model_admin_links", exc_info=True)
 
 
 class AdminLinksCreator(object):

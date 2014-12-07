@@ -1,4 +1,13 @@
-from datetime import datetime, timedelta
+""" Management command that automates tasks that need to run on a
+    periodic basis (typically daily).
+
+    This command is run on the production site by a cronjob.
+
+    Usage:
+    python manage.py nightly_tasks
+"""
+
+from datetime import timedelta
 from django.utils import timezone
 from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
@@ -15,6 +24,10 @@ from training.models import TrainingSession
 # cron 0 2 * * * python /home/rgagarrett/new_site/repo/cshcsite/manage.py nightly_tasks >/dev/null
 
 class Command(BaseCommand):
+    """ Management command to execute various tasks that need to be run
+        each day.
+    """
+
     def handle(self, *args, **options):
         errors = []
         season = Season.current()
@@ -23,25 +36,25 @@ class Command(BaseCommand):
             # Update goal king
             GoalKing.update_for_season(season)
         except Exception as e:
-            errors.add("Failed to update Goal-King: {}".format(e))
+            errors.append("Failed to update Goal-King: {}".format(e))
 
         try:
             # Update Southerners league
             update_southerners_stats_for_season(season)
         except Exception as e:
-            errors.add("Failed to update Southerners League: {}".format(e))
+            errors.append("Failed to update Southerners League: {}".format(e))
 
         try:
             # Update opposition stats
             update_all_club_stats()
         except Exception as e:
-            errors.add("Failed to update Opposition Club Stats: {}".format(e))
+            errors.append("Failed to update Opposition Club Stats: {}".format(e))
 
         try:
             # Update ClubTeamSeasonParticipation stats
             update_participation_stats_for_season(season)
         except Exception as e:
-            errors.add("Failed to update Club Team Season Participation Stats: {}".format(e))
+            errors.append("Failed to update Club Team Season Participation Stats: {}".format(e))
 
         # Scrape league tables
         participations = ClubTeamSeasonParticipation.objects.current().select_related('team', 'division')
@@ -54,14 +67,14 @@ class Command(BaseCommand):
                 except Exception as e:
                     print "Failed to parse league table: {}".format(e)
             except Exception as e:
-                errors.add("Failed to scrape league table from {}: {}".format(participation.division_tables_url, e))
+                errors.append("Failed to scrape league table from {}: {}".format(participation.division_tables_url, e))
 
         try:
             # Delete all training session entries from before yesterday (we don't care about
             # training sessions in the past)
             self.purge_training_sessions()
         except Exception as e:
-            errors.add("Failed to purge training sessions: {}".format(e))
+            errors.append("Failed to purge training sessions: {}".format(e))
 
         if errors:
             send_mail("Nightly build task failed", "\n".join(errors), 'website@cambridgesouthhockeyclub.co.uk', ['website@cambridgesouthhockeyclub.co.uk'])

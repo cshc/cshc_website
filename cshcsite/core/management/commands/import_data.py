@@ -13,7 +13,7 @@ from training.models import TrainingSession
 from venues.models import Venue
 from teams.models import TeamCaptaincy, ClubTeam, ClubTeamSeasonParticipation
 from members.models import Member
-from ._command_utils import import_csv_data
+from .command_utils import import_csv_data
 
 IMPORT_DIR = 'import'
 
@@ -135,7 +135,7 @@ class Command(BaseCommand):
     def import_team_captains(sim):
         filename = 'team_captains.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
-        captains = import_csv_data(file_path, sim, TeamCaptainCsv)
+        captains = import_csv_data(file_path, TeamCaptainCsv)
 
         if not sim:
             # Start with a blank canvas
@@ -158,7 +158,7 @@ class Command(BaseCommand):
     def import_team_div_part(sim):
         filename = 'team_div_part.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
-        div_parts = import_csv_data(file_path, sim, DivPartCsv)
+        div_parts = import_csv_data(file_path, DivPartCsv)
 
         for div_part in div_parts:
             team = ClubTeam.objects.get(slug=div_part.team)
@@ -180,7 +180,7 @@ class Command(BaseCommand):
     def import_end_of_season_awards(sim):
         filename = 'end_of_season_awards.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
-        awards = import_csv_data(file_path, sim, AwardsCsv)
+        awards = import_csv_data(file_path, AwardsCsv)
 
         for award in awards:
             try:
@@ -221,7 +221,7 @@ class Command(BaseCommand):
     def import_training_sessions(sim):
         filename = 'training.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
-        sessions = import_csv_data(file_path, sim, TrainingSessionCsv)
+        sessions = import_csv_data(file_path, TrainingSessionCsv)
 
         for session in sessions:
             venue = Venue.objects.get(short_name=session.venue)
@@ -239,7 +239,7 @@ class Command(BaseCommand):
     def import_venue_details(sim):
         filename = 'venues.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
-        venue_details = import_csv_data(file_path, sim, VenueCsv)
+        venue_details = import_csv_data(file_path, VenueCsv)
 
         for details in venue_details:
             try:
@@ -270,7 +270,7 @@ class Command(BaseCommand):
     def import_club_details(sim):
         filename = 'club_details.csv'
         file_path = os.path.join(settings.SITE_ROOT, IMPORT_DIR, filename)
-        club_details = import_csv_data(file_path, sim, ClubCsv)
+        club_details = import_csv_data(file_path, ClubCsv)
 
         for details in club_details:
             try:

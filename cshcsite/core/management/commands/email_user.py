@@ -1,14 +1,24 @@
 #!/usr/bin/env python
 # -*-encoding: utf-8-*-
+
+""" Various utility management commands for emailing users.
+
+    Usage:
+    - Send a welcome email to a user:
+        python manage.py email_user -w <email>
+"""
+
 import traceback
-from django.core.management.base import BaseCommand
 from optparse import make_option
+from django.core.management.base import BaseCommand
 from core.models import CshcUser
-from _command_utils import send_welcome_email_to_user, create_password
+from core.management.commands.command_utils import send_welcome_email_to_user, create_password
 from core.reg_utils import create_profile
 
 
 class Command(BaseCommand):
+    """ Management command for emailing users. """
+
     option_list = BaseCommand.option_list + (
         make_option('--sim',
                     action='store_true',
@@ -46,6 +56,3 @@ class Command(BaseCommand):
             reg_profile = create_profile(user, sim)
             # Email the user with their new password
             send_welcome_email_to_user(reg_profile, password, sim)
-
-
-
