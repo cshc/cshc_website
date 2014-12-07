@@ -10,6 +10,7 @@
 {% url 'venue_detail' 'long-road' as long_road_url %}
 {% url 'venue_detail' 'wilberforce-road' as uni_url %}
 {% url 'calendar' as calendar %}
+{% url 'trainingsession_create' as create_training_session %}
 
 {% get_clubinfo 'SecretaryName' as sec_name %}
 {% get_clubinfo 'InSeason' as in_season %}
@@ -98,6 +99,9 @@
             <h3 id="next-training">Next Training</h3>
         </div>
         {% include 'training/_next_training.html' %}
+        {% if perms.training.add_trainingsession %}
+            <a href="{{ create_training_session }}" title="Add training sessions"><label class="btn btn-default">Add training sessions</label></a>
+        {% endif %}
     </div>
     <div class="span5">
         <div class="well">

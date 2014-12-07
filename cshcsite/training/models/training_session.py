@@ -52,7 +52,7 @@ class TrainingSession(models.Model):
     duration_mins = models.PositiveSmallIntegerField("Duration (minutes)", default=120)
     """The duration, in minutes, of the training session"""
 
-    status = StatusField()
+    status = StatusField(default=STATUS.Scheduled)
     """The status of the training session (e.g. cancelled/scheduled)"""
 
     objects = PassThroughManager.for_queryset_class(TrainingSessionQuerySet)()

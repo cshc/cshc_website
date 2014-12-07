@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% load core_tags staticfiles %}
+{% block title %}{{ block.super }} | Add training sessions{% endblock %}
+
+{% block link %}
+{{ block.super }}
+<link href="{{ STATIC_URL }}css/training.css" rel="stylesheet" >
+{% endblock %}
+
+{% block content %}
+
+{% url 'upcoming_trainingsession_list' as upcoming_trainingsession_list %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li><a href="{{ upcoming_trainingsession_list }}">Training</a> <span class="divider">/</span></li>
+  <li class="active">Add</li>
+</ul>
+
+<div class="page-header">
+  <h1>Add training sessions<span class="pull-right">
+    {% model_admin_links 'training' 'trainingsession' %}</span></h1>
+  </div>
+
+  <div class="row">
+
+    <div class="span12">
+      <p class="lead">Use this form to add multiple/repeat training sessions.</p>
+      <form action="" method="post" class="form-horizontal">
+        {{ form.non_field_errors }}
+        {% csrf_token %}
+        <div class="control-group">
+          {{ form.venue.errors }}
+          <label class="control-label" for="{{ form.venue.id_for_label }}">Venue</label>
+          <div class="controls">
+            {{ form.venue }}
+          </div>
+        </div>
+        <div class="control-group">
+          {{ form.description.errors }}
+          <label class="control-label" for="{{ form.description.id_for_label }}">Description</label>
+          <div class="controls">
+            {{ form.description }}
+          </div>
+        </div>
+        <div class="control-group">
+          {{ form.datetime.errors }}
+          <label class="control-label" for="{{ form.datetime.id_for_label }}">Date/time</label>
+          <div class="controls">
+            <input id="id_datetime_0" name="datetime_0" type="date">
+            <input id="id_datetime_1" name="datetime_1" type="time">
+          </div>
+        </div>
+        <div class="control-group">
+          {{ form.duration_mins.errors }}
+          <label class="control-label" for="{{ form.duration_mins.id_for_label }}">Duration (minutes)</label>
+          <div class="controls">
+            {{ form.duration_mins }}
+          </div>
+        </div>
+        <div class="control-group">
+          {{ form.repeat.errors }}
+          <label class="control-label" for="{{ form.repeat.id_for_label }}">Repeat</label>
+          <div class="controls">
+            {{ form.repeat }}
+            <div id="repeat_config">
+              {{ form.repeat_option.errors }}
+              <div id="rep-multiple" class="rep-option">
+                {{ form.repeat_count.errors }}
+                <input id="id_repeat_option_0" name="repeat_option" type="radio" value="M">
+                &nbsp;{{ form.repeat_count }} times
+              </div>
+              <div id="rep-until" class="rep-option">
+                {{ form.repeat_until.errors }}
+                <input id="id_repeat_option_1" name="repeat_option" type="radio" value="U">
+                &nbsp;Until <input id="id_repeat_until" name="repeat_until" type="date">
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn">Submit</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+
+  {% endblock %}
+
+  {% block body_js %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static "js/training.js" %}"></script>
+  {% endblock %}

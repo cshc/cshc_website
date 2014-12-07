@@ -1,0 +1,9 @@
+#id_venue { width: 314px; }
+#id_duration_mins { width: 40px; }
+#id_description { width: 300px; }
+#id_repeat_count { width: 40px; }
+#id_repeat_until { width: 130px; }
+#id_datetime_0 { width: 130px; }
+#id_datetime_1 { width: 70px; }
+
+.rep-option { margin: 10px 0;}

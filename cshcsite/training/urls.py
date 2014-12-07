@@ -17,6 +17,12 @@ urlpatterns = patterns('',
         name="trainingsession_detail"
     ),
 
+    # E.g. '/training/add/'                 - Form for adding new training sessions
+    url(r'^add/$',
+        views.TrainingSessionFormView.as_view(),
+        name="trainingsession_create"
+    ),
+
     # E.g. '/training/cshc_training.ics'    - Automatically generated ical calendar feed of training sessions
     url(r'^cshc_training.ics$',
         feeds.TrainingSessionICalFeed(),
