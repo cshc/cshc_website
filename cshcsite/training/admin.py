@@ -7,6 +7,8 @@ from training.models import TrainingSession
 
 class TrainingSessionAdmin(admin.ModelAdmin):
     """Admin interface for a training session"""
+    search_fields = ('venue__name', 'description')
+    list_filter = ('venue',)
     list_display = ('__unicode__', 'description', 'venue', 'datetime', 'duration_mins')
 
 

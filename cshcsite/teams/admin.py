@@ -18,7 +18,9 @@ class TeamCaptaincyInline(admin.TabularInline):
 class TeamCaptaincyAdmin(admin.ModelAdmin):
     """ Admin interface for the TeamCaptaincy model. """
     list_display = ('member', 'team', 'season', 'start', 'is_vice')
-    search_fields = ('member', 'team', 'season')
+    search_fields = ('member__first_name', 'member__last_name',
+                     'team__short_name', 'team__long_name',
+                     'season__slug')
     list_filter = ('season', 'is_vice', 'team')
 
 
@@ -38,7 +40,7 @@ class ClubTeamSeasonParticipationAdmin(admin.ModelAdmin):
         the admin interface!
     """
     form = ClubTeamSeasonParticipationForm
-    search_fields = ('team__name', 'division__name')
+    search_fields = ('team__short_name', 'team__long_name', 'division__name')
     list_filter = ('team', 'season')
     list_display = ('__unicode__', 'team', 'season', 'division', 'division_tables_url',
                     'final_pos', 'division_result')
