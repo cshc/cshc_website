@@ -37,6 +37,7 @@ path.append(DJANGO_ROOT)
 
 
 ########## DEBUG CONFIGURATION
+
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = False
 
@@ -174,7 +175,6 @@ MIDDLEWARE_CLASSES = (
     'django_mobile.middleware.SetFlavourMiddleware',
     'pagination.middleware.PaginationMiddleware',
     'maintenancemode.middleware.MaintenanceModeMiddleware',
-    #'core.middleware.SSLRedirect',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -475,9 +475,9 @@ if not DEBUG:
     AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
-    DEFAULT_FILE_STORAGE = 'cshcsite.views.FixedDefaultStorage'
+    DEFAULT_FILE_STORAGE = 'cshcsite.util.FixedDefaultStorage'
     DEFAULT_S3_PATH = "media"
-    STATICFILES_STORAGE = 'cshcsite.views.FixedStaticStorage'
+    STATICFILES_STORAGE = 'cshcsite.util.FixedStaticStorage'
     STATIC_S3_PATH = "static"
     MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
     MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
@@ -524,3 +524,10 @@ REDACTOR_JS = [
     'http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
     STATIC_URL + 'redactor/redactor.js',
 ]
+
+import uuid
+def make_unique_filename(filename):
+    ext = filename.split('.')[-1]
+    return "%s.%s" % (uuid.uuid4(), ext)
+
+REDACTOR_GENERATE_FILENAME = make_unique_filename

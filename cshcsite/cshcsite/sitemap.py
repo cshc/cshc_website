@@ -1,3 +1,11 @@
+"""
+    This module defines the sitemaps for ALL apps in the CSHC website.
+    Ref: https://docs.djangoproject.com/en/1.6/ref/contrib/sitemaps/
+
+    The sitemap is split into sections, each of which is referenced by
+    the sitemap index. See definition of 'CshcSitemap' below for details.
+"""
+
 from django.contrib.sitemaps import Sitemap, FlatPageSitemap
 from django.core.urlresolvers import reverse
 from zinnia.sitemaps import TagSitemap
@@ -12,13 +20,6 @@ from teams.models import ClubTeam
 from training.models import TrainingSession
 from venues.models import Venue
 
-"""
-    This module defines the sitemaps for ALL apps in the CSHC website.
-    Ref: https://docs.djangoproject.com/en/1.6/ref/contrib/sitemaps/
-
-    The sitemap is split into sections, each of which is referenced by
-    the sitemap index. See definition of 'CshcSitemap' below for details.
-"""
 
 class SeasonalSitemap(Sitemap):
     """ Utility abstract sitemap class.
@@ -47,8 +48,8 @@ class MainStaticViewSitemap(Sitemap):
         return [
             'homepage', 'about_us', 'calendar', 'contact_us', 'commission', 'members_offers',
             'directions', 'about_social', 'about_kit', 'about_fees', 'stats', 'user_profile',
-            'registration_register', 'member_list', 'clubteam_list', 'upcoming_trainingsession_list',
-            'venue_list',
+            'registration_register', 'member_list', 'clubteam_list',
+            'upcoming_trainingsession_list', 'venue_list',
         ]
 
     def location(self, item):

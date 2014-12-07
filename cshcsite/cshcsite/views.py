@@ -1,6 +1,7 @@
-import logging
+""" Django views that don't fit nicely into one of the other apps.
+"""
+
 from django.views.generic import TemplateView
-from django.conf import settings
 from core.views import get_season_from_kwargs, add_season_selector
 from core.models import ClubInfo, TeamGender
 from competitions.models import Season
@@ -9,11 +10,9 @@ from training.views import UpcomingTrainingSessionsView
 from members.models import CommitteeMembership
 from venues.models import Venue
 
-log = logging.getLogger(__name__)
-
 
 class HomeView(TemplateView):
-    """The main home page of the Cambridge South Hockey Club website"""
+    """ The main home page of the Cambridge South Hockey Club website. """
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
@@ -42,21 +41,15 @@ class HomeView(TemplateView):
         return context
 
 
-class AboutUsView(TemplateView):
-    """Background and History"""
-    template_name = 'core/about_us.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(AboutUsView, self).get_context_data(**kwargs)
-
-        return context
-
-
 class CalendarView(TemplateView):
-    template_name='core/calendar.html'
+    """ Displays an embedded Google Calendar view of the various fixtures, social events
+        and training sessions for the current season.
+    """
+    template_name = 'core/calendar.html'
 
     def get_context_data(self, **kwargs):
-        # Tip: Login to google calendar cshc.club@gmail.com (password in 'Account Details' Google Doc) to get these addresses
+        # Tip: Login to google calendar cshc.club@gmail.com (password in 'Account
+        # Details' Google Doc) to get these addresses
         context = super(CalendarView, self).get_context_data(**kwargs)
         context['l1_gcal'] = '3r9qabjcbhh6jmfksbd3rdhldq41ss2s@import.calendar.google.com'
         context['l2_gcal'] = '2vkrhsi8la89bbc88gbvka8o0phmgdq1@import.calendar.google.com'
@@ -74,14 +67,10 @@ class CalendarView(TemplateView):
 
 
 class CommitteeSeasonView(TemplateView):
-    """View for displaying the Club Committee members for a particular season"""
+    """ View for displaying the Club Committee members for a particular season. """
     template_name = 'core/committee.html'
 
     def get_context_data(self, **kwargs):
-        """
-        Gets the context data for the view.
-
-        """
         context = super(CommitteeSeasonView, self).get_context_data(**kwargs)
 
         # If we're viewing this season's committee we may not have a season_slug keyword arg.
@@ -135,40 +124,14 @@ class CommitteeSeasonView(TemplateView):
 
 
 class FeesView(TemplateView):
-    """ View for displaying information about fees. Includes travel re-imbursement for away venues.
+    """ Display information about fees. Includes travel re-imbursement for away venues.
     """
-    template_name='core/fees.html'
+    template_name = 'core/fees.html'
 
     def get_context_data(self, **kwargs):
-        """
-        Gets the context data for the view.
-
-        """
         context = super(FeesView, self).get_context_data(**kwargs)
 
-        venues = Venue.objects.away_venues().only('name', 'distance')
+        venues = Venue.objects.away_venues().only('id', 'slug', 'name', 'distance')
         context['venues'] = venues
         return context
-
-
-# Fix for S3 path being incorrect:
-# Ref: http://code.larlet.fr/django-storages/issue/121/s3boto-admin-prefix-issue-with-django-14
-# Github issue #42
-from s3_folder_storage.s3 import StaticStorage, DefaultStorage
-
-class FixedStaticStorage(StaticStorage):
-
-    def url(self, name):
-        url = super(FixedStaticStorage, self).url(name)
-        if name.endswith('/') and not url.endswith('/'):
-            url += '/'
-        return url
-
-class FixedDefaultStorage(DefaultStorage):
-
-    def url(self, name):
-        url = super(FixedDefaultStorage, self).url(name)
-        if name.endswith('/') and not url.endswith('/'):
-            url += '/'
-        return url
 

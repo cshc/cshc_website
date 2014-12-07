@@ -1,3 +1,9 @@
+""" The starting point for URL routing for the whole CSHC site.
+
+    URL routing for other apps are delegated from here using the
+    'include' call.
+"""
+
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.contrib import admin
@@ -8,20 +14,14 @@ from members.views import ProfileView
 from .sitemap import CshcSitemap
 from . import views
 
+# Automatically load the INSTALLED_APPS admin.py modules.
 admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    # Redirects from the old website
-    url(r'^pages/', include('core.redirect_urls')),
-
     url(r'^$', views.HomeView.as_view(), name='homepage'),                                              # The main landing page
-    url(r'^about/$', views.AboutUsView.as_view(), name='about_us'),                                     # About Us
 
-    # Zinnia blog
-    # Ref: http://docs.django-blog-zinnia.com/
-    url(r'^blog/', include('zinnia.urls', namespace="zinnia")),
-
+    url(r'^about/$',                  TemplateView.as_view(template_name='core/about_us.html'), name='about_us'),                                     # About Us
     url(r'^calendar/$',               views.CalendarView.as_view(),  name='calendar'),
     url(r'^contact/$',                ContactSubmissionCreateView.as_view(),  name='contact_us'),
     url(r'^commission/$',             TemplateView.as_view(template_name='core/commission.html'),  name='commission'),
@@ -31,18 +31,13 @@ urlpatterns = patterns('',
     url(r'^about/social/$',           TemplateView.as_view(template_name='core/social.html'), name='about_social'),
     url(r'^about/kit/$',              TemplateView.as_view(template_name='core/kit.html'), name='about_kit'),
     url(r'^about/fees/$',             views.FeesView.as_view(), name='about_fees'),
-    # E.g. '/about/committee/'
-    url(r'^about/committee/$',
-        views.CommitteeSeasonView.as_view(),
-        name="about_committee"
-    ),
 
+    url(r'^about/committee/$',        views.CommitteeSeasonView.as_view(), name="about_committee"),
     # E.g. '/about/committee/2011-2012/'
     url(r'^about/committee/(?P<season_slug>[-\w]+)/$',
         views.CommitteeSeasonView.as_view(),
         name="about_committee_season"
     ),
-
 
     url(r'^stats/$',                  TemplateView.as_view(template_name='core/stats.html'), name='stats'),
 
@@ -71,11 +66,17 @@ urlpatterns = patterns('',
     url(r'^accounts/register/$', RegistrationView.as_view(), name='registration_register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
 
+    # WYSIWYG editor urls (used for image and file uploads)
     url(r'^redactor/', include('redactor.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    # Zinnia blog
+    # Ref: http://docs.django-blog-zinnia.com/
+    url(r'^blog/', include('zinnia.urls', namespace="zinnia")),
+
     url(r'^admin/', include(admin.site.urls)),
+
+    # Redirects from the old website
+    url(r'^pages/', include('core.redirect_urls')),
 
     # Sitemap (indexed)
     url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.index', {'sitemaps': CshcSitemap}),
