@@ -22,7 +22,7 @@ TIME_INPUT_FORMATS = ['%H:%M']
 class TrainingSessionForm(forms.Form):
     """ A custom form for adding multiple training sessions. """
     venue = forms.ModelChoiceField(queryset=Venue.objects.home_venues())
-    description = forms.CharField(min_length=2, max_length=200, initial='Whole club training')
+    description = forms.CharField(min_length=2, max_length=200)
     duration_mins = forms.IntegerField(min_value=10, max_value=480, initial=90)  # Prevent silly numbers
     datetime = forms.SplitDateTimeField(input_date_formats=DATE_INPUT_FORMATS,
                                         input_time_formats=TIME_INPUT_FORMATS, initial=datetime.now())
