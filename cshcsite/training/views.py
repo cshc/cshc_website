@@ -6,6 +6,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, FormView
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.db import transaction
 from braces.views import SelectRelatedMixin, LoginRequiredMixin, PermissionRequiredMixin
 from training.models import TrainingSession
 from training.forms import TrainingSessionForm, REPEAT_CHOICES
@@ -48,8 +49,9 @@ class TrainingSessionFormView(LoginRequiredMixin, PermissionRequiredMixin, FormV
 
     def form_valid(self, form):
         try:
-            sessions = form.save_training_sessions()
-            messages.info(self.request, "Saved {} new training session{}".format(len(sessions), "s" if len(sessions) > 1 else ""))
+            with transaction.atomic():
+                sessions = form.save_training_sessions()
+                messages.info(self.request, "Saved {} new training session{}".format(len(sessions), "s" if len(sessions) > 1 else ""))
         except Exception as e:
             LOG.error("Failed to save training sessions: {}".format(e), exc_info=True)
             messages.error(self.request, "Failed to save training sessions. Please check the details.")
