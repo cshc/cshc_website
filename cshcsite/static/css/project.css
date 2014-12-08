@@ -404,6 +404,7 @@ Page-specific
 #home #comments, #home #articles { overflow: hidden;}
 #home #articles a.details { float: right; display: block;}
 #home #articles .article-pic { width: 150px; height: 100px;}
+#home #widget-recents {margin-top: 20px;}
 
 #contact-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
 #contact-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }

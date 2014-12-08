@@ -1,6 +1,6 @@
 /* Main Slider
 -------------------------------------------------- */
-#feature-row {
+#feature_slider #feature-row {
     height: 440px;
 }
 
@@ -27,7 +27,7 @@
     font-size: 14px;
     margin: 0 0 20px;
 }
-#pagination {
+#feature_slider #pagination {
     position: relative; /* GBM */
     top: 420px;         /* GBM */
     z-index: 3;
@@ -36,13 +36,13 @@
     display: none;
     list-style-type: none;
 }
-#pagination li {
+#feature_slider #pagination li {
     text-indent: -99999em;
     float: left;
     padding: 0 6px;
     cursor: pointer;
 }
-#pagination li a {
+#feature_slider #pagination li a {
     width: 7px;
     height: 7px;
     box-shadow: 0px 0px 1px 2px #ccc;
@@ -55,17 +55,17 @@
     -moz-transition: opacity .1s linear;
     transition: opacity .1s linear;
 }
-#pagination li.active a {
+#feature_slider #pagination li.active a {
     background: rgb(46, 92, 177);
     box-shadow: none;
     width: 8px;
     height: 8px;
 }
 
-#pagination li:hover a {
+#feature_slider #pagination li:hover a {
     opacity: 1;
 }
-.slide {
+#feature_slider .slide {
     width: 100%;
     /*height: 720px;*/      /* GBM */
     height: 400px;
@@ -78,21 +78,21 @@
          -o-background-size: cover !important;
             background-size: cover !important;
 }
-.slide.previous {
+#feature_slider .slide.previous {
     z-index: 1;
 }
-.slide.active {
+#feature_slider .slide.active {
     z-index: 2;
 }
-.slide.hiddden {
+#feature_slider .slide.hiddden {
     display: none;
 }
 
-.slide .info .inner-box {
+#feature_slider .slide .info .inner-box {
     padding: 20px;
 }
 
-.slide .info h2 {
+#feature_slider .slide .info h2 {
     text-align: center;
     color: #fff;
     font-size: 250%;
@@ -101,21 +101,21 @@
     margin-bottom: 30px;
 }
 
-.slide .info p, .slide .info li  {
+#feature_slider .slide .info p, .slide .info li  {
     color: #B8EABA;
     font-size: 120%;
 }
 
-.slide .info li {
+#feature_slider .slide .info li {
     margin-bottom: 1em;
 }
 
-.slide img {
+#feature_slider .slide img {
     width: 60%;
     height: 400px;
 }
 
-.slide .info a {
+#feature_slider .slide .info a {
     color: #fff;
     font-weight: bold;
     background-color: #2a205d;
@@ -133,59 +133,59 @@
 
 /* Slide 1 */
 
-.slide#slide-social .info {
+#feature_slider .slide#slide-social .info {
     /*position: absolute;*/
     width: 40%;
     display: none;
     z-index: 10;
 }
-.slide#slide-social .info h2 {    
+#feature_slider .slide#slide-social .info h2 {
 }
-.slide#slide-social .info p {
+#feature_slider .slide#slide-social .info p {
 }
-.slide#slide-social img {
+#feature_slider .slide#slide-social img {
     float: right;
 }
 
 /* Slide 2 */
-.slide#slide-training .info {
+#feature_slider .slide#slide-training .info {
     width: 40%;
     float: right;
 }
-.slide#slide-training .info h2 {
+#feature_slider .slide#slide-training .info h2 {
 }
-.slide#slide-training .info p {
+#feature_slider .slide#slide-training .info p {
 }
-.slide#slide-training img {
+#feature_slider .slide#slide-training img {
     float: left;
 }
 
 /* Slide 3 */
-.slide#slide-join .info {
+#feature_slider .slide#slide-join .info {
     /*position: absolute;*/
     width: 40%;
 }
-.slide#slide-join .info h2 {
+#feature_slider .slide#slide-join .info h2 {
 }
-.slide#slide-join img {
+#feature_slider .slide#slide-join img {
     float: right;
 }
 
-.slide .info h2 { }
-.slide .info {
+#feature_slider .slide .info h2 { }
+#feature_slider .slide .info {
     display: none;
     z-index: 10;
 }
-.slide .info a:hover {
+#feature_slider .slide .info a:hover {
     opacity: .8;
 }
-.asset,
-.fade {
+#feature_slider #feature_slider .asset,
+#feature_slider .fade {
     /*position: absolute;*/
     display: none;
 }
-#slide-left,
-#slide-right {
+#feature_slider #slide-left,
+#feature_slider #slide-right {
     width: 31px;
     height: 37px;
     display: block;
@@ -200,12 +200,12 @@
     display: none;
     z-index: 2;
 }
-#slide-right {
+#feature_slider #slide-right {
     left: auto;
     right: 0;
     background-position: -31px 0;
 }
-#slide-left:hover,
-#slide-right:hover {
+#feature_slider #slide-left:hover,
+#feature_slider #slide-right:hover {
     opacity: 1;
 }
