@@ -33,6 +33,9 @@ SITE_NAME = 'CSHC'
 # Add our project to our pythonpath, this way we don't need to type our project
 # name in our dotted import paths:
 path.append(DJANGO_ROOT)
+
+VERSION = open(normpath(join(SITE_ROOT, '..', 'version.txt'))).read().lstrip('v').rstrip()
+
 ########## END PATH CONFIGURATION
 
 
@@ -147,6 +150,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
     'django_mobile.context_processors.flavour',
+    'core.context_processors.utils',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders

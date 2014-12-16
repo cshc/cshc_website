@@ -6,7 +6,7 @@
 <link href="{{ STATIC_URL }}clean_canvas/css/lib/animate.css" media="screen, projection" rel="stylesheet" >
 <link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "css/zinnia/screen.css" %}" />
 <link rel="stylesheet" type="text/css" media="print" href="{% static "css/zinnia/print.css" %}" />
-<link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/index.css?v={{ VERSION }}" />
 {% endblock link %}
 
 {% block title %}{{ block.super }} | Home{% endblock %}

@@ -11,6 +11,7 @@
     5 men''s teams, 2 ladies teams, a mixed team and an indoor team mean there is something for everyone.{% endblock meta_desc %}">
     <meta name="keywords" content="{% block meta_keywords %}Hockey, sport, men, ladies, cambridge, mixed, indoor, umpiring, training{% endblock meta_keywords %}">
     <meta name="author" content="{% block meta_author %}Graham McCulloch{% endblock meta_author %}">
+    <meta name="version" content="{{ VERSION }}">
     {% block meta %}{% endblock meta %}
 
     {% block link %}
@@ -28,7 +29,7 @@
     {# Theme - Clean Canvas #}
     <link href="{{ STATIC_URL }}clean_canvas/css/theme.css" rel="stylesheet" >
     <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/project.css?v=1_1" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/project.css?v={{ VERSION }}" rel="stylesheet">
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon.png" />
@@ -148,7 +149,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}clean_canvas/js/theme.js"></script>
-    <script src="{{ STATIC_URL }}js/project.js?v=1_1"></script>
+    <script src="{{ STATIC_URL }}js/project.js?v={{ VERSION }}"></script>
     {% endblock body_js %}
   </body>
 </html>
