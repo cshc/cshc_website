@@ -34,4 +34,4 @@ A User may request (via a button on their profile page) that their corresponding
 
 ### Admin Interface
 
-You can add/edit/remove members, squad membership and committee positions and memberships through the [admin interface](http://www.cambridgesouthhockeyclub.co.uk/admin/members/).
+You can add/edit/remove members, squad membership and committee positions and memberships through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/members/).

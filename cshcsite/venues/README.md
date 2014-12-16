@@ -19,4 +19,4 @@ Venues are typically astro pitches but the model can be used for any geographica
 
 ### Admin Interface
 
-You can add/edit/remove venues through the [admin interface](http://www.cambridgesouthhockeyclub.co.uk/admin/venues/).
+You can add/edit/remove venues through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/venues/).

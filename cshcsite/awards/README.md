@@ -21,4 +21,4 @@ Awards appear on the website in the following locations:
 
 ### Admin Interface
 
-You can add/edit/remove awards and award winners through the [admin interface](http://www.cambridgesouthhockeyclub.co.uk/admin/awards/).
+You can add/edit/remove awards and award winners through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/awards/).

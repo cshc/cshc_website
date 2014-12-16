@@ -18,7 +18,7 @@ def send_welcome_email_to_user(reg_profile, password, sim):
         'last_name': reg_profile.user.last_name,
         'email': reg_profile.user.email,
         'password': password,
-        'base_url': "//" + Site.objects.all()[0].domain
+        'base_url': "//" + Site.objects.get_current().domain
     }
     print 'Emailing {}'.format(reg_profile.user.get_full_name())
     if not sim:

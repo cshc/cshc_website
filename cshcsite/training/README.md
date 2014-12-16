@@ -24,4 +24,4 @@ One of the cool features of this app is the auto-generated ical calendar feed of
 
 ### Admin Interface
 
-You can add/edit/remove training sessions through the [admin interface](http://www.cambridgesouthhockeyclub.co.uk/admin/training/).
+You can add/edit/remove training sessions through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/training/).

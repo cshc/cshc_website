@@ -48,7 +48,7 @@ def add_season_selector(context, season, season_list):
 
 def is_prod_site():
     """ Utility method to check if this is the production site."""
-    return 'cambridgesouthhockeyclub' in Site.objects.all()[0].domain
+    return 'cambridgesouthhockeyclub' in Site.objects.get_current().domain
 
 def saturdays_in_season(season):
     """ Gets a list of all the Saturdays (match days) in the given season. """

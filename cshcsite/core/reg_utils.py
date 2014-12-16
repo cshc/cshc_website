@@ -100,6 +100,6 @@ def send_activation_email(registration_profile, site):
                'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
                'site': site,
                'user': registration_profile.user,
-               'base_url': "http://" + Site.objects.all()[0].domain}
+               'base_url': "//" + Site.objects.get_current().domain}
 
     send_templated_email([registration_profile.user.email], 'emails/activation', context)

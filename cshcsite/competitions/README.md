@@ -15,4 +15,4 @@ This app contains no views but the models are some of the most fundamental. The 
 
 ### Admin Interface
 
-You can add/edit/remove seasons, leagues, divisions and cup competitions through the [admin interface](http://www.cambridgesouthhockeyclub.co.uk/admin/competitions/). Note - DivisionResult is deliberately hidden from the admin interface as it is handled programmatically.
+You can add/edit/remove seasons, leagues, divisions and cup competitions through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/competitions/). Note - DivisionResult is deliberately hidden from the admin interface as it is handled programmatically.

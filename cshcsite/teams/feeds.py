@@ -59,7 +59,7 @@ class RssClubTeamMatchReportsFeed(Feed):
         """ Gets the feed title. """
         return "Cambridge South Hockey Club {} Match Reports".format(obj.long_name)
 
-    link = "//" + Site.objects.all()[0].domain
+    link = "//" + Site.objects.get_current().domain
     icon = settings.STATIC_URL + 'ico/favicon.ico'
 
     def description(self, obj):

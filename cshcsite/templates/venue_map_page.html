@@ -11,7 +11,7 @@ Extend this template for any pages that contain a map of a venue.
 {{ block.super }}
 
 <script type="text/javascript">
-    
+
     var map;
     var directionDisplay;
     var directionsService;
@@ -38,7 +38,7 @@ Extend this template for any pages that contain a map of a venue.
         geocoder.geocode( { 'address': address}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
-            
+
             var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
@@ -91,7 +91,7 @@ Extend this template for any pages that contain a map of a venue.
         script.type = "text/javascript";
         // This Google Maps API key is associated with the CSHC Google APIs project: https://code.google.com/apis/console/?pli=1#project:533261630005:access
         // This account was set up by mcculloch.graham@gmail.com
-        script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyDdK_W-7S1O_tiuK2sr5O8oUlTnXReouVU&sensor=false&callback=initialize";
+        script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyDdK_W-7S1O_tiuK2sr5O8oUlTnXReouVU&sensor=false&callback=initialize";
         document.body.appendChild(script);
     }
 

@@ -2,7 +2,7 @@ Welcome to Cambridge South Hockey Club!
 
 Before you can sign in, you just need to activate your account by clicking on the link below:
 
-http://www.{{ site }}{% url 'registration_activate' activation_key=activation_key %}
+www.{{ site }}{% url 'registration_activate' activation_key=activation_key %}
 
 Don't delay! This activation link is only valid for {{ expiration_days }} days.
 

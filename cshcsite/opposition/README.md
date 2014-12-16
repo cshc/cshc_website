@@ -22,4 +22,4 @@ Cambridge South's playing record against each club is automatically calculated a
 
 ### Admin Interface
 
-You can add/edit/remove clubs and teams through the [admin interface](http://www.cambridgesouthhockeyclub.co.uk/admin/opposition/). Note - ClubStats is deliberately hidden from the admin interface as it is handled programmatically.
+You can add/edit/remove clubs and teams through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/opposition/). Note - ClubStats is deliberately hidden from the admin interface as it is handled programmatically.

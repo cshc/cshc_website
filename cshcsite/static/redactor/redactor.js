@@ -148,7 +148,7 @@ var RLANG = {
 
 			convertLinks: true,
 			convertDivs: true,
-			protocol: 'http://', // for links http or https or ftp or false
+			protocol: '//', // for links http or https or ftp or false
 
 			autosave: false, // false or url
 			autosaveCallback: false, // function
@@ -4161,7 +4161,7 @@ var RLANG = {
 
 	"use strict";
 
-	var protocol = 'http://';
+	var protocol = '//';
 	var url1 = /(^|&lt;|\s)(www\..+?\..+?)(\s|&gt;|$)/g,
 	url2 = /(^|&lt;|\s)(((https?|ftp):\/\/|mailto:).+?)(\s|&gt;|$)/g,
 

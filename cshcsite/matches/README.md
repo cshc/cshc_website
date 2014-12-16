@@ -37,4 +37,4 @@ RSS/Atom feeds of the latest match reports and an ical calendar feed of all matc
 
 ### Admin Interface
 
-You can add/edit/remove matches and appearances (typically done in-line for a particular match) through the [admin interface](http://www.cambridgesouthhockeyclub.co.uk/admin/matches/). Note - GoalKing is deliberately hidden from the admin interface as it is handled programmatically.
+You can add/edit/remove matches and appearances (typically done in-line for a particular match) through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/matches/). Note - GoalKing is deliberately hidden from the admin interface as it is handled programmatically.

@@ -71,7 +71,7 @@ class ProfileView(LoginRequiredMixin, UpdateView):
                                      'emails/req_player_link',
                                      {
                                          'user': self.request.user,
-                                         'base_url': "http://" + Site.objects.all()[0].domain
+                                         'base_url': "//" + Site.objects.get_current().domain
                                      })
             except:
                 LOG.error("Failed to send player link request email for {}".format(self.request.user), exc_info=True)

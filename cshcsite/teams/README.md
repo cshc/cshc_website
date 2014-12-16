@@ -41,4 +41,4 @@ RSS/Atom feeds of each team's match reports and an ical calendar feed of each te
 
 ### Admin Interface
 
-You can add/edit/remove teams, captains and participation info through the [admin interface](http://www.cambridgesouthhockeyclub.co.uk/admin/teams/). Note - Southerner is deliberately hidden from the admin interface as it is handled programmatically.
+You can add/edit/remove teams, captains and participation info through the [admin interface](//www.cambridgesouthhockeyclub.co.uk/admin/teams/). Note - Southerner is deliberately hidden from the admin interface as it is handled programmatically.

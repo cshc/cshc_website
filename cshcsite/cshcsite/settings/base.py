@@ -525,7 +525,7 @@ REDACTOR_CSS = {
         STATIC_URL + 'redactor/redactor.css',)
 }
 REDACTOR_JS = [
-    'http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
+    '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
     STATIC_URL + 'redactor/redactor.js',
 ]
 
