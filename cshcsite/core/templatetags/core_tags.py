@@ -13,26 +13,12 @@ from django.core import urlresolvers
 from django.contrib.contenttypes.models import ContentType
 from zinnia.models.entry import Entry
 from core.models import ClubInfo
+from core.utils import get_absolute_static_url
 
 register = template.Library()
 
 LOG = logging.getLogger(__name__)
 
-
-def get_absolute_static_url(request):
-    """ Returns the absolute URL for settings.STATIC_URL.
-
-        This is useful because the thumbnail template tag doesn't
-        support relative urls. In our case we know if we're not in
-        DEBUG mode STATIC_URL is absolute anyway (Amazon S3). If we
-        are in DEBUG mode we need to convert the relative static url
-        to an absolute url using the request.build_absolute_uri()
-        utility method.
-    """
-    static_url = settings.STATIC_URL
-    if settings.DEBUG:
-        static_url = request.build_absolute_uri(static_url)
-    return static_url
 
 # Override of Zinnia's get_recent_entries tag.
 # Here we include the context as we need to pass the request object

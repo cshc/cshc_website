@@ -18,6 +18,7 @@ import time
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+from core.utils import get_absolute_static_url
 
 
 def get_disqus_sso(request, user):
@@ -28,10 +29,11 @@ def get_disqus_sso(request, user):
 
         data = json.dumps({
             'id': user.pk,
-            'username': user.get_full_name(),   # TODO: Are spaces ok here?
+            'username': user.get_full_name(),
             'email': user.email,
-            # TODO: link comments to members where possible
-            'url': user.member.get_absolute_url() if user.member else None,
+            # Link comments to members where possible
+            'url': "{domain}{member_url}".format(domain=Site.objects.get_current().domain,
+                                                 member_url=user.member.get_absolute_url()) if user.member else None,
         })
         # encode the data to base64
         message = base64.b64encode(data)
@@ -55,22 +57,21 @@ def get_disqus_sso(request, user):
         // This adds the custom login/logout functionality
         this.sso = {
               name:   "CSHC",
-              button:  "%(static_url)smedia/disqus-sso-login-button.gif",
-              //icon:     "//%(domain)s/favicon.png",
-              url:        "//%(domain)s%(login_url)s",
-              logout:  "//%(domain)s%(logout_url)s?next=%(current_url)s",
-              width:   "360",
-              height:  "480"
+              button: "%(static_url)smedia/disqus-sso-login-button.gif",
+              icon:   "%(static_url)simg/favicon.png",
+              url:    "//%(domain)s%(login_url)s",
+              logout: "//%(domain)s%(logout_url)s?next=%(current_url)s",
+              width:  "360",
+              height: "480"
         };
     };
     </script>""" % dict(
         pub_key=settings.DISQUS_PUBLIC_KEY,
-        static_url=settings.STATIC_URL,
+        static_url=get_absolute_static_url(request),
         domain=Site.objects.get_current().domain,
         login_url=reverse('auth_login'),
         logout_url=reverse('auth_logout'),
         current_url=request.get_full_path()))
 
-    print "".join(output)
     return "".join(output)
 
