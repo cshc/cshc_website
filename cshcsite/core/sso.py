@@ -20,7 +20,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 
 
-def get_disqus_sso(user):
+def get_disqus_sso(request, user):
     # create a JSON packet of our data attributes
     output = ["""<script type="text/javascript">
         var disqus_config = function() {"""]
@@ -57,8 +57,8 @@ def get_disqus_sso(user):
               name:   "CSHC",
               button:  "%(static_url)smedia/disqus-sso-login-button.gif",
               //icon:     "//%(domain)s/favicon.png",
-              url:        "//%(domain)s%(login_url)s",
-              logout:  "//%(domain)s%(logout_url)s",
+              url:        "//%(domain)s%(login_url)s?next=%(current_url)s",
+              logout:  "//%(domain)s%(logout_url)s?next=%(current_url)s",
               width:   "360",
               height:  "480"
         };
@@ -68,7 +68,8 @@ def get_disqus_sso(user):
         static_url=settings.STATIC_URL,
         domain=Site.objects.get_current().domain,
         login_url=reverse('auth_login'),
-        logout_url=reverse('auth_logout')))
+        logout_url=reverse('auth_logout'),
+        current_url=request.get_full_path()))
 
     return "".join(output)
 

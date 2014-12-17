@@ -311,10 +311,10 @@ class EventCalendar(HTMLCalendar):
 from core.sso import get_disqus_sso
 
 
-@register.simple_tag
-def disqus_config(user):
+@register.simple_tag(takes_context=True)
+def disqus_config(context, user):
     try:
-        return get_disqus_sso(user)
+        return get_disqus_sso(context.request, user)
     except:
         LOG.error("Unable to get disqus sso info for user.", exc_info=True)
         return
