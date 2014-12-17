@@ -57,7 +57,7 @@ def get_disqus_sso(request, user):
               name:   "CSHC",
               button:  "%(static_url)smedia/disqus-sso-login-button.gif",
               //icon:     "//%(domain)s/favicon.png",
-              url:        "//%(domain)s%(login_url)s?next=%(current_url)s",
+              url:        "//%(domain)s%(login_url)s",
               logout:  "//%(domain)s%(logout_url)s?next=%(current_url)s",
               width:   "360",
               height:  "480"
@@ -71,5 +71,6 @@ def get_disqus_sso(request, user):
         logout_url=reverse('auth_logout'),
         current_url=request.get_full_path()))
 
+    print "".join(output)
     return "".join(output)
 
