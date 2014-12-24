@@ -37,7 +37,7 @@ function applink(fail){
 
 function scrollToTop(element, parent){
     var topOffset = 0;
-    if ($('.navbar-inner.sticky').length) {
+    if ($('.navbar-fixed-top').length) {
         console.debug("Sticky!")
         topOffset += $('#top-nav').height();
     }
