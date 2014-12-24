@@ -299,12 +299,12 @@ class PlayingRecordMixin(object):
         participations = ClubTeamSeasonParticipation.objects.all().select_related('team', 'season').order_by('team', '-season')
 
         grouped_by_team = groupby(participations, lambda x: x.team)
-        parts = {}
+        parts = []
         for team, seasons in grouped_by_team:
-            parts[team] = []
+            team_parts = []
             for participation in seasons:
-                parts[team].append(participation)
-
+                team_parts.append(participation)
+            parts.append([team, team_parts])
         return parts
 
 

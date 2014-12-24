@@ -1,6 +1,8 @@
 {% load humanize %}
 
-{% for team, seasons in participation.items %}
+{% for part in participation %}
+{% with part.0 as team %}
+{% with part.1 as seasons %}
 <h3 id="{{ team.short_name }}">{{ team.long_name }}</h3>
 <div class="record-table">
 <table class="table table-condensed table-hover table-center-align">
@@ -43,4 +45,6 @@
     </tbody>
 </table>
 </div>
+{% endwith %}
+{% endwith %}
 {% endfor %}
