@@ -32,7 +32,7 @@ The outer/inner div combination lets us centre-justify the nav pills
     <div class="inner">
         <ul class="nav nav-pills">
         {% for team in participation.keys %}
-            <li><a title="Jump to {{ team.long_name }}" onclick='scrollToTop("#{{team.short_name}}", "body");'>{{ team.short_name }}</a></li>
+            <li><a title="Jump to {{ team.long_name }}" onclick='scrollToTop("#{{team.short_name}}", "body,html");'>{{ team.short_name }}</a></li>
         {% endfor %}
         </ul>
     </div>
