@@ -301,10 +301,8 @@ class PlayingRecordMixin(object):
         grouped_by_team = groupby(participations, lambda x: x.team)
         parts = {}
         for team, seasons in grouped_by_team:
-            print team.long_name
             parts[team] = []
             for participation in seasons:
-                print "\t{}".format(participation.season)
                 parts[team].append(participation)
 
         return parts
