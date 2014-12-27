@@ -38,3 +38,9 @@
 #recruitment .wraptocenter{
     padding: 20px;
 }
+
+@media only screen and (max-width: 767px) {
+    #recruitment .wraptocenter{
+        padding: 20px 28px 20px 20px;
+    }
+}

@@ -374,6 +374,10 @@ Responsive
     .banner-box .table-condensed th, .banner-box .table-condensed td {padding: 6px 1px;}
     .pager li a {font-size: 10px; line-height: 14px;}
     .match-detail {padding: 0 0 10px 10px;}
+    .full-width {
+        margin: 0 -20px;
+        padding: 0.5em 0;
+    }
 }
 
 @media only screen and (max-width: 320px) {
@@ -385,7 +389,7 @@ Responsive
 @media only screen and (max-width: 767px) {
     #top-banner
     {
-        background:url('../img/backgrounds/astro2.png') no-repeat 0 0px;
+        background: rgba(34, 102, 28, 0.8);
         left:0;
         right:0;
         position: relative;
