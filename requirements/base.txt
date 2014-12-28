@@ -62,7 +62,7 @@ django-redactorjs==0.3
 
 # Support for (cached) thumbnails
 # Ref: http://sorl-thumbnail.readthedocs.org/en/latest/
-sorl-thumbnail==12.1c
+sorl-thumbnail==12.2
 
 # Filtering support for list views (e.g. match search)
 # Ref: https://django-filter.readthedocs.org/en/latest/
