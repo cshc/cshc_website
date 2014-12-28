@@ -104,7 +104,7 @@ class GoalKing(models.Model):
     def __unicode__(self):
         return unicode("{} - {}".format(self.member, self.season))
 
-    def clean(self):
+    def save(self, *args, **kwargs):
         # Calculate non-editable, derived fields
         self.total_goals = (self.m1_goals + self.m2_goals + self.m3_goals + self.m4_goals +
                             self.m5_goals + self.l1_goals + self.l2_goals + self.l3_goals +
@@ -113,6 +113,8 @@ class GoalKing(models.Model):
                                 self.m4_own_goals + self.m5_own_goals + self.l1_own_goals +
                                 self.l2_own_goals + self.l3_own_goals + self.mixed_own_goals +
                                 self.indoor_own_goals)
+        
+        super(GoalKing, self).save(*args, **kwargs)
 
     def miles_per_game(self):
         """ Returns the average number of miles travelled to a game.
@@ -161,10 +163,13 @@ class GoalKing(models.Model):
         self.games_played += 1
 
         # Add the 'return distance' to the venue to the total miles travelled
-        if appearance.match.venue.distance is not None:
-            self.total_miles += appearance.match.venue.distance * 2
+        if appearance.match.venue is not None:
+            if appearance.match.venue.distance is not None:
+                self.total_miles += appearance.match.venue.distance * 2
+            else:
+                LOG.warn("{} has no distance specified".format(appearance.match.venue))
         else:
-            LOG.warn("{} has no distance specified".format(appearance.match.venue))
+            LOG.warn("{} has no venue specified".format(appearance.match))
 
         if appearance.goals == 0 and appearance.own_goals == 0:
             return
