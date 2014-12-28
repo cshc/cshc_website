@@ -36,11 +36,11 @@ function applink(fail){
 }
 
 function scrollToTop(element, parent){
-    var topOffset = 0;
-    if ($('.navbar-fixed-top').length) {
-        topOffset += $('#top-nav').height();
-    }
-     $(parent).animate({ scrollTop: $(element).offset().top - $(parent).offset().top - topOffset }, { duration: 'slow', easing: 'swing'});
+    var topOffset = 69; // Height of .navbar-fixed-top (when sticky)
+    //if ($('.navbar-fixed-top').length) {
+    //    topOffset += $('#top-nav').height();
+    //}
+    $(parent).animate({ scrollTop: $(element).offset().top - $(parent).offset().top - topOffset }, { duration: 'slow', easing: 'swing'});
 }
 
 function ajax_load(url, tag_id) {
