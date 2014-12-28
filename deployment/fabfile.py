@@ -64,7 +64,8 @@ def check_not_debug():
     """ Check that we're not deploying with DEBUG=True set!"""
     with open('../cshcsite/cshcsite/settings/base.py') as settings_file:
         base_settings = settings_file.read()
-        if "DEBUG = True" in base_settings:
+        check = re.compile("^DEBUG = True")
+        if check.match(base_settings):
             abort("You must set 'DEBUG = False' in cshcsite/settings/base.py before deploying")
 
 @task
