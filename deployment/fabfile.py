@@ -130,18 +130,26 @@ def set_maintenance_mode(turn_on):
     with cd(env.remote_root):
         add_or_replace_line('repo/cshcsite/cshcsite/settings/production.py', 'MAINTENANCE_MODE = ',
                             str(turn_on))
-        run('touch ~/www.cambridgesouthhockeyclub.co.uk_html/django.fcgi')
+    restart_server()
+
+@task
+def restart_server():
+    """ Restart the FastCGI server by killing off all running processes.
+
+        Linux will restart them automatically.
+    """
+    run("kill `ps --User 946 | grep django.fcgi | awk '{print $1}'`")
 
 @task
 def go_live():
     """ Swap in the new release directory for the previous release directory
-        and touch the FastCGI script to force the webserver to refresh.
+        and force the webserver to refresh.
     """
     with cd(env.remote_root):
         run('rm -fr repo_old')
         run('mv repo repo_old')
         run('mv repo_release repo')
-        run('touch ~/www.cambridgesouthhockeyclub.co.uk_html/django.fcgi')
+    restart_server()
 
 @task
 def rollback():
@@ -153,9 +161,10 @@ def rollback():
     with cd(env.remote_root):
         # Reinstate the previous release's files
         run('mv repo_old repo_working')
-        run('mv repo repo_old')
+        run('mv repo repo_failed')
         run('mv repo_working repo')
         # Now rollback the database
+        run('dos2unix repo/deployment/restore_db.sh')
         run('chmod 744 repo/deployment/restore_db.sh')
         # This script drops all tables from the database and then
         # restores the database using the mysqldump from the previous release
