@@ -16,7 +16,7 @@ from matches.models import Match
 from competitions.models import Season
 from members.models import Member
 from opposition.models import Club
-from teams.models import ClubTeam
+from teams.models import ClubTeam, ClubTeamSeasonParticipation
 from training.models import TrainingSession
 from venues.models import Venue
 
@@ -209,9 +209,9 @@ class ClubTeamArchiveSitemap(Sitemap):
 
     def items(self):
         teams = ClubTeam.objects.all()
-        seasons = Season.objects.all()
         items = []
         for team in teams:
+            seasons = Season.objects.filter(clubteamseasonparticipation__team=team)
             for season in seasons:
                 items.append((team.slug, season.slug))
         return items
