@@ -292,6 +292,12 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        # Ignore Invalid HTTP_HOST header messages
+        # Ref: http://stackoverflow.com/a/25787817
+        'django.security.DisallowedHost': {
+            'handlers': ['null'],
+            'propagate': False,
+        },
         'awards': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
