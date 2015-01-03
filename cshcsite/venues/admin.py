@@ -10,7 +10,7 @@ class VenueAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     search_fields = ('name',)
     list_filter = ('is_home',)
-    list_display = ('name', 'short_name', 'url', 'is_home')
+    list_display = ('name', 'short_name', 'approx_round_trip_distance', 'url', 'is_home')
 
 
 # Register all venues models with the admin interface
