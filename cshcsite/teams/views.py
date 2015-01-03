@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.http import Http404
 from core.views import (kwargs_or_none, AjaxGeneral, saturdays_in_range,
                         get_season_from_kwargs, add_season_selector)
 from core.stats import MatchStats
@@ -83,8 +84,11 @@ class ClubTeamDetailView(TemplateView):
         context['vice_captains'] = TeamCaptaincy.get_vice_captains(team, season)
 
         # Get the participation information for this team and season
-        participation = ClubTeamSeasonParticipation.objects.select_related('division__league', 'season').get(team=team, season=season)
-        context['participation'] = participation
+        try:
+            participation = ClubTeamSeasonParticipation.objects.select_related('division__league', 'season').get(team=team, season=season)
+            context['participation'] = participation
+        except ClubTeamSeasonParticipation.DoesNotExist:
+            raise Http404
 
         add_season_selector(context, season, part_seasons)
         return context
