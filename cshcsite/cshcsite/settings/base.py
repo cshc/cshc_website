@@ -295,7 +295,7 @@ LOGGING = {
         # Ignore Invalid HTTP_HOST header messages
         # Ref: http://stackoverflow.com/a/25787817
         'django.security.DisallowedHost': {
-            'handlers': ['null'],
+            'handlers': ['console'],
             'propagate': False,
         },
         'awards': {
