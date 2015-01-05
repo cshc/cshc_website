@@ -11,6 +11,7 @@ from django.core.exceptions import ValidationError
 from django_resized import ResizedImageField
 from model_utils import Choices
 from model_utils.managers import PassThroughManager
+from core.utils import ordinal
 from core.models import not_none_or_empty, make_unique_filename
 from competitions.models import Season, Division, Cup
 from teams.models.club_team import ClubTeam
@@ -238,3 +239,19 @@ class ClubTeamSeasonParticipation(models.Model):
         self.league_lost = 0
         self.league_goals_for = 0
         self.league_goals_against = 0
+
+    def div_abbr(self):
+        """ Returns an abbreviated form of the division."""
+        if self.division:
+            return self.division.name.replace('Division', 'Div')
+        return ""
+
+    def div_summary(self):
+        """ Returns a division result summary. """
+        summary = ""
+
+        if self.final_pos:
+            summary += "{}".format(ordinal(self.final_pos))
+        if self.division_result:
+            summary += " ({})".format(self.get_division_result_display())
+        return summary

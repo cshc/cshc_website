@@ -17,3 +17,20 @@ def get_absolute_static_url(request):
     if settings.DEBUG:
         static_url = request.build_absolute_uri(static_url)
     return static_url
+
+
+SUFFIXES = {1: 'st', 2: 'nd', 3: 'rd'}
+
+def ordinal(num):
+    """ Returns the ordinal string from a number.
+
+        Ref: http://codereview.stackexchange.com/a/41301
+    """
+    # Check for 10-20 because those are the digits that
+    # don't follow the normal counting scheme.
+    if 10 <= num % 100 <= 20:
+        suffix = 'th'
+    else:
+        # the second parameter is a default.
+        suffix = SUFFIXES.get(num % 10, 'th')
+    return str(num) + suffix

@@ -23,8 +23,8 @@
             <th class="priority2"><abbr title="Goals for">GF</abbr></th>
             <th class="priority2"><abbr title="Goals against">GA</abbr></th>
             <th class="priority2"><abbr title="Goals per game">GPG</abbr></th>
-            <th>League Pos</th>
-            <th class="priority4">Notes</th>
+            <th class="priority4 left-align"><abbr title="Division">Div</abbr></th>
+            <th class="priority4 left-align">Details</th>
         </tr>
     </thead>
     <tbody>
@@ -38,8 +38,8 @@
                 <td class="priority2">{{ part.total_goals_for }}</td>
                 <td class="priority2">{{ part.total_goals_against }}</td>
                 <td class="priority2">{{ part.total_goals_per_game|floatformat:1 }}</td>
-                <td>{% if part.final_pos %}{{ part.final_pos|ordinal }}{% endif %}</td>
-                <td class="priority4">{% if part.division_result %}{{ part.get_division_result_display }}{% endif %}</td>
+                <td class="priority4 left-align">{% if part.division %}{{ part.div_abbr }}{% endif %}</td>
+                <td class="priority4 left-align">{{ part.div_summary }}</td>
             </tr>
         {% endfor %}
     </tbody>
