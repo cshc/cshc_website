@@ -37,7 +37,7 @@ The outer/inner div combination lets us centre-justify the nav pills
     <ul class="nav nav-pills jump-list">
       <li><a title="Jump to Next Training" onclick='scrollToTop("#training-summary", "body,html");'>Next Training</a></li>
       <li><a title="Jump to Recent Comments" onclick='scrollToTop("#comments", "body,html");'>Recent Comments</a></li>
-      {#<li><a title="Jump to Latest Articles" onclick='scrollToTop("#articles", "body,html");'>Latest News</a></li>#}
+      <li><a title="Jump to Latest Articles" onclick='scrollToTop("#articles", "body,html");'>Latest News</a></li>
       <li><a title="Jump to Tweets" onclick='scrollToTop("#twitter-feed", "body,html");'>Tweets</a></li>
     </ul>
   </div>
@@ -140,14 +140,12 @@ The outer/inner div combination lets us centre-justify the nav pills
       <h3><i class="icon-comment"></i>Recent comments</h3>
       {% cshc_disqus_recent_comments DISQUS_WEBSITE_SHORTNAME 8 100 0 80 %}
     </div>
-    {% comment %}
     <hr/>
     <div id="articles">
       <h3><i class="icon-file-text"></i>Latest News</h3>
       {% cshc_get_recent_entries 3 "core/_recent_articles.html" %}
       <a class="details" href="{{ blog }}" title="More from the blog"><button class="btn btn-small btn-success">More from the blog...</button></a>
     </div>
-    {% endcomment %}
   </div>
   <div class="span5">
     <div id="twitter-feed" class="box side-box">
@@ -159,7 +157,7 @@ The outer/inner div combination lets us centre-justify the nav pills
 </div>
 
 <div id="widget-recents" class="widget zinnia">
-  {#{% get_featured_entries template="zinnia/tags/entries_slider.html" %}#}
+  {% get_featured_entries template="zinnia/tags/entries_slider.html" %}
 </div>
 
 {% endblock %}
