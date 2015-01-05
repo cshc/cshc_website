@@ -5,7 +5,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 from model_utils import Choices, fields
 from model_utils.managers import PassThroughManager
 from core.models import splitify, not_none_or_empty
