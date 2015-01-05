@@ -235,6 +235,7 @@ THIRD_PARTY_APPS = (
     'zinnia',
     'redactor',
     'rest_framework',
+    'imagekit',
 )
 
 # Apps specific for this project go here.

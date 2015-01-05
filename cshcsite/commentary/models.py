@@ -20,6 +20,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
 from django_resized import ResizedImageField
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFit, Transpose
 from model_utils.managers import PassThroughManager
 from model_utils import Choices
 from core.models import is_none_or_empty, CshcUser
@@ -62,7 +64,10 @@ class MatchComment(models.Model):
     comment = models.TextField("Comment", blank=True)
 
     # An optional photo
-    photo = ResizedImageField("Photo", max_width=900, max_height=600, upload_to=get_file_path, null=True, blank=True)
+    photo = ProcessedImageField(upload_to=get_file_path,
+                                processors=[Transpose(), ResizeToFit(900, 600)],
+                                format='JPEG',
+                                options={'quality': 60}, null=True, blank=True)
 
     state = models.CharField("State", max_length=10, choices=STATE, default=STATE.Approved)
 
