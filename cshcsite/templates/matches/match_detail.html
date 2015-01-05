@@ -15,6 +15,14 @@ Currently just lists the values that will be needed by this template - no UI des
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="//w{% if request.is_secure %}s{% endif %}.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "a00305df-8936-42fa-94f6-0b4d2380413f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+<link href="{{ STATIC_URL }}commentary/styles/commentary.css" rel="stylesheet">
+
+{% comment %}
+See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-15.html
+{% endcomment %}
+<meta name="csrf-token" content="{{csrf_token}}">
+
 {% endblock extra_head %}
 
 {% block body_id %}match-detail{% endblock body_id %}
@@ -63,11 +71,15 @@ Currently just lists the values that will be needed by this template - no UI des
 </table>
 </div>
 
-{% if match.is_in_past %}
+{% if match.commentary_is_active %}
+{% include 'commentary/commentary.html' %}
+{% elif match.is_in_past %}
 {% include 'matches/_result_detail.html' %}
+{% include 'commentary/commentary.html' %}
 {% else %}
 {% include 'matches/_fixture_detail.html' %}
 {% endif %}
+
 
 <ul class="pager">
   <li class="previous{% if not prev_match %} disabled{% endif %}">
@@ -116,8 +128,54 @@ Currently just lists the values that will be needed by this template - no UI des
 
 {% block body_js %}
     {{ block.super }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
+    <script src="//code.angularjs.org/1.3.1/angular.js"></script>
+    <script src="//code.angularjs.org/1.3.1/angular-animate.js"></script>
+    <script src="//code.angularjs.org/1.3.1/angular-resource.js"></script>
+    <script type="text/javascript">
+        var context = {
+            'match_id': {{ match.id }},
+            'match_is_in_past': {{ match.is_in_past|lower }},
+            'commentary_is_active': {{ match.commentary_is_active|lower }},
+            'our_team_name': '{{ match.our_team.abbr_name }}',
+            'opp_team_name': '{{ match.opp_team.name }}',
+            'media_url': '{{ MEDIA_URL }}',
+            {% if user.is_authenticated %}
+            'user_id': {{ user.id }},
+            'user_name': '{{ user.get_full_name }}',
+            {% else %}
+            'user_id': null,
+            'user_name': '',
+            {% endif%}
+            'flavour': '{{ flavour }}',
+        };
+    </script>
+    <script src="{{ STATIC_URL }}commentary/scripts/app.js"></script>
+    <script src="{{ STATIC_URL }}commentary/scripts/upload.js"></script>
+    <script src="{{ STATIC_URL }}commentary/scripts/directives/commentdirectives.js"></script>
+    <script src="{{ STATIC_URL }}commentary/scripts/services/commentservice.js"></script>
+    <script src="{{ STATIC_URL }}commentary/scripts/controllers/commentscontroller.js"></script>
 
     {% if not match.is_in_past %}
         {% include "venues/_venue_map_js.html" with venue_address=match.venue.full_address %}
     {% endif %}
+
+    {% comment %}
+    Handlebars templates for Match Comments
+    {% endcomment %}
+
+    <script type="text/x-handlebars-template" id="comment-list-template">
+        <p>Last fetch: {{ last_update }}</p>
+    </script>
+
+    <script type="text/x-handlebars-template" id="comment-template">
+        <div class="media match_comment">
+            <i class="icon-thumbs-up icon-2x pull-left media-object"></i>
+            <div class="media-body">
+                <p>{{ comment }}</p>
+            </div>
+        </div>
+    </script>
+
 {% endblock body_js %}

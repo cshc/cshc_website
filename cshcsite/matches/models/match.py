@@ -76,6 +76,9 @@ class Match(models.Model):
     WALKOVER_SCORE_W2 = 5
     WALKOVER_SCORE_L = 0
 
+    COMMENTARY_START_MINS = 15
+    COMMENTARY_END_MINS = 120
+
     # The Cambridge South team playing in this match
     our_team = models.ForeignKey(ClubTeam, verbose_name="Our team")
 
@@ -309,6 +312,15 @@ class Match(models.Model):
         if self.time is not None:
             return self.datetime() < datetime.now()
         return self.date < datetime.today().date()
+
+    def commentary_is_active(self):
+        if not self.time:
+            return False
+        now = datetime.now()
+        match_dt = self.datetime()
+        commentary_start = match_dt - timedelta(minutes=Match.COMMENTARY_START_MINS)
+        commentary_end = match_dt + timedelta(minutes=Match.COMMENTARY_END_MINS)
+        return (now >= commentary_start) and (now <= commentary_end)
 
 
     def time_display(self):

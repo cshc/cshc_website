@@ -1,0 +1,14 @@
+{# Match comments #}
+<script id="match-comments-template" type="text/x-handlebars-template">
+    <div class="span12 match_comments">
+        {{#each comments }}
+            <div class="media match_comment">
+                <i class="icon-thumbs-up icon-2x pull-left media-object"></i>
+                <div class="media-body">
+                    <p>{{ comment }}</p>
+                </div>
+            </div>
+            <hr/>
+        {{/each }}
+    </div>
+</script>

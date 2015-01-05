@@ -207,6 +207,7 @@ DJANGO_APPS = (
     'django_comments',
 
     # Admin panel and documentation:
+    'autocomplete_light', # (must come before django.contrib.admin)
     'suit', # http://django-suit.readthedocs.org/en/develop/#installation (must come before django.contrib.admin)
     'django.contrib.admin',
     # 'django.contrib.admindocs',
@@ -233,6 +234,7 @@ THIRD_PARTY_APPS = (
     'mptt',
     'zinnia',
     'redactor',
+    'rest_framework',
 )
 
 # Apps specific for this project go here.
@@ -246,6 +248,7 @@ LOCAL_APPS = (
     'matches',
     'awards',
     'training',
+    'commentary',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -315,6 +318,10 @@ LOGGING = {
             'level': 'DEBUG',
          },
         'matches': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+         },
+        'commentary': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
          },
@@ -541,3 +548,10 @@ def make_unique_filename(filename):
     return "%s.%s" % (uuid.uuid4(), ext)
 
 REDACTOR_GENERATE_FILENAME = make_unique_filename
+
+########## djangorestframework CONFIGURATION
+# Ref: http://www.django-rest-framework.org/tutorial/quickstart#settings
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+}
+########## END djangorestframework CONFIGURATION
