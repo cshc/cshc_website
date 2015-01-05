@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.db.models import Q
 from braces.views import SelectRelatedMixin
 from core.stats import MatchStats
+from core.models import ClubInfo
 from core.views import AjaxGeneral, get_season_from_kwargs, add_season_selector
 from competitions.models import Season
 from awards.models import MatchAward, MatchAwardWinner
@@ -226,6 +227,9 @@ class MatchDetailView(SelectRelatedMixin, DetailView):
         context["prev_match"] = prev_match
         context["next_match"] = next_match
 
+        live_comments_enabled, _ = ClubInfo.objects.get_or_create(key='EnableLiveComments', defaults={'value': 'False'})
+
+        context["enable_live_comments"] = live_comments_enabled.value in ['True', 'true', 'yes', '1']
         return context
 
 

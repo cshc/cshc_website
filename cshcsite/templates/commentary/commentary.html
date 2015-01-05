@@ -1,3 +1,4 @@
+{% if enable_live_comments %}
 {% verbatim %}
 
 
@@ -62,7 +63,7 @@
 
 <div class="row">
   <div class="comment-form">
-    <label id="photo-btn" class="comment-option btn" for="photo-selector" data-toggle='tooltip' title data-original-title="Add a photo">
+    <label id="photo-btn" class="comment-option btn" for="photo-selector">
       <input id="photo-selector" type="file" ng-file-select="onPhotoSelect($files)">
       <i class="icon-camera" ng-class="{'icon-3x': context.flavour == 'full'}"></i>
     </label>
@@ -98,6 +99,7 @@
 
 <div class="row">
   <div id="live-comment-list">
+    <p class="lead muted" ng-show="!comments.length">No live comments</p>
     <!-- Need onclick="" to support hover effect on iOS -->
     <div ng-animate="'animate'" ng-repeat="comment in comments" class="comment-item" onclick=""
          ng-class="{'highlight': comment.comment_type == 0 || comment.comment_type == 1}">
@@ -128,5 +130,6 @@
 
 </div>
 {% endverbatim %}
+{% endif %}
 
 

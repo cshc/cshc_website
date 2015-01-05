@@ -2,9 +2,9 @@
 The main AngularJS controller for live match comments
 */
 
-var REFRESH_INTERVAL_MS = 5000;
+var REFRESH_INTERVAL_MS = 30000;
 
-app.controller('CommentsController', function($scope, $timeout, commentsFactory, commentatorsFactory, fileReader) {
+app.controller('CommentsController', function($scope, $timeout, LiveComment, Commentator, fileReader) {
   init();
 
   function init() {
@@ -21,7 +21,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
 
   function resetNewComment(){
     $scope.error = null;
-    $scope.new_comment = new commentsFactory();
+    $scope.new_comment = new LiveComment();
     $scope.new_comment.comment_type = 2;
     $scope.new_comment.author = $scope.user.id;
     $scope.new_comment.author_name = $scope.user.name;
@@ -69,7 +69,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
 
   $scope.startScoring = function(){
     $scope.error = null;
-    commentator = new commentatorsFactory();
+    commentator = new Commentator();
     commentator.commentator = $scope.user.id;
     commentator.commentator_name = $scope.user.name;
     commentator.match = $scope.context.match_id;
@@ -163,7 +163,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
     console.log("Refreshing comments...");
     $("#list-refresh-icon").addClass('icon-spin');
     $scope.error = null;
-    var commentators = commentatorsFactory.query(
+    var commentators = Commentator.query(
       function(){
         console.log("Retrieved match commentator");
         if (commentators.length > 0){
@@ -180,7 +180,7 @@ app.controller('CommentsController', function($scope, $timeout, commentsFactory,
         $scope.error = "Sorry - something went wrong";
       });
 
-    var comments_on_server = commentsFactory.query(
+    var comments_on_server = LiveComment.query(
       function() {
         console.log("Retrieved match comments");
         to_remove = comment_difference($scope.comments, comments_on_server);

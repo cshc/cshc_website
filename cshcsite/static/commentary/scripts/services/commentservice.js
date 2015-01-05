@@ -2,11 +2,11 @@
 Encapsulates the match commentary RESTful API
 */
 
-// app.factory('commentsFactory', ['$resource', function($resource) {
+// app.factory('LiveComment', ['$resource', function($resource) {
 //   return $resource('/commentary/:matchId/:commentId', {matchId: context.match_id, commentId: '@id'})
 // }]);
 
-app.factory('commentsFactory', function($resource) {
+app.factory('LiveComment', function($resource) {
   return $resource("/commentary/comments/" + context.match_id + "/:id/",
     {id: "@_id"}, {
       save: {
@@ -37,6 +37,6 @@ app.factory('commentsFactory', function($resource) {
     });
 });
 
-app.factory('commentatorsFactory', function($resource){
+app.factory('Commentator', function($resource){
   return $resource("/commentary/commentators/" + context.match_id + "/:id/");
 });

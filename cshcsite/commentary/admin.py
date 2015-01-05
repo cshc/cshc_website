@@ -30,7 +30,7 @@ class MatchCommentAdmin(admin.ModelAdmin):
     model = MatchComment
     search_fields = ('author',)
     list_filter = ('author',)
-    list_display = ('author', 'match', 'comment', 'comment_type', 'photo')
+    list_display = ('author', 'match', 'comment', 'comment_type', 'timestamp', 'photo')
     form = autocomplete_light.modelform_factory(MatchComment)
 
 
