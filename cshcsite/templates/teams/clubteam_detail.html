@@ -60,7 +60,7 @@ Currently just lists the values that will be needed by this template - no UI des
 
         <table id="captains-table" class="table table-clean table-hcondensed">
         <tbody>
-            <tr><td class="dt">Captain:</td>
+            <tr><td class="dt">Captain{% if captains|length > 1 %}s{% endif %}:</td>
             {% if captains %}
                 <td>
                     {% for c in captains %}
@@ -74,7 +74,7 @@ Currently just lists the values that will be needed by this template - no UI des
             {% endif %}
             </tr>
             {% if vice_captains %}
-            <tr><td class="dt">Vice-captain:</td>
+            <tr><td class="dt">Vice-captain{% if vice_captains|length > 1 %}s{% endif %}:</td>
                 <td>
                     {% for vc in vice_captains %}
                         <strong>{{ vc.member|urlise_model }}</strong>
