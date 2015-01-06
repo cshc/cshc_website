@@ -4,8 +4,10 @@
     'include' call.
 """
 
+import os
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
+from django.http import HttpResponse
 from django.contrib import admin
 from django.conf import settings
 
@@ -16,8 +18,8 @@ autocomplete_light.autodiscover()
 from venues.views import HomeVenueListView
 from core.views import ContactSubmissionCreateView, RegistrationView
 from members.views import ProfileView
-from .sitemap import CshcSitemap
-from . import views
+from cshcsite.sitemap import CshcSitemap
+from cshcsite import views
 
 # Automatically load the INSTALLED_APPS admin.py modules.
 admin.autodiscover()
@@ -83,7 +85,7 @@ urlpatterns = patterns('',
 
     # Redirects from the old website
     url(r'^pages/', include('core.redirect_urls')),
-    
+
 	# Auto-completion urls
     url(r'^autocomplete/', include('autocomplete_light.urls')),
 
@@ -97,6 +99,13 @@ urlpatterns += patterns('django.contrib.flatpages.views',
     (r'^(?P<url>.*/)$', 'flatpage'),
 )
 
+# Robots
+SETTINGS_MOD = os.environ['DJANGO_SETTINGS_MODULE']
+if SETTINGS_MOD == 'cshcsite.settings.c9':
+    # Prevent any indexing/crawling on the staging server
+    urlpatterns += patterns('',
+        (r'^robots.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /", mimetype="text/plain"))
+    )
 
 # DEBUG only: Add the media folder to the static pages urls
 # Ref: http://stackoverflow.com/a/5518073
