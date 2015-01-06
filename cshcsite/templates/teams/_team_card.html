@@ -13,6 +13,7 @@
             <a class="details" href="{{ team.get_absolute_url }}" title="Team Details..."><button class="btn btn-small btn-primary">Team details...</button></a>
         </div>
     </div>
+    {% if forloop.counter|divisibleby:3 %}</div><div class="row {{ team_class }}">{% endif %}
 {% endfor %}
 </div>
 {% endif %}

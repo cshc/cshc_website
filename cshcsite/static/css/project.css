@@ -454,8 +454,6 @@ Page-specific
 #contact-us textarea { width: 96%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
 #contact-us input[type="submit"] { float: right; margin-right: 8px; }
 
-#our-teams .row.mens { margin-bottom:20px; }
-#our-teams .row.ladies { margin-bottom:20px; }
 #our-teams .team { padding: 0px; margin-bottom: 20px; }
 #our-teams .mens .team { background-color: rgb(153, 213, 182); }
 #our-teams .ladies .team { background-color: rgb(169, 171, 221); }
