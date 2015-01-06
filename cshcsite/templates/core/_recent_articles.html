@@ -19,7 +19,7 @@
             <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}">
                 <h4 class="media-heading">{{ entry.title }}</h4>
             </a>
-            <p>{{ entry.excerpt|safe|linebreaks|truncatewords_html:40 }}</p>
+            <p>{{ entry.content|safe|linebreaks|truncatewords_html:40 }}</p>
         </div>
     </li>
     {% empty %}
