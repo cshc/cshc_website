@@ -73,7 +73,7 @@ Currently just lists the values that will be needed by this template - no UI des
                 <td>{% model_admin_links 'teams' 'teamcaptaincy' changelist=False %}</td>
             {% endif %}
             </tr>
-            {% if vice_captain %}
+            {% if vice_captains %}
             <tr><td class="dt">Vice-captain:</td>
                 <td>
                     {% for vc in vice_captains %}
