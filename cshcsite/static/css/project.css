@@ -5,6 +5,12 @@
 /******************************************************************************
 Bootstrap overrides
 */
+
+/* Prevent horizontal scrollbar appearing for negative margins/padding etc. */
+html, body {
+  overflow-x: hidden;
+}
+
 hr { border-top-color: #e0e0e0;}
 .dropdown-menu {margin: 0px;}
 ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
