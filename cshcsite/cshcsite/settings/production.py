@@ -3,8 +3,8 @@
 
 from cshcsite.settings.base import *
 
-#SESSION_COOKIE_SECURE = True
-#CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = ['www.cambridgesouthhockeyclub.co.uk', 'cambridgesouthhockeyclub.co.uk']
 
