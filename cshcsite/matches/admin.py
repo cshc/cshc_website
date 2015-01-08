@@ -39,7 +39,6 @@ class AppearanceInlineForm(ModelForm):
         model = Appearance
         widgets = {
             'goals': NumberInput(attrs={'class': 'input-mini'}),
-            'own_goals': NumberInput(attrs={'class': 'input-mini'}),
             'green_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
             'yellow_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
             'red_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
@@ -52,6 +51,7 @@ class AppearanceInline(admin.TabularInline):
     form = AppearanceInlineForm
     extra = 11
     verbose_name_plural = 'Appearances'
+    exclude = ['own_goals']
 
 
 class MatchAdmin(admin.ModelAdmin):
@@ -66,7 +66,7 @@ class MatchAdmin(admin.ModelAdmin):
         ('Teams', {'fields': ['our_team', 'opp_team']}),
         ('Fixture details', {'fields': ['venue', 'home_away', 'fixture_type', 'date', 'time']}),
         ('Result', {'fields': ['alt_outcome', 'our_score', 'opp_score', 'our_ht_score',
-                               'opp_ht_score', 'opp_own_goals']}),
+                               'opp_ht_score']}),
         ('Advanced', {'classes': ('collapse',),
                       'fields': ['ignore_for_goal_king', 'ignore_for_southerners',
                                  'override_kit_clash', 'gpg_pro_rata']}),
