@@ -110,8 +110,8 @@ simples3==1.0
 django-dbbackup==2.0.3
 
 # Two-phase registration support (forked)
-# Ref: https://django-registration.readthedocs.org/en/latest/
-django-registration==1.0
+# Ref: http://django-registration-redux.readthedocs.org/en/latest/
+django-registration-redux==1.1
 
 # Zinnia blog & dependencies
 # Ref: http://django-blog-zinnia.com/
