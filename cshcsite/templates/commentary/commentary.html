@@ -3,7 +3,6 @@
 
 
 <div id="match-comments"
-  ng-show="context.match_is_in_past || context.commentary_is_active"
   ng-app="commentaryApp"
   ng-controller="CommentsController"
   ng-cloak class="ng-cloak"
@@ -99,7 +98,10 @@
 
 <div class="row">
   <div id="live-comment-list">
-    <p class="lead muted" ng-show="!comments.length">No live comments</p>
+    <p class="lead muted" ng-show="!context.commentary_is_active && !context.match_is_in_past">
+      You can view and post 'live' comments and photos for this match on this page during the match. Check back here when the match is about to start!
+    </p>
+    <p class="lead muted" ng-show="!comments.length && (context.match_is_in_past || context.commentary_is_active)">No live comments</p>
     <!-- Need onclick="" to support hover effect on iOS -->
     <div ng-animate="'animate'" ng-repeat="comment in comments" class="comment-item" onclick=""
          ng-class="{'highlight': comment.comment_type == 0 || comment.comment_type == 1}">

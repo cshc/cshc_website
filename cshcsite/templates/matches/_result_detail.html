@@ -63,16 +63,17 @@
 
 <div class="row match-report">
 
-    <h3>{{ match.match_title_text }}</h3>
+    {% if match.report_body|length %}
+        <h3>{{ match.match_title_text }}</h3>
 
-    {% comment %}
-    <p><a href="{{ match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ match.pk }}">View Comments</a></p>
-    {% disqus_num_replies %}
-    {% endcomment %}
+        {% comment %}
+        <p><a href="{{ match.get_absolute_url }}#disqus_thread" data-disqus-identifier="match_{{ match.pk }}">View Comments</a></p>
+        {% disqus_num_replies %}
+        {% endcomment %}
 
-    {% if match.report_author %}<p class="muted"><i class="icon-pencil" title="written by"></i>{{ match.report_author|urlise_model }}</p>{% endif %}
-    {{ match.report_body|safe }}
-
+        {% if match.report_author %}<p class="muted"><i class="icon-pencil" title="written by"></i>{{ match.report_author|urlise_model }}</p>{% endif %}
+        {{ match.report_body|safe }}
+    {% endif %}
 </div>
 
 

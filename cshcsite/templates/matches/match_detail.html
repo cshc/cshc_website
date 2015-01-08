@@ -71,16 +71,13 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 </table>
 </div>
 
-{% if match.commentary_is_active %}
+{% if match.commentary_is_active or not match.is_in_past %}
 {% include 'matches/_fixture_detail.html' %}
-{% include 'commentary/commentary.html' %}
-{% elif match.is_in_past %}
-{% include 'matches/_result_detail.html' %}
-{% include 'commentary/commentary.html' %}
 {% else %}
-{% include 'matches/_fixture_detail.html' %}
+{% include 'matches/_result_detail.html' %}
 {% endif %}
 
+{% include 'commentary/commentary.html' %}
 
 <ul class="pager">
   <li class="previous{% if not prev_match %} disabled{% endif %}">
@@ -129,36 +126,7 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 
 {% block body_js %}
     {{ block.super }}
-    {% if enable_live_comments %}
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-
-        <script src="//code.angularjs.org/1.3.1/angular.js"></script>
-        <script src="//code.angularjs.org/1.3.1/angular-animate.js"></script>
-        <script src="//code.angularjs.org/1.3.1/angular-resource.js"></script>
-        <script type="text/javascript">
-            var context = {
-                'match_id': {{ match.id }},
-                'match_is_in_past': {{ match.is_in_past|lower }},
-                'commentary_is_active': {{ match.commentary_is_active|lower }},
-                'our_team_name': '{{ match.our_team.abbr_name }}',
-                'opp_team_name': '{{ match.opp_team.name }}',
-                'media_url': '{{ MEDIA_URL }}',
-                {% if user.is_authenticated %}
-                'user_id': {{ user.id }},
-                'user_name': '{{ user.get_full_name }}',
-                {% else %}
-                'user_id': null,
-                'user_name': '',
-                {% endif%}
-                'flavour': '{{ flavour }}',
-            };
-        </script>
-        <script src="{{ STATIC_URL }}commentary/scripts/app.js"></script>
-        <script src="{{ STATIC_URL }}commentary/scripts/upload.js"></script>
-        <script src="{{ STATIC_URL }}commentary/scripts/directives/commentdirectives.js"></script>
-        <script src="{{ STATIC_URL }}commentary/scripts/services/commentservice.js"></script>
-        <script src="{{ STATIC_URL }}commentary/scripts/controllers/commentscontroller.js"></script>
-    {% endif %}
+    {% include "commentary/commentary_js.html" %}
 
     {% if match.commentary_is_active or not match.is_in_past %}
         {% include "venues/_venue_map_js.html" with venue_address=match.venue.full_address %}
