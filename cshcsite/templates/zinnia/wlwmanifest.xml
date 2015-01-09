@@ -46,6 +46,8 @@
     ]]></postEditingUrl>
   </weblog>
 
+  {% comment %}
+  <!-- Removed because we're not using django_comments at all -->
   <buttons>
     <button>
       <id>0</id>
@@ -56,5 +58,6 @@
       ]]></clickUrl>
     </button>
   </buttons>-->
+  {% endcomment %}
   <!-- Add views section -->
 </manifest>
