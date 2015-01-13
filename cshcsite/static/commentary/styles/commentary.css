@@ -12,6 +12,7 @@
 }
 
 #match-comments #access {
+  background-color: rgba(3, 135, 3, 1);
   background-image: -moz-linear-gradient(top, #025702, #358E35);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#025702), to(#358E35));
   background-image: -webkit-linear-gradient(top, #025702, #358E35);
