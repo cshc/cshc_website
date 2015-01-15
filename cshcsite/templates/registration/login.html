@@ -19,3 +19,14 @@
 <p><a href="{{ password_reset }}">Forgot password?</a></p>
 <p>Don't have an account? <a href="{{ register }}">Sign up!</a></p>
 {% endblock content %}
+
+
+{% block body_js %}
+{{ block.super }}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#id_username').attr('type', 'email');
+});
+</script>
+
+{% endblock %}
