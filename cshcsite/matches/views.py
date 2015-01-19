@@ -150,7 +150,12 @@ class LatestResultsView(TemplateView):
                                        date__lte=today, season=current_season)
             match_qs = match_qs.order_by('-date', '-time')
             if match_qs.exists():
-                latest_results.append(match_qs.first())
+                # Have to ignore matches that are today but still in future.
+                dt_now = datetime.now()
+                for m in match_qs:
+                    if m.datetime() < dt_now:
+                        latest_results.append(m)
+                        break
 
         context['latest_results'] = latest_results
 
@@ -175,12 +180,19 @@ class NextFixturesView(TemplateView):
             The next_fixtures list contains a maximum of one fixture per team.
         """
         next_fixtures = []
+        today = timezone.now().date()
         for team in ClubTeam.objects.only('pk'):
             match_qs = Match.objects.select_related('our_team', 'opp_team__club', 'venue',
                                                    'division__league', 'cup', 'season')
-            match_qs = match_qs.filter(our_team_id=team.pk).fixtures()
+            match_qs = match_qs.filter(our_team_id=team.pk, date__gte=today)
+            match_qs = match_qs.order_by('date', 'time')
             if match_qs.exists():
-                next_fixtures.append(match_qs.first())
+                # Have to ignore matches that are today but still in future.
+                dt_now = datetime.now()
+                for m in match_qs:
+                    if m.datetime() > dt_now:
+                        next_fixtures.append(m)
+                        break
 
         context['next_fixtures'] = next_fixtures
 
