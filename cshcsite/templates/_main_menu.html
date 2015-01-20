@@ -41,7 +41,6 @@
 {% url 'matches_by_season_default' as matches_by_season_url %}
 
 {% url 'about_minutes' as minutes_url %}
-{% url 'chairmans_notes' as chairmans_notes %}
 {% url 'dinner2014' as dinner2014 %}
 {% url 'dinner2013' as dinner2013 %}
 {% url 'dinner2012' as dinner2012 %}
@@ -122,7 +121,6 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Archive <b class="caret"></b></a>
     <ul class="dropdown-menu">
         <li><a href="{{ minutes_url }}" class="{% active minutes_url %}">Meeting minutes</a></li>
-        <li><a href="{{ chairmans_notes }}" class="{% active chairmans_notes %}">Chairman's notes</a></li>
         <li class="divider"></li>
         <li class="nav-header">Social</li>
         <li><a href="{{ dinner2014 }}" class="{% active dinner2014 %}">Club Dinner 2014</a></li>

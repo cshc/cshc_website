@@ -63,7 +63,7 @@ class ArchiveStaticViewSitemap(Sitemap):
 
     def items(self):
         return [
-            'about_minutes', 'chairmans_notes', 'tour2008', 'dinner2007', 'dinner2008',
+            'about_minutes', 'tour2008', 'dinner2007', 'dinner2008',
             'dinner2009', 'dinner2010', 'dinner2011', 'dinner2012', 'dinner2013', 'dinner2014',
         ]
 
