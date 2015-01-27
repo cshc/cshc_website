@@ -81,7 +81,7 @@ class MatchAdmin(admin.ModelAdmin):
             'fields': ['report_body']}),
     ]
     list_display = ('__unicode__', 'date', 'our_team', 'opp_team', 'venue')
-    search_fields = ('our_team__name', 'opp_team__name', 'venue__name')
+    search_fields = ('our_team__long_name', 'our_team__short_name', 'opp_team__name', 'venue__name')
     list_filter = ('our_team', 'opp_team', 'venue', 'fixture_type', 'home_away', 'season')
 
 
