@@ -107,7 +107,7 @@ django-s3-folder-storage==0.2
 # Ref: https://github.com/lericson/simples3
 simples3==1.0
 # Ref: http://django-dbbackup.readthedocs.org/en/latest/
-django-dbbackup==2.0.3
+django-dbbackup==2.0.5a
 
 # Two-phase registration support (forked)
 # Ref: http://django-registration-redux.readthedocs.org/en/latest/
