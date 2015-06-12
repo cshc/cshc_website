@@ -612,6 +612,33 @@ table.month .filled .dayNumber .popover {
 }
 
 /**************************************************************/
+/* Club Dinner posts */
+.zinnia .club-dinner h3.subtitle {
+  font-style: italic;
+  border-bottom: 1px solid #b3b3b3;
+  display: inline-block;
+  color: rgb(100, 100, 100);
+  padding-bottom: 5px;
+  font-weight: 300;
+}
+.zinnia .entry-body .club-dinner .dinner-photos img, .zinnia .entry-body .club-dinner .dinner-photos img.left {float: none;}
+.club-dinner .dinner-photos {text-align: center; display: block;}
+.club-dinner .table.awardwinners { font-weight: bold;}
+.club-dinner .table.awardwinners tr.bottom td { padding-bottom: 15px;}
+.club-dinner .table.awardwinners td { border: none;}
+.club-dinner .table.awardwinners td.award { text-align: right; color: grey;}
+.club-dinner ul.goalscorers li {padding: 10px 0;}
+.club-dinner ul.goalscorers li .item {display: table;}
+.club-dinner ul.goalscorers li .ordinal, ul li .details {display: table-cell;}
+.club-dinner ul.goalscorers li .ordinal {vertical-align: middle;}
+.club-dinner ul.goalscorers li .ordinal.second {opacity: 0.75;}
+.club-dinner ul.goalscorers li .ordinal.third {opacity: 0.5;}
+.club-dinner ul.goalscorers li .name {font-weight: bold;}
+.club-dinner ul.goalscorers li .goal-stats {color: grey;}
+.club-dinner ul.goalscorers li .details {padding-left: 10px;}
+.zinnia .club-dinner ul.awardlist, .zinnia .club-dinner ul.goalscorers { list-style-type: none; }
+.zinnia .club-dinner ul.awardlist li { border-bottom: 1px solid rgb(228, 228, 228); padding: 10px 0;}
+.zinnia .club-dinner ul.awardlist li .detail { display: block; color: grey; margin-top: 10px;}
 
 /**************************************************************/
 /* Photo stack */
