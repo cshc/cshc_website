@@ -14,7 +14,7 @@
 </ul>
 
 <div class="page-header">
-    <h1>{{ trainingsession.description }} <small> {{ trainingsession.datetime.date|date:"jS M" }} at {{ trainingsession.datetime.time|time:"H:i" }}</small></h1>
+    <h1>{{ trainingsession.description }} <small> {{ trainingsession.datetime|date:"jS M" }} at {{ trainingsession.datetime|time }}</small></h1>
 </div>
 
 <p class="lead">{{ trainingsession.description }} takes place at {{ trainingsession.venue|urlise_model }}.</p>
