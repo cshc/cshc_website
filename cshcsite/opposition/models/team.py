@@ -57,11 +57,6 @@ class Team(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
-    @models.permalink
-    def get_absolute_url(self):
-        """ Returns the url for this Team instance."""
-        return ('opposition_team_detail', [self.slug])
-
     def genderless_name(self):
         """ Utility method to get the team name without 'Mens' or 'Ladies' in it."""
         return self.name.replace(" Ladies", "").replace(" Mens", "")
