@@ -49,16 +49,6 @@ urlpatterns = patterns('',
     url(r'^stats/$',                  TemplateView.as_view(template_name='core/stats.html'), name='stats'),
 
     url(r'^archive/minutes/$',         TemplateView.as_view(template_name='core/meeting_minutes.html'), name='about_minutes'),
-    url(r'^archive/social/dinner2014/$', TemplateView.as_view(template_name='core/social/dinner2014.html'), name='dinner2014'),
-    url(r'^archive/social/dinner2013/$', TemplateView.as_view(template_name='core/social/dinner2013.html'), name='dinner2013'),
-    url(r'^archive/social/dinner2012/$', TemplateView.as_view(template_name='core/social/dinner2012.html'), name='dinner2012'),
-    url(r'^archive/social/dinner2011/$', TemplateView.as_view(template_name='core/social/dinner2011.html'), name='dinner2011'),
-    url(r'^archive/social/dinner2010/$', TemplateView.as_view(template_name='core/social/dinner2010.html'), name='dinner2010'),
-    url(r'^archive/social/dinner2009/$', TemplateView.as_view(template_name='core/social/dinner2009.html'), name='dinner2009'),
-    url(r'^archive/social/dinner2008/$', TemplateView.as_view(template_name='core/social/dinner2008.html'), name='dinner2008'),
-    url(r'^archive/social/dinner2007/$', TemplateView.as_view(template_name='core/social/dinner2007.html'), name='dinner2007'),
-    url(r'^archive/social/tour2008/$', TemplateView.as_view(template_name='core/social/tour2008.html'), name='tour2008'),
-
 
     # Delegate to apps
     url(r'^matches/', include('matches.urls')),

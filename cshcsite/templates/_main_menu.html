@@ -40,17 +40,6 @@
 {% url 'match_list' as match_list_url %}
 {% url 'matches_by_season_default' as matches_by_season_url %}
 
-{% url 'about_minutes' as minutes_url %}
-{% url 'dinner2014' as dinner2014 %}
-{% url 'dinner2013' as dinner2013 %}
-{% url 'dinner2012' as dinner2012 %}
-{% url 'dinner2011' as dinner2011 %}
-{% url 'dinner2010' as dinner2010 %}
-{% url 'dinner2009' as dinner2009 %}
-{% url 'dinner2008' as dinner2008 %}
-{% url 'dinner2007' as dinner2007 %}
-{% url 'tour2008' as tour2008 %}
-
 <ul class="nav pull-right">
 
     {# Teams #}
@@ -114,25 +103,6 @@
             <li><a href="{{ playing_record }}" class="{% active playing_record %}">Playing Records</a></li>
             <li><a href="{{ naughty_step }}" class="{% active naughty_step %}">The Naughty Step</a></li>
         </ul>
-    </li>
-
-    {# Archive #}
-    <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Archive <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-        <li><a href="{{ minutes_url }}" class="{% active minutes_url %}">Meeting minutes</a></li>
-        <li class="divider"></li>
-        <li class="nav-header">Social</li>
-        <li><a href="{{ dinner2014 }}" class="{% active dinner2014 %}">Club Dinner 2014</a></li>
-        <li><a href="{{ dinner2013 }}" class="{% active dinner2013 %}">Club Dinner 2013</a></li>
-        <li><a href="{{ dinner2012 }}" class="{% active dinner2012 %}">Club Dinner 2012</a></li>
-        <li><a href="{{ dinner2011 }}" class="{% active dinner2011 %}">Club Dinner 2011</a></li>
-        <li><a href="{{ dinner2010 }}" class="{% active dinner2010 %}">Club Dinner 2010</a></li>
-        <li><a href="{{ dinner2009 }}" class="{% active dinner2009 %}">Club Dinner 2009</a></li>
-        <li><a href="{{ dinner2008 }}" class="{% active dinner2008 %}">Club Dinner 2008</a></li>
-        <li><a href="{{ dinner2007 }}" class="{% active dinner2007 %}">Club Dinner 2007</a></li>
-        <li><a href="{{ tour2008 }}" class="{% active tour2008 %}">Tour 2008</a></li>
-    </ul>
     </li>
 
     <li><a href="{{ contact_us }}" class="{% active contact_us %}">Contact us</a></li>
