@@ -76,15 +76,19 @@ Annual General Meeting and appointments run for a single season.</p>
 </div>
 <div class="row">
 {% for team in mens_captains %}
+    {% if team.captain %}
     <div class="span6">
         <div class="team-title">
             <h3>{{ team.name }}</h3>
         </div>
         <div class="team-box">
             {% include 'core/_committee_member.html' with role=team.captain role_name="Captain" %}
-            {% include 'core/_committee_member.html' with role=team.vice_captain role_name="Vice-Captain" %}
+            {% if team.vice_captain %}
+                {% include 'core/_committee_member.html' with role=team.vice_captain role_name="Vice-Captain" %}
+            {% endif %}
         </div>
     </div>
+    {% endif %}
 {% endfor %}
 </div>
 
@@ -94,15 +98,19 @@ Annual General Meeting and appointments run for a single season.</p>
 </div>
 <div class="row">
 {% for team in ladies_captains %}
-    <div class="span6">
-        <div class="team-title">
-            <h3>{{ team.name }}</h3>
+    {% if team.captain %}
+        <div class="span6">
+            <div class="team-title">
+                <h3>{{ team.name }}</h3>
+            </div>
+            <div class="team-box">
+                {% include 'core/_committee_member.html' with role=team.captain role_name="Captain" %}
+                {% if team.vice_captain %}
+                    {% include 'core/_committee_member.html' with role=team.vice_captain role_name="Vice-Captain" %}
+                {% endif %}
+            </div>
         </div>
-        <div class="team-box">
-            {% include 'core/_committee_member.html' with role=team.captain role_name="Captain" %}
-            {% include 'core/_committee_member.html' with role=team.vice_captain role_name="Vice-Captain" %}
-        </div>
-    </div>
+    {% endif %}
 {% endfor %}
 </div>
 {% model_admin_links 'members' 'committeemembership' %}

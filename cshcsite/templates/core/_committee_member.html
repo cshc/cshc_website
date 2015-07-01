@@ -4,26 +4,14 @@ Reusable snippet for a committee member's profile.
 Expects two parameters, 'role' and 'role_name'
 {% endcomment %}
 
-{% if role %}
 <a class="captain-link" href="{{ role.member.get_absolute_url }}">
-{% endif %}
     <div class="media">
         <div class="pull-left media-object">
-            {% if role %}
-                {% include 'members/_profile_pic_thumbnail.html' with member=role.member %}
-            {% else %}
-                <img class="profile-pic" src="{{ STATIC_URL }}media/profile_pics/default.jpg" width="50" height="50">
-            {% endif %}
+            {% include 'members/_profile_pic_thumbnail.html' with member=role.member %}
         </div>
         <div class="media-body">
-            {% if role %}
-                <h4 class="media-heading">{{ role.member }}</h4>
-            {% else %}
-                <h4 class="media-heading">TBC</h4>
-            {% endif %}
+            <h4 class="media-heading">{{ role.member }}</h4>
             <p>{{ role_name }}</p>
         </div>
     </div>
-{% if role %}
 </a>
-{% endif %}
