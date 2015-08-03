@@ -6,7 +6,8 @@
 
 {% block content %}
 
-{% url 'venue_detail' 'cantabs' as cantabs_url %}
+{% url 'venue_detail' 'tally-ho' as tally_ho_url %}
+{% url 'venue_detail' 'long-road' as long_road_url %}
 {% url 'venue_list' as venues_url %}
 
 <div class="page-header">
@@ -18,15 +19,10 @@
 		<div class="section_header">
 			<h3>Home Venues</h3>
 		</div>
-		<p>If you have the pleasure of playing against us we play our home matches at a brand new pitch in south Cambridge with the club house directly opposite. Click on the links below for a map.</p>
+		<p>If you have the pleasure of playing against us we play most of our home matches at a brand new pitch in south Cambridge. Click on the link below for a map.</p>
 
-		<ul>
-		{% for v in venue_list %}
-		    <li>
-		        <a href="{{ v.get_absolute_url }}" title="View venue details">{{ v.name }}</a>
-		    </li>
-		{% endfor %}
-		</ul>
+		<a href="{{ long_road_url }}" class="h-center" title="Pitch details..."><button class="btn">Long Road Sixth Form College</button></a>
+
 		<p>See you there!</p>
 
 		<div class="section_header">
@@ -41,9 +37,15 @@
 		<div class="box">
 			<h3><i class="icon-food"></i>Match Teas</h3>
 			<hr/>
-			<img src="{{ STATIC_URL }}media/Web%20site%20images/cantabs.jpg">
-			<h4>Cantabs RUFC Club House</h4>
-			<p>Our post-match teas are held at <a href="{{ cantabs_url }}">Cantabs RUFC club house</a> on Sedley Taylor Road.</p>
+			<img src="{{ STATIC_URL }}media/Web%20site%20images/tally_ho.jpg">
+			<h4>Tally Ho</h4>
+			<p>Our post-match teas are held at <a href="{{ tally_ho_url }}">the Tally Ho pub</a>.
+			<address>
+				77 High Street<br>
+				Trumpington<br>
+				CB2 9HZ<br>
+			</address>
+			</p>
 		</div>
 	</div>
 </div>
