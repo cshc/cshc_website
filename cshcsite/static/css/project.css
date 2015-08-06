@@ -575,8 +575,8 @@ table.month .filled .dayNumber .popover {
     vertical-align: top;
     line-height: 40px;
 }
-#shirt-number.female, .shirt-number.female {background-image: url("../media/kit/Ladies%20home%20shirt%20back.png");}
-#shirt-number.male, .shirt-number.male {background-image: url("../media/kit/Mens%20home%20shirt%20back.png");}
+#shirt-number.female, .shirt-number.female {background-image: url("../media/kit/Ladies%20shirt.png");}
+#shirt-number.male, .shirt-number.male {background-image: url("../media/kit/Mens%20shirt.png");}
 
 /**************************************************************/
 /* Summer hockey banner */
