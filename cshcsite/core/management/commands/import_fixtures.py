@@ -220,7 +220,7 @@ class Command(BaseCommand):
 
 
         # Match Venue (can be null)
-        if venue_name.lower() == 'away':
+        if venue_name.lower() == 'away' or (home_away.lower() == 'a' and venue_name.lower() == ''):
             match.venue = None
         else:
             try:
