@@ -63,7 +63,10 @@ class Southerner(models.Model):
 
     def clean(self):
         # Calculate non-editable, derived fields
-        self.avg_points_per_game = (float)(self.total_points()) / (float)(self.played())
+        if self.played() > 0:
+            self.avg_points_per_game = (float)(self.total_points()) / (float)(self.played())
+        else:
+            self.avg_points_per_game = 0.0
 
     def __unicode__(self):
         return unicode("{} - {}".format(self.team, self.season))

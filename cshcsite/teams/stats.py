@@ -29,6 +29,7 @@ def update_southerners_stats_for_season(season):
     for match in match_qs:
         if not s_lookup.has_key(match.our_team_id):
             s_lookup[match.our_team_id] = Southerner(team=match.our_team, season=match.season)
+            s_lookup[match.our_team_id].reset()
         s_lookup[match.our_team_id].add_match(match)
 
     for _, value in s_lookup.iteritems():
