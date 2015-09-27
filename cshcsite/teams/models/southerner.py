@@ -114,4 +114,6 @@ class Southerner(models.Model):
 
         self.goals_for += match.our_score
         self.goals_against += match.opp_score
+        # Force the clean function as it only gets called in the backend normally
+        self.clean()
 
