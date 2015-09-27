@@ -14,6 +14,7 @@ import logging
 import re
 from urllib import urlopen
 from bs4 import BeautifulSoup
+from django.db.models import Q
 from core.models import TeamGender
 from competitions.models import DivisionResult
 from teams.models import ClubTeam
@@ -97,7 +98,8 @@ def set_team(team, name, division):
                 if 'Ladies' not in words:
                     words.insert(-1, 'Ladies')
                 name = " ".join(words)
-            team.opp_team = Team.objects.get(name=name)
+            name_q = Q(name=name) | Q(short_name=name)
+            team.opp_team = Team.objects.get(name_q)
             team.our_team = None
     except (Team.DoesNotExist, ClubTeam.DoesNotExist):
         LOG.error("Could not find team '{}'".format(name))
