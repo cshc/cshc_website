@@ -109,3 +109,15 @@ class UserChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+
+class JuniorsEnquiryForm(forms.Form):
+    GENDER = (('Male', 'Male'), ('Female', 'Female'))
+
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    email = forms.CharField()
+    phone = forms.CharField()
+
+    name_1 = forms.CharField()
+    gender_1 = forms.ChoiceField(choices=GENDER)

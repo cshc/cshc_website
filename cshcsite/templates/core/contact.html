@@ -24,7 +24,7 @@ Form used to email a message to the club secretary
         <p>Alternatively, come along to our evening <a href="{{ training }}">club training</a> and introduce yourself.</p>
         </div>
         <div class="span7">
-            <form action="{{ contact_us }}" method="post">{% csrf_token %}
+            <form class="cshc-form" action="{{ contact_us }}" method="post">{% csrf_token %}
 
                 {{ form.first_name.errors }}
                 <label for="id_first_name" class="control-label required"></label>

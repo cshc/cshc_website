@@ -456,12 +456,12 @@ Page-specific
 #home #articles .article-pic { width: 150px; height: 100px;}
 #home #widget-recents {margin-top: 20px;}
 
-#contact-us input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
-#contact-us input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
-#contact-us input.phone { background: url('../clean_canvas/img/formphone.png') #fff no-repeat 5px; }
-#contact-us input[type="text"] { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 90%; }
-#contact-us textarea { width: 96%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
-#contact-us input[type="submit"] { float: right; margin-right: 8px; }
+.cshc-form input.name { background: url('../clean_canvas/img/formname.png') #fff no-repeat 5px; }
+.cshc-form input.mail { background: url('../clean_canvas/img/formmail.png') #fff no-repeat 5px; }
+.cshc-form input.phone { background: url('../clean_canvas/img/formphone.png') #fff no-repeat 5px; }
+.cshc-form input[type="text"], .cshc-form select { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 90%; }
+.cshc-form textarea { width: 96%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
+.cshc-form input[type="submit"] { float: right; margin-right: 8px; }
 
 #our-teams .team { padding: 0px; margin-bottom: 20px; }
 #our-teams .mens .team { background-color: rgb(153, 213, 182); }
@@ -471,7 +471,7 @@ Page-specific
 #our-teams a.details { float: right; }
 #our-teams img.team-photo { min-height: 200px; }
 
-#about-us #crest { margin-right: 20px; width: 200px; }
+#about-us #crest { margin-right: 20px; width: 230px; }
 
 #matches-by-date .table-score td.team-name { font-size: 150%; }
 #matches-by-date .table-score td.team-score { font-size: 250%; }
@@ -561,6 +561,11 @@ table.month .filled .dayNumber .popover {
 #venue-list #filter input, #venue-list #filter button { margin: 10px 10px 15px 0px; }
 
 #member-list #filter input, #member-list #filter button { margin: 10px 10px 15px 0px; }
+
+#juniors p.lead { text-align: center; margin-top: 20px; }
+#juniors .media-subheading { color: #999; }
+#juniors .cshc-form .children input { width: auto; }
+#juniors .cshc-form .children select { width: auto; padding-left: 10px;}
 
 #shirt-number,
 .shirt-number

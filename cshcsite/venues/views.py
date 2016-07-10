@@ -28,6 +28,13 @@ class HomeVenueListView(VenueListView):
     template_name = "venues/venue_list_home.html"
 
 
+    def get_context_data(self, **kwargs):
+        context = super(HomeVenueListView, self).get_context_data(**kwargs)
+        homePitch = Venue.objects.get(slug='long-road');
+        context['homePitch'] = homePitch;
+        return context
+
+
 class VenueDetailView(DetailView):
     """ A view that provides details of a particular venue."""
     model = Venue

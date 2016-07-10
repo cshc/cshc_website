@@ -33,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^contact/$',                ContactSubmissionCreateView.as_view(),  name='contact_us'),
     url(r'^commission/$',             TemplateView.as_view(template_name='core/commission.html'),  name='commission'),
     url(r'^offers/$',                 TemplateView.as_view(template_name='core/offers.html'),  name='members_offers'),
+    url(r'^juniors/$',                TemplateView.as_view(template_name='core/juniors.html'), name='juniors_index'),
 
     url(r'^about/directions/$',       HomeVenueListView.as_view(), name='directions'),            # Directions - basically a list of home venues
     url(r'^about/social/$',           TemplateView.as_view(template_name='core/social.html'), name='about_social'),

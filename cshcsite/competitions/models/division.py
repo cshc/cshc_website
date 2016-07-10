@@ -28,4 +28,4 @@ class Division(models.Model):
         ordering = ['league', 'gender', 'name']
 
     def __unicode__(self):
-        return unicode("{} {}".format(self.league.name, self.name))
+        return unicode("{} {} ({})".format(self.league.name, self.name, self.gender))

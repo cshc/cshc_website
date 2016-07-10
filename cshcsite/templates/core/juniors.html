@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% comment %}
+Static page with info about the juniors section of the club.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Juniors{% endblock %}
+
+{% block body_id %}juniors{% endblock body_id %}
+
+{% block content %}
+
+{% url 'venue_detail' 'long-road' as long_road_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Juniors</li>
+</ul>
+
+<div class="page-header">
+  <h1>Juniors</h1>
+</div>
+
+<div class="row">
+  <div class="span7">
+    <img src="{{ STATIC_URL }}media/Web%20site%20images/hockey-sticks-flat.jpg"/>
+
+    <p class="lead">
+    Hockey training for boys and girls aged 6 - 12<br/>on Saturday mornings
+    </p>
+    <p>
+      The youth section of Cambridge South Hockey Club train weekly on Saturday mornings during the hockey season. The sessions are for boys and girls aged 6 to 12. Sessions run from 9am to 10am and are led by professional coaches, with assistance from club members.
+    </p>
+    <p>
+      Training takes place at <a href="{{ long_road_url }}" title="Pitch details">Long Road Sixth Form College</a>.
+    </p>
+
+    <div class="section_header">
+        <h3>Resources</h3>
+    </div>
+
+      <div class="media">
+        <div class="pull-left">
+          <i class="icon-file icon-3x"></i>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading"><a href="" target="_blank">Parent's consent form</a></h4>
+          <p class="media-subheading">We can't train your child without it!</p>
+        </div>
+      </div>
+
+      <div class="media">
+        <div class="pull-left">
+          <i class="icon-file icon-3x"></i>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading"><a href="" target="_blank">Cambridge South Welfare Policy</a></h4>
+          <p class="media-subheading">Whilst we have a lot of fun, we take our responsibility with minors seriously</p>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="span5">
+    <div class="box">
+      <div class="wrapper">
+        <p>
+          If you're interested in Juniors hockey at Cambridge South, just fill in this form and we'll get back to you!
+        </p>
+        <form class="cshc-form" action="{{ contact_us }}" method="post">{% csrf_token %}
+
+          <h3>Your details</h3>
+          <hr/>
+          {{ form.first_name.errors }}
+          <label for="id_first_name" class="control-label required"></label>
+          <input id="id_first_name" maxlength="255" name="first_name" class="name" type="text" placeholder="First name*">
+
+          {{ form.last_name.errors }}
+          <label for="id_last_name" class="control-label required"></label>
+          <input id="id_last_name" maxlength="255" name="last_name" class="name" type="text" placeholder="Last name*">
+
+          {{ form.email.errors }}
+          <label for="id_email" class="control-label required"></label>
+          <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email*">
+
+          {{ form.phone.errors }}
+          <label for="id_phone" class="control-label"></label>
+          <input id="id_phone" maxlength="25" name="phone" class="phone" type="text" placeholder="Phone">
+
+          <h3>Your childrens' details</h3>
+          <hr/>
+
+          <div class="children">
+
+          {{ form.name_1.errors }}
+          <label for="id_name_1" class="control-label required"></label>
+          <input id="id_name_1" maxlength="255" name="name_1" class="name" type="text" placeholder="Name*">
+          <select id="id_gender_1" name="gender_1">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+
+          </div>
+
+          <hr/>
+
+          {{ form.message.errors }}
+          <label for="id_message" class="control-label required"></label>
+          <textarea id="id_message" name="message" placeholder="Message*"></textarea>
+
+          {{ form.mailing_list.errors }}
+          <label class="control-label checkbox">
+              <input id="id_mailing_list" name="mailing_list" type="checkbox" checked> I would like to join the Club mailing lists
+          </label>
+
+          <input class="btn btn-primary" type="submit" value="Submit">
+          <p class="required">* required fields</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
