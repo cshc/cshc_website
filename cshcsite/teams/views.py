@@ -155,7 +155,7 @@ class ClubTeamStatsView(AjaxGeneral):
 
         if team.fill_blanks:
             # populate dates with no matches
-            dates = saturdays_in_range(match_qs[0].date, match_qs[len(match_qs)-1].date)
+            dates = saturdays_in_range(match_qs[0].date, match_qs[len(match_qs)-1].date) if (len(match_qs) > 0) else []
             [matches_by_date[d] for d in dates]
 
         # Create a list of (date, list of matchstats) tuples
