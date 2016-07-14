@@ -15,7 +15,6 @@ hr { border-top-color: #e0e0e0;}
 .dropdown-menu {margin: 0px;}
 ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
 
-
 /******************************************************************************
 Theme overrides
 */
@@ -50,6 +49,8 @@ Global Styles
     font-size: 110%;
     color: grey;
 }
+
+.table td.heading { font-weight: bold; }
 
 .jump-list {font-size: 120%; font-weight: bold;}
 
@@ -563,6 +564,17 @@ table.month .filled .dayNumber .popover {
 #member-list #filter input, #member-list #filter button { margin: 10px 10px 15px 0px; }
 
 #juniors p.lead { text-align: center; margin-top: 20px; }
+#juniors p.small { font-size: 0.8em; }
+#juniors .details .heading { text-decoration: underline; }
+#juniors .details .context { font-style: italic; }
+#juniors .media .pull-left { width: 80px; margin-right: 20px; }
+#juniors .resource .pull-left span { float: right; }
+#juniors .resource .icon-stack i { margin: 0; }
+#juniors .resource .icon-stack i.icon-cloud-download { font-size: 0.8em; margin-top: 8px; }
+#juniors .resource .icon-cloud-download { opacity: 0; }
+#juniors .resource a:hover .icon-cloud-download { opacity: 1; }
+#juniors .contact .position { color: rgb(112, 51, 158); }
+#juniors .contact .pull-left { border-radius: 50%; }
 #juniors .media-subheading { color: #999; }
 #juniors .cshc-form .children input { width: auto; }
 #juniors .cshc-form .children select { width: auto; padding-left: 10px;}
