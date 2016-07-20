@@ -11,6 +11,7 @@ Static page with info about the juniors section of the club.
 {% block content %}
 
 {% url 'venue_detail' 'long-road' as long_road_url %}
+{% url 'juniors_index' as juniors_index %}
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
@@ -71,12 +72,6 @@ Static page with info about the juniors section of the club.
       No previous hockey experience is necessary and beginners are welcomed. All sticks, balls and equipment are provided, but players may bring their own stick if they have one (please label clearly in permanent marker). Players require comfortable sportswear and trainers with grippy soles.
     </p>
     <p>
-      Full season membership includes a <strong>free club T-shirt</strong>. Club members also receive a 10% discount* off clothing and equipment at Hobbs Sports.
-    </p>
-    <p class="small">
-      * Minimum spend £10. Excludes sale, service and official replica items.
-    </p>
-    <p>
       To apply for a place, or for more information, please fill in the contact form on this page. Following confirmation of a place, a Registration and Consent form must be completed and returned, together with payment, before a player may attend a session.
     </p>
 
@@ -85,9 +80,9 @@ Static page with info about the juniors section of the club.
     </div>
 
     <div class="media contact">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
+        <img class="pull-left media-object" src="{{ STATIC_URL }}media/members/neil.jpg">
         <div class="media-body">
-            <h4 class="media-heading"><span class="position">Junior Secretary</span> - <span class="name">Neil Sneade</span> <a href="mailto:juniors@cambridgesouthhockeyclub.co.uk" title="Email Neil Sneade"><i class="icon icon-envelope"></i></a></h4>
+            <h4 class="media-heading"><span class="position">Juniors Secretary</span> - <span class="name">Neil Sneade</span> <a href="mailto:juniors@cambridgesouthhockeyclub.co.uk" title="Email Neil Sneade"><i class="icon icon-envelope"></i></a></h4>
             <p>As well as turning out for the Men’s 3rd XI, Neil acts as Club Secretary and now also Junior Secretary. He has two daughters aged 8 and 6 and will be assisting with junior coaching.</p>
         </div>
     </div>
@@ -101,15 +96,15 @@ Static page with info about the juniors section of the club.
     </div>
 
     <div class="media contact">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
+        <img class="pull-left media-object" src="{{ STATIC_URL }}media/members/Ania.jpg">
         <div class="media-body">
-            <h4 class="media-heading"><span class="position">Welfare Assistant</span> - <span class="name">Ania Rygielska</span></h4>
+            <h4 class="media-heading"><span class="position">Welfare Advisor</span> - <span class="name">Ania Rygielska</span></h4>
             <p>Since joining the club in the Ladies 3rd XI development side, Ania has qualified as an umpire and taken on responsibility for arranging the club’s umpiring. She has previous experience working with children in volunteer roles.</p>
         </div>
     </div>
 
     <div class="media contact">
-        <img class="pull-left media-object" src="{{ STATIC_URL }}media/profile_pics/default.jpg">
+        <img class="pull-left media-object" src="{{ STATIC_URL }}media/members/ColinHulett.jpg">
         <div class="media-body">
             <h4 class="media-heading"><span class="position">Juniors Coach</span> - <span class="name">Colin Hulett</span></h4>
             <p>An experienced PE teacher and qualified hockey coach, he has coached children of various ages in numerous sports and also acts as one of the club’s senior team coaches.</p>
@@ -187,46 +182,59 @@ Static page with info about the juniors section of the club.
         <p>
           If you're interested in Juniors hockey at Cambridge South, just fill in this form and we'll get back to you!
         </p>
-        <form class="cshc-form" action="{{ contact_us }}" method="post">{% csrf_token %}
+        <form class="cshc-form" action="{{ juniors_index }}" method="post">{% csrf_token %}
 
-          <h3>Your details</h3>
-          <hr/>
-          {{ form.first_name.errors }}
-          <label for="id_first_name" class="control-label required"></label>
-          <input id="id_first_name" maxlength="255" name="first_name" class="name" type="text" placeholder="First name*">
+          <section class="your-details">
+            <h3>Your details</h3>
+            <hr/>
+            {{ form.first_name.errors }}
+            <label for="id_first_name" class="control-label required"></label>
+            <input id="id_first_name" maxlength="255" name="first_name" class="name" type="text" placeholder="First name*">
 
-          {{ form.last_name.errors }}
-          <label for="id_last_name" class="control-label required"></label>
-          <input id="id_last_name" maxlength="255" name="last_name" class="name" type="text" placeholder="Last name*">
+            {{ form.last_name.errors }}
+            <label for="id_last_name" class="control-label required"></label>
+            <input id="id_last_name" maxlength="255" name="last_name" class="name" type="text" placeholder="Last name*">
 
-          {{ form.email.errors }}
-          <label for="id_email" class="control-label required"></label>
-          <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email*">
+            {{ form.email.errors }}
+            <label for="id_email" class="control-label required"></label>
+            <input id="id_email" maxlength="254" name="email" class="mail" type="text" placeholder="Email*">
 
-          {{ form.phone.errors }}
-          <label for="id_phone" class="control-label"></label>
-          <input id="id_phone" maxlength="25" name="phone" class="phone" type="text" placeholder="Phone">
+            {{ form.phone.errors }}
+            <label for="id_phone" class="control-label"></label>
+            <input id="id_phone" maxlength="25" name="phone" class="phone" type="text" placeholder="Phone">
+          </section>
 
-          <h3>Your childrens' details</h3>
-          <hr/>
+          <section class="your-childs-details">
+            <h3>Your child's details</h3>
+            <hr/>
 
-          <div class="children">
+            {{ form.child_name.errors }}
+            <label for="id_child_name" class="control-label required"></label>
+            <input id="id_child_name" maxlength="255" name="child_name" class="name" type="text" placeholder="Name*">
 
-          {{ form.name_1.errors }}
-          <label for="id_name_1" class="control-label required"></label>
-          <input id="id_name_1" maxlength="255" name="name_1" class="name" type="text" placeholder="Name*">
-          <select id="id_gender_1" name="gender_1">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
+            {{ form.child_gender.errors }}
+            <div class="form-item">
+              <div class="form-label"><label for="id_child_gender">Gender: </label></div>
+              <div class="form-control">
+                {{ form.child_gender }}
+              </div>
+            </div>
 
-          </div>
+            {{ form.child_age.errors }}
+            <div class="form-item">
+              <div class="form-label"><label for="id_child_age">Age: </label></div>
+              <div class="form-control">
+                {{ form.child_age }}
+              </div>
+            </div>
+
+          </section>
 
           <hr/>
 
           {{ form.message.errors }}
-          <label for="id_message" class="control-label required"></label>
-          <textarea id="id_message" name="message" placeholder="Message*"></textarea>
+          <label for="id_message" class="control-label"></label>
+          <textarea id="id_message" name="message" placeholder="Message"></textarea>
 
           {{ form.mailing_list.errors }}
           <label class="control-label checkbox">
@@ -236,6 +244,17 @@ Static page with info about the juniors section of the club.
           <input class="btn btn-primary" type="submit" value="Submit">
           <p class="required">* required fields</p>
         </form>
+      </div>
+    </div>
+    <div class="box shirt-offer">
+      <div class="wrapper">
+        <p>
+          Full season membership includes a <strong>free club T-shirt</strong>. Club members also receive a 10% discount* off clothing and equipment at Hobbs Sports.
+        </p>
+        <p class="small">
+          * Minimum spend £10. Excludes sale, service and official replica items.
+        </p>
+        <img src="{{ STATIC_URL }}media/kit/JC001J purple.png"/>
       </div>
     </div>
   </div>

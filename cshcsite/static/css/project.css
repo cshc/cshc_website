@@ -463,6 +463,8 @@ Page-specific
 .cshc-form input[type="text"], .cshc-form select { padding-left: 39px; margin-bottom: 10px; color: black; height: 29px; border-radius: 3px; width: 90%; }
 .cshc-form textarea { width: 96%; margin: 0px 0px 10px 0px; border-radius: 3px; height: 113px; }
 .cshc-form input[type="submit"] { float: right; margin-right: 8px; }
+.cshc-form .errorlist { color: red; font-weight: bold; }
+
 
 #our-teams .team { padding: 0px; margin-bottom: 20px; }
 #our-teams .mens .team { background-color: rgb(153, 213, 182); }
@@ -576,8 +578,12 @@ table.month .filled .dayNumber .popover {
 #juniors .contact .position { color: rgb(112, 51, 158); }
 #juniors .contact .pull-left { border-radius: 50%; }
 #juniors .media-subheading { color: #999; }
-#juniors .cshc-form .children input { width: auto; }
-#juniors .cshc-form .children select { width: auto; padding-left: 10px;}
+#juniors .cshc-form .your-details { margin-bottom: 20px; }
+#juniors .form-label { width: 60px; display: inline-block; vertical-align: top; padding-top: 6px; }
+#juniors .form-control { display: inline-block; }
+#juniors .form-control select { padding-left: 6px; width: 90px; }
+#juniors .box.shirt-offer { margin-top: 20px; }
+#juniors .box.shirt-offer img { box-shadow: none; }
 
 #shirt-number,
 .shirt-number

@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from zinnia.models import Entry, Category
 from zinnia.admin import EntryAdmin, CategoryAdmin
 from core.forms import FlatPageForm, UserChangeForm, UserCreationForm
-from core.models import ClubInfo, ContactSubmission, CshcUser
+from core.models import ClubInfo, ContactSubmission, CshcUser, JuniorsContactSubmission
 from core.blog import ZinniaEntryAdminForm, ZinniaCategoryAdminForm
 
 
@@ -73,6 +73,14 @@ class ContactSubmissionAdmin(admin.ModelAdmin):
     """ Admin interface definition for the ContactSubmission model. """
     list_display = ('full_name', 'email', 'submitted')
 
+
+class JuniorsContactSubmissionAdmin(admin.ModelAdmin):
+    """ Admin interface definition for the JuniorsContactSubmission model. """
+    ordering = ('child_age', 'child_gender', 'child_name')
+    list_filter = ('child_age', 'child_gender')
+    search_fields = ('full_name', 'child_name', 'email')
+    list_display = ('full_name', 'email', 'child_name', 'child_age', 'child_gender', 'submitted')
+
 ###############################################################################
 # USERS
 
@@ -112,4 +120,5 @@ admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, RedactorFlatPageAdmin)
 admin.site.register(ClubInfo, ClubInfoAdmin)
 admin.site.register(ContactSubmission, ContactSubmissionAdmin)
+admin.site.register(JuniorsContactSubmission, JuniorsContactSubmissionAdmin)
 admin.site.register(CshcUser, CshcUserAdmin)

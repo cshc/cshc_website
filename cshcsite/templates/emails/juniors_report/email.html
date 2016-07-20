@@ -1,0 +1,8 @@
+<p>Message from <strong>{{ name }}</strong>:</p>
+<p><strong>{{ message }}</strong></p>
+<p>Email address: <strong><a href="mailto:{{ sender_email }}">{{ sender_email }}</a></strong></p>
+<p>Phone: <strong>{{ phone }}</strong></p>
+<p>Child: <strong>{{ child_name }}</strong> ({% autoescape off %}{{ child_age }}{% endautoescape %}, {{ child_gender }})
+{% if join_mail_list %}
+<p>Note: {{ name }} would like to be added to the CSHC mailing list.</p>
+{% endif %}

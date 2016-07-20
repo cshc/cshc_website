@@ -2,6 +2,7 @@
 
     FlatPageForm - for creating/updating flat pages.
     ContactSubmissionForm - for submitting 'Contact Us' form
+    JuniorsContactSubmissionForm - for submitting an enquery about juniors
     UserCreationForm - creating new users
     UserChangeForm - used for changing user's password
 """
@@ -10,7 +11,7 @@ from django import forms
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from redactor.widgets import RedactorEditor
-from core.models import ContactSubmission, CshcUser
+from core.models import ContactSubmission, CshcUser, JuniorsContactSubmission
 
 
 class FlatPageForm(forms.ModelForm):
@@ -31,6 +32,16 @@ class ContactSubmissionForm(forms.ModelForm):
     class Meta:
         """ Meta-info for the form. """
         model = ContactSubmission
+        # our_notes is only to be used by staff/admin
+        exclude = ('our_notes',)
+
+
+class JuniorsContactSubmissionForm(forms.ModelForm):
+    """ Form used for the contact form"""
+
+    class Meta:
+        """ Meta-info for the form. """
+        model = JuniorsContactSubmission
         # our_notes is only to be used by staff/admin
         exclude = ('our_notes',)
 
@@ -109,15 +120,3 @@ class UserChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
-
-
-class JuniorsEnquiryForm(forms.Form):
-    GENDER = (('Male', 'Male'), ('Female', 'Female'))
-
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.CharField()
-    phone = forms.CharField()
-
-    name_1 = forms.CharField()
-    gender_1 = forms.ChoiceField(choices=GENDER)

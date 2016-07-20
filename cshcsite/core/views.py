@@ -16,8 +16,8 @@ from templated_emails.utils import send_templated_email
 from registration import signals as reg_signals
 from registration.views import RegistrationView as BaseRegistrationView
 from competitions.models import Season
-from core.models import ClubInfo, ContactSubmission
-from core.forms import ContactSubmissionForm, UserCreationForm
+from core.models import ClubInfo, ContactSubmission, JuniorsContactSubmission
+from core.forms import ContactSubmissionForm, UserCreationForm, JuniorsContactSubmissionForm
 from core.reg_utils import create_inactive_user
 
 LOG = logging.getLogger(__name__)
@@ -179,6 +179,56 @@ class ContactSubmissionCreateView(CreateView):
             LOG.warn("Failed to send contact us email", exc_info=True)
             messages.error(self.request, "Sorry - we were unable to send your message. Please try again later.")
         return super(ContactSubmissionCreateView, self).form_valid(form)
+
+
+
+class JuniorsContactSubmissionCreateView(CreateView):
+    """ This is the enquery form for juniors. """
+
+    model = JuniorsContactSubmission
+    form_class = JuniorsContactSubmissionForm
+    template_name = "core/juniors.html"
+    success_url = '/juniors/'
+
+    def email_to_juniors(self, form):
+        """ Send an email to juniors@cambridgesouthhockeyclub.co.uk with the form data. """
+        email = form.cleaned_data['email']
+        LOG.debug("Email = {}".format(email))
+        context = {
+            'name': u"{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
+            'phone': form.cleaned_data['phone'],
+            'sender_email': email,
+            'child_name': form.cleaned_data['child_name'],
+            'child_age': JuniorsContactSubmission.AGE[form.cleaned_data['child_age']],
+            'child_gender': JuniorsContactSubmission.GENDER[form.cleaned_data['child_gender']],
+            'join_mail_list': form.cleaned_data['mailing_list'],
+            'message': unicode(form.cleaned_data['message']),
+        }
+
+        recipient_email = 'juniors@cambridgesouthhockeyclub.co.uk'
+        send_templated_email([recipient_email], 'emails/juniors_report',
+                             context, from_email=email)
+
+    def email_to_enquirer(self, form):
+        """ Send a confirmation email to the person submitting the form. """
+        context = {
+            'first_name': unicode(form.cleaned_data['first_name']),
+            'message': unicode(form.cleaned_data['message']),
+        }
+
+        recipient_email = form.cleaned_data['email']
+        send_templated_email([recipient_email], 'emails/juniors_sender',
+                             context, from_email='juniors@cambridgesouthhockeyclub.co.uk')
+
+    def form_valid(self, form):
+        try:
+            self.email_to_juniors(form)
+            self.email_to_enquirer(form)
+            messages.info(self.request, "Thanks for your message. We'll be in touch shortly!")
+        except:
+            LOG.warn("Failed to send juniors email", exc_info=True)
+            messages.error(self.request, "Sorry - we were unable to send your message. Please try again later.")
+        return super(JuniorsContactSubmissionCreateView, self).form_valid(form)
 
 
 

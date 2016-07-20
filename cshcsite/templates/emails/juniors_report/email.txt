@@ -1,0 +1,12 @@
+Message from {{ name }}:
+
+{{ message }}
+
+Email address: {{ sender_email }}
+Phone: {{ phone }}
+
+Child: {{ child_name }} ({% autoescape off %}{{ child_age }}{% endautoescape %}, {{ child_gender }})
+
+{% if join_mail_list %}
+Note: {{ name }} would like to be added to the CSHC mailing list.
+{% endif %}

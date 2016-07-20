@@ -1,0 +1,13 @@
+Hi {{ first_name }},
+
+Thanks for contacting us about junior hockey. We'll get back to you with more information as soon as possible.
+
+Best regards,
+
+Neil Sneade
+Juniors Secretary
+
+{% if message %}
+Your message:
+{{ message }}
+{% endif %}
