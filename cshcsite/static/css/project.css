@@ -582,6 +582,8 @@ table.month .filled .dayNumber .popover {
 #juniors .form-label { width: 60px; display: inline-block; vertical-align: top; padding-top: 6px; }
 #juniors .form-control { display: inline-block; }
 #juniors .form-control select { padding-left: 6px; width: 90px; }
+#juniors .form-section { margin-top: 20px; margin-bottom: 20px; }
+#juniors select#id_trigger { display: block; width: 100%; padding-left: 6px; }
 #juniors .box.shirt-offer { margin-top: 20px; }
 #juniors .box.shirt-offer img { box-shadow: none; }
 

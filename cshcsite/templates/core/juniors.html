@@ -241,6 +241,12 @@ Static page with info about the juniors section of the club.
               <input id="id_mailing_list" name="mailing_list" type="checkbox" checked> I would like to join the Club mailing lists
           </label>
 
+          <div class="form-section">
+            {{ form.trigger.errors }}
+            <label for="id_trigger">How did you hear about Cambridge South Junior Hockey?</label>
+            {{ form.trigger }}
+          </div>
+
           <input class="btn btn-primary" type="submit" value="Submit">
           <p class="required">* required fields</p>
         </form>

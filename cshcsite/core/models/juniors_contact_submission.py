@@ -19,6 +19,15 @@ class JuniorsContactSubmission(models.Model):
         ('A11', '11'),
         ('A12', '12'),
         ('AGT12', '> 12'))
+    TRIGGER = Choices(
+        ('not_selected', '-- Select --'),
+        ('web_search', 'Web search (e.g. Google)'),
+        ('social_media', 'Social Media'),
+        ('school_notice', 'School notice'),
+        ('promotional_flyer', 'Promotional Flyer'),
+        ('advertising_banner', 'Advertising Banner'),
+        ('word_of_mouth', 'Word of mount'),
+        ('other', 'Other'))
 
     # Required attributes:
     first_name = models.CharField(max_length=255)
@@ -35,6 +44,7 @@ class JuniorsContactSubmission(models.Model):
     phone = models.CharField("Phone number", max_length=30, blank=True)
     message = models.TextField("Message", help_text="Message (comments/questions etc)", blank=True)
     our_notes = models.TextField(blank=True, help_text="Any notes from the club about this enquiry")
+    trigger = models.CharField(max_length=30, choices=TRIGGER, default=TRIGGER.not_selected)
 
     # Automatically created attributes
     submitted = models.DateTimeField("Date submitted", auto_now_add=True, editable=False)

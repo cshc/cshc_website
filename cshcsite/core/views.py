@@ -193,6 +193,8 @@ class JuniorsContactSubmissionCreateView(CreateView):
     def email_to_juniors(self, form):
         """ Send an email to juniors@cambridgesouthhockeyclub.co.uk with the form data. """
         email = form.cleaned_data['email']
+        trigger = form.cleaned_data['trigger']
+        triggerText = JuniorsContactSubmission.TRIGGER[trigger] if trigger != JuniorsContactSubmission.TRIGGER.not_selected else None
         LOG.debug("Email = {}".format(email))
         context = {
             'name': u"{} {}".format(form.cleaned_data['first_name'], form.cleaned_data['last_name']),
@@ -201,6 +203,7 @@ class JuniorsContactSubmissionCreateView(CreateView):
             'child_name': form.cleaned_data['child_name'],
             'child_age': JuniorsContactSubmission.AGE[form.cleaned_data['child_age']],
             'child_gender': JuniorsContactSubmission.GENDER[form.cleaned_data['child_gender']],
+            'trigger': triggerText,
             'join_mail_list': form.cleaned_data['mailing_list'],
             'message': unicode(form.cleaned_data['message']),
         }
