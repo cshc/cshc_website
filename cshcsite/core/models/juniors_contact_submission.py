@@ -22,11 +22,11 @@ class JuniorsContactSubmission(models.Model):
     TRIGGER = Choices(
         ('not_selected', '-- Select --'),
         ('web_search', 'Web search (e.g. Google)'),
-        ('social_media', 'Social Media'),
+        ('social_media', 'Social media'),
         ('school_notice', 'School notice'),
-        ('promotional_flyer', 'Promotional Flyer'),
-        ('advertising_banner', 'Advertising Banner'),
-        ('word_of_mouth', 'Word of mount'),
+        ('promotional_flyer', 'Promotional flyer'),
+        ('advertising_banner', 'Advertising banner'),
+        ('word_of_mouth', 'Word of mouth'),
         ('other', 'Other'))
 
     # Required attributes:
