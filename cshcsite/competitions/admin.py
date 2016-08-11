@@ -3,7 +3,7 @@
 
 from django.contrib import admin
 from django.forms import ModelForm, widgets
-from competitions.models import League, Division, Season, Cup
+from competitions.models import League, Division, Season, Cup, DivisionResult
 
 
 class CupInline(admin.TabularInline):
@@ -56,8 +56,17 @@ class SeasonAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
 
 
+class DivisionResultAdmin(admin.ModelAdmin):
+    """Admin interface definition for the DivisionResult model"""
+    model = DivisionResult
+    list_display = ('team_name', 'season', 'division')
+    list_filter = ('season', 'division')
+    search_fields = ('team_name',)
+
+
 # Register all competitions models with the admin system
 admin.site.register(League, LeagueAdmin)
 admin.site.register(Division, DivisionAdmin)
 admin.site.register(Season, SeasonAdmin)
 admin.site.register(Cup)
+admin.site.register(DivisionResult, DivisionResultAdmin)
