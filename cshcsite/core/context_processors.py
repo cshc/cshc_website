@@ -30,7 +30,10 @@ def utils(request):
     context = {'VERSION': settings.VERSION}
     team = request.COOKIES.get('cshc_team')
     if team != None:
-      team_url = reverse('clubteam_detail', kwargs={'slug': team})
-      context['TEAM_CONTEXT'] = team_url
-      context['TEAM_CONTEXT_NAME'] = team_names[team]
+      try:
+        team_url = reverse('clubteam_detail', kwargs={'slug': team})
+        context['TEAM_CONTEXT'] = team_url
+        context['TEAM_CONTEXT_NAME'] = team_names[team]
+      except:
+        pass
     return context
