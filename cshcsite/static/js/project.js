@@ -20,6 +20,15 @@ var isMobile = {
     }
 };
 
+function parseParams(){
+    // If the team context is provided, store it in a cookie
+    var teams = window.location.search.match(/team=[\w\d]*/i);
+    if (teams) {
+        var team = teams[0].split('=')[1]
+        Cookies.set('cshc_team', team.toLowerCase(), { expires: 365 });
+    }
+};
+
 // Ref: http://stackoverflow.com/questions/1108693/is-it-possible-to-register-a-httpdomain-based-url-scheme-for-iphone-apps-like/2391031#2391031
 function applink(fail){
     return function(){
@@ -62,6 +71,7 @@ function expand(id) {
 }
 
 $(function(){
+    parseParams();
 
     $(".pop").each(function() {
         var $pElem= $(this);

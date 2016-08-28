@@ -44,6 +44,10 @@
 
 <ul class="nav pull-right">
 
+    {% if TEAM_CONTEXT and TEAM_CONTEXT_NAME %}
+        <li><a href="{{ TEAM_CONTEXT }}" class="{% active TEAM_CONTEXT %}">{{ TEAM_CONTEXT_NAME }}</a></li>
+    {% endif %}
+
     {# Teams #}
     <li class="dropdown">
         <a href="#"  class="dropdown-toggle {% active '/teams/' %}" data-toggle="dropdown">Teams <b class="caret"></b></a>
