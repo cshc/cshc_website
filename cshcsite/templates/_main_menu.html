@@ -28,6 +28,7 @@
 {% url 'clubteam_detail' 'l2' as team_l2 %}
 {% url 'clubteam_detail' 'l3' as team_l3 %}
 {% url 'clubteam_detail' 'mixed' as team_mixed %}
+{% url 'clubteam_detail' 'indoor' as team_indoor %}
 
 {% url 'stats' as stats %}
 {% url 'goal_king' as goal_king %}
@@ -65,6 +66,7 @@
             <li><a href="{{ team_m4 }}" class="{% active team_m4 %}">Mens 4ths</a></li>
             <li class="divider"></li>
             <li><a href="{{ team_mixed }}" class="{% active team_mixed %}">Mixed</a></li>
+            <li><a href="{{ team_indoor }}" class="{% active team_indoor %}">Indoor</a></li>
         </ul>
     </li>
 
