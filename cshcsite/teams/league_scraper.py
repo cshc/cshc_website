@@ -30,26 +30,19 @@ def parse_url(url):
 
 def get_east_leagues_nw_division(url, division, season):
     """ Returns a ScrapedDivision object with the scraped league table from the specified
-        url who's name matches the div_name parameter.
+        url who's name matches the division parameter.
     """
     soup = parse_url(url)
-    div_name = division.name.upper()
-    # Hack: women's leagues slightly different
-    if division.gender == TeamGender.Ladies:
-        div_name = div_name.lstrip('DIVISION').rstrip('DIVISION').strip()
-    # The first html row of the division is the one containing the division name
-    div_row = soup.find(text=div_name).find_parent('tr')
-    current_row = div_row.find_next('tr')
-    # Find the next division - we'll need to stop before this point.
-    # Account for the lowest division which won't have another one below it
-    try:
-        bottom = current_row.find_next('strong').find_parent('tr')
-    except:
-        bottom = None
+    divisionName = division.name.upper()
+    divisionElement = soup.find(text=divisionName)
+    currentRow = divisionElement.find_next('tr')
+    nextDivisionElement = divisionElement.find_next('strong')
+    blankRow = divisionElement.find_next(text=u'\xa0')
+    bottomRow = nextDivisionElement.find_parent('tr') if nextDivisionElement != None else blankRow.find_parent('tr')
     teams = []
     pos = 0
-    while current_row != bottom:
-        columns = current_row('td')
+    while currentRow != bottomRow:
+        columns = currentRow('td')
         pos += 1
         team = DivisionResult()
         team.division = division
@@ -73,9 +66,9 @@ def get_east_leagues_nw_division(url, division, season):
             teams.append(team)
             LOG.debug("Parsed team: {}".format(team))
         try:
-            current_row = current_row.find_next('tr')
+            currentRow = currentRow.find_next('tr')
         except:
-            current_row = None
+            break
 
     return teams
 
