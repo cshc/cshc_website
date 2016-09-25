@@ -66,7 +66,6 @@ def get_east_leagues_nw_division(url, division, season):
                 team.points = int(columns[9].text) if columns[9].text else 0
             # The 11th column is not used!
             team.notes = columns[11].text
-            LOG.debug("Parsing team: {}".format(team))
             team.save()
             teams.append(team)
             LOG.debug("Parsed team: {}".format(team))
