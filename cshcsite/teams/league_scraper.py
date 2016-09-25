@@ -17,11 +17,11 @@ from bs4 import BeautifulSoup
 from django.db.models import Q
 from core.models import TeamGender
 from competitions.models import DivisionResult
+from matches.models import Match
 from teams.models import ClubTeam
 from opposition.models import Team
 
 LOG = logging.getLogger(__name__)
-
 
 def parse_url(url):
     """ Reads the contents of specified url and returns a BeautifulSoup object that wraps it"""
@@ -59,9 +59,14 @@ def get_east_leagues_nw_division(url, division, season):
             team.goals_for = int(columns[6].text) if columns[6].text else 0
             team.goals_against = int(columns[7].text) if columns[7].text else 0
             team.goal_difference = int(columns[8].text) if columns[8].text else 0
-            team.points = int(columns[9].text) if columns[9].text else 0
+            # Some league tables display percentage win instead. In this case calculate the total
+            if columns[9].text.endswith('%'):
+                team.points = team.won * Match.POINTS_FOR_WIN + team.drawn * Match.POINTS_FOR_DRAW
+            else:
+                team.points = int(columns[9].text) if columns[9].text else 0
             # The 11th column is not used!
             team.notes = columns[11].text
+            LOG.debug("Parsing team: {}".format(team))
             team.save()
             teams.append(team)
             LOG.debug("Parsed team: {}".format(team))
@@ -81,17 +86,23 @@ def set_team(team, name, division):
     try:
         if name.startswith('Cambridge South '):
             ordinal = name.lstrip('Cambridge South ')
-            gender = 'M' if division.gender == TeamGender.Mens else 'L'
-            slug = gender + ordinal
+            slug = division.gender[0] + ordinal
             team.our_team = ClubTeam.objects.get(slug=slug.lower())
             team.opp_team = None
         else:
-            if division.gender == TeamGender.Ladies:
-                words = name.split()
-                if 'Ladies' not in words:
-                    words.insert(-1, 'Ladies')
-                name = " ".join(words)
-            name_q = Q(name=name) | Q(short_name=name)
+            # Build the full name by inserting either 'Mens' or 'Ladies' into the name
+            # before the ordinal number
+            words = name.split()
+            if division.gender not in words:
+                words.insert(-1, division.gender)
+            fullName = " ".join(words)
+            # Build the short name by prepending the ordinal number with either 'M' or 'L'
+            words = name.split()
+            if division.gender in words:
+                words.remove(division.gender)
+            words[-1] = division.gender[0] + words[-1]
+            shortName = " ".join(words)
+            name_q = Q(name=fullName) | Q(short_name=shortName)
             team.opp_team = Team.objects.get(name_q)
             team.our_team = None
     except (Team.DoesNotExist, ClubTeam.DoesNotExist):

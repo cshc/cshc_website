@@ -60,6 +60,8 @@ class Command(BaseCommand):
         participations = ClubTeamSeasonParticipation.objects.current().select_related('team', 'division')
 
         for participation in participations:
+            if not participation.division_tables_url:
+                continue
             try:
                 DivisionResult.objects.league_table(season=season, division=participation.division).delete()
                 try:
