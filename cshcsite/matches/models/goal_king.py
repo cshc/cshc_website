@@ -113,7 +113,7 @@ class GoalKing(models.Model):
                                 self.m4_own_goals + self.m5_own_goals + self.l1_own_goals +
                                 self.l2_own_goals + self.l3_own_goals + self.mixed_own_goals +
                                 self.indoor_own_goals)
-        
+
         super(GoalKing, self).save(*args, **kwargs)
 
     def miles_per_game(self):
@@ -193,6 +193,9 @@ class GoalKing(models.Model):
             elif ordinal == TeamOrdinal.T5:
                 self.m5_goals += appearance.goals
                 self.m5_own_goals += appearance.own_goals
+            elif ordinal == TeamOrdinal.TIndoor:
+                self.indoor_goals += appearance.goals
+                self.indoor_own_goals += appearance.own_goals
             else:
                 raise AssertionError("Unexpected mens team: {}".format(ordinal))
         elif gender == TeamGender.Ladies:
