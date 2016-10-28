@@ -104,9 +104,12 @@ class Command(BaseCommand):
                 div_result.goal_difference = team.gd
                 div_result.points = team.pts
                 div_result.notes = team.notes
-                if not sim:
-                    div_result.save()
-                print "Saving division result: {}".format(div_result)
+                try:
+                    if not sim:
+                        div_result.save()
+                    print "Saving division result: {}".format(div_result)
+                except:
+                    errors.append("Failed to save result for {} {} {} {}".format(team_name, division_name, gender, season))
 
         for error in errors:
             print error
