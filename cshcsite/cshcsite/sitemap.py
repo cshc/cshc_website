@@ -50,7 +50,7 @@ class MainStaticViewSitemap(Sitemap):
             'directions', 'about_social', 'about_kit', 'about_fees', 'stats', 'user_profile',
             'registration_register', 'member_list', 'clubteam_list',
             'upcoming_trainingsession_list', 'venue_list',
-            'junior_index',
+            'juniors_index',
         ]
 
     def location(self, item):
