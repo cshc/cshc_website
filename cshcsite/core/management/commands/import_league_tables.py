@@ -79,6 +79,8 @@ class Command(BaseCommand):
                 pos += 1
                 team.position = pos
                 team_name = team.team
+                our_team = None
+                opp_team = None
                 try:
                     our_team = ClubTeam.objects.get(slug=team_name.lower())
                     opp_team = None
@@ -109,6 +111,7 @@ class Command(BaseCommand):
                         div_result.save()
                     print "Saving division result: {}".format(div_result)
                 except:
+                    traceback.print_exc()
                     errors.append("Failed to save result for {} {} {} {}".format(team_name, division_name, gender, season))
 
         for error in errors:
