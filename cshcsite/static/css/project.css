@@ -119,7 +119,7 @@ p.required {color: #A2A2A2; font-size: 80%;}
 
 .profile-pic-large { margin-left: auto; margin-right: auto; display: block; }
 
-img.profile-pic {width: 50px; height: 50px;}
+img.profile-pic {width: 50px; height: 50px; border-radius: 50%; }
 
 .h-center {margin-left: auto; margin-right: auto; display: block; text-align: center; }
 
@@ -273,19 +273,29 @@ a .table-score:hover tbody tr td.team-score,
 
 .team-played, .match-awards { padding-top: 10px; }
 
-.players-container { float: left; }
-.players-container .player-card{
-    float:left;
-    margin:10px 10px 0 0;
-    width: 170px;
+.player-card {
+    width: 180px;
+    float: left;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.players-container .player-card a {
+    display: flex;
 }
 .player-card .profile-pic {
     text-align: left;
     vertical-align: top;
 }
 .player-details {
-    display: inline-block;
     margin-left: 10px;
+    min-width: 0;
+}
+
+.player-details .player-name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .match-links .btn { width: 190px; }
