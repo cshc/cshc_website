@@ -228,10 +228,8 @@ Tables
 
 .table-hcondensed { width: auto; }
 
-#member-list .table tbody tr td a {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
+#member-list .member-row {
+  cursor: pointer;
 }
 
 

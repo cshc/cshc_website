@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.db.models import (Count, Sum)
 from templated_emails.utils import send_templated_email
 from braces.views import LoginRequiredMixin
 from core.views import AjaxGeneral
@@ -96,7 +97,7 @@ class MemberListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(MemberListView, self).get_context_data(**kwargs)
-        member_qs = Member.objects.all()
+        member_qs = Member.objects.all().annotate(num_appearances=Count('appearances'), goals=Sum('appearances__goals'))
         context['filter'] = MemberFilter(self.request.GET, queryset=member_qs)
         return context
 

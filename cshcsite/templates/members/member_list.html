@@ -38,19 +38,23 @@ Filter-able, sortable, paginated display of members.
                     <th>{% sortlink by "last_name" "-last_name" %}Last Name{% endsortlink %}</th>
                     <th>{% sortlink by "gender" "-gender" %}M/F{% endsortlink %}</th>
                     <th>{% sortlink by "pref_position" "-pref_position" %}Position{% endsortlink %}</th>
-                    <th>{% sortlink by "shirt_number" "-shirt_number" %}Shirt #{% endsortlink %}</th>
+                    <th class="center-align">{% sortlink by "shirt_number" "-shirt_number" %}Shirt #{% endsortlink %}</th>
+                    <th class="center-align">Appearances</th>
+                    <th class="center-align">Goals</th>
                 </tr>
             </thead>
             <tbody>
             {% for member in sorted_filter_list %}
             {% with member_url=member.get_absolute_url %}
-                <tr>
+                <tr class="member-row" onclick="window.location='{{ member_url }}';" title="{{ member.full_name }} - member details">
                     <td class="priority3"><a href="{{ member_url }}" title="Member details">{% include 'members/_profile_pic_thumbnail.html' %}</a></td>
-                    <td><a href="{{ member_url }}" title="Member details">{{ member.first_name }}</a></td>
-                    <td><a href="{{ member_url }}" title="Member details">{{ member.last_name }}</a></td>
-                    <td><a href="{{ member_url }}" title="Member details">{{ member.get_gender_display }}</a></td>
-                    <td><a href="{{ member_url }}" title="Member details">{{ member.get_pref_position_display }}</a></td>
-                    <td><a href="{{ member_url }}" title="Member details">{{ member.shirt_number|default:"" }}</a></td>
+                    <td>{{ member.first_name }}</td>
+                    <td>{{ member.last_name }}</td>
+                    <td>{{ member.get_gender_display }}</td>
+                    <td>{{ member.get_pref_position_display }}</td>
+                    <td class="center-align">{{ member.shirt_number|default:"" }}</td>
+                    <td class="center-align">{{ member.num_appearances|default:"" }}</td>
+                    <td class="center-align">{{ member.goals|default:"" }}</td>
                 </tr>
             {% endwith %}
             {% endfor %}
