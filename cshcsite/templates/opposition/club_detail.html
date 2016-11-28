@@ -29,7 +29,9 @@ Currently just lists the values that will be needed by this template - no UI des
         <h3>Location</h3>
         <p class="lead">The default venue for {{ club.name }} matches is {{ club.default_venue|urlise_model }}.</p>
         <p>Note - this does not mean all away matches against {{ club.name }} will be played here. Check the fixture details for the actual match venue.</p>
-        {% include 'core/_gmap_link.html' with venue=club.default_venue %}
+        {% if club.default_venue.address_known %}
+            {% include 'core/_gmap_link.html' with venue=club.default_venue %}
+        {% endif %}
     </div>
     <div class="span8">
         {% if club.default_venue.address_known %}
@@ -129,6 +131,6 @@ Currently just lists the values that will be needed by this template - no UI des
 {% block body_js %}
     {{ block.super }}
     {% if club.default_venue %}
-        {% include "venues/_venue_map_js.html" with venue_address=club.default_venue.full_address %}
+        {% include "venues/_venue_map_js.html" with venue=club.default_venue %}
     {% endif %}
 {% endblock body_js %}

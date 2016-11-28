@@ -64,5 +64,5 @@
 
 {% block body_js %}
 	{{ block.super }}
-  {% include "venues/_venue_map_js.html" with venue=homePitch venue_address=homePitch.full_address %}
+  {% include "venues/_venue_map_js.html" with venue=homePitch %}
 {% endblock body_js %}

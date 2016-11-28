@@ -129,7 +129,7 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
     {% include "commentary/commentary_js.html" %}
 
     {% if match.commentary_is_active or not match.is_in_past %}
-        {% include "venues/_venue_map_js.html" with venue_address=match.venue.full_address %}
+        {% include "venues/_venue_map_js.html" with venue=match.venue %}
     {% endif %}
 
 {% endblock body_js %}

@@ -43,6 +43,6 @@
 
 {% block body_js %}
     {{ block.super }}
-    {% include "venues/_venue_map_js.html" with venue_address=trainingsession.venue.full_address %}
+    {% include "venues/_venue_map_js.html" with venue=trainingsession.venue %}
 {% endblock body_js %}
 
