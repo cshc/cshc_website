@@ -74,7 +74,7 @@ ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 
 .info-well {margin-top: 40px;}
 
-.box { box-shadow: 0px 0px 7px -1px rgb(214, 214, 214); border-radius: 6px; background-color: #fff }
+.box { box-shadow: 0px 0px 7px -1px rgb(214, 214, 214); border-radius: 6px; background-color: #fff; margin-bottom: 10px; }
 
 .box h3{
     color: rgb(83, 83, 83);
@@ -421,7 +421,7 @@ Responsive
         display: none;
     }
     .navbar.navbar-static-top {margin-bottom: 10px;}
-    .page-header {margin: 0;}
+    .page-header {margin: 0 0 10px 0;}
     .page-header h1{font-size: 24px;}
     h1 small {font-size: 16px}
     h2 {font-size: 20px;}
@@ -521,7 +521,6 @@ Page-specific
 .pics-row img { display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; max-height: 500px; }
 table.awards td { border: none; }
 
-#match-list #filter, #member-list #filter, #venue-list #filter { background-color: rgb(219, 230, 219); }
 #match-list #filter label { display: inline-block; margin-right: 10px; width: 80px; }
 #match-list #filter select { width: 200px; }
 #match-list #filter select#id_date_day { width: 55px; }
