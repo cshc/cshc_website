@@ -123,15 +123,13 @@ class CommitteeSeasonView(TemplateView):
         return context
 
 
-class FeesView(TemplateView):
-    """ Display information about fees. Includes travel re-imbursement for away venues.
+class NewPlayersView(TemplateView):
+    """ Display information for new players
     """
-    template_name = 'core/fees.html'
+    template_name = 'core/new_players.html'
 
     def get_context_data(self, **kwargs):
-        context = super(FeesView, self).get_context_data(**kwargs)
+        context = super(NewPlayersView, self).get_context_data(**kwargs)
 
-        venues = Venue.objects.away_venues().only('id', 'slug', 'name', 'distance')
-        context['venues'] = venues
         return context
 

@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% comment %}
+Static page with info for new players.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Join Us{% endblock %}
+
+{% block body_id %}join-us{% endblock body_id %}
+
+{% block content %}
+
+{% url 'juniors_index' as juniors_url %}
+
+<ul class="breadcrumb">
+  <li><a href="/">Home</a> <span class="divider">/</span></li>
+  <li class="active">Join Us</li>
+</ul>
+
+<div class="page-header">
+    <h1>New Players</h1>
+</div>
+<div class="row">
+    <div class="span6">
+        <p>Cambridge South has men’s and ladies’ teams across a range of levels from beginner upwards. We welcome anyone interested in playing hockey, whatever your standard or experience. In line with England Hockey regulations, the minimum age for participation in senior training and matches is 13.</p>
+        <p>New players who wish to train or play with Cambridge South must complete and return the <a href="#reg-form">Player Registration and Consent form</a> available on this page. Forms can be returned by email to <a href="mailto:join@cambridgesouthhockeyclub.co.uk">join@cambridgesouthhockeyclub.co.uk</a> or handed to a club officer or team captain at any match or training session.</p>
+        <p>You can attend up to three games or training sessions with Cambridge South to try us out before deciding whether to pay your annual subscription and join the club to continue playing. Current subscriptions rates and information about how to pay can be found under <a href="#fees">Annual Subscriptions.</a></p>
+        <p>For players who join part way through the season, a proportional reduction will be made to the annual subscription due. If you join after the New Year then you will usually pay 50% of the normal subscription.</p>
+        <p>Of course, we're sure you'll be champing at the bit to join us and hand over your subscription after your first game!</p>
+    </div>
+    <div class="span6">
+        <img src="{{ STATIC_URL }}media/Web%20site%20images/L1s.jpg"/>
+    </div>
+</div>
+
+<div id="reg-form" class="media resource">
+<a href="{{ STATIC_URL }}media/Documents/CSHC_Player_Registration.pdf?v=1" target="_blank">
+  <div class="pull-left">
+    <span class="icon-stack icon-2x">
+      <i class="icon-file icon-stack-base"></i>
+      <i class="icon-cloud-download icon-light"></i>
+    </span>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Registration and Consent form</h4>
+    <p class="media-subheading">Return by email to join@cambridgesouthhockeyclub.co.uk or hand to a club officer or team captain at any match or training session.</p>
+  </div>
+</a>
+</div>
+
+<div class="media resource">
+    <div class="alert alert-info">
+        Note: Under-18s should use the Juniors Registration form found on the <a href="{{ juniors_url }}">Juniors</a> page
+    </div>
+</div>
+
+<div id="fees" class="section_header">
+    <h3>Annual Subscriptions</h3>
+</div>
+<div class="row">
+    <div class="span2">
+        <h3 class="box-heading">Men</h3>
+    </div>
+    <div class="span3">
+        <div class="box male">
+            <div class="wrapper">
+                <h3>Senior</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">100</span>
+                    <span class="annual">/year</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span3">
+        <div class="box male">
+            <div class="wrapper">
+                <h3>Students/Unwaged</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">40</span>
+                    <span class="annual">/year</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span2">
+        <h3 class="box-heading">Ladies</h3>
+    </div>
+    <div class="span3">
+        <div class="box female">
+            <div class="wrapper">
+                <h3>Senior</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">100</span>
+                    <span class="annual">/year</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span3">
+        <div class="box female">
+            <div class="wrapper">
+                <h3>Students/Unwaged</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">40</span>
+                    <span class="annual">/year</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+<div class="section_header">
+    <h3>Match Fees</h3>
+</div>
+
+<div class="row">
+    <div class="span2">
+        <h3 class="box-heading">Men</h3>
+    </div>
+    <div class="span3">
+        <div class="box male">
+            <div class="wrapper">
+                <h3>Senior</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">9</span>
+                    <span class="annual">/match</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span3">
+        <div class="box male">
+            <div class="wrapper">
+                <h3>Students/Unwaged</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">4.50</span>
+                    <span class="annual">/match</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span2">
+        <h3 class="box-heading">Ladies</h3>
+    </div>
+    <div class="span3">
+        <div class="box female">
+            <div class="wrapper">
+                <h3>Senior</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">8</span>
+                    <span class="annual">/match</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span3">
+        <div class="box female">
+            <div class="wrapper">
+                <h3>Students/Unwaged</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">4</span>
+                    <span class="annual">/match</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<p>* Match fees are reduced proportionally for substitutes playing part of a game.</p>
+
+{% get_clubinfo 'TreasurerName' as treasurer_name %}
+
+<p><b><i>Players who have not paid their subscription by 31st October will no longer be covered by our members' insurance and so will not able to be selected until they have paid.</i></b></p>
+<p>Annual subscriptions should be given to your team captain or the Club Treasurer ({{ treasurer_name }}). Payment can be made by cheque payable to <q>Cambridge South Hockey Club</q> or directly by bank transfer: contact {% clubinfo_email 'TreasurerEmail' treasurer_name %} for bank details and to notify them of your payment.</p>
+
+<h4>Umpires</h4>
+
+<p>Players who umpire receive a fee of &pound;8 per game and for away games can claim fuel expenses if they take a team player in accordance with the Travel Costs on this page.</p>
+
+{% endblock content %}

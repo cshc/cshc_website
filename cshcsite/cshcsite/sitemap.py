@@ -47,7 +47,7 @@ class MainStaticViewSitemap(Sitemap):
     def items(self):
         return [
             'homepage', 'about_us', 'calendar', 'contact_us', 'commission', 'members_offers',
-            'directions', 'about_social', 'about_kit', 'about_fees', 'stats', 'user_profile',
+            'directions', 'about_social', 'about_kit', 'join_us', 'stats', 'user_profile',
             'registration_register', 'member_list', 'clubteam_list',
             'upcoming_trainingsession_list', 'venue_list',
             'juniors_index',

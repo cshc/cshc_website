@@ -495,6 +495,8 @@ Page-specific
 #kit td.kit-pic { text-align: center; width: 160px;}
 #kit span.label-kit {font-size: 20px; margin-bottom: 20px; margin-top: 20px; padding: 5px; line-height: 20px;}
 
+#join-us #fees { margin-top: 10px; }
+
 #committee .media-object { width: 50px; height: 50px; }
 #committee .media-body p { font-size: 120%; color: rgb(141, 139, 139); font-weight: bold; }
 #committee .media { margin-top: 15px; }
@@ -543,7 +545,6 @@ table.awards td { border: none; }
 
 #southerners div.box {padding: 10px;}
 #southerners #southerners-league-table { margin-top: 20px;}
-#fees div.box {padding: 10px;}
 
 table.month { margin-bottom: 20px;}
 table.month tbody tr { padding-bottom: 1px; }
@@ -564,6 +565,12 @@ table.month .filled .dayNumber .popover {
 }
 .popover ul {margin: 0 0 10px 0px;}
 
+.media.resource .pull-left span { float: right; }
+.media.resource .icon-stack i { margin: 0; }
+.media.resource .icon-stack i.icon-cloud-download { font-size: 0.8em; margin-top: 8px; }
+.media.resource .icon-cloud-download { opacity: 0; }
+.media.resource a:hover .icon-cloud-download { opacity: 1; }
+
 #matches-by-season .popover { max-width: 400px;}
 #matches-by-season .popover .time {margin-left: 5px; margin-right: 5px; color: rgb(150, 150, 150);}
 #matches-by-season a.calendar { margin-left: auto; margin-right: auto; display: block; text-align: center; }
@@ -578,11 +585,6 @@ table.month .filled .dayNumber .popover {
 #juniors .details .heading { text-decoration: underline; }
 #juniors .details .context { font-style: italic; }
 #juniors .media .pull-left { width: 80px; margin-right: 20px; }
-#juniors .resource .pull-left span { float: right; }
-#juniors .resource .icon-stack i { margin: 0; }
-#juniors .resource .icon-stack i.icon-cloud-download { font-size: 0.8em; margin-top: 8px; }
-#juniors .resource .icon-cloud-download { opacity: 0; }
-#juniors .resource a:hover .icon-cloud-download { opacity: 1; }
 #juniors .contact .position { color: rgb(112, 51, 158); }
 #juniors .contact .pull-left { border-radius: 50%; }
 #juniors .media-subheading { color: #999; }

@@ -10,7 +10,7 @@
 {% url 'about_us' as about_us %}
 {% url 'directions' as directions %}
 {% url 'upcoming_trainingsession_list' as training %}
-{% url 'about_fees' as fees %}
+{% url 'join_us' as join_us %}
 {% url 'about_kit' as kit %}
 {% url 'about_social' as social %}
 {% url 'about_committee' as committee %}
@@ -89,13 +89,17 @@
     <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Club <b class="caret"></b></a>
     <ul class="dropdown-menu">
+        <li class="nav-header">Playing</li>
+        <li><a href="{{ join_us }}" class="{% active join_us %}">Join Us</a></li>
         <li><a href="{{ directions }}" class="{% active directions %}">Directions</a></li>
         <li><a href="{{ training }}" class="{% active training %}">Training</a></li>
-        <li><a href="{{ fees }}" class="{% active fees %}">Fees</a></li>
+        <li><a href="{{ join_us }}#fees" class="{% active join_us %}">Fees</a></li>
         <li><a href="{{ kit }}" class="{% active kit %}">Kit</a></li>
+        <li class="divider"></li>
+        <li class="nav-header">Club Info</li>
+        <li><a href="{{ about_us }}" class="{% active about_us %}">About Us</a></li>
         <li><a href="{{ blog }}" class="{% active blog %}">News</a></li>
         <li><a href="{{ social }}" class="{% active social %}">Social</a></li>
-        <li><a href="{{ about_us }}" class="{% active about_us %}">About Us</a></li>
         <li><a href="{{ committee }}" class="{% active committee %}">Committee</a></li>
         <li><a href="{{ calendar }}" class="{% active calendar %}">Calendar</a></li>
         <li><a href="{{ members_offers }}" class="{% active members_offers %}">Members Offers</a></li>
