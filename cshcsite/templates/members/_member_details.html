@@ -1,4 +1,5 @@
 {% url 'user_profile' as user_profile %}
+{% url 'about_committee' as committee_url %}
 
 <div class="row">
     <div class="span8">
@@ -91,7 +92,13 @@
     <table class="table table-condensed">
         <tbody>
             {% for membership in committee_positions %}
-                <tr><td>{{ membership.season }}</td><td>{{ membership.position.name }}</td></tr>
+                <tr>
+                    <td>
+                        <a href="{{ committee_url }}{{ membership.season }}" title="View {{ membership.season }} committee">
+                        {{ membership.season }}
+                        </a>
+                    </td>
+                    <td>{{ membership.position.name }}</td></tr>
             {% endfor %}
         </tbody>
     </table>
