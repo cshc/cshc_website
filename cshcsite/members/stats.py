@@ -120,17 +120,17 @@ class SeasonTeamStat(object):
         self.season = season
         # A dictionary for each team (must be keyed on the slug of the team)
         self._appearances = {}
-        self._appearances['m1'] = 0
-        self._appearances['m2'] = 0
-        self._appearances['m3'] = 0
-        self._appearances['m4'] = 0
-        self._appearances['m5'] = 0
-        self._appearances['l1'] = 0
-        self._appearances['l2'] = 0
-        self._appearances['l3'] = 0
-        self._appearances['mixed'] = 0
-        self._appearances['indoor'] = 0
-        self._appearances['vets'] = 0
+        self._appearances['m1'] = {"id": None, "count": 0}
+        self._appearances['m2'] = {"id": None, "count": 0}
+        self._appearances['m3'] = {"id": None, "count": 0}
+        self._appearances['m4'] = {"id": None, "count": 0}
+        self._appearances['m5'] = {"id": None, "count": 0}
+        self._appearances['l1'] = {"id": None, "count": 0}
+        self._appearances['l2'] = {"id": None, "count": 0}
+        self._appearances['l3'] = {"id": None, "count": 0}
+        self._appearances['mixed'] = {"id": None, "count": 0}
+        self._appearances['indoor'] = {"id": None, "count": 0}
+        self._appearances['vets'] = {"id": None, "count": 0}
 
     def m1_appearances(self):
         """ Returns the total number of appearances for the Men's 1sts"""
@@ -183,13 +183,14 @@ class SeasonTeamStat(object):
     def add_appearance(self, appearance):
         """ Adds the specified appearance to the appropriate team's running total"""
         assert not self.is_total()
-        self._appearances[appearance.match.our_team.slug] += 1
+        self._appearances[appearance.match.our_team.slug]["id"] = appearance.match.our_team.id
+        self._appearances[appearance.match.our_team.slug]["count"] += 1
 
     def accumulate(self, season_team_stat):
         """ Add the specified team statistics to the running totals"""
         assert self.is_total()
         for key, value in season_team_stat._appearances.items():
-            self._appearances[key] += value
+            self._appearances[key]["count"] += value["count"]
 
 
 class SeasonSuccessStat(object):

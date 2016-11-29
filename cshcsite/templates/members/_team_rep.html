@@ -1,0 +1,9 @@
+{% if season.is_total %}
+    <a href="{{ match_list_url }}?players={{ member.id }}&our_team={{ appearances.id }}" title="List all matches {{ member.first_name }} played for the {{ team_name }} team">
+        {{ appearances.count|default:"" }}
+    </a>
+{% else %}
+    <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&our_team={{ appearances.id }}" title="List matches {{ member.first_name }} played for the {{ team_name }} team in {{ season.season }}">
+        {{ appearances.count|default:"" }}
+    </a>
+{% endif %}

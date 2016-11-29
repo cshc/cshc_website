@@ -1,5 +1,7 @@
 {% load core_tags %}
 
+{% url 'match_list' as match_list_url %}
+
 {% url 'clubteam_detail' 'm1' as team_m1 %}
 {% url 'clubteam_detail' 'm2' as team_m2 %}
 {% url 'clubteam_detail' 'm3' as team_m3 %}
@@ -25,6 +27,7 @@
                 <th><a href="{{ team_m3 }}">M3</a></th>
                 <th><a href="{{ team_m4 }}">M4</a></th>
                 <th><a href="{{ team_m5 }}">M5</a></th>
+                <th><a href="{{ team_indoor }}">Indoor</a></th>
                 <th><a href="{{ team_vets }}">Vets</a></th>
                 {% else %}
                 <th><a href="{{ team_l1 }}">L1</a></th>
@@ -32,7 +35,6 @@
                 <th><a href="{{ team_l3 }}">L3</a></th>
                 {% endif %}
                 <th><a href="{{ team_mixed }}">Mix</a></th>
-                <th><a href="{{ team_indoor }}">Indoor</a></th>
             </tr>
         </thead>
         <tbody>
@@ -40,19 +42,19 @@
             <tr{% if season.is_total %} class="info total"{% endif %}>
                 <td class="left-align">{% if season.is_total %}Total{% else %}{{ season.season }}{% endif %}</td>
                 {% if member.gender == 'Male' %}
-                <td>{{ season.teams.m1_appearances|default:"" }}</td>
-                <td>{{ season.teams.m2_appearances|default:"" }}</td>
-                <td>{{ season.teams.m3_appearances|default:"" }}</td>
-                <td>{{ season.teams.m4_appearances|default:"" }}</td>
-                <td>{{ season.teams.m5_appearances|default:"" }}</td>
-                <td>{{ season.teams.vets_appearances|default:"" }}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.m1_appearances team_name="M1" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.m2_appearances team_name="M2" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.m3_appearances team_name="M3" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.m4_appearances team_name="M4" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.m5_appearances team_name="M5" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.indoor_appearances team_name="Indoor" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.vets_appearances team_name="Vets" %}</td>
                 {% else %}
-                <td>{{ season.teams.l1_appearances|default:"" }}</td>
-                <td>{{ season.teams.l2_appearances|default:"" }}</td>
-                <td>{{ season.teams.l3_appearances|default:"" }}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.l1_appearances team_name="L1" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.l2_appearances team_name="L2" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.l3_appearances team_name="L3" %}</td>
                 {% endif %}
-                <td>{{ season.teams.mix_appearances|default:"" }}</td>
-                <td>{{ season.teams.indoor_appearances|default:"" }}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.mix_appearances team_name="Mixed" %}</td>
             </tr>
             {% endfor %}
         </tbody>

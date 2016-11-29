@@ -1,5 +1,7 @@
 {% load core_tags %}
 
+{% url 'match_list' as match_list_url %}
+
 {% if seasons  %}
 
     <table class="table table-striped table-hover table-condensed table-center-align">
@@ -22,7 +24,17 @@
             {% for season in seasons %}
             <tr{% if season.is_total %} class="info total"{% endif %}>
                 <td class="left-align">{% if season.is_total %}Total{% else %}{{ season.season }}{% endif %}</td>
-                <td>{{ season.success.played }}</td>
+                <td>
+                    {% if season.is_total %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}" title="List all matches {{ member.first_name }} has played">
+                            {{ season.success.played }}
+                        </a>
+                    {% else %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}" title="List all matches {{ member.first_name }} played in {{ season.season }}">
+                            {{ season.success.played }}
+                        </a>
+                    {% endif %}
+                </td>
                 <td>{{ season.success.won }}</td>
                 <td>{{ season.success.drawn }}</td>
                 <td>{{ season.success.lost }}</td>

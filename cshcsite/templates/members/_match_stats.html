@@ -1,5 +1,7 @@
 {% load core_tags %}
 
+{% url 'match_list' as match_list_url %}
+
 {% if seasons %}
 
     <table class="table table-striped table-hover table-condensed table-center-align">
@@ -37,19 +39,57 @@
         <tbody>
             {% for season in seasons %}
             <tr{% if season.is_total %} class="info total"{% endif %}>
-                <td class="left-align">{% if season.is_total %}Total{% else %}{{ season.season }}{% endif %}</td>
+                <td class="left-align">
+                    {% if season.is_total %}
+                        Total
+                    {% else %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}" title="List matches in {{ season.season }} for {{ member.first_name }}">
+                            {{ season.season }}
+                        </a>
+                    {% endif %}
+                </td>
                 {% if flavour = 'mobile' %}
                 <td>{{ season.matches.all.appearances|default:"" }}</td>
                 <td>{{ season.matches.all.goals|default:"" }}</td>
                 <td>{{ season.matches.all.clean_sheets|default:"" }}</td>
                 {% else %}
-                <td>{{ season.matches.league.appearances|default:"" }}</td>
+                <td>
+                    {% if season.is_total %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=League" title="List all league matches for {{ member.first_name }}">
+                            {{ season.matches.league.appearances|default:"" }}
+                        </a>
+                    {% else %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=League" title="List league matches in {{ season.season }} for {{ member.first_name }}">
+                            {{ season.matches.league.appearances|default:"" }}
+                        </a>
+                    {% endif %}
+                </td>
                 <td>{{ season.matches.league.goals|default:"" }}</td>
                 <td>{{ season.matches.league.clean_sheets|default:"" }}</td>
-                <td>{{ season.matches.cup.appearances|default:"" }}</td>
+                <td>
+                    {% if season.is_total %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=Cup" title="List all cup matches for {{ member.first_name }}">
+                            {{ season.matches.cup.appearances|default:"" }}
+                        </a>
+                    {% else %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=Cup" title="List cup matches in {{ season.season }} for {{ member.first_name }}">
+                            {{ season.matches.cup.appearances|default:"" }}
+                        </a>
+                    {% endif %}
+                </td>
                 <td>{{ season.matches.cup.goals|default:"" }}</td>
                 <td>{{ season.matches.cup.clean_sheets|default:"" }}</td>
-                <td>{{ season.matches.friendly.appearances|default:"" }}</td>
+                <td>
+                    {% if season.is_total %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=Friendly" title="List all friendly matches for {{ member.first_name }}">
+                            {{ season.matches.friendly.appearances|default:"" }}
+                        </a>
+                    {% else %}
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=Friendly" title="List friendly matches in {{ season.season }} for {{ member.first_name }}">
+                            {{ season.matches.friendly.appearances|default:"" }}
+                        </a>
+                    {% endif %}
+                </td>
                 <td>{{ season.matches.friendly.goals|default:"" }}</td>
                 <td>{{ season.matches.friendly.clean_sheets|default:"" }}</td>
                 {% endif %}
