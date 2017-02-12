@@ -60,7 +60,7 @@ class Match(models.Model):
     HOME_AWAY = Choices('Home', 'Away')
 
     # If the match wasn't played, an alternative outcome should be entered
-    ALTERNATIVE_OUTCOME = Choices('Postponed', 'Cancelled', 'Walkover', 'BYE')
+    ALTERNATIVE_OUTCOME = Choices('Postponed', 'Cancelled', 'Walkover', 'BYE', 'Abandoned')
 
     # We keep track of whether a match is a league, cup or just a friendly match
     FIXTURE_TYPE = Choices('Friendly', 'League', 'Cup')
@@ -203,7 +203,7 @@ class Match(models.Model):
             (self.our_score != None or self.opp_score != None or self.our_ht_score != None or self.opp_ht_score != None)):
             raise ValidationError("A cancelled or postponed match should not have scores")
 
-        if self.alt_outcome == None:
+        if self.alt_outcome == None or self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Abandoned:
             # You can't specify one score without the other
             if((self.our_score != None and self.opp_score == None) or
                (self.our_score == None and self.opp_score != None)):
@@ -359,6 +359,10 @@ class Match(models.Model):
         """
         if self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Walkover:
             return "{} {}-{} {} (WALK-OVER)".format(self.our_team, self.our_score,
+                                                    self.opp_score, self.opp_team)
+
+        elif self.alt_outcome == Match.ALTERNATIVE_OUTCOME.Abandoned:
+            return "{} {}-{} {} (Abandoned)".format(self.our_team, self.our_score,
                                                     self.opp_score, self.opp_team)
 
         elif self.alt_outcome is not None:
