@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load core_tags %}
 
 {% comment %}
 Static page with info about the juniors section of the club.
@@ -12,6 +13,7 @@ Static page with info about the juniors section of the club.
 
 {% url 'venue_detail' 'long-road' as long_road_url %}
 {% url 'juniors_index' as juniors_index %}
+{% get_clubinfo 'InSeason' as in_season %}
 
 <ul class="breadcrumb">
   <li><a href="/">Home</a> <span class="divider">/</span></li>
@@ -25,18 +27,65 @@ Static page with info about the juniors section of the club.
 <div class="row">
   <div class="span7">
     <img src="{{ STATIC_URL }}media/Web%20site%20images/hockey-sticks-flat.jpg"/>
-
     <p class="lead">
-    Hockey training for boys and girls aged 6 - 12<br/>on Saturday mornings
+    Hockey training for boys and girls aged 6 - 13<br/>on Saturday mornings
+    </p>
+
+    {% if in_season == 'out' %}
+      <div class="standout">
+      <h4>Summer Term Programme</h4>
+      <p>
+        Following on from our regular season sessions, Cambridge South is running a post-season summer term junior hockey programme. This builds on the regular season sessions:
+      </p>
+      <ul>
+        <li>for older children - focus on developing match play with half-pitch games, including introducing goalkeepers. Children will learn about <em>positions, team formation, basic tactics and team play</em></li>
+        <li>for younger ones - continuing development of basic skills via fun games</li>
+      </ul>
+      <p>
+        The summer term programme is aimed at players who already have some hockey experience and basic skills. For players who are completely new to the sport, we recommend our regular season programme starting in September.
+      </p>
+      <p>
+        <u>Players do not need to have attended Cambridge South Juniors' regular season to sign up for the summer term programme: new players are very welcome.</u>
+      </p>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="heading">Location</td>
+            <td class="details"><a href="{{ long_road_url }}" title="Pitch details">Long Road Sixth Form College</a></td>
+          </tr>
+          <tr>
+            <td class="heading">Time</td>
+            <td class="details">Saturdays 10-11am</td>
+          </tr>
+          <tr>
+            <td class="heading">Dates</td>
+            <td class="details">
+              <div class="heading">Summer term (10 weeks)</div>
+              <div class="context">22nd April - 8th July (half term break 27th May - 3rd June)</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="heading">Cost</td>
+            <td class="details">
+              <div class="context">£50</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        To enquire about a place, please fill in the contact form on this page. Following confirmation of a place, a Registration and Consent form must be completed (for new players) and returned, together with payment, before a player may attend a session.
+      </p>
+      </div>
+    {% endif %}
+
+    <p>
+      Cambridge South Hockey Club’s junior section trains weekly on Saturday mornings during the hockey season between September and March. Training sessions are led by a professional coach assisted by club player-coaches.
     </p>
     <p>
-      For the 2016/17 hockey season, Cambridge South Hockey Club is establishing a new junior section. Training sessions will run weekly on Saturday mornings during the hockey season led by a professional coach assisted by club player-coaches.
+      The sessions are for boys and girls, aimed at ages 6-13 (please contact us for ages outside this range). Training is based around the <a href="http://www.playquicksticks.co.uk" target="_blank"/>‘Quicksticks’</a> (for younger children) and <a>In2Hockey</a> (for older players) forms of the game played in schools. The junior sessions are focused on teaching and developing basic skills and team play, ultimately providing a pathway towards senior team hockey (minimum age 13).
     </p>
     <p>
-      The sessions are for boys and girls, aimed at ages 6-12 (please contact us for ages outside this range). Training is based around the <a href="http://www.playquicksticks.co.uk" target="_blank"/>‘Quicksticks’</a> form of the game played in schools, using larger, lighter and safer balls. The junior sessions are focused on teaching and developing basic skills and team play, ultimately providing a pathway towards senior team hockey (minimum age 13).
-    </p>
-    <p>
-      Full season or ‘taster programme’ subscriptions are available. The ‘taster’ subscription covers 3 <u>consecutive</u> Saturdays, for new players wanting to try out hockey before committing to a full membership. Upgrade simply by paying the balance!
+      Full season or ‘taster programme’ subscriptions are available. The ‘taster’ subscription covers 3 Saturdays, for new players wanting to try out hockey before committing to a full membership. Upgrade simply by paying the balance!
     </p>
     <table class="table table-hover">
       <tbody>
@@ -51,10 +100,11 @@ Static page with info about the juniors section of the club.
         <tr>
           <td class="heading">Dates</td>
           <td class="details">
-            <div class="heading">Autumn term (13 weeks)</div>
-            <div class="context">10th September - 10th December (half term break 22nd October)</div><br/>
+            <div class="title">2017/18</div><br/>
+            <div class="heading">Autumn term (12 weeks)</div>
+            <div class="context">9th September - 9th December (half term break 21st - 28th October)</div><br/>
             <div class="heading">Spring term (10 weeks)</div>
-            <div class="context">14th January - 25th March (half term break 18th February)</div>
+            <div class="context">6th January - 24th March (half term break 10th - 17th February)</div>
           </td>
         </tr>
         <tr>
@@ -71,7 +121,7 @@ Static page with info about the juniors section of the club.
       </tbody>
     </table>
     <p>
-      No previous hockey experience is necessary and beginners are welcomed. All sticks, balls and equipment are provided, but players may bring their own stick if they have one (please label clearly in permanent marker). Players require comfortable sportswear and trainers with grippy soles.
+      No previous hockey experience is necessary and beginners are welcomed. All sticks, balls and equipment are provided, but players may bring their own stick if they have one (please label clearly in permanent marker). Players require comfortable sportswear and trainers with grippy soles. <strong>Mouthguards and shinguards are strongly recommended for all players.</strong>
     </p>
     <p>
       To apply for a place, or for more information, please fill in the contact form on this page. Following confirmation of a place, a Registration and Consent form must be completed and returned, together with payment, before a player may attend a session.
