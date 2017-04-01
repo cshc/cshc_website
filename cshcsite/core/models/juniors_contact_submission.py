@@ -18,7 +18,7 @@ class JuniorsContactSubmission(models.Model):
         ('A10', '10'),
         ('A11', '11'),
         ('A12', '12'),
-        ('AGT13', '13')),
+        ('A13', '13'),
         ('AGT13', '> 13'))
     TRIGGER = Choices(
         ('not_selected', '-- Select --'),
