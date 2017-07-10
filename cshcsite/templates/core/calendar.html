@@ -21,6 +21,7 @@
 {% url 'clubteam_ical_feed' 'l1' as l1_cal %}
 {% url 'clubteam_ical_feed' 'l2' as l2_cal %}
 {% url 'clubteam_ical_feed' 'l3' as l3_cal %}
+{% url 'clubteam_ical_feed' 'l4' as l4_cal %}
 {% url 'trainingsession_ical_feed' as training_cal %}
 
 <ul class="breadcrumb">
@@ -45,6 +46,7 @@ src={{ m5_gcal }}&amp;color=%23125A12&amp;
 src={{ l1_gcal }}&amp;color=%232952A3&amp;
 src={{ l2_gcal }}&amp;color=%232952A3&amp;
 src={{ l3_gcal }}&amp;color=%232952A3&amp;
+src={{ l4_gcal }}&amp;color=%232952A3&amp;
 src={{ training_gcal }}&amp;color=%23000000&amp;
 src={{ events_gcal }}&amp;color=%23000000&amp;
 ctz=Europe%2FLondon" style="border-right-width: 0px; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" width="100%"></iframe>
@@ -103,6 +105,10 @@ ctz=Europe%2FLondon" style="border-right-width: 0px; border-top-width: 0px; bord
     <tr>
         <td>Ladies' 3rd XI fixtures</td>
         <td><a href="{{ l3_cal }}" title="Ladies' 3rd XI fixture calendar">{{ request.get_host }}{{ l3_cal }}</a></td>
+    </tr>
+    <tr>
+        <td>Ladies' 4th XI fixtures</td>
+        <td><a href="{{ l4_cal }}" title="Ladies' 4th XI fixture calendar">{{ request.get_host }}{{ l4_cal }}</a></td>
     </tr>
     <tr>
         <td>Training</td>

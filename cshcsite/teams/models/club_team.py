@@ -51,6 +51,10 @@ class ClubTeamQuerySet(QuerySet):
         """ Returns the Ladies 3rds team"""
         return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T3)
 
+    def l4(self):
+        """ Returns the Ladies 4ths team"""
+        return self.get(gender=TeamGender.Ladies, ordinal=TeamOrdinal.T4)
+
     def mixed(self):
         """ Return the mixed team"""
         return self.get(gender=TeamGender.Mixed, ordinal=TeamOrdinal.TOther)

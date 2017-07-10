@@ -21,6 +21,7 @@ team_names = {
   "l1": "Ladies 1sts",
   "l2": "Ladies 2nds",
   "l3": "Ladies 3rds",
+  "l4": "Ladies 4ths",
   "mixed": "Mixed",
   "indoor": "Indoor",
 }
