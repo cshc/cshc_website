@@ -58,137 +58,74 @@ Static page with info for new players.
 <div id="fees" class="section_header">
     <h3>Annual Subscriptions</h3>
 </div>
-<div class="row">
-    <div class="span2">
-        <h3 class="box-heading">Men</h3>
-    </div>
-    <div class="span3">
-        <div class="box male">
-            <div class="wrapper">
-                <h3>Senior</h3>
-                <div class="price">
-                    <span class="pound">&pound;</span>
-                    <span class="qty">100</span>
-                    <span class="annual">/year</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="span3">
-        <div class="box male">
-            <div class="wrapper">
-                <h3>Students/Unwaged</h3>
-                <div class="price">
-                    <span class="pound">&pound;</span>
-                    <span class="qty">40</span>
-                    <span class="annual">/year</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="span2">
-        <h3 class="box-heading">Ladies</h3>
-    </div>
-    <div class="span3">
-        <div class="box female">
-            <div class="wrapper">
-                <h3>Senior</h3>
-                <div class="price">
-                    <span class="pound">&pound;</span>
-                    <span class="qty">100</span>
-                    <span class="annual">/year</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="span3">
-        <div class="box female">
-            <div class="wrapper">
-                <h3>Students/Unwaged</h3>
-                <div class="price">
-                    <span class="pound">&pound;</span>
-                    <span class="qty">40</span>
-                    <span class="annual">/year</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<hr/>
+<div class="row">
+    <div class="span3">
+        <div class="box">
+            <div class="wrapper">
+                <h3>Waged</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">100</span>
+                    <span class="annual">/year</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span3">
+        <div class="box">
+            <div class="wrapper">
+                <h3>Students/Unwaged</h3>
+                <div class="price">
+                    <span class="pound">&pound;</span>
+                    <span class="qty">40</span>
+                    <span class="annual">/year</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="section_header">
-    <h3>Match Fees</h3>
+    <h3>Match Fees*</h3>
 </div>
-
 <div class="row">
-    <div class="span2">
-        <h3 class="box-heading">Men</h3>
-    </div>
     <div class="span3">
-        <div class="box male">
+        <div class="box">
             <div class="wrapper">
                 <h3>Senior</h3>
                 <div class="price">
                     <span class="pound">&pound;</span>
                     <span class="qty">9</span>
-                    <span class="annual">/match</span>
+                    <span class="annual">/match**</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="span3">
-        <div class="box male">
+        <div class="box">
             <div class="wrapper">
                 <h3>Students/Unwaged</h3>
                 <div class="price">
                     <span class="pound">&pound;</span>
                     <span class="qty">4.50</span>
-                    <span class="annual">/match</span>
+                    <span class="annual">/match**</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="span2">
-        <h3 class="box-heading">Ladies</h3>
-    </div>
-    <div class="span3">
-        <div class="box female">
-            <div class="wrapper">
-                <h3>Senior</h3>
-                <div class="price">
-                    <span class="pound">&pound;</span>
-                    <span class="qty">8</span>
-                    <span class="annual">/match</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="span3">
-        <div class="box female">
-            <div class="wrapper">
-                <h3>Students/Unwaged</h3>
-                <div class="price">
-                    <span class="pound">&pound;</span>
-                    <span class="qty">4</span>
-                    <span class="annual">/match</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <br/>
-<p>* Match fees are reduced proportionally for substitutes playing part of a game.</p>
+<p>* Match fees are reduced proportionally for substitutes playing part of a game</p>
+<p>* Ladies 2nd XI and below pay match fees of £8/£4 to reflect lower travel costs</p>
 
 {% get_clubinfo 'TreasurerName' as treasurer_name %}
 
 <p><b><i>Players who have not paid their subscription by 31st October will no longer be covered by our members' insurance and so will not able to be selected until they have paid.</i></b></p>
 <p>Annual subscriptions should be given to your team captain or the Club Treasurer ({{ treasurer_name }}). Payment can be made by cheque payable to <q>Cambridge South Hockey Club</q> or directly by bank transfer: contact {% clubinfo_email 'TreasurerEmail' treasurer_name %} for bank details and to notify them of your payment.</p>
+
+<hr/>
 
 <h4>Umpires</h4>
 

@@ -10,7 +10,6 @@ class JuniorsContactSubmission(models.Model):
 
     GENDER = Choices(('Male', 'Male'), ('Female', 'Female'))
     AGE = Choices(
-        ('ALT6', '< 6'),
         ('A6', '6'),
         ('A7', '7'),
         ('A8', '8'),
@@ -19,7 +18,8 @@ class JuniorsContactSubmission(models.Model):
         ('A11', '11'),
         ('A12', '12'),
         ('A13', '13'),
-        ('AGT13', '> 13'))
+        ('A14', '14'),
+        ('AGT14', '> 14'))
     TRIGGER = Choices(
         ('not_selected', '-- Select --'),
         ('web_search', 'Web search (e.g. Google)'),
@@ -38,7 +38,7 @@ class JuniorsContactSubmission(models.Model):
                                        help_text="If you select 'yes', we'll add you to our club mailing list. Don't worry - its easy to unsubscribe too!")
 
     child_name = models.CharField(max_length=255)
-    child_age = models.CharField(max_length=10, choices=AGE, default=AGE.ALT6)
+    child_age = models.CharField(max_length=10, choices=AGE, default=AGE.A6)
     child_gender = models.CharField(max_length=10, choices=GENDER, default=GENDER.Male)
 
     # Optional attributes:

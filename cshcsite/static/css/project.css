@@ -92,7 +92,7 @@ ul.jump-nav li { margin-bottom: 10px; font-size: 120%; }
 .box .wrapper { padding: 24px 24px 24px 24px; }
 .box .price { font-size: 17px; color: #1189D9; margin-top: 16px; }
 .box .price span.pound { font-size: 32px; position: relative; top: -6px; margin-right: 3px; }
-.box .price span.qty { font-size: 47px; margin-right:4px; position: relative; top: 2px; }
+.box .price span.qty { font-size: 40px; margin-right:4px; position: relative; top: 2px; }
 .box .price span.annual{ font-style: italic; font-weight: 300; font-size: 15px; }
 .box img { box-shadow: 1px 1px 6px 0px #888; border-radius: 5px;}
 
@@ -464,7 +464,6 @@ Page-specific
 #home .page-header h1 {text-align: center;}
 #home #join-us { margin-bottom: 20px;}
 #home #join-us #get-in-touch { margin-left: auto; margin-right: auto; display: block; margin-top: 20px; width: 150px;}
-#home #crest { width: 70%; max-width: 200px; }
 #home #intro-blurb { margin-bottom: 20px;}
 #home #twitter-feed { margin-top: 20px; }
 #home #comments { margin-bottom: 20px; }
@@ -503,8 +502,6 @@ Page-specific
 #kit tr.local td { font-style: italic; }
 #kit td.kit-pic { text-align: center; width: 160px;}
 #kit span.label-kit {font-size: 20px; margin-bottom: 20px; margin-top: 20px; padding: 5px; line-height: 20px;}
-
-#join-us #fees { margin-top: 10px; }
 
 #committee .media-object { width: 50px; height: 50px; }
 #committee .media-body p { font-size: 120%; color: rgb(141, 139, 139); font-weight: bold; }
