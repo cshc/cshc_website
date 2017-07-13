@@ -95,6 +95,10 @@ class CommitteeSeasonView(TemplateView):
             'name': "Ladies 3rd team",
             'captain': next((m for m in ladies_committee if m.position.name == "Ladies' 3rd XI Captain"), None),
             'vice_captain': next((m for m in ladies_committee if m.position.name == "Ladies' 3rd XI Vice-Captain"), None)
+        },{
+            'name': "Ladies 4th team",
+            'captain': next((m for m in ladies_committee if m.position.name == "Ladies' 4th XI Captain"), None),
+            'vice_captain': next((m for m in ladies_committee if m.position.name == "Ladies' 4th XI Vice-Captain"), None)
         }]
 
 
