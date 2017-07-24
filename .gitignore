@@ -9,3 +9,4 @@ themes/classic/views/
 repo_release.tar.bz2
 cshcsite/*.log
 .c9/
+.vscode/
