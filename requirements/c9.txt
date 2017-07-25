@@ -10,6 +10,7 @@ django-discover-runner==1.0
 
 # Configurable set of panels that display various debug information about the current request/response.
 # Ref: http://django-debug-toolbar.readthedocs.org/en/1.2.2/
+sqlparse==0.1.19
 django-debug-toolbar==1.2.1
 
 # Used for remote execution and deployment of website to production site etc.
