@@ -91,8 +91,8 @@ class DivisionResult(models.Model):
     @property
     def team_name(self):
         """ Gets the team name."""
-        if self.our_team == None:
-            return self.opp_team.genderless_name()
+        if self.our_team is None:
+            return self.opp_team.genderless_name() if self.opp_team != None else "Unknown team"
         return self.our_team.genderless_abbr_name()
 
     @property
