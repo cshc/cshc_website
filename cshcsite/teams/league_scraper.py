@@ -28,10 +28,12 @@ def parse_url(url):
     source = urlopen(url).read()
     return BeautifulSoup(source)
 
-def get_east_leagues_nw_division(url, division, season):
+def get_east_leagues_division(url, division, season):
     """ Returns a ScrapedDivision object with the scraped league table from the specified
         url who's name matches the division parameter.
     """
+    existingTeams = DivisionResult.objects.league_table(season=season, division=division)
+
     soup = parse_url(url)
     divisionName = division.name.upper()
     divisionElement = soup.find(text=divisionName)
@@ -66,7 +68,6 @@ def get_east_leagues_nw_division(url, division, season):
                 team.points = int(columns[9].text) if columns[9].text else 0
             # The 11th column is not used!
             team.notes = columns[11].text
-            team.save()
             teams.append(team)
             LOG.debug("Parsed team: {}".format(team))
         try:
@@ -74,6 +75,13 @@ def get_east_leagues_nw_division(url, division, season):
         except:
             break
 
+    # Only replace existing entries if we've got at least as many entries
+    if len(teams) >= len(existingTeams):
+        existingTeams.delete();
+        for t in teams:
+            t.save()
+    else:
+        LOG.debug("Did not save division results for {}: Only {} teams parsed ({} teams before)".format(url, len(teams), len(existingTeams)))
     return teams
 
 def set_team(team, name, division):

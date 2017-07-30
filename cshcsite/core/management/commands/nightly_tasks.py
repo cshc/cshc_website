@@ -63,13 +63,9 @@ class Command(BaseCommand):
             if not participation.division_tables_url:
                 continue
             try:
-                DivisionResult.objects.league_table(season=season, division=participation.division).delete()
-                try:
-                    league_scraper.get_east_leagues_nw_division(participation.division_tables_url, participation.division, season)
-                except Exception as e:
-                    print "Failed to parse league table: {}".format(e)
+                league_scraper.get_east_leagues_division(participation.division_tables_url, participation.division, season)
             except Exception as e:
-                errors.append("Failed to scrape league table from {}: {}".format(participation.division_tables_url, e))
+                print "Failed to parse league table from {}: {}".format(participation.division_tables_url, e)
 
         try:
             # Delete all training session entries from before yesterday (we don't care about

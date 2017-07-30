@@ -17,7 +17,7 @@ from matches.models import Match, Appearance
 from awards.models import MatchAwardWinner
 from teams.stats import (SquadMember, update_southerners_stats_for_season,
                          update_participation_stats, update_participation_stats_for_season)
-from teams.league_scraper import get_east_leagues_nw_division
+from teams.league_scraper import get_east_leagues_division
 from teams.models import ClubTeam, ClubTeamSeasonParticipation, TeamCaptaincy, Southerner
 
 LOG = logging.getLogger(__name__)
@@ -193,12 +193,10 @@ class ScrapeLeagueTableView(AjaxGeneral):
         if participation.division_tables_url:
             context['participation'] = participation
             context['division'] = participation.division
-            # Delete any existing data for this league table
-            DivisionResult.objects.league_table(season=season, division=participation.division).delete()
             try:
-                context['div_data'] = get_east_leagues_nw_division(participation.division_tables_url, participation.division, season)
+                context['div_data'] = get_east_leagues_division(participation.division_tables_url, participation.division, season)
             except Exception as e:
-                print "Failed to parse league table: {}".format(e)
+                print "Failed to parse league table for {}: {}".format(participation.division_tables_url, e)
         return context
 
 ###############################################################################
