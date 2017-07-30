@@ -17,7 +17,7 @@ class MatchAwardWinnerInlineForm(ModelForm):
         model = MatchAwardWinner
         widgets = {
             'comment': AutosizedTextarea(
-                attrs={'class': 'input-medium', 'rows': 2,
+                attrs={'class': 'input-large', 'rows': 3,
                        'style': 'width:95%'}),
         }
 
