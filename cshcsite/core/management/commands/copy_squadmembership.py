@@ -31,7 +31,7 @@ class Command(BaseCommand):
         memberships = SquadMembership.objects.by_season(season)
         membership_count = memberships.count()  # Save has the quirky effect of updating the original object (memberships), so cache the 'before' count.
 
-        if not options ['simulate'] and memberships.exists():
+        if not options['simulate'] and memberships.exists():
             print "ERROR: SquadMembership entries already exist for {0}. To run this command (non-simulated), first delete all SquadMembership entries for {0}".format(season)
             return -1
 
