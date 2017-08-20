@@ -16,6 +16,9 @@ django-debug-toolbar==1.2.1
 # Used for remote execution and deployment of website to production site etc.
 # Ref: http://www.fabfile.org/en/latest/
 fabric==1.10
+# Needed for fabric to work.
+# Note: you'll also need Microsoft Visual C++ Compiler for Python 2.7
+pycrypto==2.6.1
 
 # Graphical representation of models
 # NOTE: YOU SHOULD ALSO INSTALL GRAPHVIZ! http://www.graphviz.org/Download..php
