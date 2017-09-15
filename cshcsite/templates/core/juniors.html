@@ -13,6 +13,8 @@ Static page with info about the juniors section of the club.
 
 {% url 'venue_detail' 'long-road' as long_road_url %}
 {% url 'juniors_index' as juniors_index %}
+{% url 'join_us' as join_us %}
+{% url 'upcoming_trainingsession_list' as training %}
 {% get_clubinfo 'InSeason' as in_season %}
 
 <ul class="breadcrumb">
@@ -74,6 +76,9 @@ Static page with info about the juniors section of the club.
     </table>
     <p>
       No previous hockey experience is necessary and beginners are welcomed. All sticks, balls and equipment are provided, but players may bring their own stick if they have one (please label clearly in permanent marker). Players require comfortable sportswear and trainers with grippy soles. <strong>Mouthguards and shinguards are strongly recommended for all players.</strong>
+    </p>
+    <p>
+      Junior players who are eligible and also wish to <a href="{{ training }}" title="Seniors Training">play or train with the club’s senior section</a> (age 13+) are not required to pay separate <a href="{{ join_us }}#fees" title="Fees">senior membership subs</a>. Usual senior match fees will be payable.        
     </p>
     <p>
       To apply for a place, or for more information, please fill in the contact form on this page. Following confirmation of a place, a Registration and Consent form must be completed and returned, together with payment, before a player may attend a session.
@@ -268,6 +273,18 @@ Static page with info about the juniors section of the club.
           <p class="required">* required fields</p>
         </form>
       </div>
+    </div>
+    <div class="box">
+        <div class="wrapper">
+          <span class="pull-right">
+              <a href="https://calendar.google.com/calendar/ical/4oati7ee6231hb6gtajift5hvs%40group.calendar.google.com/public/basic.ics" title="Subscribe to the CSHC Juniors calendar" class="btn btn-small btn-primary">
+                  <i class="icon-calendar"></i>Subscribe
+              </a>
+          </span>
+          <h3>Juniors Calendar</h3>
+        </div>
+        <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=800&amp;wkst=2&amp;bgcolor=%23FFFFFF&amp;src=4oati7ee6231hb6gtajift5hvs%40group.calendar.google.com&amp;color=%23853104&amp;ctz=Europe%2FLondon" 
+          style="border-width:0" width="100%" height="400" frameborder="0" scrolling="no"></iframe>
     </div>
     <div class="box shirt-offer">
       <div class="wrapper">

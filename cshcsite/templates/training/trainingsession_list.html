@@ -11,6 +11,7 @@
 {% url 'venue_detail' 'wilberforce-road' as uni_url %}
 {% url 'calendar' as calendar %}
 {% url 'trainingsession_create' as create_training_session %}
+{% url 'juniors_index' as juniors %}
 
 {% get_clubinfo 'SecretaryName' as sec_name %}
 {% get_clubinfo 'InSeason' as in_season %}
@@ -39,6 +40,8 @@
         <h4>Beginners Training and Back to Hockey</h4>
         <p>For newcomers to hockey or those wanting to refresh their skills, we have separately-coached sessions alongside our regular squad training.</p>
         <p>For women looking to try out hockey or coming back to the sport, we have Back to Hockey basic skills sessions on Thursdays 7.30-9pm.</p>
+        <h4>Juniors' Training</h4>
+        <p>For details of Juniors training, including upcoming session dates and times, check out the dedicated <a href="{{ juniors }}">Juniors page</a>.</p>
     </div>
 
     <div class="span4">
