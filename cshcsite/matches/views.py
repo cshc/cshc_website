@@ -484,8 +484,8 @@ class AppearancesByDateView(LoginRequiredMixin, PermissionRequiredMixin, Templat
 
             # Try to find this member in the struct already (check for double-ups)
             for t, t_struct in gender_struct['teams'].iteritems():
-                double_up = next((x for x in t_struct['appearances'] if x['appearance'].member_id is app.member_id), None)
-                if double_up is not None:
+                double_up = filter(lambda x: x['appearance'].member_id == app.member_id, t_struct['appearances'])
+                if double_up:
                     t_struct['double_ups'] += 1
                     gender_struct['double_ups'] += 1
                     has_double_up = True
