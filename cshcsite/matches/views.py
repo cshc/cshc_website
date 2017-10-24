@@ -1,12 +1,13 @@
 """ Django Views relating to matches
 """
 
+import collections
 from datetime import datetime
 from itertools import groupby
 from django.views.generic import DetailView, ListView, TemplateView
 from django.utils import timezone
 from django.db.models import Q
-from braces.views import SelectRelatedMixin
+from braces.views import SelectRelatedMixin, LoginRequiredMixin, PermissionRequiredMixin
 from core.stats import MatchStats
 from core.models import ClubInfo
 from core.views import AjaxGeneral, get_season_from_kwargs, add_season_selector
@@ -448,3 +449,56 @@ class NaughtyPlayer(object):
             self.yellow_cards.append(appearance)
         elif appearance.green_card:
             self.green_cards.append(appearance)
+
+
+class AppearancesByDateView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    template_name = 'matches/appearances_by_date.html'
+    permission_required = "matches.add_appearance"
+
+    def get_context_data(self, **kwargs):
+        context = super(AppearancesByDateView, self).get_context_data(**kwargs)
+        date = datetime.strptime(kwargs['date'], "%d-%b-%y").date()
+        apps = Appearance.objects.select_related('match', 'member').filter(match__date=date).order_by('match__our_team__position', 'member__last_name')
+        
+        genders = collections.OrderedDict()
+        
+        for app in apps:
+            gender = app.match.our_team.get_gender_display()
+            team_name = app.match.our_team.long_name
+            if gender not in genders:
+                genders[gender] = {
+                    'teams': collections.OrderedDict(),
+                    'total': 0,
+                    'double_ups': 0,
+                }
+            gender_struct = genders[gender]
+            if team_name not in gender_struct['teams']:
+                gender_struct['teams'][team_name] = {
+                    'appearances': [],
+                    'double_ups': 0,
+                    'match': app.match,
+                }
+            team = gender_struct['teams'][team_name]
+
+            has_double_up = False
+
+            # Try to find this member in the struct already (check for double-ups)
+            for t, t_struct in gender_struct['teams'].iteritems():
+                double_up = next((x for x in t_struct['appearances'] if x['appearance'].member_id is app.member_id), None)
+                if double_up is not None:
+                    t_struct['double_ups'] += 1
+                    gender_struct['double_ups'] += 1
+                    has_double_up = True
+
+            team['appearances'].append({'appearance': app, 'double_up': has_double_up})
+            gender_struct['total'] += 1
+
+        # Get previous and next match dates
+        prev_match = Match.objects.only('date').filter(date__lt=date).order_by('-date', '-time').first()
+        next_match = Match.objects.only('date').filter(date__gt=date).order_by('date', 'time').first()
+        context['prev_date'] = prev_match.date if prev_match else None
+        context['next_date'] = next_match.date if next_match else None
+        
+        context['appearances'] = genders
+        context['date'] = date
+        return context

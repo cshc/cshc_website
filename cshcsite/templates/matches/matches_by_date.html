@@ -25,7 +25,9 @@ Currently just lists the values that will be needed by this template - no UI des
     <h1>Matches <small>{{ date|date:"jS M Y" }}</small></h1>
 </div>
 
-{% include 'matches/_date_pager.html' %}
+{% url 'matches_by_date' prev_date|date:"d-M-y" as prev_date_url %}
+{% url 'matches_by_date' next_date|date:"d-M-y" as next_date_url %}
+{% include 'matches/_date_pager.html' with title="Matches" %}
 
 {% for m in match_list %}
     <div class="row match-score">
@@ -114,7 +116,12 @@ Currently just lists the values that will be needed by this template - no UI des
     <p class="muted">No matches on this date</p>
 {% endfor %}
 
-{% include 'matches/_date_pager.html' %}
+{% include 'matches/_date_pager.html' with title="Matches" %}
+
+{% if perms.matches.add_appearance %}
+{% url 'appearances_by_date' date|date:"d-M-y" as appearances_url %}
+<a class="btn btn-default" href="{{ appearances_url }}" title="View all appearances on this date">View all appearances</a>
+{% endif %}
 
 {% endblock %}
 

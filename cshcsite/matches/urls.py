@@ -51,6 +51,13 @@ urlpatterns = patterns('',
         name="next_fixtures"
     ),
 
+    # E.g. '/matches/appearances/23-Apr-13/'            - List of appearances on a particular date
+    url(r'^appearances/(?P<date>\d{2}-[a-zA-Z]{3}-\d{2})/$',
+        views.AppearancesByDateView.as_view(),
+        name="appearances_by_date"
+    ),
+
+
     # E.g. '/matches/goal-king/'            - Goal King table for the current season
     url(r'^goal-king/$',
         views.GoalKingSeasonView.as_view(),

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load core_tags staticfiles %}
+
+
+{% comment %}
+Formatted display of appearances on a particular date.
+{% endcomment %}
+
+{% block title %}{{ block.super }} | Appearances on {{ date|date:"jS M Y" }}{% endblock %}
+
+{% block link %}
+{{ block.super }}
+<link href="{{ STATIC_URL }}css/appearances.css?v={{ VERSION }}" rel="stylesheet">
+{% endblock link %}
+
+{% block body_id %}matches-by-date{% endblock body_id %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Appearances <small>{{ date|date:"jS M Y" }}</small></h1>
+</div>
+
+{% url 'appearances_by_date' prev_date|date:"d-M-y" as prev_date_url %}
+{% url 'appearances_by_date' next_date|date:"d-M-y" as next_date_url %}
+{% include 'matches/_date_pager.html' with title="Appearances" %}
+
+<div class="accordion" id="gender_accordion">
+  {% for gender, gender_struct in appearances.iteritems %}
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle collapsed" id="{{ gender }}" data-toggle="collapse" data-parent="#gender_accordion" href="#collapse{{ gender }}">
+        {{ gender }}
+        <span class="app-counts">
+          {{ gender_struct.total }} appearance{{ gender_struct.total|pluralize }}            
+          {% if gender_struct.double_ups %}
+            &nbsp;({{ gender_struct.double_ups }} double-up{{ gender_struct.double_ups|pluralize }} for lower teams)
+          {% endif %}
+        </span>
+      </a>
+    </div>
+    <div id="collapse{{ gender }}" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <div class="accordion" id="teams_accordion">
+          {% for team, team_struct in gender_struct.teams.iteritems %}
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle collapsed" id="{{ team|slugify }}" data-toggle="collapse" data-parent="#teams_accordion" href="#collapse{{ team|slugify }}">
+                {{ team }}
+                <span class="app-counts">
+                  {{ team_struct.appearances|length }} appearance{{ team_struct.appearances|length|pluralize }}
+                  {% if team_struct.double_ups %}
+                    &nbsp;({{ team_struct.double_ups }} double-up{{ team_struct.double_ups|pluralize }} for lower teams)
+                  {% endif %}
+                </span>
+              </a>
+            </div>
+            <div id="collapse{{ team|slugify }}" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>
+                  <a href="{{ team_struct.match.get_absolute_url }}" title="View match details">
+                    {{ team_struct.match.our_team.short_name }} vs {{ team_struct.match.opp_team }}
+                  </a>
+                </h4>
+                <ul class="unstyled">
+                  {% for app in team_struct.appearances %}
+                    <li>{% if app.double_up %}<strong>{{ app.appearance.member|urlise_model }}</strong>{% else %}{{ app.appearance.member|urlise_model }}{% endif %}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p class="lead">No appearances on {{ date|date:"jS M Y" }}</p>
+  {% endfor %}
+</div>
+
+{% endblock content %}
