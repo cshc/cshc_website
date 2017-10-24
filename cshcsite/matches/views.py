@@ -458,7 +458,7 @@ class AppearancesByDateView(LoginRequiredMixin, PermissionRequiredMixin, Templat
     def get_context_data(self, **kwargs):
         context = super(AppearancesByDateView, self).get_context_data(**kwargs)
         date = datetime.strptime(kwargs['date'], "%d-%b-%y").date()
-        apps = Appearance.objects.select_related('match', 'member').filter(match__date=date).order_by('match__our_team__position', 'member__last_name')
+        apps = Appearance.objects.select_related('match__our_team', 'match__opp_team', 'member').filter(match__date=date).order_by('match__our_team__position', 'member__last_name')
         
         genders = collections.OrderedDict()
         

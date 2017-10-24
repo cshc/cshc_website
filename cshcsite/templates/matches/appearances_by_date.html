@@ -33,7 +33,7 @@ Formatted display of appearances on a particular date.
         {{ gender }}
         <span class="app-counts">
           {{ gender_struct.total }} appearance{{ gender_struct.total|pluralize }}            
-          {% if gender_struct.double_ups %}
+          {% if gender_struct.double_ups > 0 %}
             &nbsp;({{ gender_struct.double_ups }} double-up{{ gender_struct.double_ups|pluralize }} for lower teams)
           {% endif %}
         </span>
@@ -49,7 +49,7 @@ Formatted display of appearances on a particular date.
                 {{ team }}
                 <span class="app-counts">
                   {{ team_struct.appearances|length }} appearance{{ team_struct.appearances|length|pluralize }}
-                  {% if team_struct.double_ups %}
+                  {% if team_struct.double_ups > 0 %}
                     &nbsp;({{ team_struct.double_ups }} double-up{{ team_struct.double_ups|pluralize }} for lower teams)
                   {% endif %}
                 </span>
