@@ -491,13 +491,14 @@ class AppearancesByDateView(LoginRequiredMixin, PermissionRequiredMixin, Templat
                     has_double_up = True
 
             team['appearances'].append({'appearance': app, 'double_up': has_double_up})
-            gender_struct['total'] += 1
+            if not has_double_up:
+                gender_struct['total'] += 1
 
-        # Get previous and next match dates
-        prev_match = Match.objects.only('date').filter(date__lt=date).order_by('-date', '-time').first()
-        next_match = Match.objects.only('date').filter(date__gt=date).order_by('date', 'time').first()
-        context['prev_date'] = prev_match.date if prev_match else None
-        context['next_date'] = next_match.date if next_match else None
+        # Get previous and next appearance dates
+        prev_appearance = Appearance.objects.only('match__date').filter(match__date__lt=date).order_by('-match__date').first()
+        next_appearance = Appearance.objects.only('match__date').filter(match__date__gt=date).order_by('match__date').first()
+        context['prev_date'] = prev_appearance.match.date if prev_appearance else None
+        context['next_date'] = next_appearance.match.date if next_appearance else None
         
         context['appearances'] = genders
         context['date'] = date

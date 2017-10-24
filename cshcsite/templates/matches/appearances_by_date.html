@@ -25,6 +25,12 @@ Formatted display of appearances on a particular date.
 {% url 'appearances_by_date' next_date|date:"d-M-y" as next_date_url %}
 {% include 'matches/_date_pager.html' with title="Appearances" %}
 
+<h5>Notes</h5>
+<ul class="app-notes">
+  <li>The total for Mens/Ladies/Mixed etc is the number of <em>distinct</em> players.</li> 
+  <li>A 'double-up' is any time a player also played for a higher team on the same day. Technically a particular player could double-up more than once (e.g. if a goalkeeper plays for the M3s, M4s and M5s on the same day).</li>
+  <li>Players that 'doubled-up' are listed in <strong>bold</strong> (ie.. they also played for a higher team on the same day).</li>
+</ul>
 <div class="accordion" id="gender_accordion">
   {% for gender, gender_struct in appearances.iteritems %}
   <div class="accordion-group">
@@ -32,7 +38,7 @@ Formatted display of appearances on a particular date.
       <a class="accordion-toggle collapsed" id="{{ gender }}" data-toggle="collapse" data-parent="#gender_accordion" href="#collapse{{ gender }}">
         {{ gender }}
         <span class="app-counts">
-          {{ gender_struct.total }} appearance{{ gender_struct.total|pluralize }}            
+          {{ gender_struct.total }} member{{ gender_struct.total|pluralize }}            
           {% if gender_struct.double_ups %}
             &nbsp;({{ gender_struct.double_ups }} double-up{{ gender_struct.double_ups|pluralize }} for lower teams)
           {% endif %}
@@ -48,7 +54,7 @@ Formatted display of appearances on a particular date.
               <a class="accordion-toggle collapsed" id="{{ team|slugify }}" data-toggle="collapse" data-parent="#teams_accordion" href="#collapse{{ team|slugify }}">
                 {{ team }}
                 <span class="app-counts">
-                  {{ team_struct.appearances|length }} appearance{{ team_struct.appearances|length|pluralize }}
+                  {{ team_struct.appearances|length }} player{{ team_struct.appearances|length|pluralize }}
                   {% if team_struct.double_ups %}
                     &nbsp;({{ team_struct.double_ups }} double-up{{ team_struct.double_ups|pluralize }} for lower teams)
                   {% endif %}
