@@ -9,11 +9,6 @@
 Filter-able, sortable, paginated display of venues.
 {% endcomment %}
 
-{% block body_js %}
-    {{ block.super }}
-    {% include "venues/_venue_list_map_js.html" %}
-{% endblock body_js %}
-
 {% block title %}{{ block.super }} | Match venues{% endblock %}
 
 {% block body_id %}venue-list{% endblock body_id %}

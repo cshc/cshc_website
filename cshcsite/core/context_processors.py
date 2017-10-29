@@ -28,7 +28,10 @@ team_names = {
 
 def utils(request):
     """ Returns common context items. """
-    context = {'VERSION': settings.VERSION}
+    context = {
+      'VERSION': settings.VERSION,
+      'GMAPS_API_KEY': settings.GEOPOSITION_GOOGLE_MAPS_API_KEY,
+    }
     team = request.COOKIES.get('cshc_team')
     if team != None:
       try:

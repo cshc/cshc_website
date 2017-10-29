@@ -135,3 +135,8 @@ django-resized==0.2.4
 # Image manipulation tools
 # Ref: https://github.com/matthewwithanm/django-imagekit
 django-imagekit==3.2.4
+
+# django-geoposition
+# Ref: https://github.com/philippbosch/django-geoposition
+# Note - this is an older version as its compatible with Django < 1.8
+django-geoposition==0.2.3

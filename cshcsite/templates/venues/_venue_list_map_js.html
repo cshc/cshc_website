@@ -2,35 +2,31 @@
 
 <script type="text/javascript">
     
-    function initMap(address, index){
-        
-        $('#map_canvas' + index).gmap3(
-            { map:{
-                address:address,
-                options:{
-                zoomControl:false,
-                overviewMapControl:false,
-                mapTypeControl:false,
-                panControl:false,
-                scaleControl:false,
-                rotateControl:false,
-                streetViewControl:false,
-                zoom: 10,
-                opts:{
-                    scrollwheel:true
-                }
-                }
-            },
-            marker:{
-                address:address
-            }
-            }
-        );
+    function initMap(full_address, position, index){
+        var address = position.length ? null : full_address;
+        var center = position.length ? position : null;
+        $('#map_canvas' + index).gmap3({
+            address: address,
+            center: center,
+            zoomControl: false,
+            overviewMapControl: false,
+            mapTypeControl: false,
+            panControl: false,
+            scaleControl: false,
+            rotateControl: false,
+            streetViewControl: false,
+            zoom: 10,
+            scrollwheel: true,
+        })
+        .marker({
+            address: address,
+            position: center,
+        });
     }
 
     $(function(){
     {% for v in venue_list %}
-        initMap("{{ v.full_address }}", "{{ forloop.counter0 }}")
+        initMap("{{v.full_address}}", [{{v.position}}], "{{ forloop.counter0 }}")
     {% endfor %}
           
     });

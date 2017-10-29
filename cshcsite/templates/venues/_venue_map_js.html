@@ -3,24 +3,19 @@
 <script type="text/javascript">
 
   $(function(){
-    var address = "{{ venue.full_address }}";
-
-    $('#map_canvas').gmap3(
-      {
-        map:{
-          address:address,
-          options:{
-            zoom: 14,
-            opts:{
-              scrollwheel:true
-            }
-          }
-        },
-        marker:{
-          address:address
-        }
-      }
-    );
+    var position = [{{ venue.position }}];
+    var address = position.length ? null : "{{ venue.full_address }}";
+    $('#map_canvas').gmap3({
+      address: address,
+      center: position.length ? position : null,
+      zoom: 14,
+      scrollwheel:true,
+      mapTypeId : google.maps.MapTypeId.ROADMAP,
+    })
+    .marker({
+      address: address,
+      position: position.length ? position : null,
+    });
 
     var venue_link_fallback = "//maps.google.com/?q=" + address;
 

@@ -236,6 +236,7 @@ THIRD_PARTY_APPS = (
     'redactor',
     'rest_framework',
     'imagekit',
+    'geoposition',
 )
 
 # Apps specific for this project go here.
@@ -556,3 +557,16 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
 }
 ########## END djangorestframework CONFIGURATION
+
+
+########## django-geoposition CONFIGURATION
+# Ref:https://github.com/philippbosch/django-geoposition
+GEOPOSITION_GOOGLE_MAPS_API_KEY  = get_env_setting('GOOGLE_MAPS_API_KEY')
+GEOPOSITION_MAP_OPTIONS = {
+    'minZoom': 3,
+    'maxZoom': 15,
+    'scrollwheel': True,
+    'lat': 52.206133926014665,
+    'lng': 0.12531280517578125,
+}
+########## END django-geoposition CONFIGURATION

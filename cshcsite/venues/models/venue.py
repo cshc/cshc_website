@@ -4,6 +4,7 @@
 
 from django.db import models
 from django.template.defaultfilters import slugify
+from geoposition.fields import GeopositionField
 from core.models import not_none_or_empty
 
 
@@ -64,6 +65,8 @@ class Venue(models.Model):
     distance = models.PositiveSmallIntegerField("Distance to this venue", null=True)
     """Distance to this venue from the centre of Cambridge"""
 
+    position = GeopositionField(null=True)
+    """ Lat/Long location of the venue - used for Google Maps etc """
 
     objects = VenueManager()
 
