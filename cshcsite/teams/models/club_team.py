@@ -107,6 +107,23 @@ class ClubTeam(models.Model):
     blurb = models.TextField(blank=True)
     """ Some current detail about the team. """
 
+    google_calendar_url = models.CharField("Google Calendar Feed URL", max_length=200, help_text="\
+    The URL of the Google Calendar feed for this team.\
+    \
+    When a new team is added, a new Google Calendar feed is created by pointing Google Calendar \
+    at the team's ical URL (the 'clubteam_ical_feed' url). The Google Calendar feed URL generated \
+    from this is what should go in this field.", blank=True)
+    """
+    The URL of the Google Calendar feed for this team.
+
+    When a new team is added, a new Google Calendar feed is created by pointing Google Calendar
+    at the team's ical URL (the 'clubteam_ical_feed' url). The Google Calendar feed URL generated
+    from this is what should go in this field.
+
+    Login to google calendar (email address and password in 'Account Details' Google Doc)
+    to get these addresses.
+    """
+
     objects = PassThroughManager.for_queryset_class(ClubTeamQuerySet)()
 
     class Meta:
