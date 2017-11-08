@@ -30,28 +30,30 @@ Currently just lists the values that will be needed by this template - no UI des
 {% include 'matches/_date_pager.html' with title="Matches" %}
 
 {% for m in match_list %}
-    <div class="row match-score">
-        <a class="match-link" href="{{ m.match.get_absolute_url }}" title="Match details">
-        <table class="table table-score">
-        <tbody>
-            <tr>
-                <td class="team-name">{{ m.match.our_team.abbr_name }}</td>
-                {% if m.match.final_scores_provided %}
-                <td class="team-score">{{ m.match.our_score }}</td>
-                <td class="team-score score-divider">-</td>
-                <td class="team-score">{{ m.match.opp_score }}</td>
-                {% elif m.match.is_off %}
-                <td class="team-score alt-score">{{ m.match.get_alt_outcome_display }}</td>
-                {% else %}
-                <td class="team-score">vs</td>
-                {% endif %}
-                <td class="team-name">{{ m.match.opp_team.name }}</td>
-            </td>
-        </tbody>
-        </table>
-        </a>
-    </div>
-
+    <a class="match-link" href="{{ m.match.get_absolute_url }}" title="Match details">
+        <div class="row match-score">
+            <div class="team-name">
+                {{ m.match.our_team.abbr_name }}
+            </div>
+            {% if m.match.final_scores_provided %}
+            <div class="team-score">
+                {{ m.match.our_score }} - {{ m.match.opp_score }}
+            </div>
+            {% elif m.match.is_off %}
+            <div class="team-score alt-score">
+                {{ m.match.get_alt_outcome_display }}
+            </div>
+            {% else %}
+            <div class="team-score">
+                vs
+            </div>
+            {% endif %}
+            <div class="team-name">
+                {{ m.match.opp_team.name }}
+            </div>
+        </div>
+    </a>
+    
     <div class="row match-detail">
         {% if m.match.is_in_past %}
             <div class="span12">

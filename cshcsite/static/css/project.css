@@ -250,7 +250,15 @@ Tables
 Match Details
 */
 .match-score {
-    margin-bottom: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
     text-shadow: 1px 1px 1px #000;
     background-color: rgba(3, 135, 3, 1);
     background-image: -moz-linear-gradient(top, #025702, #358E35);
@@ -258,23 +266,47 @@ Match Details
     background-image: -webkit-linear-gradient(top, #025702, #358E35);
     background-image: -o-linear-gradient(top, #025702, #358E35);
     background-image: linear-gradient(to bottom, #025702, #358E35);
-
-}
-.match-score table { margin-bottom: 0;}
-.table-score tbody tr td { border: none; line-height: normal; vertical-align: middle; text-align: center; }
-
-.table-score tbody tr td.team-name { color: white; width: 40%; font-size: 250%; }
-.table-score tbody tr td.team-name a { color: white; }
-a .table-score:hover tbody tr td.team-name,
-a .table-score:hover tbody tr td.team-score,
-.table-score tbody tr td.team-name a:hover {
-    color: rgb(190, 197, 231);
+    line-height: 1.2;
+    padding: 0.4rem;
 }
 
-.table-score tbody tr td.team-score { color: white; font-size: 400%; }
-.table-score tbody tr td.team-score.alt-score { font-size: 200%; }
+.match-score .team-name { 
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: white; 
+    font-size: 250%; 
+    text-align: center;
+}
+.match-score .team-name a { color: white; }
+a .match-score:hover .team-name,
+a .match-score:hover .team-score,
+.match-score .team-name a:hover {
+    color: white;
+}
 
-.table-score tbody tr td.score-divider { padding-left: 0px; padding-right: 0px; }
+.match-score .team-score { 
+    -webkit-box-flex: 0;
+    -ms-flex: 0 auto;
+    flex: 0 auto;
+    color: white; 
+    font-size: 400%; 
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+    padding: 0 1rem;
+}
+.match-score .team-score.alt-score { font-size: 200%; }
 
 .match-detail { background-color: rgb(237, 237, 234); }
 
@@ -393,11 +425,11 @@ Responsive
 	.table th, .table td { padding: 6px 1px; }
 	.table th.priority2, .table td.priority2 {display: none;}
 	.table th.priority3, .table td.priority3 {display: none;}
-    .table-score tbody tr td.team-name, #matches-by-date .table-score tbody tr td.team-name {font-size: 100%;}
-    .table-score tbody tr td.team-score,
-    #matches-by-date .table-score tbody tr td.team-score,
-    .table-score tbody tr td.team-score.alt-score,
-    #matches-by-date .table-score tbody tr td.team-score.alt-score {font-size: 100%;}
+    .match-score .team-name, #matches-by-date .match-score .team-name {font-size: 100%;}
+    .match-score .team-score,
+    #matches-by-date .match-score .team-score,
+    .match-score .team-score.alt-score,
+    #matches-by-date .match-score .team-score.alt-score {font-size: 100%;}
     .banner-box .table-condensed th, .banner-box .table-condensed td {padding: 6px 1px;}
     .pager li a {font-size: 10px; line-height: 14px;}
     .match-detail {padding: 0 0 10px 10px;}
@@ -492,8 +524,8 @@ Page-specific
 
 #about-us #crest { margin-right: 20px; width: 230px; }
 
-#matches-by-date .table-score td.team-name { font-size: 150%; }
-#matches-by-date .table-score td.team-score { font-size: 250%; }
+#matches-by-date .match-score .team-name { font-size: 150%; }
+#matches-by-date .match-score .team-score { font-size: 250%; }
 #matches-by-date .match-detail { margin-bottom: 30px; }
 #matches-by-date .match-detail ul {padding-top: 5px;}
 #matches-by-date .map_small { height: 160px; }

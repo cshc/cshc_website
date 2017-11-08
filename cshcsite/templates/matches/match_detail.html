@@ -52,23 +52,25 @@ See 'Handling CSRF protection', http://ozkatz.github.io/backbonejs-with-django-1
 </div>
 
 <div class="row match-score">
-<table class="table table-score">
-<tbody>
-    <tr>
-        <td class="team-name"><a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.abbr_name }}</a></td>
-        {% if match.final_scores_provided %}
-        <td class="team-score">{{ match.our_score }}</td>
-        <td class="team-score score-divider">-</td>
-        <td class="team-score">{{ match.opp_score }}</td>
-        {% elif match.is_off %}
-        <td class="team-score alt-score">{{ match.get_alt_outcome_display }}</td>
-        {% else %}
-        <td class="team-score">vs</td>
-        {% endif %}
-        <td class="team-name"><a href="{{ match.opp_team.club.get_absolute_url }}">{{ match.opp_team.name }}</a></td>
-    </tr>
-</tbody>
-</table>
+    <div class="team-name">
+        <a href="{{ match.our_team.get_absolute_url }}">{{ match.our_team.abbr_name }}</a>
+    </div>
+    {% if match.final_scores_provided %}
+    <div class="team-score">
+        {{ match.our_score }} - {{ match.opp_score }}
+    </div>
+    {% elif match.is_off %}
+    <div class="team-score alt-score">
+        {{ match.get_alt_outcome_display }}
+    </div>
+    {% else %}
+    <div class="team-score">
+        vs
+    </div>
+    {% endif %}
+    <div class="team-name">
+        <a href="{{ match.opp_team.club.get_absolute_url }}">{{ match.opp_team.name }}</a>
+    </div>
 </div>
 
 {% if match.commentary_is_active or not match.is_in_past %}
