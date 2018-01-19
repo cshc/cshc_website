@@ -4,16 +4,17 @@
 
   $(function(){
     var position = [{{ venue.position }}];
-    var address = position.length ? null : "{{ venue.full_address }}";
+    var address = "{{ venue.full_address }}";
+    var gmapAddress = position.length ? null : address;
     $('#map_canvas').gmap3({
-      address: address,
+      address: gmapAddress,
       center: position.length ? position : null,
       zoom: 14,
       scrollwheel:true,
       mapTypeId : google.maps.MapTypeId.ROADMAP,
     })
     .marker({
-      address: address,
+      address: gmapAddress,
       position: position.length ? position : null,
     });
 
