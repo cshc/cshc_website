@@ -17,7 +17,12 @@ class MemberAdmin(admin.ModelAdmin):
     inlines = (SquadMembershipInline,)
     search_fields = ('first_name', 'known_as', 'last_name')
     list_filter = ('is_current', 'gender', 'pref_position')
-    list_display = ('__unicode__', 'user', 'gender', 'pref_position', 'is_current')
+    list_display = ('full_name_with_option', 'user', 'gender', 'pref_position', 'is_current')
+
+    def full_name_with_option(self, obj):
+        return "{}{} {}".format(obj.first_name, " ({})".format(obj.known_as) if obj.known_as else '', obj.last_name)
+
+    full_name_with_option.short_description = 'Name'
 
 
 class SquadMembershipAdmin(admin.ModelAdmin):
