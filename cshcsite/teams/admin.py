@@ -18,7 +18,7 @@ class TeamCaptaincyInline(admin.TabularInline):
 class TeamCaptaincyAdmin(admin.ModelAdmin):
     """ Admin interface for the TeamCaptaincy model. """
     list_display = ('member', 'team', 'season', 'start', 'is_vice')
-    search_fields = ('member__first_name', 'member__last_name',
+    search_fields = ('member__first_name', 'member__known_as', 'member__last_name',
                      'team__short_name', 'team__long_name',
                      'season__slug')
     list_filter = ('season', 'is_vice', 'team')

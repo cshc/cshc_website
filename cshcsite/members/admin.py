@@ -15,7 +15,7 @@ class MemberAdmin(admin.ModelAdmin):
     """ Admin interface definition for the Member model."""
     model = Member
     inlines = (SquadMembershipInline,)
-    search_fields = ('first_name', 'last_name')
+    search_fields = ('first_name', 'known_as', 'last_name')
     list_filter = ('is_current', 'gender', 'pref_position')
     list_display = ('__unicode__', 'user', 'gender', 'pref_position', 'is_current')
 
@@ -23,7 +23,7 @@ class MemberAdmin(admin.ModelAdmin):
 class SquadMembershipAdmin(admin.ModelAdmin):
     """ Admin interface definition for the SquadMembership model."""
     model = SquadMembership
-    search_fields = ('member__first_name', 'member__last_name')
+    search_fields = ('member__first_name', 'member__known_as', 'member__last_name')
     list_filter = ('member', 'team', 'season')
     list_display = ('__unicode__', 'member', 'team', 'season')
 
@@ -39,7 +39,7 @@ class CommitteePositionAdmin(admin.ModelAdmin):
 class CommitteeMembershipAdmin(admin.ModelAdmin):
     """ Admin interface definition for the CommitteeMembership model."""
     model = CommitteeMembership
-    search_fields = ('member__first_name', 'member__last_name')
+    search_fields = ('member__first_name', 'member__known_as', 'member__last_name')
     list_filter = ('member', 'position', 'season')
     list_display = ('__unicode__', 'member', 'position', 'season')
 

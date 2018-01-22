@@ -43,7 +43,7 @@
                     {% if season.is_total %}
                         Total
                     {% else %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}" title="List matches in {{ season.season }} for {{ member.first_name }}">
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}" title="List matches in {{ season.season }} for {{ member.pref_first_name }}">
                             {{ season.season }}
                         </a>
                     {% endif %}
@@ -55,11 +55,11 @@
                 {% else %}
                 <td>
                     {% if season.is_total %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=League" title="List all league matches for {{ member.first_name }}">
+                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=League" title="List all league matches for {{ member.pref_first_name }}">
                             {{ season.matches.league.appearances|default:"" }}
                         </a>
                     {% else %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=League" title="List league matches in {{ season.season }} for {{ member.first_name }}">
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=League" title="List league matches in {{ season.season }} for {{ member.pref_first_name }}">
                             {{ season.matches.league.appearances|default:"" }}
                         </a>
                     {% endif %}
@@ -68,11 +68,11 @@
                 <td>{{ season.matches.league.clean_sheets|default:"" }}</td>
                 <td>
                     {% if season.is_total %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=Cup" title="List all cup matches for {{ member.first_name }}">
+                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=Cup" title="List all cup matches for {{ member.pref_first_name }}">
                             {{ season.matches.cup.appearances|default:"" }}
                         </a>
                     {% else %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=Cup" title="List cup matches in {{ season.season }} for {{ member.first_name }}">
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=Cup" title="List cup matches in {{ season.season }} for {{ member.pref_first_name }}">
                             {{ season.matches.cup.appearances|default:"" }}
                         </a>
                     {% endif %}
@@ -81,11 +81,11 @@
                 <td>{{ season.matches.cup.clean_sheets|default:"" }}</td>
                 <td>
                     {% if season.is_total %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=Friendly" title="List all friendly matches for {{ member.first_name }}">
+                        <a href="{{ match_list_url }}?players={{ member.id }}&fixture_type=Friendly" title="List all friendly matches for {{ member.pref_first_name }}">
                             {{ season.matches.friendly.appearances|default:"" }}
                         </a>
                     {% else %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=Friendly" title="List friendly matches in {{ season.season }} for {{ member.first_name }}">
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}&fixture_type=Friendly" title="List friendly matches in {{ season.season }} for {{ member.pref_first_name }}">
                             {{ season.matches.friendly.appearances|default:"" }}
                         </a>
                     {% endif %}

@@ -36,7 +36,7 @@ Filter-able, sortable, paginated display of members.
                     <th class="priority3"></th>
                     <th>{% sortlink by "first_name" "-first_name" %}First Name{% endsortlink %}</th>
                     <th>{% sortlink by "last_name" "-last_name" %}Last Name{% endsortlink %}</th>
-                    <th>{% sortlink by "gender" "-gender" %}M/F{% endsortlink %}</th>
+                    <th class="priority3">{% sortlink by "gender" "-gender" %}M/F{% endsortlink %}</th>
                     <th>{% sortlink by "pref_position" "-pref_position" %}Position{% endsortlink %}</th>
                     <th class="center-align">{% sortlink by "shirt_number" "-shirt_number" %}Shirt #{% endsortlink %}</th>
                     <th class="center-align">Appearances</th>
@@ -48,9 +48,9 @@ Filter-able, sortable, paginated display of members.
             {% with member_url=member.get_absolute_url %}
                 <tr class="member-row" onclick="window.location='{{ member_url }}';" title="{{ member.full_name }} - member details">
                     <td class="priority3"><a href="{{ member_url }}" title="Member details">{% include 'members/_profile_pic_thumbnail.html' %}</a></td>
-                    <td>{{ member.first_name }}</td>
+                    <td>{{ member.first_name }} {% if member.known_as %} ({{ member.known_as }}){% endif %}</td>
                     <td>{{ member.last_name }}</td>
-                    <td>{{ member.get_gender_display }}</td>
+                    <td class="priority3">{{ member.get_gender_display }}</td>
                     <td>{{ member.get_pref_position_display }}</td>
                     <td class="center-align">{{ member.shirt_number|default:"" }}</td>
                     <td class="center-align">{{ member.num_appearances|default:"" }}</td>

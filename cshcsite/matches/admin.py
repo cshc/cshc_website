@@ -89,7 +89,7 @@ class AppearanceAdmin(admin.ModelAdmin):
     """ Admin interface definition for the Appearance model."""
 
     model = Appearance
-    search_fields = ('member__first_name', 'member__last_name')
+    search_fields = ('member__first_name', 'member__known_as', 'member__last_name')
     list_filter = ('green_card', 'yellow_card', 'red_card')
 
 

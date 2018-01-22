@@ -26,11 +26,11 @@
                 <td class="left-align">{% if season.is_total %}Total{% else %}{{ season.season }}{% endif %}</td>
                 <td>
                     {% if season.is_total %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}" title="List all matches {{ member.first_name }} has played">
+                        <a href="{{ match_list_url }}?players={{ member.id }}" title="List all matches {{ member.pref_first_name }} has played">
                             {{ season.success.played }}
                         </a>
                     {% else %}
-                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}" title="List all matches {{ member.first_name }} played in {{ season.season }}">
+                        <a href="{{ match_list_url }}?players={{ member.id }}&season={{ season.season.id }}" title="List all matches {{ member.pref_first_name }} played in {{ season.season }}">
                             {{ season.success.played }}
                         </a>
                     {% endif %}

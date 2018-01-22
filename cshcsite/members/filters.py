@@ -13,4 +13,4 @@ class MemberFilter(django_filters.FilterSet):
     class Meta:
         """ Meta-info for the MemberFilter"""
         model = Member
-        fields = ['first_name', 'last_name', 'gender', 'pref_position', 'is_current']
+        fields = ['first_name', 'known_as', 'last_name', 'gender', 'pref_position', 'is_current']
