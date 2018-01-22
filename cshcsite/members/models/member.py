@@ -87,7 +87,7 @@ class Member(models.Model):
 
     def pref_first_name(self):
         """ Returns the member's preferred first name (known_as if set; otherwise first_name) """
-        return self.known_as if self.known_as is not None else self.first_name
+        return self.known_as if self.known_as else self.first_name
 
     def full_name(self):
         """ Returns the member's full name."""
