@@ -12,5 +12,5 @@ class ProfileEditForm(forms.ModelForm):
         """ Meta-info for the form."""
         model = Member
         # our_notes is only to be used by staff/admin
-        exclude = ('first_name', 'last_name', 'gender', 'is_current', 'user')
+        exclude = ('first_name', 'last_name', 'gender', 'is_current', 'user', 'shirt_number')
 
