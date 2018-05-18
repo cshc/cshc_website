@@ -571,8 +571,9 @@ table.awards td { border: none; }
 
 #commission #commission-links .row { margin-top: 20px; }
 
-#training ul.details { font-size: 16px; margin-top: 20px;}
-#training ul.details li {margin-bottom: 10px;}
+#training dl.details { font-size: 16px; margin-top: 20px;}
+#training dl.details dd { margin-bottom: 10px; margin-left: 32px; }
+#training dl.details dt { width: 32px; }
 
 #stats #stats-img {margin-left: 20px; }
 #stats #stats-links { margin-top: 20px;}

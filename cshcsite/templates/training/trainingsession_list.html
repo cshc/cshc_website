@@ -46,12 +46,12 @@
 
     <div class="span4">
         <img alt="" class="img-polaroid" src="{{ STATIC_URL }}media/Web%20site%20images/longroad1_small.jpg" />
-        <ul class="unstyled details">
-            <li><i class="icon-time"></i><abbr title="Mens Squads"><i class="icon-male"></i></abbr>Tuesdays 7:30-9:30pm</li>
-            <li><i class="icon-time"></i><abbr title="Ladies Squads"><i class="icon-female"></i></abbr>Thursdays 7:30-9:30pm</li>
-            <li><i class="icon-time"></i><abbr title="Beginners Training and Back to Hockey"><i class="icon-signal"></i></abbr>Thursdays 7:30-9pm</li>
-            <li><i class="icon-globe"></i><a href="{{ long_road_url }}">Long Road</a></li>
-        </ul>
+        <dl class="dl-horizontal details">
+            <dt><i class="icon-time"></i></dt><dd><abbr title="Mens Squads"><i class="icon-male"></i></abbr>Tuesdays 7:30-9:30pm</dd>
+            <dt><i class="icon-time"></i></dt><dd><abbr title="Ladies Squads"><i class="icon-female"></i></abbr>Thursdays 7:30-9:30pm</dd>
+            <dt><i class="icon-time"></i></dt><dd><abbr title="Beginners Training and Back to Hockey"><i class="icon-signal"></i></abbr>Thursdays 7:30-9pm</dd>
+            <dt><i class="icon-globe"></i></dt><dd><a href="{{ long_road_url }}">Long Road</a></dd>
+        </dl>
     </div>
 </div>
 <hr/>
@@ -66,7 +66,7 @@
             <a href="{{ long_road_url }}">Long Road Sixth Form College</a>.</p>
             <p>A typical session consists of a couple of small-sided knock-around games, each on a half pitch. The sessions are mixed men's and ladies' hockey and open to everyone. You don't have to be a club member to come along and new players are very welcome.</p>
             <div class="alert alert-info">
-                <p>From April through August, additional sessions run at the same time on Tuesday evenings. In May and August only, a third weekly session runs 8.30-9.30pm on Thursdays, preceded by a basic skills and game session for beginners and players returning to hockey (men and women) from 7.30-8.30pm.</p>
+                <p>From April through August, additional sessions run at the same time on Tuesday evenings. In May, July and August, a third weekly session runs on Thursdays, also at 7.30-8.30pm in May and July and at 8.30-9.30pm in August, preceded by a basic skills and game session for beginners and players returning to hockey from 7.30-8.30pm.</p>
                 <p>Tuesday and Thursday summer sessions are restricted to club members (or new players not affiliated to any club).</p>
             </div>
             <p>If you build up a thirst then there is usually a group of us going on for a drink or two afterwards at a nearby pub - a great way to get to know people in the club!</p>
@@ -86,18 +86,19 @@
 
     <div class="span4">
         <img alt="" class="img-polaroid" src="{{ STATIC_URL }}media/Web%20site%20images/longroad1_small.jpg" />
-        <ul class="unstyled details">
+        
+        <dl class="dl-horizontal details">
             {% if in_season == 'out' %}
-                <li><i class="icon-time"></i>Wednesdays 7:30-8:30pm</li>
-                <li><i class="icon-time"></i>Tuesdays 7:30-8:30pm (May-Aug)</li>
-                <li><i class="icon-time"></i>Thursdays (Beginners), 7:30-8:30pm (May, Aug)</li>
-                <li><i class="icon-time"></i>Thursdays, 8:30-9:30pm (May, Aug)</li>
-                <li><i class="icon-globe"></i><a href="{{ long_road_url }}">Long Road</a></li>
+                <dt><i class="icon-time"></i></dt><dd>Wednesdays 7:30-8:30pm (all year)</dd>
+                <dt><i class="icon-time"></i></dt><dd>Tuesdays 7:30-8:30pm (May-Aug)</dd>
+                <dt><i class="icon-time"></i></dt><dd>Thursdays 7:30-8:30pm (May, Jul), 8:30-9:30pm (Aug)</dd>
+                <dt><i class="icon-time"></i></dt><dd>Thursdays (Beginners) 7:30-8:30pm (Aug)</dd>
+                <dt><i class="icon-globe"></i></dt><dd><a href="{{ long_road_url }}">Long Road</a></dd>
             {% else %}
-                <li><i class="icon-time"></i>Wednesdays 7:30-8:30pm</li>
-                <li><i class="icon-globe"></i><a href="{{ long_road_url }}">Long Road</a></li>
+                <dt><i class="icon-time"></i></dt><dd>Wednesdays 7:30-8:30pm</dd>
+                <dt><i class="icon-globe"></i></dt><dd><a href="{{ long_road_url }}">Long Road</a></dd>
             {% endif %}
-        </ul>
+        </dl>
     </div>
 </div> <!-- class=row -->
 <hr/>
