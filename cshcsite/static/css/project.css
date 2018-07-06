@@ -621,7 +621,7 @@ table.month .filled .dayNumber .popover {
 #juniors p.lead { text-align: center; margin-top: 20px; }
 #juniors p.small { font-size: 0.8em; }
 #juniors .details .heading { text-decoration: underline; }
-#juniors .details .context { font-style: italic; }
+#juniors .details .context { font-style: italic; padding-bottom: 0.5rem; }
 @media (min-width: 480px) {
     #juniors .media .pull-left { width: 80px; margin-right: 20px; }
 }
