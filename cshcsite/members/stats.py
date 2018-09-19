@@ -131,7 +131,7 @@ class SeasonTeamStat(object):
         self._appearances['l4'] = {"id": None, "count": 0}
         self._appearances['mixed'] = {"id": None, "count": 0}
         self._appearances['indoor'] = {"id": None, "count": 0}
-        self._appearances['vets'] = {"id": None, "count": 0}
+        self._appearances['mv'] = {"id": None, "count": 0}
 
     def m1_appearances(self):
         """ Returns the total number of appearances for the Men's 1sts"""
@@ -179,7 +179,7 @@ class SeasonTeamStat(object):
 
     def vets_appearances(self):
         """ Returns the total number of appearances for the Vets team"""
-        return self._appearances['vets']
+        return self._appearances['mv']
 
     def is_total(self):
         """ Returns True if this instance represents an accumulating total"""

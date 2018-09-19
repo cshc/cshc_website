@@ -24,6 +24,7 @@ team_names = {
   "l4": "Ladies 4ths",
   "mixed": "Mixed",
   "indoor": "Indoor",
+  "mv": "Vets",
 }
 
 def utils(request):

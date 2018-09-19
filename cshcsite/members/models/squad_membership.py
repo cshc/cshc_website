@@ -19,7 +19,7 @@ def validate_squad(team_id):
     """
     try:
         team = ClubTeam.objects.get(pk=team_id)
-        if team.short_name.lower() in ('mixed', 'indoor', 'vets'):
+        if team.short_name.lower() in ('mixed', 'indoor', 'mv'):
             raise ValidationError("Squad assignments must be to one of the Men's or Ladies teams")
     except ClubTeam.DoesNotExist:
         raise ValidationError("Team not found")
