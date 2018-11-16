@@ -11,6 +11,7 @@
 {% url 'clubteam_detail' 'l2' as team_l2 %}
 {% url 'clubteam_detail' 'l3' as team_l3 %}
 {% url 'clubteam_detail' 'l4' as team_l4 %}
+{% url 'clubteam_detail' 'l5' as team_l5 %}
 {% url 'clubteam_detail' 'mixed' as team_mixed %}
 {% url 'clubteam_detail' 'indoor' as team_indoor %}
 {% url 'clubteam_detail' 'mv' as team_vets %}
@@ -35,6 +36,7 @@
                 <th><a href="{{ team_l2 }}">L2</a></th>
                 <th><a href="{{ team_l3 }}">L3</a></th>
                 <th><a href="{{ team_l4 }}">L4</a></th>
+                <th><a href="{{ team_l5 }}">L5</a></th>
 
                 {% endif %}
                 <th><a href="{{ team_mixed }}">Mix</a></th>
@@ -57,6 +59,7 @@
                 <td>{% include 'members/_team_rep.html' with appearances=season.teams.l2_appearances team_name="L2" %}</td>
                 <td>{% include 'members/_team_rep.html' with appearances=season.teams.l3_appearances team_name="L3" %}</td>
                 <td>{% include 'members/_team_rep.html' with appearances=season.teams.l4_appearances team_name="L4" %}</td>
+                <td>{% include 'members/_team_rep.html' with appearances=season.teams.l5_appearances team_name="L5" %}</td>
                 {% endif %}
                 <td>{% include 'members/_team_rep.html' with appearances=season.teams.mix_appearances team_name="Mixed" %}</td>
             </tr>
