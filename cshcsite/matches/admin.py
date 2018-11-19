@@ -39,8 +39,8 @@ class AppearanceInlineForm(ModelForm):
         model = Appearance
         widgets = {
             'goals': NumberInput(attrs={'class': 'input-mini'}),
-            'green_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
-            'yellow_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
+            'green_card_count': NumberInput(attrs={'class': 'input-mini'}),
+            'yellow_card_count': NumberInput(attrs={'class': 'input-mini'}),
             'red_card': widgets.NullBooleanSelect(attrs={'class': 'input-small'}),
         }
 
@@ -90,7 +90,7 @@ class AppearanceAdmin(admin.ModelAdmin):
 
     model = Appearance
     search_fields = ('member__first_name', 'member__known_as', 'member__last_name')
-    list_filter = ('green_card', 'yellow_card', 'red_card')
+    list_filter = ('green_card_count', 'yellow_card_count', 'red_card')
 
 
 # Register matches models with the admin system

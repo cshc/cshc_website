@@ -39,14 +39,14 @@ class Appearance(models.Model):
     # The number of own-goals the player scored
     own_goals = models.PositiveSmallIntegerField("Own-goals scored", default=0)
 
-    # The following are nullable as we won't have this information for archive data
-    green_card = models.NullBooleanField(default=None,
-                                         help_text="Did the player receive a green card in the match?")
-    yellow_card = models.NullBooleanField(default=None,
-                                          help_text="Did the player receive a yellow card in the match?")
-    red_card = models.NullBooleanField(default=None,
+    # The following are nullable as we won't have this information for archive data                                   
+    green_card_count = models.PositiveSmallIntegerField(default=0, null=True, blank=True, 
+                                         help_text="The number of green cards the player received in the match")
+    yellow_card_count = models.PositiveSmallIntegerField(default=0, null=True, blank=True, 
+                                          help_text="The number of yellow cards the player received in the match")
+    red_card = models.NullBooleanField(default=False,
                                        help_text="Did the player receive a red card in the match?")
-
+    
     objects = PassThroughManager.for_queryset_class(AppearanceQuerySet)()
 
     class Meta:
@@ -58,3 +58,9 @@ class Appearance(models.Model):
 
     def __unicode__(self):
         return unicode("{} - {}".format(self.member, self.match))
+
+    def green_card_range(self):
+        return range(self.green_card_count or 0);
+
+    def yellow_card_range(self):
+        return range(self.yellow_card_count or 0);

@@ -14,8 +14,8 @@
                                 <div class="player-name">{{ app.member.full_name }}</div>
                                 <div class="app-details">
                                     {% if app.goals %}<span class="badge" title="Goals">{{ app.goals }}</span>{% endif %}
-                                    {% if app.green_card %}<img src="{{ STATIC_URL }}img/green_card.png" title="Green card">{% endif %}
-                                    {% if app.yellow_card %}<img src="{{ STATIC_URL }}img/yellow_card.png" title="Yellow card">{% endif %}
+                                    {% for green_card in app.green_card_range %}<img src="{{ STATIC_URL }}img/green_card.png" title="Green card">{% endfor %}
+                                    {% for yellow_card in app.yellow_card_range %}<img src="{{ STATIC_URL }}img/yellow_card.png" title="Yellow card">{% endfor %}
                                     {% if app.red_card %}<img src="{{ STATIC_URL }}img/red_card.png" title="Red card">{% endif %}</p>
                                 </div>
                             </div>

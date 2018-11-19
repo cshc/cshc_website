@@ -412,7 +412,7 @@ class NaughtyStepView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(NaughtyStepView, self).get_context_data(**kwargs)
 
-        query = Q(red_card=True) | Q(yellow_card=True) | Q(green_card=True)
+        query = Q(red_card=True) | Q(yellow_card_count__gt=0) | Q(green_card_count__gt=0)
         card_apps = Appearance.objects.filter(query).order_by('match__date')
 
         players = {}
@@ -445,10 +445,12 @@ class NaughtyPlayer(object):
             raise AssertionError("This appearance, {}, does not relate to {}.".format(appearance, self.member))
         if appearance.red_card:
             self.red_cards.append(appearance)
-        elif appearance.yellow_card:
-            self.yellow_cards.append(appearance)
-        elif appearance.green_card:
-            self.green_cards.append(appearance)
+        if appearance.yellow_card_count:
+            for _ in range(appearance.yellow_card_count):
+                self.yellow_cards.append(appearance)
+        if appearance.green_card_count:
+            for _ in range(appearance.green_card_count):
+                self.green_cards.append(appearance)
 
 
 class AppearancesByDateView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
