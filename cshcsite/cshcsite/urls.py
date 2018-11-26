@@ -40,16 +40,16 @@ urlpatterns = patterns('',
     url(r'^about/kit/$',              TemplateView.as_view(template_name='core/kit.html'), name='about_kit'),
     url(r'^join-us/$',                views.NewPlayersView.as_view(), name='join_us'),
 
-    url(r'^about/committee/$',        views.CommitteeSeasonView.as_view(), name="about_committee"),
-    # E.g. '/about/committee/2011-2012/'
-    url(r'^about/committee/(?P<season_slug>[-\w]+)/$',
-        views.CommitteeSeasonView.as_view(),
-        name="about_committee_season"
-    ),
+    # url(r'^about/committee/$',        views.CommitteeSeasonView.as_view(), name="about_committee"),
+    # # E.g. '/about/committee/2011-2012/'
+    # url(r'^about/committee/(?P<season_slug>[-\w]+)/$',
+    #     views.CommitteeSeasonView.as_view(),
+    #     name="about_committee_season"
+    # ),
 
     url(r'^stats/$',                  TemplateView.as_view(template_name='core/stats.html'), name='stats'),
 
-    url(r'^archive/minutes/$',         TemplateView.as_view(template_name='core/meeting_minutes.html'), name='about_minutes'),
+    # url(r'^archive/minutes/$',         TemplateView.as_view(template_name='core/meeting_minutes.html'), name='about_minutes'),
 
     # Delegate to apps
     url(r'^matches/', include('matches.urls')),
