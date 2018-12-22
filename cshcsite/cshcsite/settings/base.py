@@ -221,6 +221,7 @@ THIRD_PARTY_APPS = (
     # Mobile support:
     'django_mobile',
     #'easy_thumbnails',
+    'captcha',
     'sorl.thumbnail',
     'pagination',
     'sorter',
@@ -570,3 +571,11 @@ GEOPOSITION_MAP_OPTIONS = {
     'lng': 0.12531280517578125,
 }
 ########## END django-geoposition CONFIGURATION
+
+# ########## django-recaptcha CONFIGURATION
+
+NOCAPTCHA = True
+RECAPTCHA_PUBLIC_KEY = get_env_setting('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = get_env_setting('RECAPTCHA_PRIVATE_KEY')
+
+# ########## END django-recaptcha CONFIGURATION

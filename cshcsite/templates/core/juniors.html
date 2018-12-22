@@ -270,6 +270,11 @@ Static page with info about the juniors section of the club.
             {{ form.trigger }}
           </div>
 
+          <div class="form-section">
+            {% if form.errors.captcha %}{{ form.errors.captcha }}{% endif %}
+            {{ form.captcha }}
+          </div>
+
           <input class="btn btn-primary" type="submit" value="Submit">
           <p class="required">* required fields</p>
         </form>

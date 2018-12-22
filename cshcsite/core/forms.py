@@ -7,6 +7,7 @@
     UserChangeForm - used for changing user's password
 """
 
+from captcha.fields import ReCaptchaField
 from django import forms
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
@@ -28,6 +29,7 @@ class FlatPageForm(forms.ModelForm):
 
 class ContactSubmissionForm(forms.ModelForm):
     """ Form used for the contact form"""
+    captcha = ReCaptchaField()
 
     class Meta:
         """ Meta-info for the form. """
@@ -38,6 +40,7 @@ class ContactSubmissionForm(forms.ModelForm):
 
 class JuniorsContactSubmissionForm(forms.ModelForm):
     """ Form used for the contact form"""
+    captcha = ReCaptchaField()
 
     class Meta:
         """ Meta-info for the form. """

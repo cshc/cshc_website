@@ -140,3 +140,8 @@ django-imagekit==3.2.4
 # Ref: https://github.com/philippbosch/django-geoposition
 # Note - this is an older version as its compatible with Django < 1.8
 django-geoposition==0.2.3
+
+# Django Recaptcha
+# Ref: https://github.com/praekelt/django-recaptcha
+# Important: we use v1.0.6 because it's still compatible with Django 1.6
+django-recaptcha==1.0.6
