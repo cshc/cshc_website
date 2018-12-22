@@ -64,7 +64,7 @@ class ArchiveStaticViewSitemap(Sitemap):
 
     def items(self):
         return [
-            'about_minutes',
+            # 'about_minutes',
         ]
 
     def location(self, item):
@@ -259,7 +259,7 @@ CshcSitemap = {
     'opposition': OppositionClubDetailSitemap,
     'main': MainStaticViewSitemap,
     'archive': ArchiveStaticViewSitemap,
-    'committee': CommitteeSitemap,
+    # 'committee': CommitteeSitemap,
     'stats': StatsSitemap,
     'southerners': SouthernersSitemap,
     'teams': ClubTeamDetailSitemap,
