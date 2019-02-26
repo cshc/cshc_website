@@ -69,6 +69,7 @@ class GoalKing(models.Model):
     m3_goals = models.PositiveSmallIntegerField("Goals for Mens 3rds", default=0)
     m4_goals = models.PositiveSmallIntegerField("Goals for Mens 4ths", default=0)
     m5_goals = models.PositiveSmallIntegerField("Goals for Mens 5ths", default=0)
+    vets_goals = models.PositiveSmallIntegerField("Goals for Mens Vets", default=0)
     l1_goals = models.PositiveSmallIntegerField("Goals for Ladies 1sts", default=0)
     l2_goals = models.PositiveSmallIntegerField("Goals for Ladies 2nds", default=0)
     l3_goals = models.PositiveSmallIntegerField("Goals for Ladies 3rds", default=0)
@@ -83,6 +84,7 @@ class GoalKing(models.Model):
     m3_own_goals = models.PositiveSmallIntegerField("Own goals for Mens 3rds", default=0)
     m4_own_goals = models.PositiveSmallIntegerField("Own goals for Mens 4ths", default=0)
     m5_own_goals = models.PositiveSmallIntegerField("Own goals for Mens 5ths", default=0)
+    vets_own_goals = models.PositiveSmallIntegerField("Own goals for Mens Vets", default=0)
     l1_own_goals = models.PositiveSmallIntegerField("Own goals for Ladies 1sts", default=0)
     l2_own_goals = models.PositiveSmallIntegerField("Own goals for Ladies 2nds", default=0)
     l3_own_goals = models.PositiveSmallIntegerField("Own goals for Ladies 3rds", default=0)
@@ -111,12 +113,14 @@ class GoalKing(models.Model):
     def save(self, *args, **kwargs):
         # Calculate non-editable, derived fields
         self.total_goals = (self.m1_goals + self.m2_goals + self.m3_goals + self.m4_goals +
-                            self.m5_goals + self.l1_goals + self.l2_goals + self.l3_goals +
-                            self.l4_goals + self.l5_goals + self.mixed_goals + self.indoor_goals)
+                            self.m5_goals + self.vets_goals + self.l1_goals + self.l2_goals + 
+                            self.l3_goals + self.l4_goals + self.l5_goals + self.mixed_goals + 
+                            self.indoor_goals)
         self.total_own_goals = (self.m1_own_goals + self.m2_own_goals + self.m3_own_goals +
-                                self.m4_own_goals + self.m5_own_goals + self.l1_own_goals +
-                                self.l2_own_goals + self.l3_own_goals + self.l4_own_goals +
-                                self.l5_own_goals * self.mixed_own_goals + self.indoor_own_goals)
+                                self.m4_own_goals + self.m5_own_goals + self.vets_own_goals + 
+                                self.l1_own_goals + self.l2_own_goals + self.l3_own_goals + 
+                                self.l4_own_goals + self.l5_own_goals * self.mixed_own_goals + 
+                                self.indoor_own_goals)
 
         super(GoalKing, self).save(*args, **kwargs)
 
@@ -146,6 +150,7 @@ class GoalKing(models.Model):
         self.m3_goals = 0
         self.m4_goals = 0
         self.m5_goals = 0
+        self.vets_goals = 0
         self.l1_goals = 0
         self.l2_goals = 0
         self.l3_goals = 0
@@ -158,6 +163,7 @@ class GoalKing(models.Model):
         self.m3_own_goals = 0
         self.m4_own_goals = 0
         self.m5_own_goals = 0
+        self.vets_own_goals = 0
         self.l1_own_goals = 0
         self.l2_own_goals = 0
         self.l3_own_goals = 0
@@ -204,6 +210,9 @@ class GoalKing(models.Model):
             elif ordinal == TeamOrdinal.TIndoor:
                 self.indoor_goals += appearance.goals
                 self.indoor_own_goals += appearance.own_goals
+            elif ordinal == TeamOrdinal.TVets:
+                self.vets_goals += appearance.goals
+                self.vets_own_goals += appearance.own_goals
             else:
                 raise AssertionError("Unexpected mens team: {}".format(ordinal))
         elif gender == TeamGender.Ladies:
