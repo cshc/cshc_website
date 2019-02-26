@@ -21,6 +21,12 @@ def get_file_name(instance, filename):
     return os.path.join('uploads/profile_pics', filename)
 
 
+class MemberManager(models.Manager):
+
+    def get_query_set(self):
+        return super(MemberManager, self).get_query_set().extra(select={"pref_name":"COALESCE(known_as, first_name)"}, order_by=["pref_name"])
+
+
 class Member(models.Model):
     """ Represents a member of Cambridge South Hockey Club. Alternatively this can
         be thought of as a 'Player' model.
@@ -71,6 +77,8 @@ class Member(models.Model):
 
     # Players shirt number
     shirt_number = models.CharField(max_length=4, blank=True)
+
+    objects = MemberManager()
 
     class Meta:
         """ Meta-info for the Member model."""
