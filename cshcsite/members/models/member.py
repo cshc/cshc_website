@@ -24,7 +24,7 @@ def get_file_name(instance, filename):
 class MemberManager(models.Manager):
 
     def get_query_set(self):
-        return super(MemberManager, self).get_query_set().extra(select={"pref_name":"COALESCE(NULLIF(known_as, ''), first_name)"}, order_by=["pref_name"])
+        return super(MemberManager, self).get_query_set().extra(select={"pref_name":"COALESCE(NULLIF(known_as, ''), first_name)"}, order_by=["pref_name", "last_name"])
 
 
 class Member(models.Model):
