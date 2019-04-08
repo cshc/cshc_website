@@ -3,7 +3,7 @@ html {
 }
 body {
 	position: relative;
-	background: #DDDCE2 url(../img/body_bg.jpg) repeat left top;
+	/* background: #DDDCE2 url(../img/body_bg.jpg) repeat left top; */
 	-webkit-font-smoothing: antialiased;
 	font-family: 'Lato', sans-serif !important;
 	padding-top: 107px;
