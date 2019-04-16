@@ -532,7 +532,7 @@ Page-specific
 #matches-by-date .match-content.past-match { padding-right: 10px; }
 
 #kit tr.local td { font-style: italic; }
-#kit td.kit-pic { text-align: center; width: 160px;}
+#kit td.kit-pic { text-align: center; width: 300px;}
 #kit span.label-kit {font-size: 20px; margin-bottom: 20px; margin-top: 20px; padding: 5px; line-height: 20px;}
 
 #committee .media-object { width: 50px; height: 50px; }
