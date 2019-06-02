@@ -4,8 +4,8 @@ Thanks for contacting us about junior hockey. We'll get back to you with more in
 
 Best regards,
 
-Neil Sneade
-Juniors Secretary
+Louisa Warburton
+Juniors Membership Officer
 
 {% if message %}
 Your message:
