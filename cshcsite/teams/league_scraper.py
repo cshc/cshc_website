@@ -32,6 +32,8 @@ def get_east_leagues_nw_division(url, division, season):
     """ Returns a ScrapedDivision object with the scraped league table from the specified
         url who's name matches the division parameter.
     """
+    existing_teams = DivisionResult.objects.league_table(
+        season=season, division=division)
     soup = parse_url(url)
     divisionName = division.name.upper()
     divisionElement = soup.find(text=divisionName)
@@ -73,6 +75,15 @@ def get_east_leagues_nw_division(url, division, season):
             currentRow = currentRow.find_next('tr')
         except:
             break
+
+    # Only replace existing entries if we've got at least as many entries
+    if len(teams) >= len(existing_teams):
+        existing_teams.delete()
+        for dr in teams:
+            dr.save()
+    else:
+        LOG.debug("Did not save division results for {}: Only {} teams parsed ({} teams before)".format(
+            url, len(teams), len(existing_teams)))
 
     return teams
 
