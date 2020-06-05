@@ -1,6 +1,6 @@
 # Core Django framework
 # Ref: https://www.djangoproject.com/
-Django==1.6
+Django==1.11.29
 
 # Support for using database URLs in settings
 # This is primarily used for the Heroku staging server database config
