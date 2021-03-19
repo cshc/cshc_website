@@ -122,7 +122,7 @@ django-blog-zinnia==0.14.2
 
 # Web-API support
 # Ref: http://www.django-rest-framework.org/
-djangorestframework==2.3.13
+djangorestframework==3.11.2
 
 # Front and back-end autocompletion support
 # Ref: http://django-autocomplete-light.readthedocs.org/en/latest
