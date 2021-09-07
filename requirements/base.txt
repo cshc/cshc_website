@@ -11,7 +11,7 @@ dj-database-url==0.3.0
 # Python Imaging Library fork
 # Required for ImageField, thumbnails, etc.
 # Ref: https://pypi.python.org/pypi/Pillow
-Pillow==2.5.3
+Pillow==8.3.2
 
 # Database migration support (required until we upgrade to Django v1.7 that has
 # database migration built in)
